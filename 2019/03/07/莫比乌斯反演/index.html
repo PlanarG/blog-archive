@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="一些定义 $\mu(i)$ 莫比乌斯函数  设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$ 当$max(k) &amp;gt; 1$时$\mu(i)=0$ 否则$\mu(i)=(-1)^{\sum k}$  $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数  设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3}">
+<meta name="keywords" content="莫比乌斯反演,数学">
+<meta property="og:type" content="article">
+<meta property="og:title" content="莫比乌斯反演">
+<meta property="og:url" content="http://yoursite.com/2019/03/07/莫比乌斯反演/index.html">
+<meta property="og:site_name" content="An_Account&#39;s Blog">
+<meta property="og:description" content="一些定义 $\mu(i)$ 莫比乌斯函数  设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$ 当$max(k) &amp;gt; 1$时$\mu(i)=0$ 否则$\mu(i)=(-1)^{\sum k}$  $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数  设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3}">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-07T13:43:34.029Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="莫比乌斯反演">
+<meta name="twitter:description" content="一些定义 $\mu(i)$ 莫比乌斯函数  设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$ 当$max(k) &amp;gt; 1$时$\mu(i)=0$ 否则$\mu(i)=(-1)^{\sum k}$  $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数  设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3}">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/07/莫比乌斯反演/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>莫比乌斯反演 | An_Account's Blog</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">An_Account's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/莫比乌斯反演/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">莫比乌斯反演
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-07 20:49:40 / 修改时间：21:43:34" itemprop="dateCreated datePublished" datetime="2019-03-07T20:49:40+08:00">2019-03-07</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h1><ul>
+<li>$\mu(i)$ 莫比乌斯函数</li>
+</ul>
+<p>设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$</p>
+<p>当$max(k) &gt; 1$时$\mu(i)=0$</p>
+<p>否则$\mu(i)=(-1)^{\sum k}$</p>
+<ul>
+<li>$\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数</li>
+</ul>
+<p>设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$</p>
+<p>则$\varphi(n)=n*\prod{(1-\frac{1}{p_i})}$</p>
+<p>关于<a href="https://baike.baidu.com/item/%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E4%B9%98%E7%A7%AF/18903903?fr=aladdin" target="_blank" rel="noopener">狄利克雷卷积</a></p>
+<ul>
+<li>定义二元关系$<em>​$，$f</em>g ​$的狄利克雷卷积为</li>
+</ul>
+<p>$$<br>(f*g)(n)=\sum_{d|n}f(d)g(\frac{n}{d})​<br>$$</p>
+<ul>
+<li>卷积满足交换律</li>
+</ul>
+<p>$$<br>f*g=g*f<br>$$</p>
+<ul>
+<li>结合律</li>
+</ul>
+<p>$$<br>(f*g)*h=f*(g*h)<br>$$</p>
+<ul>
+<li>单位元</li>
+</ul>
+<p>$$<br>e(n)=[n=1]<br>$$</p>
+<p>$$<br>\displaystyle f*e=f<br>$$</p>
+<ul>
+<li>逆元</li>
+</ul>
+<p>$$<br>f*f^{-1}=e<br>$$</p>
+<h1 id="一些性质"><a href="#一些性质" class="headerlink" title="一些性质"></a>一些性质</h1><p>$$<br>\sum_{d|n}\mu(d)=[n=1]<br>$$</p>
+<p>$$<br>\displaystyle \sum_{d|n}\varphi(d)=n<br>$$</p>
+<p>$\mu$与$\varphi$都是积性函数，可以线性筛</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 10000010</span></span><br><span class="line"><span class="keyword">int</span> flag[N], prime[N], mu[N], ncnt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) mu[i] = <span class="number">-1</span>, prime[++ncnt] = i;</span><br><span class="line">        <span class="comment">//i是质数，mu[i]为-1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= N;j++) &#123;</span><br><span class="line">            flag[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//筛质数用</span></span><br><span class="line">            <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//此时根据定义，mu为0</span></span><br><span class="line">            mu[i * prime[j]] = -mu[i];</span><br><span class="line">            <span class="comment">//mu[i * prime[j]] = mu[i] * mu[prime[j]] = -mu[i]</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>积性函数都可以线性筛</strong></p>
+<h1 id="莫比乌斯反演："><a href="#莫比乌斯反演：" class="headerlink" title="莫比乌斯反演："></a>莫比乌斯反演：</h1><ul>
+<li>定理1</li>
+</ul>
+<p>若</p>
+<p>$$<br>F(n)=\sum_{d|n}f(d)<br>$$</p>
+<p>则</p>
+<p>$$<br>f(n)=\sum_{d|n}F(d)\mu(\frac{n}{d})<br>$$</p>
+<ul>
+<li>定理2</li>
+</ul>
+<p>若</p>
+<p>$$<br>F(n)=\sum_{n|d}f(d)<br>$$</p>
+<p>则</p>
+<p>$$<br>f(n)=\sum_{n|d}F(d)\mu(\frac{n}{d})<br>$$</p>
+<ul>
+<li>证明</li>
+</ul>
+<p>$$<br>F=f*1<br>$$</p>
+<p>有</p>
+<p>$$<br>\mu(n)*1=\sum_{d|n}\mu(d)*1=[n=1]=e<br>$$</p>
+<p>所以<br>$$<br>\mu^{-1}=1<br>$$</p>
+<p>$$<br>F=f*1=f*\mu^{-1}<br>$$</p>
+<p>$$<br>F*\mu=f<br>$$</p>
+<p>$$<br>f(n)=(F*\mu)(n)=\sum_{d|n}F(d)\mu(\frac{n}{d})<br>$$</p>
+<h1 id="一些套路"><a href="#一些套路" class="headerlink" title="一些套路"></a>一些套路</h1><p>以<a href="https://www.luogu.org/problemnew/show/P1829" target="_blank" rel="noopener">Crash的数字表格</a>为例</p>
+<p>求</p>
+<p>$$<br>\sum_{i=1}^{n}\sum_{j=1}^{m}lcm(i,j)<br>$$</p>
+<h2 id="套路1-设出-gcd-，然后按照-gcd-分类"><a href="#套路1-设出-gcd-，然后按照-gcd-分类" class="headerlink" title="套路1.设出$gcd$，然后按照$gcd$分类"></a>套路1.设出$gcd$，然后按照$gcd$分类</h2><p>$$<br>\sum_{k=1}^{n}\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{k}[gcd(i,j)=k]<br>$$</p>
+<h4 id="方法1-凑出-gcd-i-j-1-然后使用-mu-函数的性质换元"><a href="#方法1-凑出-gcd-i-j-1-然后使用-mu-函数的性质换元" class="headerlink" title="方法1.凑出$[gcd(i,j)=1]$然后使用$\mu$函数的性质换元"></a>方法1.凑出$[gcd(i,j)=1]$然后使用$\mu$函数的性质换元</h4><p>将i,j同时除以k，注意$\frac{i*j}{k}$需要乘回去</p>
+<p>$$<br>\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i*j*k[gcd(i,j)=1]<br>$$</p>
+<p>有<br>$$<br>\sum_{d|n}\mu(d)=[n=1]<br>$$</p>
+<p>所以</p>
+<p>$$<br>[gcd(i,j)=1]=\sum_{d|gcd(i,j)}\mu(d)<br>$$</p>
+<h4 id="方法2-使用莫比乌斯反演基本公式"><a href="#方法2-使用莫比乌斯反演基本公式" class="headerlink" title="方法2.使用莫比乌斯反演基本公式"></a>方法2.使用莫比乌斯反演基本公式</h4><p>设</p>
+<p>$$<br>f(x)=\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{x}[gcd(i,j)=x]<br>$$</p>
+<p>$$<br>\displaystyle F(x)=\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{x}[x|gcd(i,j)]<br>$$</p>
+<p>改写一下$F$</p>
+<p>由于$gcd$是x的倍数，所以n,m都是x的倍数</p>
+<p>同时除以x</p>
+<p>$$<br>F(x)=\sum_{x|d}f(x)=\sum_{i=1}^{\lfloor\frac{n}{x}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{x}\rfloor}i*j*x<br>$$</p>
+<p>套用反演公式</p>
+<p>$$<br>f(x)=\sum_{x|d}F(d)\mu(\frac{d}{x})<br>$$</p>
+<p>得到</p>
+<p>$$<br>f(x)=\sum_{x|d}\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{d}\rfloor}i*j*d*\mu(\frac{d}{x})<br>$$</p>
+<p>代入原式即可</p>
+<p>个人推荐推式子的时候用第一种方法，使用莫比乌斯反演容斥的时候使用第二种方法</p>
+<p>从方法1的最后一步继续</p>
+<p>$$<br>\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i*j*k[gcd(i,j)=1]<br>$$</p>
+<p>$$<br>=\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i*j*k\sum_{d|gcd(i,j)}\mu(d)<br>$$</p>
+<h2 id="套路2-枚举d，并放到前面去"><a href="#套路2-枚举d，并放到前面去" class="headerlink" title="套路2.枚举d，并放到前面去"></a>套路2.枚举d，并放到前面去</h2><p>此时i,j都应该是d的倍数</p>
+<p>同样，注意要乘回去</p>
+<p>$$<br>=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)\sum_{i=1}^{\lfloor\frac{n}{kd}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{kd}\rfloor}i*j*d^2<br>$$</p>
+<p>整理一下</p>
+<p>$$<br>=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)*d^2\sum_{i=1}^{\lfloor\frac{n}{kd}\rfloor}i\sum_{j=1}^{\lfloor\frac{m}{kd}\rfloor}j<br>$$</p>
+<p>为了方便快捷，设<br>$$<br>F(n)=\sum_{i=1}^{n}i<br>$$<br>将原式替换成<br>$$<br>=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)*d^2*F(\lfloor\frac{n}{kd}\rfloor)*F(\lfloor\frac{m}{kd}\rfloor)<br>$$</p>
+<h2 id="套路3-换T大法"><a href="#套路3-换T大法" class="headerlink" title="套路3.换T大法"></a>套路3.换T大法</h2><p>为了提升时间复杂度，我们需要设一个神奇的T</p>
+<p>设<br>$$<br>T=kd<br>$$<br>所以原式等于<br>$$<br>\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)*d^2*F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)<br>$$<br>枚举T，放到最前面<br>$$<br>\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)\sum_{d|T}\mu(d)*\frac{T}{d}*d^2<br>$$</p>
+<p>$$<br>\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)\sum_{d|T}\mu(d)*d<br>$$</p>
+<p>考虑优化最后那一坨的求法</p>
+<p>直接求显然是$n\ log\ n$的</p>
+<h2 id="套路4-设出积性函数"><a href="#套路4-设出积性函数" class="headerlink" title="套路4.设出积性函数"></a>套路4.设出积性函数</h2><p>观察到$\mu$以及$f(x)=x$（它还有个名字叫id）都是积性函数</p>
+<p>两个积性函数的狄利克雷卷积以及直接对应相乘的结果都是积性函数</p>
+<p>也就是说，这个东西是可以线性筛的</p>
+<p>设<br>$$<br>g(x)=\sum_{d|x}\mu(d)*d<br>$$<br>对x分类</p>
+<ul>
+<li>x是质数</li>
+</ul>
+<p>此时显然有$g(x)=1-x$</p>
+<ul>
+<li>x被表示成了$i*prime[j]$，其中$prime[j]\bot i$</li>
+</ul>
+<p>此时根据积性函数性质，$g(i<em>prime[j])=g(i)</em>g(prime[j])$，直接乘即可</p>
+<ul>
+<li>x被表示成了$i*prime[j]$，其中$prime[j]|i$</li>
+</ul>
+<p>考虑乘之后多出来的因数</p>
+<p>由于多出来的因数<code>prime[j]</code>这个质数的次数至少是2，而根据$\mu$的定义此时$\mu$为0，对g没有贡献，直接忽略即可</p>
+<p>所以此时$g(i*prime[j]$</p>
+<h2 id="套路5-数论分块"><a href="#套路5-数论分块" class="headerlink" title="套路5.数论分块"></a>套路5.数论分块</h2><p>预处理完了g，我们再来说说最后答案怎么求</p>
+<p>答案等于<br>$$<br>\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)*g(T)<br>$$<br>考虑从$\lfloor\frac{n}{T}\rfloor$,$\lfloor\frac{m}{T}\rfloor$ 开始优化</p>
+<p>可以发现对于某一段的T，上面的两个式子的值都是不变的</p>
+<p>这种不变的值的段数一共有$\sqrt n​$段</p>
+<p>考虑一段一段地枚举，而不是一个一个的枚举</p>
+<p>此时变化的就只有$g(T)$</p>
+<p>对$g(T)$求一下前缀和，算的时候直接求区间的和就好了</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">const</span> LL mod=<span class="number">20101009</span>;</span><br><span class="line"><span class="keyword">int</span> flag[<span class="number">10000010</span>],prime[<span class="number">10000010</span>],cnt,f[<span class="number">10000010</span>],sum[<span class="number">10000010</span>];</span><br><span class="line"><span class="comment">// sum是前缀和，f就是g</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    f[<span class="number">1</span>]=sum[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=<span class="number">10000000</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) prime[++cnt]=i,f[i]=(<span class="number">1</span>-i+mod)%mod;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=cnt&amp;&amp;i*prime[j]&lt;=<span class="number">10000000</span>;j++) &#123;</span><br><span class="line">            flag[i*prime[j]]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (i%prime[j]==<span class="number">0</span>) &#123;</span><br><span class="line">                f[i*prime[j]]=f[i]%mod;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            f[i*prime[j]]=(LL)f[i]*f[prime[j]]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        sum[i]=(sum[i<span class="number">-1</span>]+(LL)f[i]*i%mod)%mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">zjk</span><span class="params">(LL n,LL m)</span> </span>&#123;</span><br><span class="line">    LL ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (n&gt;m) swap(n,m);</span><br><span class="line">    <span class="keyword">for</span> (LL l=<span class="number">1</span>,r;l&lt;=n;l=r+<span class="number">1</span>) &#123;</span><br><span class="line">        r=min(n/(n/l),m/(m/l));</span><br><span class="line">        <span class="comment">// 分块：[l,r]</span></span><br><span class="line">        ans=(ans+((n/l*(n/l+<span class="number">1</span>)/<span class="number">2</span>)%mod*((m/l*(m/l+<span class="number">1</span>)/<span class="number">2</span>)%mod))%mod*(LL)(sum[r]-sum[l<span class="number">-1</span>]))%mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (ans+mod)%mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    sieve();</span><br><span class="line">    <span class="keyword">int</span> n,m;<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,zjk(n,m));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>%%% ZJK</p>
+<p>下面讨论一下使用莫比乌斯反演来容斥的题</p>
+<p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=5656" target="_blank" rel="noopener">CA Loves GCD</a></p>
+<p>题意：给出n个[1,1000]的数，问所有选法中所选择的数的gcd的和</p>
+<ul>
+<li>$n \leq 1000$</li>
+</ul>
+<p>首先，还是对gcd分类，$f(i)$表示gcd为i的方案数</p>
+<p>发现<code>f</code>好像很不好求，考虑设辅助函数</p>
+<p>设$g(i)$表示gcd<strong>是i的倍数</strong>的方案数</p>
+<p>很显然，在一个gcd为i的集合中，每一个数都是i的倍数</p>
+<p>那么我们假设在这n个数中，i的倍数一共有k个</p>
+<p>每个数可以选或者不选，一共有$2^k$种方案</p>
+<p>减去所有数都不选的情况，就这一种</p>
+<p>之后得到的就是$g(i)$的值</p>
+<p>将<code>g</code>转化成<code>f</code></p>
+<p>显然有<br>$$<br>g(i)=\sum_{i|d}f(i)<br>$$<br>反演得<br>$$<br>f(i)=\sum_{i|d}g(d)\mu(\frac{i}{d})<br>$$<br>对于每一个i，枚举每一个i的倍数转移即可</p>
+<p>对于如何求i的倍数的个数，可以开一个桶。先预处理每个数的约数，当输入一个数a时，就把a的所有约数在桶中加一，最后桶中的第i个位置就是i的倍数的个数</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 1010</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; Div[N];</span><br><span class="line"><span class="keyword">int</span> flag[N], prime[N], ncnt, mu[N], Pow[N];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e8</span> + <span class="number">7</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Pow[<span class="number">0</span>] = <span class="number">1</span>, Pow[<span class="number">1</span>] = <span class="number">2</span>, mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) &#123;</span><br><span class="line">        Pow[i] = Pow[i - <span class="number">1</span>] * <span class="number">2</span> % mod;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) mu[i] = <span class="number">-1</span>, prime[++ncnt] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= N - <span class="number">10</span>;j++) &#123;</span><br><span class="line">            flag[i * prime[j]] = <span class="number">1</span>; <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            mu[i * prime[j]] = -mu[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i;j &lt;= N - <span class="number">10</span>;j += i) Div[j].push_back(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= N - <span class="number">10</span>;i++) Div[i].push_back(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> buk[N], ans[N], tmp[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T), sieve();</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), <span class="built_in">memset</span>(buk, <span class="number">0</span>, <span class="keyword">sizeof</span>(buk)), <span class="built_in">memset</span>(tmp, <span class="number">0</span>, <span class="keyword">sizeof</span>(tmp));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a;i &lt;= n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a), tmp[a]++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++)</span><br><span class="line">            <span class="keyword">if</span> (tmp[i]) <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; Div[i].size();j++) </span><br><span class="line">                buk[Div[i][j]] += tmp[i];</span><br><span class="line">        <span class="built_in">memset</span>(ans, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++) </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i;j &lt;= <span class="number">1000</span>;j += i) </span><br><span class="line">                ans[i] = (ans[i] + (Pow[buk[j]] - <span class="number">1</span>) * mu[j / i] + mod) % mod;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++) </span><br><span class="line">            res = (res + (LL)i * ans[i] % mod) % mod;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, res);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/莫比乌斯反演/" rel="tag"># 莫比乌斯反演</a>
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/07/后缀数组/" rel="next" title="后缀数组">
+                <i class="fa fa-chevron-left"></i> 后缀数组
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/hh.jpg" alt="An_Account">
+            
+              <p class="site-author-name" itemprop="name">An_Account</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/0x131cc05" title="GitHub &rarr; https://github.com/0x131cc05" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.luogu.org/space/show?uid=39914" title="Luogu &rarr; https://www.luogu.org/space/show?uid=39914" rel="noopener" target="_blank"><i class="fa fa-fw fa-code"></i>Luogu</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:0x131cc05@gmail.com" title="E-Mail &rarr; mailto:0x131cc05@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://plus.google.com/0x131cc05" title="Google &rarr; https://plus.google.com/0x131cc05" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.luogu.org/space/show?uid=27329" title="https://www.luogu.org/space/show?uid=27329" rel="noopener" target="_blank">ZJK</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一些定义"><span class="nav-number">1.</span> <span class="nav-text">一些定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些性质"><span class="nav-number">2.</span> <span class="nav-text">一些性质</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#莫比乌斯反演："><span class="nav-number">3.</span> <span class="nav-text">莫比乌斯反演：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些套路"><span class="nav-number">4.</span> <span class="nav-text">一些套路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#套路1-设出-gcd-，然后按照-gcd-分类"><span class="nav-number">4.1.</span> <span class="nav-text">套路1.设出$gcd$，然后按照$gcd$分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法1-凑出-gcd-i-j-1-然后使用-mu-函数的性质换元"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">方法1.凑出$[gcd(i,j)=1]$然后使用$\mu$函数的性质换元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法2-使用莫比乌斯反演基本公式"><span class="nav-number">4.1.0.2.</span> <span class="nav-text">方法2.使用莫比乌斯反演基本公式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路2-枚举d，并放到前面去"><span class="nav-number">4.2.</span> <span class="nav-text">套路2.枚举d，并放到前面去</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路3-换T大法"><span class="nav-number">4.3.</span> <span class="nav-text">套路3.换T大法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路4-设出积性函数"><span class="nav-number">4.4.</span> <span class="nav-text">套路4.设出积性函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路5-数论分块"><span class="nav-number">4.5.</span> <span class="nav-text">套路5.数论分块</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">An_Account</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+      pbOptions = {};
+      
+        pbOptions.iconStyle = "box";
+      
+        pbOptions.boxForm = "horizontal";
+      
+        pbOptions.position = "bottomCenter";
+      
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
