@@ -126,25 +126,25 @@
 
 
 
-  <meta name="description" content="一些定义 $\mu(i)$ 莫比乌斯函数  设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$ 当$max(k) &amp;gt; 1$时$\mu(i)=0$ 否则$\mu(i)=(-1)^{\sum k}$  $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数  设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3}">
-<meta name="keywords" content="数学,莫比乌斯反演">
+  <meta name="description" content="假设有一道题：求 $$\sum_{i=1}^{n}\mu(i)$$ 然后$n\leq 10^9$ 线筛大家都知道怎么做 考虑把这个东西转化 设 $$S(n)=\sum_{i=1}^{n}\mu(n)$$ 我们知道 $$\sum_{i|d}\mu(i)=[d=1]$$ 如何利用这个性质呢？考虑用另一个函数来与这个$\mu$卷积 我们使用1来卷，因为没有什么要抵消的 $$\sum_{i|d}\mu(i">
+<meta name="keywords" content="杜教筛,数学">
 <meta property="og:type" content="article">
-<meta property="og:title" content="莫比乌斯反演">
-<meta property="og:url" content="http://yoursite.com/2019/03/07/莫比乌斯反演/index.html">
+<meta property="og:title" content="杜教筛">
+<meta property="og:url" content="http://yoursite.com/2019/03/08/杜教筛/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
-<meta property="og:description" content="一些定义 $\mu(i)$ 莫比乌斯函数  设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$ 当$max(k) &amp;gt; 1$时$\mu(i)=0$ 否则$\mu(i)=(-1)^{\sum k}$  $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数  设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3}">
+<meta property="og:description" content="假设有一道题：求 $$\sum_{i=1}^{n}\mu(i)$$ 然后$n\leq 10^9$ 线筛大家都知道怎么做 考虑把这个东西转化 设 $$S(n)=\sum_{i=1}^{n}\mu(n)$$ 我们知道 $$\sum_{i|d}\mu(i)=[d=1]$$ 如何利用这个性质呢？考虑用另一个函数来与这个$\mu$卷积 我们使用1来卷，因为没有什么要抵消的 $$\sum_{i|d}\mu(i">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-07T22:59:40.710Z">
+<meta property="og:updated_time" content="2019-03-08T11:13:21.383Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="莫比乌斯反演">
-<meta name="twitter:description" content="一些定义 $\mu(i)$ 莫比乌斯函数  设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$ 当$max(k) &amp;gt; 1$时$\mu(i)=0$ 否则$\mu(i)=(-1)^{\sum k}$  $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数  设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3}">
+<meta name="twitter:title" content="杜教筛">
+<meta name="twitter:description" content="假设有一道题：求 $$\sum_{i=1}^{n}\mu(i)$$ 然后$n\leq 10^9$ 线筛大家都知道怎么做 考虑把这个东西转化 设 $$S(n)=\sum_{i=1}^{n}\mu(n)$$ 我们知道 $$\sum_{i|d}\mu(i)=[d=1]$$ 如何利用这个性质呢？考虑用另一个函数来与这个$\mu$卷积 我们使用1来卷，因为没有什么要抵消的 $$\sum_{i|d}\mu(i">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/07/莫比乌斯反演/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/08/杜教筛/">
 
 
 
@@ -154,7 +154,7 @@
   };
 </script>
 
-  <title>莫比乌斯反演 | An_Account's Blog</title>
+  <title>杜教筛 | An_Account's Blog</title>
   
 
 
@@ -390,7 +390,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/莫比乌斯反演/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/杜教筛/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -407,7 +407,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">莫比乌斯反演
+          <h1 class="post-title" itemprop="name headline">杜教筛
 
               
             
@@ -433,24 +433,12 @@
                 
               
 
-              <time title="创建时间：2019-03-07 20:49:40" itemprop="dateCreated datePublished" datetime="2019-03-07T20:49:40+08:00">2019-03-07</time>
+              <time title="创建时间：2019-03-08 19:09:37 / 修改时间：19:13:21" itemprop="dateCreated datePublished" datetime="2019-03-08T19:09:37+08:00">2019-03-08</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-08 06:59:40" itemprop="dateModified" datetime="2019-03-08T06:59:40+08:00">2019-03-08</time>
               
             
           </span>
@@ -483,152 +471,43 @@
       
 
       
-        <h1 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h1><ul>
-<li>$\mu(i)$ 莫比乌斯函数</li>
-</ul>
-<p>设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$</p>
-<p>当$max(k) &gt; 1$时$\mu(i)=0$</p>
-<p>否则$\mu(i)=(-1)^{\sum k}$</p>
-<ul>
-<li>$\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数</li>
-</ul>
-<p>设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$</p>
-<p>则$\varphi(n)=n*\prod{(1-\frac{1}{p_i})}$</p>
-<p>关于<a href="https://baike.baidu.com/item/%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E4%B9%98%E7%A7%AF/18903903?fr=aladdin" target="_blank" rel="noopener">狄利克雷卷积</a></p>
-<ul>
-<li>定义二元关系$<em>​$，$f</em>g ​$的狄利克雷卷积为</li>
-</ul>
-<p>$$<br>(f*g)(n)=\sum_{d|n}f(d)g(\frac{n}{d})​<br>$$</p>
-<ul>
-<li>卷积满足交换律</li>
-</ul>
-<p>$$<br>f*g=g*f<br>$$</p>
-<ul>
-<li>结合律</li>
-</ul>
-<p>$$<br>(f*g)*h=f*(g*h)<br>$$</p>
-<ul>
-<li>单位元</li>
-</ul>
-<p>$$<br>e(n)=[n=1]<br>$$</p>
-<p>$$<br>\displaystyle f*e=f<br>$$</p>
-<ul>
-<li>逆元</li>
-</ul>
-<p>$$<br>f*f^{-1}=e<br>$$</p>
-<h1 id="一些性质"><a href="#一些性质" class="headerlink" title="一些性质"></a>一些性质</h1><p>$$<br>\sum_{d|n}\mu(d)=[n=1]<br>$$</p>
-<p>$$<br>\displaystyle \sum_{d|n}\varphi(d)=n<br>$$</p>
-<p>$\mu$与$\varphi$都是积性函数，可以线性筛</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 10000010</span></span><br><span class="line"><span class="keyword">int</span> flag[N], prime[N], mu[N], ncnt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) mu[i] = <span class="number">-1</span>, prime[++ncnt] = i;</span><br><span class="line">        <span class="comment">//i是质数，mu[i]为-1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= N;j++) &#123;</span><br><span class="line">            flag[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//筛质数用</span></span><br><span class="line">            <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//此时根据定义，mu为0</span></span><br><span class="line">            mu[i * prime[j]] = -mu[i];</span><br><span class="line">            <span class="comment">//mu[i * prime[j]] = mu[i] * mu[prime[j]] = -mu[i]</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>积性函数都可以线性筛</strong></p>
-<h1 id="莫比乌斯反演："><a href="#莫比乌斯反演：" class="headerlink" title="莫比乌斯反演："></a>莫比乌斯反演：</h1><ul>
-<li>定理1</li>
-</ul>
-<p>若</p>
-<p>$$<br>F(n)=\sum_{d|n}f(d)<br>$$</p>
-<p>则</p>
-<p>$$<br>f(n)=\sum_{d|n}F(d)\mu(\frac{n}{d})<br>$$</p>
-<ul>
-<li>定理2</li>
-</ul>
-<p>若</p>
-<p>$$<br>F(n)=\sum_{n|d}f(d)<br>$$</p>
-<p>则</p>
-<p>$$<br>f(n)=\sum_{n|d}F(d)\mu(\frac{n}{d})<br>$$</p>
-<ul>
-<li>证明</li>
-</ul>
-<p>$$<br>F=f*1<br>$$</p>
-<p>有</p>
-<p>$$<br>\mu(n)*1=\sum_{d|n}\mu(d)*1=[n=1]=e<br>$$</p>
-<p>所以<br>$$<br>\mu^{-1}=1<br>$$</p>
-<p>$$<br>F=f*1=f*\mu^{-1}<br>$$</p>
-<p>$$<br>F*\mu=f<br>$$</p>
-<p>$$<br>f(n)=(F*\mu)(n)=\sum_{d|n}F(d)\mu(\frac{n}{d})<br>$$</p>
-<h1 id="一些套路"><a href="#一些套路" class="headerlink" title="一些套路"></a>一些套路</h1><p>以<a href="https://www.luogu.org/problemnew/show/P1829" target="_blank" rel="noopener">Crash的数字表格</a>为例</p>
-<p>求</p>
-<p>$$<br>\sum_{i=1}^{n}\sum_{j=1}^{m}lcm(i,j)<br>$$</p>
-<h2 id="套路1-设出-gcd-，然后按照-gcd-分类"><a href="#套路1-设出-gcd-，然后按照-gcd-分类" class="headerlink" title="套路1.设出$gcd$，然后按照$gcd$分类"></a>套路1.设出$gcd$，然后按照$gcd$分类</h2><p>$$<br>\sum_{k=1}^{n}\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{k}[gcd(i,j)=k]<br>$$</p>
-<h4 id="方法1-凑出-gcd-i-j-1-然后使用-mu-函数的性质换元"><a href="#方法1-凑出-gcd-i-j-1-然后使用-mu-函数的性质换元" class="headerlink" title="方法1.凑出$[gcd(i,j)=1]$然后使用$\mu$函数的性质换元"></a>方法1.凑出$[gcd(i,j)=1]$然后使用$\mu$函数的性质换元</h4><p>将i,j同时除以k，注意$\frac{i*j}{k}$需要乘回去</p>
-<p>$$<br>\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i*j*k[gcd(i,j)=1]<br>$$</p>
-<p>有<br>$$<br>\sum_{d|n}\mu(d)=[n=1]<br>$$</p>
-<p>所以</p>
-<p>$$<br>[gcd(i,j)=1]=\sum_{d|gcd(i,j)}\mu(d)<br>$$</p>
-<h4 id="方法2-使用莫比乌斯反演基本公式"><a href="#方法2-使用莫比乌斯反演基本公式" class="headerlink" title="方法2.使用莫比乌斯反演基本公式"></a>方法2.使用莫比乌斯反演基本公式</h4><p>设</p>
-<p>$$<br>f(x)=\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{x}[gcd(i,j)=x]<br>$$</p>
-<p>$$<br>\displaystyle F(x)=\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{x}[x|gcd(i,j)]<br>$$</p>
-<p>改写一下$F$</p>
-<p>由于$gcd$是x的倍数，所以n,m都是x的倍数</p>
-<p>同时除以x</p>
-<p>$$<br>F(x)=\sum_{x|d}f(x)=\sum_{i=1}^{\lfloor\frac{n}{x}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{x}\rfloor}i*j*x<br>$$</p>
-<p>套用反演公式</p>
-<p>$$<br>f(x)=\sum_{x|d}F(d)\mu(\frac{d}{x})<br>$$</p>
-<p>得到</p>
-<p>$$<br>f(x)=\sum_{x|d}\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{d}\rfloor}i*j*d*\mu(\frac{d}{x})<br>$$</p>
-<p>代入原式即可</p>
-<p>个人推荐推式子的时候用第一种方法，使用莫比乌斯反演容斥的时候使用第二种方法</p>
-<p>从方法1的最后一步继续</p>
-<p>$$<br>\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i*j*k[gcd(i,j)=1]<br>$$</p>
-<p>$$<br>=\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i*j*k\sum_{d|gcd(i,j)}\mu(d)<br>$$</p>
-<h2 id="套路2-枚举d，并放到前面去"><a href="#套路2-枚举d，并放到前面去" class="headerlink" title="套路2.枚举d，并放到前面去"></a>套路2.枚举d，并放到前面去</h2><p>此时i,j都应该是d的倍数</p>
-<p>同样，注意要乘回去</p>
-<p>$$<br>=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)\sum_{i=1}^{\lfloor\frac{n}{kd}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{kd}\rfloor}i*j*d^2<br>$$</p>
-<p>整理一下</p>
-<p>$$<br>=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)*d^2\sum_{i=1}^{\lfloor\frac{n}{kd}\rfloor}i\sum_{j=1}^{\lfloor\frac{m}{kd}\rfloor}j<br>$$</p>
-<p>为了方便快捷，设<br>$$<br>F(n)=\sum_{i=1}^{n}i<br>$$<br>将原式替换成<br>$$<br>=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)*d^2*F(\lfloor\frac{n}{kd}\rfloor)*F(\lfloor\frac{m}{kd}\rfloor)<br>$$</p>
-<h2 id="套路3-换T大法"><a href="#套路3-换T大法" class="headerlink" title="套路3.换T大法"></a>套路3.换T大法</h2><p>为了提升时间复杂度，我们需要设一个神奇的T</p>
-<p>设<br>$$<br>T=kd<br>$$<br>所以原式等于<br>$$<br>\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)*d^2*F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)<br>$$<br>枚举T，放到最前面<br>$$<br>\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)\sum_{d|T}\mu(d)*\frac{T}{d}*d^2<br>$$</p>
-<p>$$<br>\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)\sum_{d|T}\mu(d)*d<br>$$</p>
-<p>考虑优化最后那一坨的求法</p>
-<p>直接求显然是$n\ log\ n$的</p>
-<h2 id="套路4-设出积性函数"><a href="#套路4-设出积性函数" class="headerlink" title="套路4.设出积性函数"></a>套路4.设出积性函数</h2><p>观察到$\mu$以及$f(x)=x$（它还有个名字叫id）都是积性函数</p>
-<p>两个积性函数的狄利克雷卷积以及直接对应相乘的结果都是积性函数</p>
-<p>也就是说，这个东西是可以线性筛的</p>
-<p>设<br>$$<br>g(x)=\sum_{d|x}\mu(d)*d<br>$$<br>对x分类</p>
-<ul>
-<li>x是质数</li>
-</ul>
-<p>此时显然有$g(x)=1-x$</p>
-<ul>
-<li>x被表示成了$i*prime[j]$，其中$prime[j]\bot i$</li>
-</ul>
-<p>此时根据积性函数性质，$g(i<em>prime[j])=g(i)</em>g(prime[j])$，直接乘即可</p>
-<ul>
-<li>x被表示成了$i*prime[j]$，其中$prime[j]|i$</li>
-</ul>
-<p>考虑乘之后多出来的因数</p>
-<p>由于多出来的因数<code>prime[j]</code>这个质数的次数至少是2，而根据$\mu$的定义此时$\mu$为0，对g没有贡献，直接忽略即可</p>
-<p>所以此时$g(i*prime[j]$</p>
-<h2 id="套路5-数论分块"><a href="#套路5-数论分块" class="headerlink" title="套路5.数论分块"></a>套路5.数论分块</h2><p>预处理完了g，我们再来说说最后答案怎么求</p>
-<p>答案等于<br>$$<br>\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)*g(T)<br>$$<br>考虑从$\lfloor\frac{n}{T}\rfloor$,$\lfloor\frac{m}{T}\rfloor$ 开始优化</p>
-<p>可以发现对于某一段的T，上面的两个式子的值都是不变的</p>
-<p>这种不变的值的段数一共有$\sqrt n​$段</p>
-<p>考虑一段一段地枚举，而不是一个一个的枚举</p>
-<p>此时变化的就只有$g(T)$</p>
-<p>对$g(T)$求一下前缀和，算的时候直接求区间的和就好了</p>
-<p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">const</span> LL mod=<span class="number">20101009</span>;</span><br><span class="line"><span class="keyword">int</span> flag[<span class="number">10000010</span>],prime[<span class="number">10000010</span>],cnt,f[<span class="number">10000010</span>],sum[<span class="number">10000010</span>];</span><br><span class="line"><span class="comment">// sum是前缀和，f就是g</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    f[<span class="number">1</span>]=sum[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=<span class="number">10000000</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) prime[++cnt]=i,f[i]=(<span class="number">1</span>-i+mod)%mod;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=cnt&amp;&amp;i*prime[j]&lt;=<span class="number">10000000</span>;j++) &#123;</span><br><span class="line">            flag[i*prime[j]]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (i%prime[j]==<span class="number">0</span>) &#123;</span><br><span class="line">                f[i*prime[j]]=f[i]%mod;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            f[i*prime[j]]=(LL)f[i]*f[prime[j]]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        sum[i]=(sum[i<span class="number">-1</span>]+(LL)f[i]*i%mod)%mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">zjk</span><span class="params">(LL n,LL m)</span> </span>&#123;</span><br><span class="line">    LL ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (n&gt;m) swap(n,m);</span><br><span class="line">    <span class="keyword">for</span> (LL l=<span class="number">1</span>,r;l&lt;=n;l=r+<span class="number">1</span>) &#123;</span><br><span class="line">        r=min(n/(n/l),m/(m/l));</span><br><span class="line">        <span class="comment">// 分块：[l,r]</span></span><br><span class="line">        ans=(ans+((n/l*(n/l+<span class="number">1</span>)/<span class="number">2</span>)%mod*((m/l*(m/l+<span class="number">1</span>)/<span class="number">2</span>)%mod))%mod*(LL)(sum[r]-sum[l<span class="number">-1</span>]))%mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (ans+mod)%mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    sieve();</span><br><span class="line">    <span class="keyword">int</span> n,m;<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,zjk(n,m));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>%%% ZJK</p>
-<p>下面讨论一下使用莫比乌斯反演来容斥的题</p>
-<p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=5656" target="_blank" rel="noopener">CA Loves GCD</a></p>
-<p>题意：给出n个[1,1000]的数，问所有选法中所选择的数的gcd的和</p>
-<ul>
-<li>$n \leq 1000$</li>
-</ul>
-<p>首先，还是对gcd分类，$f(i)$表示gcd为i的方案数</p>
-<p>发现<code>f</code>好像很不好求，考虑设辅助函数</p>
-<p>设$g(i)$表示gcd<strong>是i的倍数</strong>的方案数</p>
-<p>很显然，在一个gcd为i的集合中，每一个数都是i的倍数</p>
-<p>那么我们假设在这n个数中，i的倍数一共有k个</p>
-<p>每个数可以选或者不选，一共有$2^k$种方案</p>
-<p>减去所有数都不选的情况，就这一种</p>
-<p>之后得到的就是$g(i)$的值</p>
-<p>将<code>g</code>转化成<code>f</code></p>
-<p>显然有<br>$$<br>g(i)=\sum_{i|d}f(i)<br>$$<br>反演得<br>$$<br>f(i)=\sum_{i|d}g(d)\mu(\frac{i}{d})<br>$$<br>对于每一个i，枚举每一个i的倍数转移即可</p>
-<p>对于如何求i的倍数的个数，可以开一个桶。先预处理每个数的约数，当输入一个数a时，就把a的所有约数在桶中加一，最后桶中的第i个位置就是i的倍数的个数</p>
-<p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 1010</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; Div[N];</span><br><span class="line"><span class="keyword">int</span> flag[N], prime[N], ncnt, mu[N], Pow[N];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e8</span> + <span class="number">7</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Pow[<span class="number">0</span>] = <span class="number">1</span>, Pow[<span class="number">1</span>] = <span class="number">2</span>, mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) &#123;</span><br><span class="line">        Pow[i] = Pow[i - <span class="number">1</span>] * <span class="number">2</span> % mod;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) mu[i] = <span class="number">-1</span>, prime[++ncnt] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= N - <span class="number">10</span>;j++) &#123;</span><br><span class="line">            flag[i * prime[j]] = <span class="number">1</span>; <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            mu[i * prime[j]] = -mu[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i;j &lt;= N - <span class="number">10</span>;j += i) Div[j].push_back(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= N - <span class="number">10</span>;i++) Div[i].push_back(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> buk[N], ans[N], tmp[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T), sieve();</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), <span class="built_in">memset</span>(buk, <span class="number">0</span>, <span class="keyword">sizeof</span>(buk)), <span class="built_in">memset</span>(tmp, <span class="number">0</span>, <span class="keyword">sizeof</span>(tmp));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a;i &lt;= n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a), tmp[a]++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++)</span><br><span class="line">            <span class="keyword">if</span> (tmp[i]) <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; Div[i].size();j++) </span><br><span class="line">                buk[Div[i][j]] += tmp[i];</span><br><span class="line">        <span class="built_in">memset</span>(ans, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++) </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i;j &lt;= <span class="number">1000</span>;j += i) </span><br><span class="line">                ans[i] = (ans[i] + (Pow[buk[j]] - <span class="number">1</span>) * mu[j / i] + mod) % mod;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++) </span><br><span class="line">            res = (res + (LL)i * ans[i] % mod) % mod;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, res);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+        <p>假设有一道题：求</p>
+<p>$$<br>\sum_{i=1}^{n}\mu(i)<br>$$</p>
+<p>然后$n\leq 10^9$</p>
+<p>线筛大家都知道怎么做</p>
+<p>考虑把这个东西转化</p>
+<p>设</p>
+<p>$$<br>S(n)=\sum_{i=1}^{n}\mu(n)<br>$$</p>
+<p>我们知道</p>
+<p>$$<br>\sum_{i|d}\mu(i)=[d=1]<br>$$</p>
+<p>如何利用这个性质呢？考虑用另一个函数来与这个$\mu$卷积</p>
+<p>我们使用1来卷，因为<strong>没有什么要抵消的</strong></p>
+<p>$$<br>\sum_{i|d}\mu(i)<em>1 = [d=1]=(\mu</em>1)(d)<br>$$</p>
+<p>$$<br>1=\sum_{d=1}^{n}\sum_{i|d}\mu(\frac{d}{i})*1<br>$$</p>
+<p>$$<br>=\sum_{i=1}^{n}\sum_{d=1}^{\lfloor\frac{n}{i}\rfloor}\mu(d)=\sum_{i=1}^{n}S(\lfloor\frac{n}{i}\rfloor)<br>$$</p>
+<p>我们已经将这个东西转化成了$S$，移一下项</p>
+<p>$$<br>1=\sum_{i=1}^{n}S(\lfloor\frac{n}{i}\rfloor)<br>$$</p>
+<p>$$<br>1-\sum_{i=2}^{n}S(\lfloor\frac{n}{i}\rfloor)=S(n)<br>$$</p>
+<p>注意到$\lfloor\frac{n}{i}\rfloor$的取值不超过$\sqrt n$个，直接分块即可</p>
+<p>然后<code>DFS</code></p>
+<p>记得要记忆化！！！</p>
+<h1 id="一般式"><a href="#一般式" class="headerlink" title="一般式"></a>一般式</h1><p>假设要求一个积性函数$f(x)$的前缀和$S(n)$</p>
+<p>先找到另一个积性函数$g(x)$，与f做卷积</p>
+<p>这个g函数的要求有几点：</p>
+<p>1.前缀和很好求，要不然找g之后反而更慢</p>
+<p>2.与f的卷积的前缀和很好求</p>
+<p>开始</p>
+<p>$$<br>(g*f)(d)=\sum_{i|d}g(i)f(\frac{d}{i})<br>$$</p>
+<p>$$<br>\sum_{i=1}^{n}(g*f)(i)=\sum_{i=1}^{n}\sum_{d|i}g(d)f(\frac{i}{d})<br>$$</p>
+<p>枚举d</p>
+<p>$$<br>=\sum_{d=1}^{n}g(d)\sum_{d|i}f(\frac{i}{d})<br>$$</p>
+<p>$$<br>=\sum_{d=1}^{n}g(d)\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}f(i)<br>$$</p>
+<p>$$<br>=\sum_{d=1}^{n}g(d)S(\lfloor\frac{n}{d}\rfloor)<br>$$</p>
+<p>移项</p>
+<p>$$<br>g(1)S(n)=\sum_{i=1}^{n}(g*f)(i)-\sum_{i=2}^{n}g(i)S(\lfloor\frac{n}{i}\rfloor)<br>$$</p>
+<p>然后开始分块即可</p>
+<p>代码其实很短</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line"><span class="comment">// sum[N - 10] 是预处理的前缀和，一般大小为3e6</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123; <span class="comment">// 算 sum mu</span></span><br><span class="line">	<span class="keyword">if</span> (n &lt;= N - <span class="number">10</span>) <span class="keyword">return</span> sum[n];</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (m.count(n)) <span class="keyword">return</span> m[n]; <span class="comment">// 记忆化</span></span><br><span class="line">	<span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (LL l = <span class="number">2</span>, r;l &lt;= n;l = r + <span class="number">1</span>) &#123;</span><br><span class="line">		r = n / (n / l);</span><br><span class="line">		res -= (r - l + <span class="number">1</span>) * calc1(n / l);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> m1[n] = res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -651,9 +530,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数学/" rel="tag"># 数学</a>
+            <a href="/tags/杜教筛/" rel="tag"># 杜教筛</a>
           
-            <a href="/tags/莫比乌斯反演/" rel="tag"># 莫比乌斯反演</a>
+            <a href="/tags/数学/" rel="tag"># 数学</a>
           
         </div>
       
@@ -686,8 +565,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/07/后缀数组/" rel="next" title="后缀数组">
-                <i class="fa fa-chevron-left"></i> 后缀数组
+              <a href="/2019/03/07/莫比乌斯反演/" rel="next" title="莫比乌斯反演">
+                <i class="fa fa-chevron-left"></i> 莫比乌斯反演
               </a>
             
           </div>
@@ -696,8 +575,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/08/杜教筛/" rel="prev" title="杜教筛">
-                杜教筛 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/08/简单的数学题/" rel="prev" title="简单的数学题">
+                简单的数学题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -905,7 +784,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一些定义"><span class="nav-number">1.</span> <span class="nav-text">一些定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些性质"><span class="nav-number">2.</span> <span class="nav-text">一些性质</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#莫比乌斯反演："><span class="nav-number">3.</span> <span class="nav-text">莫比乌斯反演：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些套路"><span class="nav-number">4.</span> <span class="nav-text">一些套路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#套路1-设出-gcd-，然后按照-gcd-分类"><span class="nav-number">4.1.</span> <span class="nav-text">套路1.设出$gcd$，然后按照$gcd$分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法1-凑出-gcd-i-j-1-然后使用-mu-函数的性质换元"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">方法1.凑出$[gcd(i,j)=1]$然后使用$\mu$函数的性质换元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法2-使用莫比乌斯反演基本公式"><span class="nav-number">4.1.0.2.</span> <span class="nav-text">方法2.使用莫比乌斯反演基本公式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路2-枚举d，并放到前面去"><span class="nav-number">4.2.</span> <span class="nav-text">套路2.枚举d，并放到前面去</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路3-换T大法"><span class="nav-number">4.3.</span> <span class="nav-text">套路3.换T大法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路4-设出积性函数"><span class="nav-number">4.4.</span> <span class="nav-text">套路4.设出积性函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路5-数论分块"><span class="nav-number">4.5.</span> <span class="nav-text">套路5.数论分块</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一般式"><span class="nav-number">1.</span> <span class="nav-text">一般式</span></a></li></ol></div>
             
 
           </div>

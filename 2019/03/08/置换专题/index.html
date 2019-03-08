@@ -126,25 +126,32 @@
 
 
 
-  <meta name="description" content="一些定义 $\mu(i)$ 莫比乌斯函数  设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$ 当$max(k) &amp;gt; 1$时$\mu(i)=0$ 否则$\mu(i)=(-1)^{\sum k}$  $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数  设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3}">
-<meta name="keywords" content="数学,莫比乌斯反演">
+  <meta name="description" content="A – Necklace of BeadsBurnside定理模板 假设有n个条件$S$，每个条件都是形如“$A$与$B$等价”的形式，要求集合$X$在这些条件下的方案数 将条件分解成循环的形式，那么方案数 $$=\frac{1}{n}\sum_{g\in S}|X^g|$$ 其中，$X^g$是置换$g$作用于集合$X$之后的不动点个数，即不变的元素的个数 那么对于这道题，我们考虑两类置换  1.">
+<meta name="keywords" content="置换,动态规划,数学,矩阵乘法">
 <meta property="og:type" content="article">
-<meta property="og:title" content="莫比乌斯反演">
-<meta property="og:url" content="http://yoursite.com/2019/03/07/莫比乌斯反演/index.html">
+<meta property="og:title" content="置换专题">
+<meta property="og:url" content="http://yoursite.com/2019/03/08/置换专题/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
-<meta property="og:description" content="一些定义 $\mu(i)$ 莫比乌斯函数  设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$ 当$max(k) &amp;gt; 1$时$\mu(i)=0$ 否则$\mu(i)=(-1)^{\sum k}$  $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数  设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3}">
+<meta property="og:description" content="A – Necklace of BeadsBurnside定理模板 假设有n个条件$S$，每个条件都是形如“$A$与$B$等价”的形式，要求集合$X$在这些条件下的方案数 将条件分解成循环的形式，那么方案数 $$=\frac{1}{n}\sum_{g\in S}|X^g|$$ 其中，$X^g$是置换$g$作用于集合$X$之后的不动点个数，即不变的元素的个数 那么对于这道题，我们考虑两类置换  1.">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-07T22:59:40.710Z">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-9.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-10.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-12.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-13.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-15.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-16.png?w=700">
+<meta property="og:updated_time" content="2019-03-08T11:50:49.961Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="莫比乌斯反演">
-<meta name="twitter:description" content="一些定义 $\mu(i)$ 莫比乌斯函数  设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$ 当$max(k) &amp;gt; 1$时$\mu(i)=0$ 否则$\mu(i)=(-1)^{\sum k}$  $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数  设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3}">
+<meta name="twitter:title" content="置换专题">
+<meta name="twitter:description" content="A – Necklace of BeadsBurnside定理模板 假设有n个条件$S$，每个条件都是形如“$A$与$B$等价”的形式，要求集合$X$在这些条件下的方案数 将条件分解成循环的形式，那么方案数 $$=\frac{1}{n}\sum_{g\in S}|X^g|$$ 其中，$X^g$是置换$g$作用于集合$X$之后的不动点个数，即不变的元素的个数 那么对于这道题，我们考虑两类置换  1.">
+<meta name="twitter:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-9.png?w=700">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/07/莫比乌斯反演/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/08/置换专题/">
 
 
 
@@ -154,7 +161,7 @@
   };
 </script>
 
-  <title>莫比乌斯反演 | An_Account's Blog</title>
+  <title>置换专题 | An_Account's Blog</title>
   
 
 
@@ -390,7 +397,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/莫比乌斯反演/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/置换专题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -407,7 +414,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">莫比乌斯反演
+          <h1 class="post-title" itemprop="name headline">置换专题
 
               
             
@@ -433,24 +440,12 @@
                 
               
 
-              <time title="创建时间：2019-03-07 20:49:40" itemprop="dateCreated datePublished" datetime="2019-03-07T20:49:40+08:00">2019-03-07</time>
+              <time title="创建时间：2019-03-08 19:38:47 / 修改时间：19:50:49" itemprop="dateCreated datePublished" datetime="2019-03-08T19:38:47+08:00">2019-03-08</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-08 06:59:40" itemprop="dateModified" datetime="2019-03-08T06:59:40+08:00">2019-03-08</time>
               
             
           </span>
@@ -483,151 +478,182 @@
       
 
       
-        <h1 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h1><ul>
-<li>$\mu(i)$ 莫比乌斯函数</li>
-</ul>
-<p>设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$</p>
-<p>当$max(k) &gt; 1$时$\mu(i)=0$</p>
-<p>否则$\mu(i)=(-1)^{\sum k}$</p>
+        <h1 id="A-–-Necklace-of-Beads"><a href="#A-–-Necklace-of-Beads" class="headerlink" title="A – Necklace of Beads"></a>A – Necklace of Beads</h1><p><a href="https://en.wikipedia.org/wiki/Burnside%27s_lemma" target="_blank" rel="noopener">Burnside</a>定理模板</p>
+<p>假设有n个条件$S$，每个条件都是形如“$A$与$B$等价”的形式，要求集合$X$在这些条件下的方案数</p>
+<p>将条件分解成循环的形式，那么方案数</p>
+<p>$$<br>=\frac{1}{n}\sum_{g\in S}|X^g|<br>$$</p>
+<p>其中，$X^g$是置换$g$作用于集合$X$之后的<strong>不动点个数</strong>，即不变的元素的个数</p>
+<p>那么对于这道题，我们考虑两类置换</p>
 <ul>
-<li>$\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数</li>
+<li>1.旋转</li>
 </ul>
-<p>设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$</p>
-<p>则$\varphi(n)=n*\prod{(1-\frac{1}{p_i})}$</p>
-<p>关于<a href="https://baike.baidu.com/item/%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E4%B9%98%E7%A7%AF/18903903?fr=aladdin" target="_blank" rel="noopener">狄利克雷卷积</a></p>
+<p>假设有一条长度为n的项链，旋转之后相同被视为相同方案，那么显然地，我们有n种对应的置换</p>
+<p>即不旋转，旋转1次，旋转2次，…，旋转n-1次</p>
+<p>考虑计算不动点个数</p>
+<p>假设现在旋转了2次</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-9.png?w=700" alt="img"></p>
+<p>如果要求旋转之后不变（不动点），那么1号点、3号点、5号点的颜色必须相同</p>
+<p>因为1号点转一次可以转到3号点，而3号点转一次可以转到5号点</p>
+<p>如果这三个点的颜色不相同，那么旋转之后就变了，不能再称之为不动点</p>
+<p>同理，2号点、4号点、6号点的颜色必须相同</p>
+<p>总结一下：</p>
+<blockquote>
+<p>对于长度为n的项链，旋转i次之后得到的不动点个数为$gcd(i,n)$</p>
+<p>不动点之间互不影响，假设有m种颜色，那么此时的染色方案为$m^{gcd(i,n)}$</p>
+</blockquote>
 <ul>
-<li>定义二元关系$<em>​$，$f</em>g ​$的狄利克雷卷积为</li>
+<li>2.翻转</li>
 </ul>
-<p>$$<br>(f*g)(n)=\sum_{d|n}f(d)g(\frac{n}{d})​<br>$$</p>
-<ul>
-<li>卷积满足交换律</li>
-</ul>
-<p>$$<br>f*g=g*f<br>$$</p>
-<ul>
-<li>结合律</li>
-</ul>
-<p>$$<br>(f*g)*h=f*(g*h)<br>$$</p>
-<ul>
-<li>单位元</li>
-</ul>
-<p>$$<br>e(n)=[n=1]<br>$$</p>
-<p>$$<br>\displaystyle f*e=f<br>$$</p>
-<ul>
-<li>逆元</li>
-</ul>
-<p>$$<br>f*f^{-1}=e<br>$$</p>
-<h1 id="一些性质"><a href="#一些性质" class="headerlink" title="一些性质"></a>一些性质</h1><p>$$<br>\sum_{d|n}\mu(d)=[n=1]<br>$$</p>
-<p>$$<br>\displaystyle \sum_{d|n}\varphi(d)=n<br>$$</p>
-<p>$\mu$与$\varphi$都是积性函数，可以线性筛</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 10000010</span></span><br><span class="line"><span class="keyword">int</span> flag[N], prime[N], mu[N], ncnt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) mu[i] = <span class="number">-1</span>, prime[++ncnt] = i;</span><br><span class="line">        <span class="comment">//i是质数，mu[i]为-1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= N;j++) &#123;</span><br><span class="line">            flag[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//筛质数用</span></span><br><span class="line">            <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//此时根据定义，mu为0</span></span><br><span class="line">            mu[i * prime[j]] = -mu[i];</span><br><span class="line">            <span class="comment">//mu[i * prime[j]] = mu[i] * mu[prime[j]] = -mu[i]</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>积性函数都可以线性筛</strong></p>
-<h1 id="莫比乌斯反演："><a href="#莫比乌斯反演：" class="headerlink" title="莫比乌斯反演："></a>莫比乌斯反演：</h1><ul>
-<li>定理1</li>
-</ul>
-<p>若</p>
-<p>$$<br>F(n)=\sum_{d|n}f(d)<br>$$</p>
-<p>则</p>
-<p>$$<br>f(n)=\sum_{d|n}F(d)\mu(\frac{n}{d})<br>$$</p>
-<ul>
-<li>定理2</li>
-</ul>
-<p>若</p>
-<p>$$<br>F(n)=\sum_{n|d}f(d)<br>$$</p>
-<p>则</p>
-<p>$$<br>f(n)=\sum_{n|d}F(d)\mu(\frac{n}{d})<br>$$</p>
-<ul>
-<li>证明</li>
-</ul>
-<p>$$<br>F=f*1<br>$$</p>
-<p>有</p>
-<p>$$<br>\mu(n)*1=\sum_{d|n}\mu(d)*1=[n=1]=e<br>$$</p>
-<p>所以<br>$$<br>\mu^{-1}=1<br>$$</p>
-<p>$$<br>F=f*1=f*\mu^{-1}<br>$$</p>
-<p>$$<br>F*\mu=f<br>$$</p>
-<p>$$<br>f(n)=(F*\mu)(n)=\sum_{d|n}F(d)\mu(\frac{n}{d})<br>$$</p>
-<h1 id="一些套路"><a href="#一些套路" class="headerlink" title="一些套路"></a>一些套路</h1><p>以<a href="https://www.luogu.org/problemnew/show/P1829" target="_blank" rel="noopener">Crash的数字表格</a>为例</p>
-<p>求</p>
-<p>$$<br>\sum_{i=1}^{n}\sum_{j=1}^{m}lcm(i,j)<br>$$</p>
-<h2 id="套路1-设出-gcd-，然后按照-gcd-分类"><a href="#套路1-设出-gcd-，然后按照-gcd-分类" class="headerlink" title="套路1.设出$gcd$，然后按照$gcd$分类"></a>套路1.设出$gcd$，然后按照$gcd$分类</h2><p>$$<br>\sum_{k=1}^{n}\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{k}[gcd(i,j)=k]<br>$$</p>
-<h4 id="方法1-凑出-gcd-i-j-1-然后使用-mu-函数的性质换元"><a href="#方法1-凑出-gcd-i-j-1-然后使用-mu-函数的性质换元" class="headerlink" title="方法1.凑出$[gcd(i,j)=1]$然后使用$\mu$函数的性质换元"></a>方法1.凑出$[gcd(i,j)=1]$然后使用$\mu$函数的性质换元</h4><p>将i,j同时除以k，注意$\frac{i*j}{k}$需要乘回去</p>
-<p>$$<br>\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i*j*k[gcd(i,j)=1]<br>$$</p>
-<p>有<br>$$<br>\sum_{d|n}\mu(d)=[n=1]<br>$$</p>
-<p>所以</p>
-<p>$$<br>[gcd(i,j)=1]=\sum_{d|gcd(i,j)}\mu(d)<br>$$</p>
-<h4 id="方法2-使用莫比乌斯反演基本公式"><a href="#方法2-使用莫比乌斯反演基本公式" class="headerlink" title="方法2.使用莫比乌斯反演基本公式"></a>方法2.使用莫比乌斯反演基本公式</h4><p>设</p>
-<p>$$<br>f(x)=\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{x}[gcd(i,j)=x]<br>$$</p>
-<p>$$<br>\displaystyle F(x)=\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{x}[x|gcd(i,j)]<br>$$</p>
-<p>改写一下$F$</p>
-<p>由于$gcd$是x的倍数，所以n,m都是x的倍数</p>
-<p>同时除以x</p>
-<p>$$<br>F(x)=\sum_{x|d}f(x)=\sum_{i=1}^{\lfloor\frac{n}{x}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{x}\rfloor}i*j*x<br>$$</p>
-<p>套用反演公式</p>
-<p>$$<br>f(x)=\sum_{x|d}F(d)\mu(\frac{d}{x})<br>$$</p>
-<p>得到</p>
-<p>$$<br>f(x)=\sum_{x|d}\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{d}\rfloor}i*j*d*\mu(\frac{d}{x})<br>$$</p>
-<p>代入原式即可</p>
-<p>个人推荐推式子的时候用第一种方法，使用莫比乌斯反演容斥的时候使用第二种方法</p>
-<p>从方法1的最后一步继续</p>
-<p>$$<br>\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i*j*k[gcd(i,j)=1]<br>$$</p>
-<p>$$<br>=\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i*j*k\sum_{d|gcd(i,j)}\mu(d)<br>$$</p>
-<h2 id="套路2-枚举d，并放到前面去"><a href="#套路2-枚举d，并放到前面去" class="headerlink" title="套路2.枚举d，并放到前面去"></a>套路2.枚举d，并放到前面去</h2><p>此时i,j都应该是d的倍数</p>
-<p>同样，注意要乘回去</p>
-<p>$$<br>=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)\sum_{i=1}^{\lfloor\frac{n}{kd}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{kd}\rfloor}i*j*d^2<br>$$</p>
-<p>整理一下</p>
-<p>$$<br>=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)*d^2\sum_{i=1}^{\lfloor\frac{n}{kd}\rfloor}i\sum_{j=1}^{\lfloor\frac{m}{kd}\rfloor}j<br>$$</p>
-<p>为了方便快捷，设<br>$$<br>F(n)=\sum_{i=1}^{n}i<br>$$<br>将原式替换成<br>$$<br>=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)*d^2*F(\lfloor\frac{n}{kd}\rfloor)*F(\lfloor\frac{m}{kd}\rfloor)<br>$$</p>
-<h2 id="套路3-换T大法"><a href="#套路3-换T大法" class="headerlink" title="套路3.换T大法"></a>套路3.换T大法</h2><p>为了提升时间复杂度，我们需要设一个神奇的T</p>
-<p>设<br>$$<br>T=kd<br>$$<br>所以原式等于<br>$$<br>\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)*d^2*F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)<br>$$<br>枚举T，放到最前面<br>$$<br>\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)\sum_{d|T}\mu(d)*\frac{T}{d}*d^2<br>$$</p>
-<p>$$<br>\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)\sum_{d|T}\mu(d)*d<br>$$</p>
-<p>考虑优化最后那一坨的求法</p>
-<p>直接求显然是$n\ log\ n$的</p>
-<h2 id="套路4-设出积性函数"><a href="#套路4-设出积性函数" class="headerlink" title="套路4.设出积性函数"></a>套路4.设出积性函数</h2><p>观察到$\mu$以及$f(x)=x$（它还有个名字叫id）都是积性函数</p>
-<p>两个积性函数的狄利克雷卷积以及直接对应相乘的结果都是积性函数</p>
-<p>也就是说，这个东西是可以线性筛的</p>
-<p>设<br>$$<br>g(x)=\sum_{d|x}\mu(d)*d<br>$$<br>对x分类</p>
-<ul>
-<li>x是质数</li>
-</ul>
-<p>此时显然有$g(x)=1-x$</p>
-<ul>
-<li>x被表示成了$i*prime[j]$，其中$prime[j]\bot i$</li>
-</ul>
-<p>此时根据积性函数性质，$g(i<em>prime[j])=g(i)</em>g(prime[j])$，直接乘即可</p>
-<ul>
-<li>x被表示成了$i*prime[j]$，其中$prime[j]|i$</li>
-</ul>
-<p>考虑乘之后多出来的因数</p>
-<p>由于多出来的因数<code>prime[j]</code>这个质数的次数至少是2，而根据$\mu$的定义此时$\mu$为0，对g没有贡献，直接忽略即可</p>
-<p>所以此时$g(i*prime[j]$</p>
-<h2 id="套路5-数论分块"><a href="#套路5-数论分块" class="headerlink" title="套路5.数论分块"></a>套路5.数论分块</h2><p>预处理完了g，我们再来说说最后答案怎么求</p>
-<p>答案等于<br>$$<br>\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)*g(T)<br>$$<br>考虑从$\lfloor\frac{n}{T}\rfloor$,$\lfloor\frac{m}{T}\rfloor$ 开始优化</p>
-<p>可以发现对于某一段的T，上面的两个式子的值都是不变的</p>
-<p>这种不变的值的段数一共有$\sqrt n​$段</p>
-<p>考虑一段一段地枚举，而不是一个一个的枚举</p>
-<p>此时变化的就只有$g(T)$</p>
-<p>对$g(T)$求一下前缀和，算的时候直接求区间的和就好了</p>
-<p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">const</span> LL mod=<span class="number">20101009</span>;</span><br><span class="line"><span class="keyword">int</span> flag[<span class="number">10000010</span>],prime[<span class="number">10000010</span>],cnt,f[<span class="number">10000010</span>],sum[<span class="number">10000010</span>];</span><br><span class="line"><span class="comment">// sum是前缀和，f就是g</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    f[<span class="number">1</span>]=sum[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=<span class="number">10000000</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) prime[++cnt]=i,f[i]=(<span class="number">1</span>-i+mod)%mod;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=cnt&amp;&amp;i*prime[j]&lt;=<span class="number">10000000</span>;j++) &#123;</span><br><span class="line">            flag[i*prime[j]]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (i%prime[j]==<span class="number">0</span>) &#123;</span><br><span class="line">                f[i*prime[j]]=f[i]%mod;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            f[i*prime[j]]=(LL)f[i]*f[prime[j]]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        sum[i]=(sum[i<span class="number">-1</span>]+(LL)f[i]*i%mod)%mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">zjk</span><span class="params">(LL n,LL m)</span> </span>&#123;</span><br><span class="line">    LL ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (n&gt;m) swap(n,m);</span><br><span class="line">    <span class="keyword">for</span> (LL l=<span class="number">1</span>,r;l&lt;=n;l=r+<span class="number">1</span>) &#123;</span><br><span class="line">        r=min(n/(n/l),m/(m/l));</span><br><span class="line">        <span class="comment">// 分块：[l,r]</span></span><br><span class="line">        ans=(ans+((n/l*(n/l+<span class="number">1</span>)/<span class="number">2</span>)%mod*((m/l*(m/l+<span class="number">1</span>)/<span class="number">2</span>)%mod))%mod*(LL)(sum[r]-sum[l<span class="number">-1</span>]))%mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (ans+mod)%mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    sieve();</span><br><span class="line">    <span class="keyword">int</span> n,m;<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,zjk(n,m));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>%%% ZJK</p>
-<p>下面讨论一下使用莫比乌斯反演来容斥的题</p>
-<p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=5656" target="_blank" rel="noopener">CA Loves GCD</a></p>
-<p>题意：给出n个[1,1000]的数，问所有选法中所选择的数的gcd的和</p>
-<ul>
-<li>$n \leq 1000$</li>
-</ul>
-<p>首先，还是对gcd分类，$f(i)$表示gcd为i的方案数</p>
-<p>发现<code>f</code>好像很不好求，考虑设辅助函数</p>
-<p>设$g(i)$表示gcd<strong>是i的倍数</strong>的方案数</p>
-<p>很显然，在一个gcd为i的集合中，每一个数都是i的倍数</p>
-<p>那么我们假设在这n个数中，i的倍数一共有k个</p>
-<p>每个数可以选或者不选，一共有$2^k$种方案</p>
-<p>减去所有数都不选的情况，就这一种</p>
-<p>之后得到的就是$g(i)$的值</p>
-<p>将<code>g</code>转化成<code>f</code></p>
-<p>显然有<br>$$<br>g(i)=\sum_{i|d}f(i)<br>$$<br>反演得<br>$$<br>f(i)=\sum_{i|d}g(d)\mu(\frac{i}{d})<br>$$<br>对于每一个i，枚举每一个i的倍数转移即可</p>
-<p>对于如何求i的倍数的个数，可以开一个桶。先预处理每个数的约数，当输入一个数a时，就把a的所有约数在桶中加一，最后桶中的第i个位置就是i的倍数的个数</p>
-<p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 1010</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; Div[N];</span><br><span class="line"><span class="keyword">int</span> flag[N], prime[N], ncnt, mu[N], Pow[N];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e8</span> + <span class="number">7</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Pow[<span class="number">0</span>] = <span class="number">1</span>, Pow[<span class="number">1</span>] = <span class="number">2</span>, mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) &#123;</span><br><span class="line">        Pow[i] = Pow[i - <span class="number">1</span>] * <span class="number">2</span> % mod;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) mu[i] = <span class="number">-1</span>, prime[++ncnt] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= N - <span class="number">10</span>;j++) &#123;</span><br><span class="line">            flag[i * prime[j]] = <span class="number">1</span>; <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            mu[i * prime[j]] = -mu[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i;j &lt;= N - <span class="number">10</span>;j += i) Div[j].push_back(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= N - <span class="number">10</span>;i++) Div[i].push_back(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> buk[N], ans[N], tmp[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T), sieve();</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), <span class="built_in">memset</span>(buk, <span class="number">0</span>, <span class="keyword">sizeof</span>(buk)), <span class="built_in">memset</span>(tmp, <span class="number">0</span>, <span class="keyword">sizeof</span>(tmp));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a;i &lt;= n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a), tmp[a]++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++)</span><br><span class="line">            <span class="keyword">if</span> (tmp[i]) <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; Div[i].size();j++) </span><br><span class="line">                buk[Div[i][j]] += tmp[i];</span><br><span class="line">        <span class="built_in">memset</span>(ans, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++) </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i;j &lt;= <span class="number">1000</span>;j += i) </span><br><span class="line">                ans[i] = (ans[i] + (Pow[buk[j]] - <span class="number">1</span>) * mu[j / i] + mod) % mod;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++) </span><br><span class="line">            res = (res + (LL)i * ans[i] % mod) % mod;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, res);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>分奇偶考虑</p>
+<p>先考虑奇数</p>
+<p>一条对称轴必定穿过一个顶点，也就是说，一个顶点对应一条对称轴</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-10.png?w=700" alt="img"></p>
+<p>如果要满足变换之后不变，显然2、5号点必须相等，3、4号点必须相等，1号点随意</p>
+<blockquote>
+<p>如果有n个点，m种颜色，且n为奇数，那么这种置换一共有n个，每种置换有$m^{\frac{n+1}{2}}$种方案</p>
+</blockquote>
+<p>考虑偶数的情况</p>
+<p>稍微麻烦一点</p>
+<p>1.对称轴穿过一条边的中点，不穿过点</p>
+<p>显然，此时有$m^{\frac{n}{2}}$种方案，共$\frac{n}{2}$种置换</p>
+<p>2.对称轴穿过两个点</p>
+<p>其它点两两配对，这两个点随便染色</p>
+<p>共$m^{\frac{n-2}{2}+2}$种方案，共$\frac{n}{2}$种置换</p>
+<p>最后除以置换总数2n即可</p>
+<h1 id="B-–-Let-it-Bead"><a href="#B-–-Let-it-Bead" class="headerlink" title="B – Let it Bead"></a>B – Let it Bead</h1><p>和A题相同，将颜色数从3改为m即可</p>
+<h1 id="C-–-Color"><a href="#C-–-Color" class="headerlink" title="C – Color"></a>C – Color</h1><p>N颗珠子，N种颜色，而且$N\leq 10^9$</p>
+<p>显然枚举旋转方案i不行</p>
+<p>考虑枚举gcd</p>
+<p>假设gcd=x，那么实际上就是要计算有多少个i满足$i\leq n$且$gcd(i,n)=x$</p>
+<p>首先，x必须是n的因数，而且是i的因数</p>
+<p>假设$n=x*a,i=x*b$，那么a与b互质</p>
+<p>所以，i的个数为$\varphi(\frac{n}{x})$</p>
+<p>x只有$\sqrt n$种取值</p>
+<p>筛一下2e5之内的质数即可</p>
+<h1 id="D-–-Magic-Bracelet"><a href="#D-–-Magic-Bracelet" class="headerlink" title="D – Magic Bracelet"></a>D – Magic Bracelet</h1><p>n颗珠子，m种颜色，k种限制，每种限制形如“颜色a与颜色b不能放在一起”</p>
+<p>先不管限制</p>
+<p>考虑旋转i步之后的状态</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-12.png?w=700" alt="img"></p>
+<p>假设虚线中是一个循环节，显然，1号点和5号点的颜色应当相同，而与2、3、4、5号点的颜色无关</p>
+<p>如果要求满足限制，那么在上图中的含义等价为“放5颗珠子，第1颗珠子与第5颗珠子颜色相同并且满足限制的方案数”</p>
+<p>循环节长度为i，那么珠子数就为i+1</p>
+<p>将这个过程想象成一张图</p>
+<p>如果a与b不能相邻，那么点a到点b之间没有边，否则有一条双向边</p>
+<p>最开始的图是一张完全图，每个条件会删去一条双向边</p>
+<p>答案就等于<strong>在这张图上走i+1步，且起点与终点相同的方案数</strong></p>
+<p>这张图的邻接矩阵是一个01矩阵，那么走i+1步就是取这个矩阵的i次方</p>
+<p>答案为对角线上的数之和</p>
+<p>由于又是$n\leq 10^9$，所以需要矩阵乘法</p>
+<p>剩下的和上一道题一样，先筛质数然后求$\varphi$即可</p>
+<h1 id="E-–-Who’s-Aunt-Zhang"><a href="#E-–-Who’s-Aunt-Zhang" class="headerlink" title="E – Who’s Aunt Zhang"></a>E – Who’s Aunt Zhang</h1><p>一个三阶魔方，给每个面、每个角、每条棱上色，共n中颜色，将魔方整体旋转之后相同的视为等价情况，问方案数</p>
+<p>首先面数+棱数+角数=54+12+8=74</p>
+<p>有4类置换</p>
+<h4 id="1-不动"><a href="#1-不动" class="headerlink" title="1.不动"></a>1.不动</h4><p>方案数$n^{74}$</p>
+<p>有1种置换</p>
+<h4 id="2-以某个面的中心为轴旋转"><a href="#2-以某个面的中心为轴旋转" class="headerlink" title="2.以某个面的中心为轴旋转"></a>2.以某个面的中心为轴旋转</h4><p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-13.png?w=700" alt="img"></p>
+<p>有3种方案：转90度、转180度、转270度</p>
+<p>注意到第一种方案和第三种方案要求轴所在的那一面的四条棱都相等，而第二种方案仅要求两条棱相等</p>
+<p>对于第一种和第三种方案，答案为$n^{20}$</p>
+<p>正对着的两个面共有$3*2$)种方案</p>
+<p>中心有1种，棱上的面有1种，角上的面有1种，这样的面有2个，所以有6种</p>
+<p>剩下的四个面染色方案必须一样，但每个面中的颜色独立，共9种</p>
+<p>正对着的两个面每个面上的棱只有1种方案，共2种</p>
+<p>剩下的四条棱有1种</p>
+<p>角分为两组，坐标一组，右边一组，每组颜色必须相同，共2种</p>
+<p>所以共$6+9+3+2=20$种方案</p>
+<p>置换个数为$2*3=6$种（以某两个面为轴，转90度或270度）</p>
+<p>对于第二种方案，答案为$n^{38}​$</p>
+<p>正对着的两个面上，将面两两分组，每组颜色必须相同</p>
+<p>共$(2+2+1)*2=10​$种（角上的面两种，棱上的面两种，中心一种，共两个这样的面）</p>
+<p>其余的四个面两两配对，每个面上颜色独立，共$9*2=18$种</p>
+<p>将棱两两配对，每对的颜色必须相同，共6种</p>
+<p>将角两两配对，每对的颜色必须相同，共4种</p>
+<p>总方案数为$10+18+6+4=32$种</p>
+<p>置换有3种（将面两两配对，每一对只有1种置换）</p>
+<h4 id="以相对的两个角为中心旋转"><a href="#以相对的两个角为中心旋转" class="headerlink" title="以相对的两个角为中心旋转"></a>以相对的两个角为中心旋转</h4><p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-15.png?w=700" alt="img"></p>
+<p>在这种情况下，旋转120度和旋转240度是等价的</p>
+<p>都有$n^{26}$种方案</p>
+<p>对着的两个角特殊考虑，其余的角、边、棱三个为一组，每组颜色互不影响，共$2+\frac{74-2}{3}=26$种</p>
+<p>共$2*4=8​$种置换</p>
+<h4 id="以相对的两条棱的中心为轴旋转"><a href="#以相对的两条棱的中心为轴旋转" class="headerlink" title="以相对的两条棱的中心为轴旋转"></a>以相对的两条棱的中心为轴旋转</h4><p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-16.png?w=700" alt="img"></p>
+<p>选中的两条棱特殊考虑，其余元素两两配对</p>
+<p>共$2+\frac{74-2}{2}=38$种方案</p>
+<p>有$\frac{12}{2}=6$种置换</p>
+<hr>
+<p>所以总置换数为24，最后除以24即可</p>
+<h1 id="F-–-Toy"><a href="#F-–-Toy" class="headerlink" title="F – Toy"></a>F – Toy</h1><p>前置题目<a href="https://www.luogu.org/problemnew/show/P2144" target="_blank" rel="noopener">轮状病毒</a></p>
+<p>首先不考虑等价的情况</p>
+<p>有两种方法</p>
+<ol>
+<li>矩阵树定理+打表(oeis)</li>
+</ol>
+<p>矩阵是度数矩阵-邻接矩阵，再随便去掉某一行和某一列</p>
+<p>然后打表</p>
+<ol start="2">
+<li>递推</li>
+</ol>
+<p>先不考虑连成环的情况</p>
+<p>设$f(n)$表示除了中心点，还有n个点的生成树个数</p>
+<p>那么有</p>
+<p>$$<br>f(n)=\sum_{i=1}^{n}f(n-i)*i<br>$$</p>
+<p>含义是，假设这次选取的连通块有i个节点，剩下的点共有$f(n-i)$种方案，这个连通块可以选择任意一个点连向中心点，共i种方案</p>
+<p>化简这个式子</p>
+<p>$$<br>f(n)=\sum_{i=0}^{n-1}f(i)*(n-i)<br>$$</p>
+<p>$$<br>f(n-1)=\sum_{i=0}^{n-2}f(i)*(n-i-1)<br>$$</p>
+<p>$$<br>f(n)=f(n-1)+\sum_{i=0}^{n-1}f(i)<br>$$</p>
+<p>$$<br>f(n-1)=f(n-2)+\sum_{i=0}^{n-2}f(i)<br>$$</p>
+<p>$$<br>f(n)-f(n-1)=f(n-1)-f(n-2)+f(n-1)<br>$$</p>
+<p>$$<br>f(n)=3f(n-1)-f(n-2)<br>$$</p>
+<p>注意这个式子仅当$n\geq 3$时成立</p>
+<p>考虑连成环的情况</p>
+<p>就是1号点和n号点连了起来</p>
+<p>假设这个连通块有i个点</p>
+<p>那么有i-1种连通块可以选择（包含1-n这条边的连通块数），随便选一个点连向中心点</p>
+<p>设方案数为$g(n)$</p>
+<p>那么</p>
+<p>$$<br>g(n)=\sum_{i=2}^{n}i*(i-1)*f(n-i)<br>$$</p>
+<p>$$<br>=\sum_{i=1}^{n}i*(i-1)*f(n-i)<br>$$</p>
+<p>总方案数</p>
+<p>$$<br>F(n)=f(n)+g(n)<br>$$</p>
+<p>$$<br>=\sum_{i=1}^{n}f(n-i)*i^2<br>$$</p>
+<p>我们有$f(0)=1,f(1)=1,f(2)=3$</p>
+<p>$$<br>\because \sum_{i=n-2}^nf(n-i)*i^2=3*(n-2)^2+(n-1)^2+n^2<br>$$</p>
+<p>$$<br>=3*(n-1)^2+2*(n-2)^2+2<br>$$</p>
+<p>$$<br>\therefore F(n)=\sum_{i=1}^{n-3}f(n-i)*i^2+3*(n-1)^2+2*(n-2)^2+2<br>$$</p>
+<p>$$<br>\because n-i\geq 3<br>$$</p>
+<p>$$<br>\therefore F(n)=\sum_{i=1}^{n-3}[3*f(n-i-1)-f(n-i-2)]*i^2+3*(n-1)^2*f(0)+(n-2)^2*[3*f(1)-f(0)]+2<br>$$</p>
+<p>$$<br>=\sum_{i=1}^{n-2}[3*f(n-i-1)-f(n-i-2)]*i^2+3*(n-1)^2*f(0)+2<br>$$</p>
+<p>$$<br>=3*\sum_{i=1}^{n-1}f(n-i-1)*i^2-\sum_{i=1}^{n-2}f(n-i-2)+2<br>$$</p>
+<p>$$<br>=3*F(n-1)-F(n-2)+2<br>$$</p>
+<p>写成矩阵的形式就是</p>
+<p>$$<br>\begin{bmatrix}3&amp;-1&amp;2\\1&amp;0&amp;0\\0&amp;0&amp;1\end{bmatrix}^{n-2}*\begin{bmatrix}F(2)\\F(1)\\1\end{bmatrix}<br>$$</p>
+<p>然后再求欧拉函数，枚举gcd即可</p>
+<h1 id="G-–-Birthday-Toy"><a href="#G-–-Birthday-Toy" class="headerlink" title="G – Birthday Toy"></a>G – Birthday Toy</h1><p>考虑n个位置，m种颜色，要求相邻颜色不同，并且首位颜色一样的方案数（$n,m\leq 10^9$）</p>
+<p>先考虑朴素的dp:<code>dp[i][j][k]</code>表示到了第i个位置，这一位颜色为j，最开始的颜色为k的方案数</p>
+<p>转移很好转移</p>
+<p>考虑优化：我们并不关心当前位置的颜色是什么，我们只关心它与首位颜色相不相同，所以可以简化状态</p>
+<p><code>dp[i][0/1]</code>表示到了第i位，与当前首位颜色相同/不相同的方案数</p>
+<p>那么有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp[i][0]=dp[i-1][1]</span><br><span class="line">dp[i][1]=dp[i-1][0]*(m-1)+dp[i-2][1]*(m-2)</span><br></pre></td></tr></table></figure>
+<p>矩阵乘法加速即可</p>
+<h1 id="I-–-Leonardo’s-Notebook"><a href="#I-–-Leonardo’s-Notebook" class="headerlink" title="I – Leonardo’s Notebook"></a>I – Leonardo’s Notebook</h1><p>结论：</p>
+<blockquote>
+<p>两个长度为n的相同循环相乘，当n为奇数是结果是一个长为n的循环，否则是两个长度为$\frac{n}{2}$的循环的乘积</p>
+</blockquote>
+<p>所以长度为奇数的循环一定可以被拆成两个相同循环的乘积，长度为偶数的循环需要两两配对，如果能配对上就可以</p>
+<h1 id="K-–-Find-the-Permutations"><a href="#K-–-Find-the-Permutations" class="headerlink" title="K – Find the Permutations"></a>K – Find the Permutations</h1><p>下标与序列构成了一个置换</p>
+<p>将置换分解，注意到每个循环所需要的交换次数是循环长度-1</p>
+<p>加起来就是n-循环节个数</p>
+<p>所以dp，<code>dp[i][j]</code>表示到第i个位置，一共有j个循环的方案数</p>
+<p>i这个数可以新开一个循环，也可以插入到前面任意一个数的后面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j]=dp[i-1][j-1]+dp[i-1][j]*(i-1)</span><br></pre></td></tr></table></figure>
+<h1 id="L-–-Necklace"><a href="#L-–-Necklace" class="headerlink" title="L – Necklace"></a>L – Necklace</h1><p>每种颜色的珠子有限制个数</p>
+<p>还是枚举gcd，但是要求$\frac{n}{gcd}$必须是每种珠子个数的因数</p>
+<p>然后可重排列</p>
+<p>翻转有点毒瘤，考虑两种情况：n为奇数或是偶数</p>
+<p>奇数比较简单，偶数又要分两种情况</p>
+<p>注意细节，还是比较模板的</p>
+<h1 id="M-–-Cubes"><a href="#M-–-Cubes" class="headerlink" title="M – Cubes"></a>M – Cubes</h1><p>L + E</p>
 
       
     </div>
@@ -651,9 +677,13 @@
       
         <div class="post-tags">
           
+            <a href="/tags/置换/" rel="tag"># 置换</a>
+          
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+          
             <a href="/tags/数学/" rel="tag"># 数学</a>
           
-            <a href="/tags/莫比乌斯反演/" rel="tag"># 莫比乌斯反演</a>
+            <a href="/tags/矩阵乘法/" rel="tag"># 矩阵乘法</a>
           
         </div>
       
@@ -686,8 +716,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/07/后缀数组/" rel="next" title="后缀数组">
-                <i class="fa fa-chevron-left"></i> 后缀数组
+              <a href="/2019/03/08/莫比乌斯反演与杜教筛专题/" rel="next" title="莫比乌斯反演与杜教筛专题">
+                <i class="fa fa-chevron-left"></i> 莫比乌斯反演与杜教筛专题
               </a>
             
           </div>
@@ -696,8 +726,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/03/08/杜教筛/" rel="prev" title="杜教筛">
-                杜教筛 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/08/CodeChef-Adi-and-the-Matrix/" rel="prev" title="[CodeChef] Adi and the Matrix">
+                [CodeChef] Adi and the Matrix <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -905,7 +935,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一些定义"><span class="nav-number">1.</span> <span class="nav-text">一些定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些性质"><span class="nav-number">2.</span> <span class="nav-text">一些性质</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#莫比乌斯反演："><span class="nav-number">3.</span> <span class="nav-text">莫比乌斯反演：</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些套路"><span class="nav-number">4.</span> <span class="nav-text">一些套路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#套路1-设出-gcd-，然后按照-gcd-分类"><span class="nav-number">4.1.</span> <span class="nav-text">套路1.设出$gcd$，然后按照$gcd$分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方法1-凑出-gcd-i-j-1-然后使用-mu-函数的性质换元"><span class="nav-number">4.1.0.1.</span> <span class="nav-text">方法1.凑出$[gcd(i,j)=1]$然后使用$\mu$函数的性质换元</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法2-使用莫比乌斯反演基本公式"><span class="nav-number">4.1.0.2.</span> <span class="nav-text">方法2.使用莫比乌斯反演基本公式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路2-枚举d，并放到前面去"><span class="nav-number">4.2.</span> <span class="nav-text">套路2.枚举d，并放到前面去</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路3-换T大法"><span class="nav-number">4.3.</span> <span class="nav-text">套路3.换T大法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路4-设出积性函数"><span class="nav-number">4.4.</span> <span class="nav-text">套路4.设出积性函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#套路5-数论分块"><span class="nav-number">4.5.</span> <span class="nav-text">套路5.数论分块</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-–-Necklace-of-Beads"><span class="nav-number">1.</span> <span class="nav-text">A – Necklace of Beads</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-–-Let-it-Bead"><span class="nav-number">2.</span> <span class="nav-text">B – Let it Bead</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-–-Color"><span class="nav-number">3.</span> <span class="nav-text">C – Color</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D-–-Magic-Bracelet"><span class="nav-number">4.</span> <span class="nav-text">D – Magic Bracelet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-–-Who’s-Aunt-Zhang"><span class="nav-number">5.</span> <span class="nav-text">E – Who’s Aunt Zhang</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-不动"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">1.不动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-以某个面的中心为轴旋转"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">2.以某个面的中心为轴旋转</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以相对的两个角为中心旋转"><span class="nav-number">5.0.0.3.</span> <span class="nav-text">以相对的两个角为中心旋转</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以相对的两条棱的中心为轴旋转"><span class="nav-number">5.0.0.4.</span> <span class="nav-text">以相对的两条棱的中心为轴旋转</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#F-–-Toy"><span class="nav-number">6.</span> <span class="nav-text">F – Toy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#G-–-Birthday-Toy"><span class="nav-number">7.</span> <span class="nav-text">G – Birthday Toy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I-–-Leonardo’s-Notebook"><span class="nav-number">8.</span> <span class="nav-text">I – Leonardo’s Notebook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-–-Find-the-Permutations"><span class="nav-number">9.</span> <span class="nav-text">K – Find the Permutations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#L-–-Necklace"><span class="nav-number">10.</span> <span class="nav-text">L – Necklace</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#M-–-Cubes"><span class="nav-number">11.</span> <span class="nav-text">M – Cubes</span></a></li></div>
             
 
           </div>
