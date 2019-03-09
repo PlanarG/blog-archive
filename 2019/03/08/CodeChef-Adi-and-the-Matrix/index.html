@@ -127,16 +127,15 @@
 
 
   <meta name="description" content="题目链接  有$N*M\leq 550$ 注意到数据范围，它的含义是说，N和M中较小的那个不会超过23 我们考虑置换，首先假设$N\leq M$ 枚举N的划分方案，注意要从小到大枚举，这个数不会太大 这个划分方案中每一个集合对应着一个循环 如果元素个数是$n$，划分方案为$(a_i,b_i)$，即长度为$a_i$的循环有$b_i$个 那么它对应的置换总数为$$\frac{n!}{\prod a_i">
-<meta name="keywords" content="置换,动态规划">
+<meta name="keywords" content="题解,置换,动态规划">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[CodeChef] Adi and the Matrix">
-<meta property="og:url" content="http://yoursite.com/2019/03/08/CodeChef-Adi-and-the-Matrix/index.html">
+<meta property="og:url" content="https://0x131cc05.github.io/2019/03/08/CodeChef-Adi-and-the-Matrix/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
 <meta property="og:description" content="题目链接  有$N*M\leq 550$ 注意到数据范围，它的含义是说，N和M中较小的那个不会超过23 我们考虑置换，首先假设$N\leq M$ 枚举N的划分方案，注意要从小到大枚举，这个数不会太大 这个划分方案中每一个集合对应着一个循环 如果元素个数是$n$，划分方案为$(a_i,b_i)$，即长度为$a_i$的循环有$b_i$个 那么它对应的置换总数为$$\frac{n!}{\prod a_i">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzOHcF.png">
-<meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzjEMF.png">
-<meta property="og:updated_time" content="2019-03-08T12:17:10.111Z">
+<meta property="og:updated_time" content="2019-03-09T03:39:13.793Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[CodeChef] Adi and the Matrix">
 <meta name="twitter:description" content="题目链接  有$N*M\leq 550$ 注意到数据范围，它的含义是说，N和M中较小的那个不会超过23 我们考虑置换，首先假设$N\leq M$ 枚举N的划分方案，注意要从小到大枚举，这个数不会太大 这个划分方案中每一个集合对应着一个循环 如果元素个数是$n$，划分方案为$(a_i,b_i)$，即长度为$a_i$的循环有$b_i$个 那么它对应的置换总数为$$\frac{n!}{\prod a_i">
@@ -147,7 +146,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/03/08/CodeChef-Adi-and-the-Matrix/">
+  <link rel="canonical" href="https://0x131cc05.github.io/2019/03/08/CodeChef-Adi-and-the-Matrix/">
 
 
 
@@ -393,7 +392,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/CodeChef-Adi-and-the-Matrix/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/08/CodeChef-Adi-and-the-Matrix/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -436,12 +435,24 @@
                 
               
 
-              <time title="创建时间：2019-03-08 19:53:05 / 修改时间：20:17:10" itemprop="dateCreated datePublished" datetime="2019-03-08T19:53:05+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-08 19:53:05" itemprop="dateCreated datePublished" datetime="2019-03-08T19:53:05+08:00">2019-03-08</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-09 11:39:13" itemprop="dateModified" datetime="2019-03-09T11:39:13+08:00">2019-03-09</time>
               
             
           </span>
@@ -449,6 +460,17 @@
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/08/CodeChef-Adi-and-the-Matrix/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/08/CodeChef-Adi-and-the-Matrix/" itemprop="commentCount"></span>
+                </a>
+              </span>
             
           
 
@@ -495,11 +517,11 @@
 <p>我们枚举长度为<code>j</code>的循环个数</p>
 <p>求出之前枚举出来的$N$的划分中每一个$a_i$与<code>j</code>的$gcd$之和</p>
 <p>注意循环对应的置换个数是$\frac{M!}{\prod a_i^{b_i}b_i!}$，这里我们把$M$提出来，在<code>dp</code>的时候顺便转移分母</p>
-<p>部分代码如下</p>
-<p><img src="https://s2.ax1x.com/2019/03/08/kzjEMF.png" alt="1551706167808"></p>
-<p>其中，<code>inv[i]</code>表示i的阶乘的逆元，<code>g[i][j]</code>表示$gcd(i,j)$，<code>two[i]</code>表示$2^i$，<code>frac[i]</code>表示$i!$</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 600</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">int</span> dp[N][N], a[N], top, n, m, frac[N], inv[N], g[N][N], Pow2[N];</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (;y;y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Inc</span><span class="params">(<span class="keyword">int</span> &amp;x, <span class="keyword">int</span> y)</span> </span>&#123;x += y, x -= x &gt;= mod ? mod : <span class="number">0</span>;&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;<span class="keyword">return</span> b ? gcd(b, a % b) : a;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp)), dp[m][m] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m;i &gt;= <span class="number">0</span>;i--)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = m;j &gt;= <span class="number">1</span>;j--)</span><br><span class="line">            <span class="keyword">if</span> (dp[i][j]) &#123;</span><br><span class="line">                <span class="keyword">int</span> val = <span class="number">0</span>, tmp = dp[i][j];</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>;k &lt;= top;k++) </span><br><span class="line">                    val += g[j][a[k]];</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>;j * k &lt;= i;k++) &#123;</span><br><span class="line">                    Inc(dp[i - j * k][j - <span class="number">1</span>], (LL)tmp * inv[k] % mod);</span><br><span class="line">                    tmp = (LL)tmp * inv[j] % mod * frac[j - <span class="number">1</span>] % mod * Pow2[val] % mod;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">    <span class="keyword">return</span> (LL)dp[<span class="number">0</span>][<span class="number">0</span>] * frac[m] % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">calc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// for (int i = 1;i &lt;= top;i++) cout &lt;&lt; a[i] &lt;&lt; ' ';</span></span><br><span class="line">    <span class="comment">// cout &lt;&lt; endl;</span></span><br><span class="line">    <span class="keyword">int</span> res = frac[n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= top;i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt;= top &amp;&amp; a[i] == a[i + <span class="number">1</span>]) i++, cnt++;</span><br><span class="line">        res = (LL)res * Pow(Pow(a[i], cnt), mod - <span class="number">2</span>) % mod * inv[cnt] % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (LL)res * solve() % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> cur, <span class="keyword">int</span> dep)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (!n) &#123;top = dep, Inc(ans, calc()); <span class="keyword">return</span>;&#125;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; cur) <span class="keyword">return</span>;</span><br><span class="line">    dfs(n, cur + <span class="number">1</span>, dep);</span><br><span class="line">    a[++dep] = cur, dfs(n - cur, cur, dep);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    frac[<span class="number">0</span>] = inv[<span class="number">0</span>] = Pow2[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= N - <span class="number">10</span>;i++) frac[i] = (LL)frac[i - <span class="number">1</span>] * i % mod, inv[i] = Pow(frac[i], mod - <span class="number">2</span>), Pow2[i] = Pow2[i - <span class="number">1</span>] * <span class="number">2</span> % mod;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= N - <span class="number">10</span>;i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>;j &lt;= i;j++)</span><br><span class="line">            g[i][j] = g[j][i] = gcd(i, j);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">    <span class="keyword">if</span> (n &gt; m) swap(n, m);</span><br><span class="line">    dfs(n, <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (LL)ans * inv[n] % mod * inv[m] % mod);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，<code>inv[i]</code>表示i的阶乘的逆元，<code>g[i][j]</code>表示$gcd(i,j)$，<code>Pow2[i]</code>表示$2^i$，<code>frac[i]</code>表示$i!$</p>
 <p>那个<code>inv[j] * frac[j - 1]</code>等价于除以<code>j</code></p>
-<p>注意最后需要将答案除以置换总数$n!m!$</p>
+<p>注意最后需要将答案除以置换总数$n!m!​$</p>
 
       
     </div>
@@ -522,6 +544,8 @@
     <footer class="post-footer">
       
         <div class="post-tags">
+          
+            <a href="/tags/题解/" rel="tag"># 题解</a>
           
             <a href="/tags/置换/" rel="tag"># 置换</a>
           
@@ -593,6 +617,13 @@
           
 
   
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
 
 
 
@@ -633,7 +664,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-count">12</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -670,7 +701,23 @@
                     
                       
                     
-                    <span class="site-state-item-count">11</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -908,9 +955,30 @@
 
   
 
-
+  
+    <script id="dsq-count-scr" src="https://https-0x131cc05-github-io.disqus.com/count.js" async></script>
+  
 
   
+    <script>
+      var disqus_config = function () {
+        this.page.url = "https://0x131cc05.github.io/2019/03/08/CodeChef-Adi-and-the-Matrix/";
+        this.page.identifier = "2019/03/08/CodeChef-Adi-and-the-Matrix/";
+        this.page.title = '[CodeChef] Adi and the Matrix';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://https-0x131cc05-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
+  
+
+
 
 
 
