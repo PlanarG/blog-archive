@@ -134,7 +134,7 @@
 <meta property="og:site_name" content="An_Account&#39;s Blog">
 <meta property="og:description" content="假设有一道题：求 $$\sum_{i=1}^{n}\mu(i)$$ 然后$n\leq 10^9$ 线筛大家都知道怎么做 考虑把这个东西转化 设 $$S(n)=\sum_{i=1}^{n}\mu(n)$$ 我们知道 $$\sum_{i|d}\mu(i)=[d=1]$$ 如何利用这个性质呢？考虑用另一个函数来与这个$\mu$卷积 我们使用1来卷，因为没有什么要抵消的 $$\sum_{i|d}\mu(i">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-09T03:39:40.768Z">
+<meta property="og:updated_time" content="2019-04-06T01:28:07.721Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="杜教筛">
 <meta name="twitter:description" content="假设有一道题：求 $$\sum_{i=1}^{n}\mu(i)$$ 然后$n\leq 10^9$ 线筛大家都知道怎么做 考虑把这个东西转化 设 $$S(n)=\sum_{i=1}^{n}\mu(n)$$ 我们知道 $$\sum_{i|d}\mu(i)=[d=1]$$ 如何利用这个性质呢？考虑用另一个函数来与这个$\mu$卷积 我们使用1来卷，因为没有什么要抵消的 $$\sum_{i|d}\mu(i">
@@ -450,7 +450,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-09 11:39:40" itemprop="dateModified" datetime="2019-03-09T11:39:40+08:00">2019-03-09</time>
+                <time title="修改时间：2019-04-06 09:28:07" itemprop="dateModified" datetime="2019-04-06T09:28:07+08:00">2019-04-06</time>
               
             
           </span>
@@ -505,7 +505,7 @@
 <p>$$<br>\sum_{i|d}\mu(i)=[d=1]<br>$$</p>
 <p>如何利用这个性质呢？考虑用另一个函数来与这个$\mu$卷积</p>
 <p>我们使用1来卷，因为<strong>没有什么要抵消的</strong></p>
-<p>$$<br>\sum_{i|d}\mu(i)<em>1 = [d=1]=(\mu</em>1)(d)<br>$$</p>
+<p>$$<br>\sum_{i|d}\mu(i)*1 = [d=1]=(\mu*1)(d)<br>$$</p>
 <p>$$<br>1=\sum_{d=1}^{n}\sum_{i|d}\mu(\frac{d}{i})*1<br>$$</p>
 <p>$$<br>=\sum_{i=1}^{n}\sum_{d=1}^{\lfloor\frac{n}{i}\rfloor}\mu(d)=\sum_{i=1}^{n}S(\lfloor\frac{n}{i}\rfloor)<br>$$</p>
 <p>我们已经将这个东西转化成了$S$，移一下项</p>
@@ -681,7 +681,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">36</span>
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -796,7 +796,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">50</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
