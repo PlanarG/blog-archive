@@ -15,8 +15,8 @@
       <tags>
         <tag>题解</tag>
         <tag>数据结构</tag>
-        <tag>线段树</tag>
         <tag>二进制</tag>
+        <tag>线段树</tag>
       </tags>
   </entry>
   <entry>
@@ -41,9 +41,9 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
+        <tag>二进制</tag>
         <tag>期望</tag>
         <tag>矩阵乘法</tag>
-        <tag>二进制</tag>
       </tags>
   </entry>
   <entry>
@@ -56,8 +56,8 @@
         <tag>总结</tag>
         <tag>数据结构</tag>
         <tag>最短路</tag>
-        <tag>分治</tag>
         <tag>期望</tag>
+        <tag>分治</tag>
         <tag>线段树</tag>
         <tag>贪心</tag>
         <tag>分块</tag>
@@ -337,9 +337,9 @@
     <content type="text"><![CDATA[题目链接 感觉这题没啥好说的。。。就是对数据的分类讨论差评 首先对于所有的危险串建AC自动机，标记危险节点，转移的时候不从危险节点转移 然后预处理to[i][j]，即从自动机的i号节点出发，按照第j个基本串走，最后到达的节点，注意如果中途有危险节点就是-1 对于前60%的数据，直接dp即可，用dp[i][j]表示当前串长度为i，走到自动机的j号节点的方案数 对于后面40%的数据，没法直接dp了。注意到基本串的长度都特别小，直接上矩阵乘法 如果基本串的长度都为1，那么建一个$n*n$的矩阵就好了 否则要同时保存长度为$len-1,len-2$的方案，建一个$(2*n)^2$的矩阵 然后快速幂即可 代码如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091#include &lt;bits/stdc++.h&gt;using namespace std;#define N 110int ncnt, trie[N][26], val[N]; const int mod = 1e9 + 7;inline void insert(char s[], int len) &#123; int now = 0; for (int i = 1, c = s[i] - 'a';i &lt;= len;i++, c = s[i] - 'a') if (trie[now][c]) now = trie[now][c]; else now = trie[now][c] = ++ncnt; val[now] = 1;&#125; int fail[N]; queue&lt;int&gt; q; inline void BFS() &#123; for (int i = 0, now;i &lt; 26;i++) if (now = trie[0][i]) q.push(now); while (!q.empty()) &#123; int now = q.front(); q.pop(); for (int i = 0, f, son;i &lt; 26;i++) if (trie[now][i]) &#123; f = fail[now]; while (f &amp;&amp; !trie[f][i]) f = fail[f]; son = trie[now][i], fail[son] = trie[f][i], val[son] |= val[fail[son]], q.push(son); &#125; &#125; &#125;inline int query(int now, char s[], int len) &#123; for (int i = 1, c;i &lt;= len;i++) &#123; c = s[i] - 'a'; while (now &amp;&amp; !trie[now][c]) now = fail[now]; now = trie[now][c]; if (val[now]) return -1; &#125; return now;&#125;char basic[51][N], s[51][N]; int len[N], to[N][N], dp[N][N];#define LL long longstruct Matrix &#123; int a[2 * N][2 * N], n; Matrix(int _n = 0) : n(_n) &#123;memset(a, 0, sizeof(a));&#125; Matrix operator * (Matrix b) &#123; Matrix c(n); for (int i = 0;i &lt;= n;i++) for (int j = 0;j &lt;= n;j++) for (int k = 0;k &lt;= n;k++) c.a[i][j] = (c.a[i][j] + (LL)a[i][k] * b.a[k][j]) % mod; return c; &#125;&#125;;inline Matrix Pow(Matrix x, int y) &#123; Matrix res(x.n); for (int i = 0;i &lt;= res.n;i++) res.a[i][i] = 1; for (;y;y &gt;&gt;= 1, x = x * x) if (y &amp; 1) res = res * x; return res;&#125;inline int solve1(int n, int l) &#123; Matrix res(ncnt); for (int i = 0;i &lt;= ncnt;i++) if (!val[i]) for (int j = 1;j &lt;= n;j++) if (~to[i][j]) res.a[to[i][j]][i]++; res = Pow(res, l); int ans = 0; for (int i = 0;i &lt;= ncnt;i++) ans = (ans + res.a[i][0]) % mod; return ans;&#125;inline int solve2(int n, int l) &#123; Matrix res(2 * ncnt + 1); for (int i = ncnt + 1;i &lt;= 2 * ncnt + 1;i++) res.a[i][i - ncnt - 1] = 1; for (int i = 0;i &lt;= ncnt;i++) if (!val[i]) for (int j = 1;j &lt;= n;j++) if (~to[i][j]) res.a[to[i][j]][i + (len[j] == 1 ? 0 : ncnt + 1)]++; res = Pow(res, l); int ans = 0; for (int i = 0;i &lt;= ncnt;i++) ans = (ans + res.a[i][0]) % mod; return ans;&#125;int main() &#123; int n, m, l, mx = 0; scanf("%d%d%d", &amp;n, &amp;m, &amp;l); for (int i = 1;i &lt;= n;i++) scanf("%s", basic[i] + 1), len[i] = strlen(basic[i] + 1), mx = max(mx, len[i]); for (int i = 1;i &lt;= m;i++) scanf("%s", s[i] + 1), insert(s[i], strlen(s[i] + 1)); BFS(); for (int i = 0;i &lt;= ncnt;i++) for (int j = 1;j &lt;= n;j++) to[i][j] = val[i] ? -1 : query(i, basic[j], len[j]); if (l &lt;= 100) &#123; dp[0][0] = 1; for (int i = 0;i &lt;= l;i++) for (int j = 0;j &lt;= ncnt;j++) if (!val[j] &amp;&amp; dp[i][j]) for (int k = 1;k &lt;= n;k++) if (~to[j][k] &amp;&amp; i + len[k] &lt;= l) (dp[i + len[k]][to[j][k]] += dp[i][j]) %= mod; int ans = 0; for (int i = 0;i &lt;= ncnt;i++) (ans += dp[l][i]) %= mod; printf("%d\n", ans); &#125; else printf("%d\n", mx == 1 ? solve1(n, l) : solve2(n, l)); return 0; &#125;]]></content>
       <tags>
         <tag>题解</tag>
+        <tag>矩阵乘法</tag>
         <tag>AC自动机</tag>
         <tag>字符串</tag>
-        <tag>矩阵乘法</tag>
       </tags>
   </entry>
   <entry>
