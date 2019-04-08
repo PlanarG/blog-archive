@@ -134,7 +134,7 @@
 <meta property="og:site_name" content="An_Account&#39;s Blog">
 <meta property="og:description" content="题目链接 神仙题啊 首先来模拟一下样例 Alice知道乘积是60，Bob知道和是16，且两个数均不小于5 Bob：此时两个数有可能为 $(5, 11), (6, 10), (7, 9), (8, 8)$ 而Bob在第一轮没有猜出来，也就是说，这两个数的和不是10或11 Alice：此时两个数有可能为 $(5, 12), (6, 10)$ 由于Alice也没有猜出来，所以对于Bob来说，以下情况就被">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-07T03:56:33.841Z">
+<meta property="og:updated_time" content="2019-04-07T07:08:24.487Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BJOI2018 双人猜数游戏">
 <meta name="twitter:description" content="题目链接 神仙题啊 首先来模拟一下样例 Alice知道乘积是60，Bob知道和是16，且两个数均不小于5 Bob：此时两个数有可能为 $(5, 11), (6, 10), (7, 9), (8, 8)$ 而Bob在第一轮没有猜出来，也就是说，这两个数的和不是10或11 Alice：此时两个数有可能为 $(5, 12), (6, 10)$ 由于Alice也没有猜出来，所以对于Bob来说，以下情况就被">
@@ -259,23 +259,6 @@
     
 
     <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
-
-  </li>
-        
-        
-        
-          
-          <li class="menu-item menu-item-about">
-
-    
-    
-    
-      
-    
-
-    
-
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
 
   </li>
         
@@ -433,7 +416,7 @@
                 
               
 
-              <time title="创建时间：2019-04-07 11:53:41 / 修改时间：11:56:33" itemprop="dateCreated datePublished" datetime="2019-04-07T11:53:41+08:00">2019-04-07</time>
+              <time title="创建时间：2019-04-07 11:53:41 / 修改时间：15:08:24" itemprop="dateCreated datePublished" datetime="2019-04-07T11:53:41+08:00">2019-04-07</time>
             
 
             
@@ -507,7 +490,7 @@
 <p>$n,m$的最大值不会超过500，直接枚举</p>
 <p>直接交程序，数组只开500的话是秒跑</p>
 <p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`<span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;``using` `namespace` `std;``#define N 500``int` `dp[N + 10][N + 10][16], m;``inline` `bool` `check1(``int` `a, ``int` `b, ``int` `c) &#123;``    ``int` `cnt = 0, tmpa, tmpb;``    ``for` `(``int` `i = m, j;i &lt;= a + b - i &amp;&amp; cnt &lt; 2;i++) ``        ``if` `(!dp[i][j = a + b - i][c - 1] || c == 1) ``            ``cnt++, tmpa = i, tmpb = j;``    ``return` `cnt == 1 &amp;&amp; a == tmpa &amp;&amp; b == tmpb;``&#125;``inline` `bool` `check2(``int` `a, ``int` `b, ``int` `c) &#123;``    ``int` `cnt = 0, tmpa, tmpb;``    ``for` `(``int` `i = m, j;i * i &lt;= a * b &amp;&amp; cnt &lt; 2;i++)``        ``if` `(a * b % i == 0 &amp;&amp; (!dp[i][j = a * b / i][c - 1] || c == 1))``            ``cnt++, tmpa = i, tmpb = j;``    ``return` `cnt == 1 &amp;&amp; a == tmpa &amp;&amp; b == tmpb;``&#125;``inline` `bool` `check3(``int` `a, ``int` `b, ``int` `c) &#123;``    ``int` `cnt = 0, tmpa, tmpb;``    ``for` `(``int` `i = m, j;i &lt;= a + b - i &amp;&amp; cnt &lt; 2;i++) ``        ``if` `(dp[i][j = a + b - i][c] &amp;&amp; !dp[i][j][c - 2]) ``            ``cnt++, tmpa = i, tmpb = j;``    ``return` `cnt == 1 &amp;&amp; a == tmpa &amp;&amp; b == tmpb;``&#125;``inline` `bool` `check4(``int` `a, ``int` `b, ``int` `c) &#123;``    ``int` `cnt = 0, tmpa, tmpb;``    ``for` `(``int` `i = m, j;i * i &lt;= a * b &amp;&amp; cnt &lt; 2;i++)``        ``if` `(a * b % i == 0 &amp;&amp; dp[i][j = a * b / i][c] &amp;&amp; !dp[i][j][c - 2])``            ``cnt++, tmpa = i, tmpb = j;``    ``return` `cnt == 1 &amp;&amp; a == tmpa &amp;&amp; b == tmpb;``&#125;``char` `name[8];``int` `main() &#123;``    ``int` `t, flag; ``scanf``(``"%d%s%d"``, &amp;m, name + 1, &amp;t), flag = name[1] == ``'B'``;``    ``for` `(``int` `i = 1;i &lt;= t + 1;i++)``        ``for` `(``int` `a = m;a &lt;= N / 2;a++)``            ``for` `(``int` `b = a;b &lt;= N;b++)``                ``dp[a][b][i] = dp[a][b][i - 2] | (((i &amp; 1) ^ flag ^ 1) ? check1(a, b, i) : check2(a, b, i));``    ``for` `(``int` `s = m * 2;s;s++)``        ``for` `(``int` `a = m, b = s - a;a * 2 &lt;= s;a++, b = s - a)``            ``if` `(dp[a][b][t + 1] &amp;&amp; !(dp[a][b][t - 1] | dp[a][b][t])) &#123;``                ``int` `tmp = t &amp; 1 ^ flag;``                ``if` `(!(tmp ? check4(a, b, t + 1) : check3(a, b, t + 1))) ``continue``;``                ``cout &lt;&lt; a &lt;&lt; ``' '` `&lt;&lt; b &lt;&lt; endl;``                ``return` `0;``            ``&#125;``&#125;`</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 500</span></span><br><span class="line"><span class="keyword">int</span> dp[N + <span class="number">10</span>][N + <span class="number">10</span>][<span class="number">16</span>], m;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">check1</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>, tmpa, tmpb;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m, j;i &lt;= a + b - i &amp;&amp; cnt &lt; <span class="number">2</span>;i++) </span><br><span class="line">        <span class="keyword">if</span> (!dp[i][j = a + b - i][c - <span class="number">1</span>] || c == <span class="number">1</span>) </span><br><span class="line">            cnt++, tmpa = i, tmpb = j;</span><br><span class="line">    <span class="keyword">return</span> cnt == <span class="number">1</span> &amp;&amp; a == tmpa &amp;&amp; b == tmpb;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">check2</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>, tmpa, tmpb;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m, j;i * i &lt;= a * b &amp;&amp; cnt &lt; <span class="number">2</span>;i++)</span><br><span class="line">        <span class="keyword">if</span> (a * b % i == <span class="number">0</span> &amp;&amp; (!dp[i][j = a * b / i][c - <span class="number">1</span>] || c == <span class="number">1</span>))</span><br><span class="line">            cnt++, tmpa = i, tmpb = j;</span><br><span class="line">    <span class="keyword">return</span> cnt == <span class="number">1</span> &amp;&amp; a == tmpa &amp;&amp; b == tmpb;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">check3</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>, tmpa, tmpb;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m, j;i &lt;= a + b - i &amp;&amp; cnt &lt; <span class="number">2</span>;i++) </span><br><span class="line">        <span class="keyword">if</span> (dp[i][j = a + b - i][c] &amp;&amp; !dp[i][j][c - <span class="number">2</span>]) </span><br><span class="line">            cnt++, tmpa = i, tmpb = j;</span><br><span class="line">    <span class="keyword">return</span> cnt == <span class="number">1</span> &amp;&amp; a == tmpa &amp;&amp; b == tmpb;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">check4</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cnt = <span class="number">0</span>, tmpa, tmpb;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m, j;i * i &lt;= a * b &amp;&amp; cnt &lt; <span class="number">2</span>;i++)</span><br><span class="line">        <span class="keyword">if</span> (a * b % i == <span class="number">0</span> &amp;&amp; dp[i][j = a * b / i][c] &amp;&amp; !dp[i][j][c - <span class="number">2</span>])</span><br><span class="line">            cnt++, tmpa = i, tmpb = j;</span><br><span class="line">    <span class="keyword">return</span> cnt == <span class="number">1</span> &amp;&amp; a == tmpa &amp;&amp; b == tmpb;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">char</span> name[<span class="number">8</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> t, flag; <span class="built_in">scanf</span>(<span class="string">"%d%s%d"</span>, &amp;m, name + <span class="number">1</span>, &amp;t), flag = name[<span class="number">1</span>] == <span class="string">'B'</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= t + <span class="number">1</span>;i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> a = m;a &lt;= N / <span class="number">2</span>;a++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> b = a;b &lt;= N;b++)</span><br><span class="line">                dp[a][b][i] = dp[a][b][i - <span class="number">2</span>] | (((i &amp; <span class="number">1</span>) ^ flag ^ <span class="number">1</span>) ? check1(a, b, i) : check2(a, b, i));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> s = m * <span class="number">2</span>;s;s++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> a = m, b = s - a;a * <span class="number">2</span> &lt;= s;a++, b = s - a)</span><br><span class="line">            <span class="keyword">if</span> (dp[a][b][t + <span class="number">1</span>] &amp;&amp; !(dp[a][b][t - <span class="number">1</span>] | dp[a][b][t])) &#123;</span><br><span class="line">                <span class="keyword">int</span> tmp = t &amp; <span class="number">1</span> ^ flag;</span><br><span class="line">                <span class="keyword">if</span> (!(tmp ? check4(a, b, t + <span class="number">1</span>) : check3(a, b, t + <span class="number">1</span>))) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; a &lt;&lt; <span class="string">' '</span> &lt;&lt; b &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -764,7 +747,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">54</span>
+                      
+                    
+                    <span class="site-state-item-count">55</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1462,6 +1447,83 @@
   
 
   
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+          if (result) $(this).text('复制成功');
+          else $(this).text('复制失败');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function () {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
 
   
 
