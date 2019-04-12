@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[二次剩余]]></title>
+    <url>%2F2019%2F04%2F09%2F%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99%2F</url>
+    <content type="text"><![CDATA[若方程$x^2\equiv a\pmod p$有解，那么称$a$为$p$的二次剩余，否则$a$为$p$的非二次剩余 勒让德符号及欧拉判别法定义勒让德符号为$$\left(\frac{a}{p}\right)=\begin{cases}1&amp;a为p的二次剩余\\ -1&amp;a为p的非二次剩余\\ 0 &amp;a能被p整除\end{cases}$$ 欧拉判别法就是：如果$a$不能被$p$整除，那么有$$\left(\frac{a}{p}\right)=a^{\frac{p-1}{2}}$$ 定理1 对于方程$x^2\equiv a\pmod p$ ，共有$\frac{p-1}{2}$个不同的$a$使得该方程有解 我们忽略$x=0$，如果枚举$x$再求出$a$，那么$x$一共有$p-1$个不同的值，也就产生了$p-1$个$a$ 我们知道一个二次剩余恰好会产生两个解，那么这$p-1$个$a$就被分配到了$\frac{p-1}{2}$个不同的桶里面 所以共有$\frac{p-1}{2}$个$a$ 定理2 $(x+y)^p\equiv x^p+y^p\pmod p$ 我们将其二项式展开$$(x+y)^p=\sum_{i=0}^p{p\choose i}x^iy^{p-i}$$当$i\not=0$且$i\not=p$时，$p\choose i$一定包含因数$p$，所以可以忽略 只剩下第一项和最后一项 Cipolla算法现在要求出方程$x^2\equiv n\pmod p$的一个解 我们找出一个$a​$，使得$(a^2-n)^{\frac{p-1}{2}}\equiv-1\pmod p​$ 设$\omega=\sqrt{a^2-n}$ 结论：$x=(a+\omega)^{\frac{p+1}{2}}$ 证明如下： 我们知道 $$(a^2-n)^{\frac{p-1}{2}}\equiv-1\pmod p\Rightarrow (\omega^2)^{\frac{p-1}{2}}\equiv -1\pmod p\\\omega^{p-1}\equiv -1\pmod p$$ 那么有$$\begin{aligned}x&amp;\equiv (a+\omega)^{\frac{p+1}{2}}\\x^2&amp;\equiv (a+\omega)^{p+1}\equiv(a+\omega)^p(a+\omega)\\&amp;\equiv(a^p+\omega^p)(a+\omega)\\&amp;\equiv(a-\omega)(a+\omega)\\&amp;\equiv a^2-\omega^2\equiv a^2-a^2+n\equiv n\end{aligned}$$我们可以通过实现一个类似复数的结构体来进行运算 由于$p$的二次剩余一共有$\frac{p-1}{2}$个，而$a$在$[0,p)$中随机选取 那么成功的概率就是$\frac{1}{2}$ 此时答案中$\omega$部分的系数必然为0]]></content>
+      <tags>
+        <tag>数学</tag>
+        <tag>算法</tag>
+        <tag>二次剩余</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[BSGS及其拓展]]></title>
+    <url>%2F2019%2F04%2F09%2FBSGS%E5%8F%8A%E5%85%B6%E6%8B%93%E5%B1%95%2F</url>
+    <content type="text"><![CDATA[BSGS解高次同余方程$$A^x\equiv B\mod C且A\bot B$$根据费马小定理，我们直到$A^{C-1}\equiv B\mod C$ 那么如果这个方程有解，那么解的周期一定不会大于$C$，所以必然存在一个不大于$C$的解 如果$C$比较小，那么我们可以直接枚举$x$然后暴力判断 考虑$C$比较大的情况，这时就需要使用BSGS了 我们设$x=i*m-j$，其中$j&lt;m$，这个$m$是一个常量，我们设为$\sqrt{C}$ 那么有$$A^{i*m-j}\equiv B\mod C\\A^{i*m}\equiv B*A^j\mod C$$我们开一个map，枚举$j$，将$B*A^j$放到这个map里面 然后我们枚举$i*m$，在map中查找是否存在$A^{i*m}​$即可 注意这样枚举是取不到$x=0$的，这种情况我们需要特判 如果$i*m$此时已经大于$C$了，那么就无解 代码如下 12345678910unordered_map&lt;int, int&gt; s;inline int BSGS(int A, int B, int C) &#123; if (B % C == 1) return 0; s.clear(); int m = ceil(sqrt(C)), ls = 1; for (int i = 0;i &lt; m;i++, ls = (LL)ls * A % C) s[(LL)B * ls % C] = i; for (int i = m, t = ls;i &lt;= C;i += m, t = (LL)t * ls % C) if (s.count(t)) return i - s[t]; return -1;&#125; exBSGS同样是解上面那个方程 但是如果$A,C$不互质呢 原方程等价于$$A^x+Cy=B$$我们不停地消去$A,C$的非1因子，可以使得方程变为$$aA^z+C’y=B’$$每消去一次，我们就从$A^x$里面拿一个$A$出来，消完之后乘到系数$a$里面去 注意在消去过程中时，如果存在某个时刻使得$a=B’$，那么直接返回此时的消去次数就可以了 如果在消去过程中，$B’$没有当前要消去的那个因子，那么直接返回$-1$ 我们设消去次数为$k$ 那么此时方程就变成了$$aA^z\equiv B’\mod C’(A\bot C’)$$使用普通的BSGS可以解出$z$，注意此时前面还有一个系数$a$ 最后我们将解出的$z$加上$k$即可，因为最开始拿出了$k$个$A$来消去因数 代码如下 123456789101112131415161718192021int gcd(int a, int b) &#123;return b ? gcd(b, a % b) : a;&#125;unordered_map&lt;int, int&gt; s;inline int BSGS(int A, int B, int C, int basic) &#123; if (B % C == basic) return 0; s.clear(); int m = ceil(sqrt(C)), ls = 1; for (int i = 0;i &lt; m;i++, ls = (LL)ls * A % C) s[(LL)B * ls % C] = i; for (int i = m, t = (LL)ls * basic % C;i &lt;= C;i += m, t = (LL)t * ls % C) if (s.count(t)) return i - s[t]; return -1;&#125;inline int exBSGS(int A, int B, int C) &#123; int a = 1, cnt = 0, d; A %= C, B %= C; while ((d = gcd(A, C)) != 1) &#123; if (B % d) return -1; a = (LL)a * (A / d) % C, C /= d, B /= d, cnt++; if (a == B) return cnt; &#125; int res = BSGS(A, B, C, a); return ~res ? res + cnt : -1;&#125;]]></content>
+      <tags>
+        <tag>数学</tag>
+        <tag>算法</tag>
+        <tag>BSGS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[12省联考2019 字符串问题]]></title>
+    <url>%2F2019%2F04%2F08%2F12%E7%9C%81%E8%81%94%E8%80%832019-%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[题面题意给出一个字符串$S$， 现在要选取它的$n_a$个子串作为$A$类串，选取$n_b$个子串作为$B$类串 其中第$i$个$A$类串为$S(la_i,ra_i)$，第$i$个$B$类串为$S(lb_i,rb_i)$，$la_i,ra_i,lb_i,rb_i,n_a,n_b$均已给出 现额外给定$m$组支配关系，每组关系$(x,y)$表示第$x$个$A$类串支配第$y$个$B$类串 求出一个长度最大的字符串$T$，满足$T$是由$A$类串拼接而成的。我们假设$T$被划分成了$t_1,t_2,\cdots,t_k$（都是$A$类串），要求满足对于任意的$i&lt;k$，$t_i$所支配的串中至少有一个是$t_{i+1}$的前缀 题解对于这种要求所求值最大的问题，不是动态规划就是最长路 那么对于这道题显然就只能是最长路了 如果最后构建出来的图有环，那么$T$就可以无限长 否则我们拓扑排序，然后跑一个dp就可以了 首先我们将$S$串翻转，将所有的$A$串与$B$串都翻转 这样限制条件就可以变为我们熟悉的后缀 我们先考虑一种暴力连边方式 每个$A$串建一个点，每个$B$串建一个点 对于$A_i$，将所有是其后缀的$B$连向$A_i$，权值为$|A_i|$ 对于一组支配$(A_i,B_i)$，$A_i$往$B_i$连一条权值为0的边 但是这样最坏会连$n_a*n_b$条边，需要优化 我们考虑这样一种优化方案 对于任意的$A_i,B_i$，如果$B_i$是$A_i$的后缀，那么$B_i$的后缀也是$A_i$的后缀 我们对于$B$单独建一个子图，这个子图需要满足如果$B_i$是$B_j$的后缀，那么所有能走到$B_i$的路径都可以走到$B_j$ 这样的话$A_i$只需要从它包含的那个最长的$B$串后缀连边就可以了 那么什么图满足这个性质呢？ 很明显是parent树 我们建出parent树，然后从父亲往儿子节点连边 因为父亲对应的点一定是儿子的后缀 对于每个串$A_i,B_i$，找到它在树上的位置，这个可以通过倍增实现 实际上我们不需要对于每个串$A$，都找到那个最长的且是它后缀的$B$ 直接从parent树上$A_i$的对应节点往$A_i$连边就可以了 因为这样同样可以保证最长的且是它后缀的$B$可以走到$A_i$ 兴奋地写完，发现第三个样例过不去($-1$) 事实上是我们少考虑了一种情况 parent树上的某个节点可以表示长度在一段区间的串 如果一条路径是从父亲走向儿子，那么当然没有问题，因为此时它代表的串是这个节点所能代表的最短的串 如果有一个串$A_i$以及另一个串$B_j$，它们对应着树上的同一个点 在之前的建图方式中，$B_j$一定能到达$A_i$ 但是如果$|B_j|&gt;|A_i|$呢，显然这种转移是不合法的 解决方法是对于树上的一个点$u$，假如有$a_u$个$A$串挂在上面 那么我们将这些$A$串按照长度从小到大排序，将$u$拆成$a_u+1$个点，第$i$个点往$i+1$个点连边，父亲的最右边那个点往儿子的最左边那个点连边 对于一个串$B$，它就对应着它在树上的那个点所拆成的点中，第一个长度不小于它的点 这样就没有问题了 注意开long long 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146#include &lt;bits/stdc++.h&gt;using namespace std;using P = pair&lt;int, int&gt;;using LL = long long;#define N 200010int LEN;namespace SAM &#123; struct node &#123; map&lt;char, int&gt; next; int link, len; &#125; st[N * 2]; int ncnt, last; inline void init() &#123;st[0].link = -1, st[0].len = ncnt = last = 0, st[0].next.clear();&#125; inline int extend(char c) &#123; int cur = ++ncnt, p; st[cur].len = st[last].len + 1, st[cur].link = 0, st[cur].next.clear(); for (p = last;p != -1 &amp;&amp; !st[p].next.count(c);p = st[p].link) st[p].next[c] = cur; if (p != -1) &#123; int q = st[p].next[c]; if (st[q].len == st[p].len + 1) st[cur].link = q; else &#123; int clone = ++ncnt; st[clone].len = st[p].len + 1, st[clone].next = st[q].next, st[clone].link = st[q].link; for (;p != -1 &amp;&amp; st[p].next[c] == q;p = st[p].link) st[p].next[c] = clone; st[q].link = st[cur].link = clone; &#125; &#125; return last = cur; &#125; inline void debug() &#123; for (int i = 0;i &lt;= ncnt;i++) for (auto v : st[i].next) cout &lt;&lt; "sam: " &lt;&lt; i &lt;&lt; ' ' &lt;&lt; v.second &lt;&lt; ' ' &lt;&lt; v.first &lt;&lt; endl; &#125;&#125;namespace SUF_Tree &#123; struct edge &#123;int to, next;&#125; e[N * 2]; int head[N * 2], ecnt, len[N * 2], fa[18][N * 2]; vector&lt;P&gt; nodes[N * 2]; inline void adde(int from, int to) &#123; e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt; &#125; void dfs(int u, int f) &#123; fa[0][u] = f; for (int i = 1;i &lt;= 17;i++) fa[i][u] = fa[i - 1][fa[i - 1][u]]; for (int i = head[u];i;i = e[i].next) if (e[i].to != f) dfs(e[i].to, u); &#125; inline void init() &#123; for (int i = 0;i &lt;= 2 * LEN;i++) head[i] = 0, nodes[i].clear(), nodes[i].push_back(P(1e9, -1)); ecnt = 0; &#125; inline int find(int u, int l) &#123; int now = u; for (int i = 17;i &gt;= 0;i--) if (fa[i][u]) if (l &lt;= len[fa[i][now]]) now = fa[i][now]; return now; &#125;&#125;char s[N]; int id[N], tot, onT[N], sz[N], onT2[N], na;namespace GRAPH &#123; struct edge &#123;int to, next, w;&#125; e[N * 6]; int head[N * 4], ecnt, ind[N * 4], st[N * 4], top, ncnt; LL dp[N * 4]; inline void adde(int from, int to, int w) &#123; e[++ecnt] = (edge)&#123;to, head[from], w&#125;, ind[to]++, head[from] = ecnt; &#125; inline bool Topsort() &#123; top = 0; queue&lt;int&gt; q; for (int i = 1;i &lt;= ncnt;i++) if (!ind[i]) q.push(i), st[++top] = i; while (!q.empty()) &#123; int u = q.front(); q.pop(); for (int i = head[u];i;i = e[i].next) if (!(--ind[e[i].to])) q.push(e[i].to), st[++top] = e[i].to; &#125; return top == ncnt; &#125; inline void init() &#123; for (int i = 1;i &lt;= ncnt;i++) head[i] = ind[i] = dp[i] = 0; ecnt = 0; &#125; inline LL DP() &#123; LL res = 0; for (int i = top;i &gt;= 1;i--) &#123; int u = st[i]; for (int j = head[u];j;j = e[j].next) dp[u] = max(dp[u], dp[e[j].to] + e[j].w); if (u &lt;= na) res = max(res, dp[u] + sz[u]); &#125; return res; &#125;&#125;vector&lt;int&gt; p[N * 2];void dfs(int u) &#123; p[u].clear(); for (auto v : SUF_Tree::nodes[u]) &#123; p[u].push_back(++tot); if (v.second &gt; 0) onT[v.second] = tot; &#125; for (int i = 0;i + 1 &lt; p[u].size();i++) GRAPH::adde(p[u][i], p[u][i + 1], 0); for (int i = SUF_Tree::head[u];i;i = SUF_Tree::e[i].next) &#123; dfs(SUF_Tree::e[i].to); GRAPH::adde(*p[u].rbegin(), *p[SUF_Tree::e[i].to].begin(), 0); &#125;&#125;template &lt;class T&gt; inline void read(T &amp;x) &#123; x = 0; char c = getchar(); while (c &lt; '0' || c &gt; '9') c = getchar(); while ('0' &lt;= c &amp;&amp; c &lt;= '9') x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + c - '0', c = getchar();&#125;int main() &#123; int T; read(T); while (T--) &#123; scanf("%s", s + 1), LEN = strlen(s + 1), reverse(s + 1, s + LEN + 1), SAM::init(), SUF_Tree::init(); for (int i = 1;i &lt;= LEN;i++) id[i] = SAM::extend(s[i]);// cout &lt;&lt; SAM::ncnt &lt;&lt; endl; for (int i = 1;i &lt;= SAM::ncnt;i++) SUF_Tree::adde(SAM::st[i].link, i), SUF_Tree::len[i] = SAM::st[i].len; SUF_Tree::dfs(0, 0); read(na), tot = na;// cout &lt;&lt; "ok" &lt;&lt; endl; for (int i = 1, l, r;i &lt;= na;i++) &#123; read(l), read(r), l = LEN - l + 1, r = LEN - r + 1, swap(l, r), sz[i] = r - l + 1; int t = SUF_Tree::find(id[r], r - l + 1); SUF_Tree::nodes[t].push_back(P(r - l + 1, i)); &#125; GRAPH::ncnt = na * 2 + SAM::ncnt + 1, GRAPH::init(); for (int i = 1;i &lt;= SAM::ncnt;i++) sort(SUF_Tree::nodes[i].begin(), SUF_Tree::nodes[i].end()); dfs(0); for (int i = 1;i &lt;= na;i++) GRAPH::adde(onT[i], i, sz[i]); int nb; read(nb); for (int i = 1, l, r;i &lt;= nb;i++) &#123; read(l), read(r), l = LEN - l + 1, r = LEN - r + 1, swap(l, r); int t = SUF_Tree::find(id[r], r - l + 1); int pos = lower_bound(SUF_Tree::nodes[t].begin(), SUF_Tree::nodes[t].end(), P(r - l + 1, -2)) - SUF_Tree::nodes[t].begin(); onT2[i] = p[t][pos]; &#125; int matches; read(matches); for (int i = 1;i &lt;= matches;i++) &#123; int a, b; read(a), read(b), GRAPH::adde(a, onT2[b], 0); &#125; GRAPH::ncnt = tot; if (!GRAPH::Topsort()) &#123;puts("-1"); continue;&#125; printf("%lld\n", GRAPH::DP()); &#125; return 0;&#125;]]></content>
+      <tags>
+        <tag>动态规划</tag>
+        <tag>题解</tag>
+        <tag>字符串</tag>
+        <tag>优化连边</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[BJOI2018 双人猜数游戏]]></title>
     <url>%2F2019%2F04%2F07%2FBJOI2018-%E5%8F%8C%E4%BA%BA%E7%8C%9C%E6%95%B0%E6%B8%B8%E6%88%8F%2F</url>
     <content type="text"><![CDATA[题目链接 神仙题啊 首先来模拟一下样例 Alice知道乘积是60，Bob知道和是16，且两个数均不小于5 Bob：此时两个数有可能为 $(5, 11), (6, 10), (7, 9), (8, 8)$ 而Bob在第一轮没有猜出来，也就是说，这两个数的和不是10或11 Alice：此时两个数有可能为 $(5, 12), (6, 10)$ 由于Alice也没有猜出来，所以对于Bob来说，以下情况就被排除了 $(5, 11), (7, 9), (8, 8)$ 对于$(5, 11)$而言，55只有这一种分解方式，而Alice在第一轮中没有猜出来，所以不是 对于$(7, 9)$而言，63还可以被分解成$(3, 21)$，但是不满足两个数都大于等于5，而Alice没有猜出来，所以也不是 $(8, 8)​$同理 所以对于Bob来说，这两个数只有可能是$(6, 10)$，他也就确定了答案 Alice知道，Bob已经猜出来了，所以$(5, 12)$就被排除了，因为在这种情况下，$Bob​$不可能这么早就猜出答案 所以Alice也知道答案是$(6, 10)​$了 我们用dp来描述这个过程，dp[i][n][m]表示，当前是第i轮，且两个答案分别是$n,m$，在$1-i​$轮中，是否能决定答案 如果这一轮是Bob猜，那么我们就枚举$n+m$的划分方式。如果每一种合法的划分方式都能在$1-(i-1)$轮被猜出来，那么Bob一定能确定这两个数分别为$n, m$ 否则，我们则枚举$n*m$的约数， 判断方式与Bob的相同 但是这样可能会出现一种特殊情况，就是已经到了$t$轮，第一个人猜出来了，而第二个人没有猜出来 那么我们就多进行一轮转移，这次转移与之前的转移相反，如果每一种合法的划分方式在$1-t$轮都不能被猜出来，那么才能确定答案 $n,m$的最大值不会超过500，直接枚举 直接交程序，数组只开500的话是秒跑 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748#include &lt;bits/stdc++.h&gt;using namespace std;#define N 500int dp[N + 10][N + 10][16], m;inline bool check1(int a, int b, int c) &#123; int cnt = 0, tmpa, tmpb; for (int i = m, j;i &lt;= a + b - i &amp;&amp; cnt &lt; 2;i++) if (!dp[i][j = a + b - i][c - 1] || c == 1) cnt++, tmpa = i, tmpb = j; return cnt == 1 &amp;&amp; a == tmpa &amp;&amp; b == tmpb;&#125;inline bool check2(int a, int b, int c) &#123; int cnt = 0, tmpa, tmpb; for (int i = m, j;i * i &lt;= a * b &amp;&amp; cnt &lt; 2;i++) if (a * b % i == 0 &amp;&amp; (!dp[i][j = a * b / i][c - 1] || c == 1)) cnt++, tmpa = i, tmpb = j; return cnt == 1 &amp;&amp; a == tmpa &amp;&amp; b == tmpb;&#125;inline bool check3(int a, int b, int c) &#123; int cnt = 0, tmpa, tmpb; for (int i = m, j;i &lt;= a + b - i &amp;&amp; cnt &lt; 2;i++) if (dp[i][j = a + b - i][c] &amp;&amp; !dp[i][j][c - 2]) cnt++, tmpa = i, tmpb = j; return cnt == 1 &amp;&amp; a == tmpa &amp;&amp; b == tmpb;&#125;inline bool check4(int a, int b, int c) &#123; int cnt = 0, tmpa, tmpb; for (int i = m, j;i * i &lt;= a * b &amp;&amp; cnt &lt; 2;i++) if (a * b % i == 0 &amp;&amp; dp[i][j = a * b / i][c] &amp;&amp; !dp[i][j][c - 2]) cnt++, tmpa = i, tmpb = j; return cnt == 1 &amp;&amp; a == tmpa &amp;&amp; b == tmpb;&#125;char name[8];int main() &#123; int t, flag; scanf("%d%s%d", &amp;m, name + 1, &amp;t), flag = name[1] == 'B'; for (int i = 1;i &lt;= t + 1;i++) for (int a = m;a &lt;= N / 2;a++) for (int b = a;b &lt;= N;b++) dp[a][b][i] = dp[a][b][i - 2] | (((i &amp; 1) ^ flag ^ 1) ? check1(a, b, i) : check2(a, b, i)); for (int s = m * 2;s;s++) for (int a = m, b = s - a;a * 2 &lt;= s;a++, b = s - a) if (dp[a][b][t + 1] &amp;&amp; !(dp[a][b][t - 1] | dp[a][b][t])) &#123; int tmp = t &amp; 1 ^ flag; if (!(tmp ? check4(a, b, t + 1) : check3(a, b, t + 1))) continue; cout &lt;&lt; a &lt;&lt; ' ' &lt;&lt; b &lt;&lt; endl; return 0; &#125;&#125;]]></content>
@@ -15,8 +46,8 @@
       <tags>
         <tag>题解</tag>
         <tag>数据结构</tag>
-        <tag>二进制</tag>
         <tag>线段树</tag>
+        <tag>二进制</tag>
       </tags>
   </entry>
   <entry>
@@ -41,9 +72,9 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>二进制</tag>
         <tag>期望</tag>
         <tag>矩阵乘法</tag>
+        <tag>二进制</tag>
       </tags>
   </entry>
   <entry>
@@ -55,9 +86,9 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>最短路</tag>
-        <tag>期望</tag>
         <tag>分治</tag>
+        <tag>期望</tag>
+        <tag>最短路</tag>
         <tag>线段树</tag>
         <tag>贪心</tag>
         <tag>分块</tag>
@@ -73,9 +104,9 @@
         <tag>数学</tag>
         <tag>题解</tag>
         <tag>总结</tag>
+        <tag>最短路</tag>
         <tag>斜率优化</tag>
         <tag>gcd</tag>
-        <tag>最短路</tag>
         <tag>FWT</tag>
       </tags>
   </entry>
@@ -103,8 +134,8 @@
         <tag>网络流</tag>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>LCT</tag>
         <tag>数据结构</tag>
+        <tag>LCT</tag>
       </tags>
   </entry>
   <entry>
@@ -117,8 +148,8 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>多项式</tag>
         <tag>线段树</tag>
+        <tag>多项式</tag>
         <tag>FFT</tag>
         <tag>BM</tag>
         <tag>行列式</tag>
@@ -135,8 +166,8 @@
         <tag>总结</tag>
         <tag>数据结构</tag>
         <tag>线段树</tag>
-        <tag>泰勒展开</tag>
         <tag>扫描线</tag>
+        <tag>泰勒展开</tag>
       </tags>
   </entry>
   <entry>
@@ -179,13 +210,13 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
+        <tag>分块</tag>
         <tag>多项式求逆</tag>
         <tag>多项式</tag>
-        <tag>分块</tag>
         <tag>NTT</tag>
+        <tag>泰勒展开</tag>
         <tag>构造</tag>
         <tag>多项式ln</tag>
-        <tag>泰勒展开</tag>
       </tags>
   </entry>
   <entry>
@@ -208,9 +239,9 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>树状数组</tag>
         <tag>二分答案</tag>
         <tag>字符串</tag>
+        <tag>树状数组</tag>
         <tag>后缀自动机</tag>
       </tags>
   </entry>
@@ -224,8 +255,8 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>多项式</tag>
         <tag>分块</tag>
+        <tag>多项式</tag>
         <tag>平衡树</tag>
         <tag>NTT</tag>
         <tag>概率</tag>
@@ -293,8 +324,8 @@
       <tags>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>多项式</tag>
         <tag>分治</tag>
+        <tag>多项式</tag>
         <tag>FFT</tag>
         <tag>树上差分</tag>
       </tags>
@@ -327,8 +358,8 @@
       <tags>
         <tag>题解</tag>
         <tag>数据结构</tag>
-        <tag>点分治</tag>
         <tag>线段树</tag>
+        <tag>点分治</tag>
       </tags>
   </entry>
   <entry>
@@ -337,9 +368,9 @@
     <content type="text"><![CDATA[题目链接 感觉这题没啥好说的。。。就是对数据的分类讨论差评 首先对于所有的危险串建AC自动机，标记危险节点，转移的时候不从危险节点转移 然后预处理to[i][j]，即从自动机的i号节点出发，按照第j个基本串走，最后到达的节点，注意如果中途有危险节点就是-1 对于前60%的数据，直接dp即可，用dp[i][j]表示当前串长度为i，走到自动机的j号节点的方案数 对于后面40%的数据，没法直接dp了。注意到基本串的长度都特别小，直接上矩阵乘法 如果基本串的长度都为1，那么建一个$n*n$的矩阵就好了 否则要同时保存长度为$len-1,len-2$的方案，建一个$(2*n)^2$的矩阵 然后快速幂即可 代码如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091#include &lt;bits/stdc++.h&gt;using namespace std;#define N 110int ncnt, trie[N][26], val[N]; const int mod = 1e9 + 7;inline void insert(char s[], int len) &#123; int now = 0; for (int i = 1, c = s[i] - 'a';i &lt;= len;i++, c = s[i] - 'a') if (trie[now][c]) now = trie[now][c]; else now = trie[now][c] = ++ncnt; val[now] = 1;&#125; int fail[N]; queue&lt;int&gt; q; inline void BFS() &#123; for (int i = 0, now;i &lt; 26;i++) if (now = trie[0][i]) q.push(now); while (!q.empty()) &#123; int now = q.front(); q.pop(); for (int i = 0, f, son;i &lt; 26;i++) if (trie[now][i]) &#123; f = fail[now]; while (f &amp;&amp; !trie[f][i]) f = fail[f]; son = trie[now][i], fail[son] = trie[f][i], val[son] |= val[fail[son]], q.push(son); &#125; &#125; &#125;inline int query(int now, char s[], int len) &#123; for (int i = 1, c;i &lt;= len;i++) &#123; c = s[i] - 'a'; while (now &amp;&amp; !trie[now][c]) now = fail[now]; now = trie[now][c]; if (val[now]) return -1; &#125; return now;&#125;char basic[51][N], s[51][N]; int len[N], to[N][N], dp[N][N];#define LL long longstruct Matrix &#123; int a[2 * N][2 * N], n; Matrix(int _n = 0) : n(_n) &#123;memset(a, 0, sizeof(a));&#125; Matrix operator * (Matrix b) &#123; Matrix c(n); for (int i = 0;i &lt;= n;i++) for (int j = 0;j &lt;= n;j++) for (int k = 0;k &lt;= n;k++) c.a[i][j] = (c.a[i][j] + (LL)a[i][k] * b.a[k][j]) % mod; return c; &#125;&#125;;inline Matrix Pow(Matrix x, int y) &#123; Matrix res(x.n); for (int i = 0;i &lt;= res.n;i++) res.a[i][i] = 1; for (;y;y &gt;&gt;= 1, x = x * x) if (y &amp; 1) res = res * x; return res;&#125;inline int solve1(int n, int l) &#123; Matrix res(ncnt); for (int i = 0;i &lt;= ncnt;i++) if (!val[i]) for (int j = 1;j &lt;= n;j++) if (~to[i][j]) res.a[to[i][j]][i]++; res = Pow(res, l); int ans = 0; for (int i = 0;i &lt;= ncnt;i++) ans = (ans + res.a[i][0]) % mod; return ans;&#125;inline int solve2(int n, int l) &#123; Matrix res(2 * ncnt + 1); for (int i = ncnt + 1;i &lt;= 2 * ncnt + 1;i++) res.a[i][i - ncnt - 1] = 1; for (int i = 0;i &lt;= ncnt;i++) if (!val[i]) for (int j = 1;j &lt;= n;j++) if (~to[i][j]) res.a[to[i][j]][i + (len[j] == 1 ? 0 : ncnt + 1)]++; res = Pow(res, l); int ans = 0; for (int i = 0;i &lt;= ncnt;i++) ans = (ans + res.a[i][0]) % mod; return ans;&#125;int main() &#123; int n, m, l, mx = 0; scanf("%d%d%d", &amp;n, &amp;m, &amp;l); for (int i = 1;i &lt;= n;i++) scanf("%s", basic[i] + 1), len[i] = strlen(basic[i] + 1), mx = max(mx, len[i]); for (int i = 1;i &lt;= m;i++) scanf("%s", s[i] + 1), insert(s[i], strlen(s[i] + 1)); BFS(); for (int i = 0;i &lt;= ncnt;i++) for (int j = 1;j &lt;= n;j++) to[i][j] = val[i] ? -1 : query(i, basic[j], len[j]); if (l &lt;= 100) &#123; dp[0][0] = 1; for (int i = 0;i &lt;= l;i++) for (int j = 0;j &lt;= ncnt;j++) if (!val[j] &amp;&amp; dp[i][j]) for (int k = 1;k &lt;= n;k++) if (~to[j][k] &amp;&amp; i + len[k] &lt;= l) (dp[i + len[k]][to[j][k]] += dp[i][j]) %= mod; int ans = 0; for (int i = 0;i &lt;= ncnt;i++) (ans += dp[l][i]) %= mod; printf("%d\n", ans); &#125; else printf("%d\n", mx == 1 ? solve1(n, l) : solve2(n, l)); return 0; &#125;]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>矩阵乘法</tag>
         <tag>AC自动机</tag>
         <tag>字符串</tag>
+        <tag>矩阵乘法</tag>
       </tags>
   </entry>
   <entry>
@@ -367,9 +398,9 @@
     <content type="text"><![CDATA[理论部分复数设$a, b$是实数，形如$a+bi$的数叫做复数，其中$i$叫做虚数单位 我们可以用一个复平面上的向量表示一个复数。x轴代表实数，y轴代表虚数。比如：向量$(a,b)$就表示复数$a+bi$ 模长：就是这个向量的长度 辐角：从x正半轴逆时针旋转到这个向量的角度 复数乘法的几何意义是，模长相乘，辐角相加 代数意义：$$(a+bi)*(c+di)$$ $$=ac+adi+cbi+bdi^2$$ $$= (ac-bd)+(ad+cb)i$$ 单位根在复平面上，以原点为圆心，半径为1画圆，得到的圆叫做单位圆 将这个圆做n等分，那么我们得到了n个向量，每个向量都对应了一个n次单位根 我们分别记这些单位根为$\omega_n^1,\omega_n^2,\cdots,\omega_n^n$ 其中，记$\omega_n^1$为主n次单位根 性质$$\omega_n^k=\cos k\frac{2\pi}{n}+i\sin k\frac{2\pi}{n}$$ 根据单位根的定义，显然有 消去定理 $$\omega_{dn}^{dk}=\omega_n^k$$ 折半定理 对于任意的大于0的整数n，都有n个n次单位复根的平方的集合，等于$\frac{n}{2}$个$\frac{n}{2}$次单位复根的集合 此时显然有 $$(\omega_n^k)^2=\omega_{n/2}^k$$ $$(\omega_n^{k+\frac{n}{2}})^2=\omega_{n}^{2k+n}=\omega_n^{2k}\times\omega_n^n=\omega_n^{2k}=(\omega_n^k)^2$$ 快速傅里叶变换(FFT)FFT的作用是，快速计算出两个多项式相乘的结果 按照朴素的算法，假如有两个次数为n的多项式，那么我们会遍历其中一个多项式的每一项，计算它与另一个多项式的乘积 然而这样的时间复杂度是$n^2$的，也没有什么可以显著优化的地方 点值表示我们知道，一个多项式$f(x)$可以写成$a_0x^0+a_1x^1+\cdots+a_nx^n$的形式，这被称作系数表示 而一个n次的多项式可以被n个点唯一确定 那么我们可以将主单位根的0到n-1次幂依次带入这个多项式求值，然后通过插值再把点值表达还原成系数表示 直接做显然还是$n^2$，而且还多了一堆巨大无比的常数 但是我们可以优化 设 $$A(x)=a_0+a_1x+a_2x^2+\cdots+a_nx^n$$ 将这个多项式按照x的幂的奇偶性分类 $$A_1(x)=a_0+a_2x^2+\cdots+a_{n-1}x^{n-1}$$ $$A_2(x)=a_1x+a_3x^3+\cdots+a_{n}x^{n}$$ 我们可以得到 $$A(x)=A_1(x)+A_2(x)$$ 设 $$A^{[1]}(x)=a_0+a_2x+\cdots+a_{n-1}x^{\frac{n}{2}}$$ $$A^{[2]}(x)=a_1+a_3x+\cdots+a_{n}x^{\frac{n}{2}}$$ 那么我们有 $$A(x)=A^{[1]}(x^2)+xA^{[2]}(x^2)$$ 代入单位复根$\omega_n^k(k&lt;\frac{n}{2})$，得 $$A(\omega_n^k)=A^{[1]}(\omega_{n/2}^k)+\omega_n^kA^{[2]}(\omega_{n/2}^k)$$ 代入另一个单位复根$\omega_n^{k+\frac{n}{2}}$，得 $$A(\omega_n^{k+\frac{n}{2}})=A^{[1]}(\omega_{n/2}^{k+\frac{n}{2}})-\omega_n^{k}A^{[2]}(\omega_{n/2}^{k+\frac{n}{2}})$$ $$=A^{[1]}(\omega_n^{k})-\omega_n^{k}A^{[2]}(\omega_n^{k})$$ 我们发现，这两个结果只有一个符合是不同的 这就意味着，在计算第一个点值的时候，我们可以$O(1)$得到第二个点值 加上分治，可以将原问题的规模缩小一半 现在，我们可以做到$O(n\log n)$计算点值表示了 快速傅里叶逆变换(IFFT)假如我们知道多项式A与多项式B的点值表达 那么我们可以直接求出$A*B$的点值表达 很明显，对应相乘即可 但是我们得到的终究还是一个点值 而点值表达是不常用的，要还原成系数表达 幸运的是，这个操纵同样能在$O(n\log n)$内解决。 假设原来的多项式系数分别为$a_0,a_1,\cdots,a_n$ 点值表达为$y_0,y_1,\cdots,y_n$ 将这个y强制看作系数 同时，设多项式c为y在$\omega_n^0,\omega_n^{-1},\cdots,\omega_n^{-n+1}$处的点值 那么有 $$c_k=\sum_{i=0}^{n-1}y_i(\omega_n^{-k})^i$$ $$y_k=\sum_{i=0}^{n-1}a_i(\omega_n^k)^i$$ $$\therefore c_k=\sum_{i=0}^{n-1}\sum_{j=0}^{n-1}a_j(\omega_n^i)^j(\omega_n^{-k})^i$$ $$=\sum_{i=0}^{n-1}\sum_{j=0}^{n-1}a_j(\omega_n^j)^i(\omega_n^{-k})^i$$ $$\sum_{i=0}^{n-1}a_j\sum_{j=0}^{n-1}(\omega_n^{j-k})^i$$ 设 $$S(x)=\sum_{i=0}^{n-1}x^i$$ 代入$\omega_n^k$可得 $$S(\omega_n^k)=1+\omega_n^k+(\omega_n^k)^2+\cdots+(\omega_n^k)^{n-1}$$ 当$k\not =0$，可得 $$\omega_n^kS(\omega_n^k)=\omega_n^k+(\omega_n^k)^2+\cdots+(\omega_n^k)^{n-1}+(\omega_n^k)^n$$ 两式相减，得 $$\omega_n^kS(\omega_n^k)-S(\omega_n^k)=(\omega_n^k)^n-1$$ $$S(\omega_n^k)=\frac{(\omega_n^k)^n-1}{\omega_n^k-1}$$ $$=\frac{(\omega_n^n)^k-1}{\omega_n^k-1}=0$$ 当$k=0$时，显然$S(\omega_n^0)=1$ 代入之前的式子，可以得到 $$c_k=\sum_{i=0}^{n-1}a_j\sum_{j=0}^{n-1}(\omega_n^{j-k})^i$$ $$=na_k$$ $$a_k=\frac{c_k}{n}$$ 至此，点值就成功转换成系数了 关于迭代FFT这里记一下反转后的多项式在原多项式中的下标r 有 1r[i] = (r[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; l - 1) 关于NTT模意义下的单位根就是原根g 有 $$\omega_n^1\equiv g^{\frac{mod-1}{n}}$$ 然后像FFT一样即可 关于complex好像还是很好用的 就是有点慢 需要的话可以手写一个 目测会快2到3倍的样子 部分代码实现FFT12345678910111213#define N 400010int r[N]; const double PI = acos(-1);inline void FFT(int len, int type, complex&lt;double&gt; a[]) &#123; for (int i = 0;i &lt; len;i++) if (i &lt; r[i]) swap(a[i], a[r[i]]); for (int mid = 2;mid &lt;= len;mid &lt;&lt;= 1) &#123; complex&lt;double&gt; Wn(cos(2 * PI / mid), type * sin(2 * PI / mid)); for (int i = 0;i &lt; len;i += mid) &#123; complex&lt;double&gt; w(1, 0), t; for (int j = i;j &lt; i + (mid &gt;&gt; 1);j++, w *= Wn) t = w * a[j + (mid &gt;&gt; 1)], a[j + (mid &gt;&gt; 1)] = a[j] - t, a[j] += t; &#125; &#125;&#125; NTT1234567891011121314151617#define N 200010#define LL long longint r[N]; const int mod = 998244353;inline int Pow(int x, int y) &#123; int res = 1; for (;y;y &gt;&gt;= 1, x = (LL)x * x % mod) if (y &amp; 1) res = (LL)res * x % mod; return res;&#125;inline void NTT(int len, int type, int a[]) &#123; for (int i = 0;i &lt; len;i++) if (i &lt; r[i]) swap(a[i], a[r[i]]); for (int mid = 2;mid &lt;= len;mid &lt;&lt;= 1) &#123; int Wn = Pow(3, type ? (mod - 1) / mid : mod - 1 - (mod - 1) / mid); for (int i = 0;i &lt; len;i += mid) for (int j = i, t, w = 1;j &lt; i + (mid &gt;&gt; 1);j++, w = (LL)w * Wn % mod) t = (LL)w * a[j + (mid &gt;&gt; 1)] % mod, a[j + (mid &gt;&gt; 1)] = (a[j] - t + mod) % mod, a[j] = (a[j] + t) % mod; &#125;&#125; 最后别忘了除以len]]></content>
       <tags>
         <tag>多项式</tag>
-        <tag>FFT</tag>
-        <tag>NTT</tag>
         <tag>算法</tag>
+        <tag>NTT</tag>
+        <tag>FFT</tag>
       </tags>
   </entry>
   <entry>
@@ -380,8 +411,8 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>点分治</tag>
         <tag>线段树</tag>
+        <tag>点分治</tag>
         <tag>动态点分治</tag>
         <tag>rmq</tag>
       </tags>
@@ -394,8 +425,8 @@
         <tag>多项式求逆</tag>
         <tag>多项式除法</tag>
         <tag>多项式</tag>
-        <tag>NTT</tag>
         <tag>算法</tag>
+        <tag>NTT</tag>
       </tags>
   </entry>
   <entry>
@@ -416,8 +447,8 @@
         <tag>多项式求逆</tag>
         <tag>多项式除法</tag>
         <tag>多项式</tag>
-        <tag>NTT</tag>
         <tag>算法</tag>
+        <tag>NTT</tag>
       </tags>
   </entry>
   <entry>
@@ -427,8 +458,8 @@
       <tags>
         <tag>多项式求逆</tag>
         <tag>多项式</tag>
-        <tag>NTT</tag>
         <tag>算法</tag>
+        <tag>NTT</tag>
       </tags>
   </entry>
   <entry>
@@ -437,8 +468,8 @@
     <content type="text"><![CDATA[$$n\leq 3*10^5$$树链剖分好题，链上维护虚子树信息 我们考虑如何更新一条链 假设询问节点是$u$，$AC$是一条重链，$PB$是一条轻链，$P$是一个奇怪的节点 那么我们知道，此时$B$的点权加上了$P$ 如果$A$的下方还连接着一个奇怪的点$P_1$，那么$B$也会加上$P_1$的权值 而此时$C$不会加上$P_1$的权值，因为它不是lca 所以当$u$从一条链的顶端跳到另一条链时，对于$u$的父亲我们需要特殊考虑贡献，对于这条链上其它的点，权值都会加上在其子树中，且不在其重儿子子树中的奇怪的点的编号之和 这个东西不是很好维护，那么我们考虑维护它所乘的系数，即它的权值加了多少次不在重儿子的奇怪的点的编号之和 这样的话，我们只需要实现区间加1就可以了 我们另开一个数组ans，表示每个点除了那个区间加1以外的贡献 比如之前提到的$u$的父亲，我们就将它的重儿子所在的子树中奇怪的点的编号之和加入ans 假如一个点加了$a_i$次1，在它的子树中，且不在它重儿子的子树中的奇怪的点的编号之和为$b_i$，那么一个点最终的答案就是$a_ib_i+ans_i$ 12345678inline void Tupdate1(int u) &#123; ans[u] += query(1, id[u], 2); while (u) &#123; update(1, id[top[u]], id[u], 0, 1); // 区间ai + 1 u = top[u], ans[fa[u]] += query(1, id[fa[u]], 2) - query(1, id[u], 1) - query(1, id[u], 2); // 特殊处理链顶的父亲，注意要减去u自己所在的子树的贡献 u = fa[u]; &#125;&#125; 我们考虑如何实现询问2 我们记一个点的非重儿子子树中，奇怪的点的点权之和是$V_u$ 其重儿子子树中，奇怪的点的点权之和是$W_u$ 如果把$u$的状态改变了，那么这会影响一些点的$V_u$和$W_u$ 仍然考虑这张图 对于$B$，它的$V$变化而$W$不变化 对于$C$，它的$W$变化而$V$不变化 对于$A$，它的$W$和$V$都不变化 我们仍然将$B$视为特殊点，特殊处理贡献 注意到之前我们维护了$V_u$的贡献系数 而这里$B$的$V$值更新了，那么这会导致答案多统计一部分 方法是，在更新$B$之前，将$a_bV_b$下放到ans[b]，然后将$a_b$清零 注意最开始$u$还没有向上爬的时候，$u$节点本身也是一个特殊点 1234567891011inline void Tupdate2(int u) &#123; int tmp = mark[u] ? -u : u; mark[u] ^= 1; // 权值更改的值 LL del = query(1, id[u], 0); ans[u] += del * query(1, id[u], 1), update(1, id[u], id[u], 0, -del); // 特殊处理u ：0代表a[u]，1代表V[u]，2代表W[u]，清空a[u]并更新V[u] update(1, id[u], id[u], 1, tmp); while (u) &#123; update(1, id[top[u]], id[fa[u]], 2, tmp), u = top[u]; del = query(1, id[fa[u]], 0); ans[fa[u]] += del * query(1, id[fa[u]], 1), update(1, id[fa[u]], id[fa[u]], 0, -del), update(1, id[fa[u]], id[fa[u]], 1, tmp); // 同理 u = fa[u]; &#125;&#125; 关于动态dp，也是链上维护虚子树信息 去年四川省选D1T1也许可以LCT维护虚子树信息 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107#include &lt;bits/stdc++.h&gt;using namespace std;#define N 300010#define LL long longstruct edge &#123;int to, next;&#125; e[N * 2];int head[N], ecnt;inline void adde(int from, int to) &#123; e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt; e[++ecnt] = (edge)&#123;from, head[to]&#125;, head[to] = ecnt;&#125;struct node &#123; int l, r; LL sum, lazy, s1, s2, lazy1, lazy2; &#125; T[N &lt;&lt; 2];inline void pushdown(int rt) &#123; T[rt &lt;&lt; 1].sum += T[rt].lazy, T[rt &lt;&lt; 1 | 1].sum += T[rt].lazy, T[rt &lt;&lt; 1].lazy += T[rt].lazy, T[rt &lt;&lt; 1 | 1].lazy += T[rt].lazy, T[rt].lazy = 0; T[rt &lt;&lt; 1].s1 += T[rt].lazy1, T[rt &lt;&lt; 1 | 1].s1 += T[rt].lazy1, T[rt &lt;&lt; 1].lazy1 += T[rt].lazy1, T[rt &lt;&lt; 1 | 1].lazy1 += T[rt].lazy1, T[rt].lazy1 = 0; T[rt &lt;&lt; 1].s2 += T[rt].lazy2, T[rt &lt;&lt; 1 | 1].s2 += T[rt].lazy2, T[rt &lt;&lt; 1].lazy2 += T[rt].lazy2, T[rt &lt;&lt; 1 | 1].lazy2 += T[rt].lazy2, T[rt].lazy2 = 0;&#125;int rk[N]; LL v1[N], v2[N], ans[N];void build(int rt, int l, int r) &#123; T[rt].l = l, T[rt].r = r; int mid = (l + r) &gt;&gt; 1; if (l == r) &#123;T[rt].s1 = v1[rk[l]], T[rt].s2 = v2[rk[l]]; return;&#125; build(rt &lt;&lt; 1, l, mid), build(rt &lt;&lt; 1 | 1, mid + 1, r);&#125;void update(int rt, int start, int end, int type, LL x) &#123; if (end &lt;= 0 || start &gt; end) return; int l = T[rt].l, r = T[rt].r, mid = (l + r) &gt;&gt; 1; if (start &lt;= l &amp;&amp; r &lt;= end) &#123; if (type == 0) T[rt].lazy += x, T[rt].sum += x; else if (type == 1) T[rt].lazy1 += x, T[rt].s1 += x; else T[rt].lazy2 += x, T[rt].s2 += x; return; &#125; pushdown(rt); if (start &lt;= mid) update(rt &lt;&lt; 1, start, end, type, x); if (end &gt; mid) update(rt &lt;&lt; 1 | 1, start, end, type, x);&#125;LL query(int rt, int at, int type) &#123; if (!at) return 0; int l = T[rt].l, r = T[rt].r, mid = (l + r) &gt;&gt; 1; if (l == r) &#123; if (type == 0) return T[rt].sum; else if (type == 1) return T[rt].s1; else return T[rt].s2; &#125; pushdown(rt); return at &lt;= mid ? query(rt &lt;&lt; 1, at, type) : query(rt &lt;&lt; 1 | 1, at, type);&#125;int dfsn, sz[N], top[N], id[N], fa[N], mark[N], son[N];void dfs1(int u, int f) &#123; sz[u] = 1, fa[u] = f; for (int i = head[u];i;i = e[i].next) if (e[i].to != f) &#123; dfs1(e[i].to, u), sz[u] += sz[e[i].to]; if (sz[son[u]] &lt; sz[e[i].to]) son[u] = e[i].to; &#125;&#125;void dfs2(int u, int t) &#123; id[u] = ++dfsn, top[u] = t, v1[u] = mark[u] ? u : 0, rk[id[u]] = u; if (son[u]) dfs2(son[u], t), v2[u] += v2[son[u]] + v1[son[u]]; for (int i = head[u];i;i = e[i].next) if (e[i].to != fa[u] &amp;&amp; e[i].to != son[u]) dfs2(e[i].to, e[i].to), v1[u] += v1[e[i].to] + v2[e[i].to];&#125;inline void Tupdate1(int u) &#123; ans[u] += query(1, id[u], 2); while (u) &#123; update(1, id[top[u]], id[u], 0, 1); u = top[u], ans[fa[u]] += query(1, id[fa[u]], 2) - query(1, id[u], 1) - query(1, id[u], 2); u = fa[u]; &#125;&#125;inline void Tupdate2(int u) &#123; int tmp = mark[u] ? -u : u; mark[u] ^= 1; LL del = query(1, id[u], 0); ans[u] += del * query(1, id[u], 1), update(1, id[u], id[u], 0, -del); update(1, id[u], id[u], 1, tmp); while (u) &#123; update(1, id[top[u]], id[fa[u]], 2, tmp), u = top[u]; del = query(1, id[fa[u]], 0); ans[fa[u]] += del * query(1, id[fa[u]], 1), update(1, id[fa[u]], id[fa[u]], 0, -del), update(1, id[fa[u]], id[fa[u]], 1, tmp); u = fa[u]; &#125;&#125;inline LL query(int u) &#123; return ans[u] + query(1, id[u], 0) * query(1, id[u], 1);&#125;int __rd;inline void read(int &amp;x) &#123; x = 0; char c = getchar(); while (c &lt; '0' || c &gt; '9') c = getchar(); while ('0' &lt;= c &amp;&amp; c &lt;= '9') x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + c - '0', c = getchar();&#125;#define RD (read(__rd), __rd)#define OPEN(x) freopen(x".in", "r", stdin), freopen(x".out", "w", stdout)int main() &#123;// OPEN("strtree"); int n = RD, m = RD; for (int i = 1;i &lt;= n;i++) mark[i] = RD; for (int i = 1, a, b;i &lt; n;i++) a = RD, b = RD, adde(a, b); dfs1(1, 0), dfs2(1, 1), build(1, 1, n); while (m--) &#123; int a = RD, b = RD; if (a == 1) Tupdate1(b); else Tupdate2(b); &#125; for (int i = 1;i &lt;= n;i++) printf("%lld\n", query(i));&#125;]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>数据结构</tag>
         <tag>树链剖分</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -517,7 +548,7 @@
   <entry>
     <title><![CDATA[后缀数组]]></title>
     <url>%2F2019%2F03%2F07%2F%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84%2F</url>
-    <content type="text"><![CDATA[一些约定 sa[i] 排名为i的后缀在原串中的编号 rk[i] 原串中第i个后缀所对应的排名 height[i] 排名为i的后缀与排名为i – 1的后缀的最长公共前缀 一些例子字符串S = bacaab 中，sa，rk，height分别为 一些解释在S中，所有的后缀分别为bacaab, acaab, caab, aab, ab, b 将这些串按照字典序排序，可以得到aab, ab, acaab, b, bacaab, caab 对应出来的rk值就是5, 3, 6, 1, 2, 4 根据上面的定义可以得出sa[rk[i]] = i, rk[sa[i]] = i sa[1] = 4 对应后缀aab，sa[2] = 5 对应后缀ab 因此height[2] = lcp(sa[1], sa[2]) = lcp(aab, ab) = 1 注：height[1] 没有意义，约定其等于0 倍增直接暴力求sa显然不行，由于涉及到后缀排序，所以考虑倍增 假设对于每个后缀的前k个字符，我们已经排好了序，考虑进一步的转移 如果直接比较每个后缀的第k + 1个字符，忽视了太多已经求出的信息 对于两个后缀s1 = S[i, …], s2 = S[j, …]，如果它们的前k个字母不全相同，那么我们在之前的比较中就已经确定好了这两个后缀的顺序 如果这两个后缀的前k个字母都相同，我们这次就比较s1[k + 1, 2k], s2[k + 1, 2k]的大小 显然，这两个串的长度都是k，这意味着我们已经比较过这两个串 图中括号中的数字表示当前层中此串的排名，注意相同串的排名相同。 第一次比较将串s1与s2拼在一起，将串s2与s3拼在一起… 第二次比较将串s1与s3拼在一起，将串s2与s4拼在一起… 第三次比较将串s1与s5拼在一起，将串s2与s6拼在一起… 直到不同的串的个数为原串长度 那么问题来了，如何高效地比较？ 首先利用好已得出的信息，将这次比较前各个串的排名作为第一关键字 在这次比较中，每个字符串都将添加k个字符，对于串s[i, …]来说，将串s[i + k, …]的排名作为第二关键字 注意空串的字典序最小，假设原串长度为n，注意到在n – k + 1到n位置的第二关键字都是空串，我们约定此时n位置的第二关键字最小，其次是n – 1，然后以此类推 123456for (int i = n;i &gt;= n - k + 1;i--) y[++num] = i; // 添加的串为空for (int i = 1;i &lt;= n;i++) if (sa[i] &gt; k) y[++num] = sa[i] - k; // 此时的i就是串sa[i] - k的第二关键字，注意枚举的i代表排名// sa[i] &lt;= k时没有串会在后面添加串sa[i]，所以无视// y[i] 表示排名为i的第二关键字对应的是哪个串 对此时的所有串重新排序，第一关键字小的排前面，如果第一关键字相同，则第二关键字小的排前面 不能直接n log n排序，这样的总时间复杂度与直接用哈希构造无异，因此选择桶排序 我们开一个桶c，将所有的第一关键字放进去，然后做一遍前缀和，可以得出每个元素的最大排名 由于第一关键字相同时，第二关键字较小的排名较前，因此我们从大到小枚举第二关键字，更新每个桶此时的最大排名和当前的sa数组 12345678for (int i = 1;i &lt;= m;i++) c[i] = 0; // 先清空， m是当前第一关键字大小for (int i = 1;i &lt;= n;i++) c[x[i]]++; // 将每个第一关键字加入桶for (int i = 1;i &lt;= m;i++) c[i] += c[i - 1]; // 获得每个值的最大排名for (int i = n;i &gt;= 1;i--) sa[c[x[y[i]]]--] = y[i]; // 第一关键字相同时，第二关键字越大排名越靠后 最后，我们需要更新此时的第一关键字 用一个num表示当前不同元素个数，仅当sa[i], sa[i – 1]至少有一个关键字不同时，num才会累加1，更新x数组 用m更新num 12345678memcpy(y, x, sizeof(x)), num = x[sa[1]] = 1;// 这个memcpy只是临时存一下，后面那个是初值for (int i = 2;i &lt;= n;i++) x[sa[i]] = (y[sa[i - 1]] == y[sa[i]] &amp;&amp; y[sa[i - 1] + k] == y[sa[i] + k]) ? num : ++num; // 更新此时的第一关键字if (num == n) break; else m = num; // 更新第一关键字的最大值// 如果m等于n，则代表已经分清了所有后缀的排名，没有必要继续比较下去 最后总代码如下 1234567891011121314151617inline void GetSA(int n, char s[]) &#123; for (int i = 1;i &lt;= n;i++) c[x[i] = s[i]]++; for (int i = 1;i &lt;= m;i++) c[i] += c[i - 1]; for (int i = n;i &gt;= 1;i--) sa[c[x[i]]--] = i; for (int k = 1, num = 0;k &lt;= n;k &lt;&lt;= 1, num = 0) &#123; for (int i = n;i &gt;= n - k + 1;i--) y[++num] = i; for (int i = 1;i &lt;= n;i++) if (sa[i] &gt; k) y[++num] = sa[i] - k; for (int i = 1;i &lt;= m;i++) c[i] = 0; for (int i = 1;i &lt;= n;i++) c[x[i]]++; for (int i = 1;i &lt;= m;i++) c[i] += c[i - 1]; for (int i = n;i &gt;= 1;i--) sa[c[x[y[i]]]--] = y[i]; memcpy(y, x, sizeof(x)), num = x[sa[1]] = 1; for (int i = 2;i &lt;= n;i++) x[sa[i]] = (y[sa[i - 1]] == y[sa[i]] &amp;&amp; y[sa[i - 1] + k] == y[sa[i] + k]) ? num : ++num; if (num == n) break; else m = num; &#125;&#125; 关于DC3时间复杂度O(n)，但是实现较为繁琐，不推荐 其实是我不会233333 关于height LCP 的几条定理 定义LCP(i, j)为排名为i的后缀与排名为j的后缀的最长公共前缀长度 根据height数组的定义，height[i] = LCP(i – 1, i) LCP(i, j) = LCP(j, i) // 显然 LCP(i, i) = LCP(i, i) // 同上 LCP(i, j) = min{LCP(i, k), LCP(k, j)} // 对于任意i ≤ k ≤ j，即LCP具有传递性 设h[i] = height[rk[i]]，即height[i] = h[sa[i]]，有h[i] ≥ h[i – 1] – 1 第4条定理的证明： 代码如下 12345678910111213inline void Getheight(int n, char s[]) &#123; for (int i = 1;i &lt;= n;i++) rk[sa[i]] = i;// 根据定义，给rk赋值 for (int i = 1, k = 0;i &lt;= n;i++) &#123;// k表示h[i - 1]，注意i是编号 if (rk[i] == 1) continue; if (k) k--;// height[1]没有意义，且h[i] &gt;= h[i - 1] - 1 int at = sa[rk[i] - 1]; while (at + k &lt;= n &amp;&amp; i + k &lt;= n &amp;&amp; s[at + k] == s[i + k]) k++;// 暴力向后匹配 height[rk[i]] = k; &#125;&#125; 关于最长公共前缀由LCP的第三条定理可以快速确定任意两个后缀的最长公共前缀，具体地 LCP(rk[i], rk[j]) = min{height[rk[i] + 1], height[rk[i] + 2], … height[rk[j]]} 使用ST表查找区间最小值即可 1234567891011121314inline void GetST(int n) &#123; memset(mn, 0x3f, sizeof(mn)); for (int i = 2;i &lt;= n;i++) lg[i] = lg[i &gt;&gt; 1] + 1; for (int i = 1;i &lt;= n;i++) mn[0][i] = height[i]; for (int i = 1;i &lt;= 20;i++) for (int j = 1;j + (1 &lt;&lt; i) - 1 &lt;= n;j++) mn[i][j] = min(mn[i - 1][j], mn[i - 1][j + (1 &lt;&lt; i - 1)]); &#125;inline int GetLCP(int L, int R) &#123; // rank 为 L, R if (L &gt; R) swap(L, R); L++; int len = R - L + 1; if (!len) return 1e9; return min(mn[lg[len]][L], mn[lg[len]][R - (1 &lt;&lt; lg[len]) + 1]);&#125;]]></content>
+    <content type="text"><![CDATA[一些约定 sa[i] 排名为i的后缀在原串中的编号 rk[i] 原串中第i个后缀所对应的排名 height[i] 排名为i的后缀与排名为i – 1的后缀的最长公共前缀 一些例子字符串S = bacaab 中，sa，rk，height分别为 一些解释在S中，所有的后缀分别为bacaab, acaab, caab, aab, ab, b 将这些串按照字典序排序，可以得到aab, ab, acaab, b, bacaab, caab 对应出来的rk值就是5, 3, 6, 1, 2, 4 根据上面的定义可以得出sa[rk[i]] = i, rk[sa[i]] = i sa[1] = 4 对应后缀aab，sa[2] = 5 对应后缀ab 因此height[2] = lcp(sa[1], sa[2]) = lcp(aab, ab) = 1 注：height[1] 没有意义，约定其等于0 倍增直接暴力求sa显然不行，由于涉及到后缀排序，所以考虑倍增 假设对于每个后缀的前k个字符，我们已经排好了序，考虑进一步的转移 如果直接比较每个后缀的第k + 1个字符，忽视了太多已经求出的信息 对于两个后缀s1 = S[i, …], s2 = S[j, …]，如果它们的前k个字母不全相同，那么我们在之前的比较中就已经确定好了这两个后缀的顺序 如果这两个后缀的前k个字母都相同，我们这次就比较s1[k + 1, 2k], s2[k + 1, 2k]的大小 显然，这两个串的长度都是k，这意味着我们已经比较过这两个串 图中括号中的数字表示当前层中此串的排名，注意相同串的排名相同。 第一次比较将串s1与s2拼在一起，将串s2与s3拼在一起… 第二次比较将串s1与s3拼在一起，将串s2与s4拼在一起… 第三次比较将串s1与s5拼在一起，将串s2与s6拼在一起… 直到不同的串的个数为原串长度 那么问题来了，如何高效地比较？ 首先利用好已得出的信息，将这次比较前各个串的排名作为第一关键字 在这次比较中，每个字符串都将添加k个字符，对于串s[i, …]来说，将串s[i + k, …]的排名作为第二关键字 注意空串的字典序最小，假设原串长度为n，注意到在n – k + 1到n位置的第二关键字都是空串，我们约定此时n位置的第二关键字最小，其次是n – 1，然后以此类推 123456for (int i = n;i &gt;= n - k + 1;i--) y[++num] = i; // 添加的串为空for (int i = 1;i &lt;= n;i++) if (sa[i] &gt; k) y[++num] = sa[i] - k; // 此时的i就是串sa[i] - k的第二关键字，注意枚举的i代表排名// sa[i] &lt;= k时没有串会在后面添加串sa[i]，所以无视// y[i] 表示排名为i的第二关键字对应的是哪个串 对此时的所有串重新排序，第一关键字小的排前面，如果第一关键字相同，则第二关键字小的排前面 不能直接$n \log n$排序，这样的总时间复杂度与直接用哈希构造无异，因此选择桶排序 我们开一个桶c，将所有的第一关键字放进去，然后做一遍前缀和，可以得出每个元素的最大排名 由于第一关键字相同时，第二关键字较小的排名较前，因此我们从大到小枚举第二关键字，更新每个桶此时的最大排名和当前的sa数组 12345678for (int i = 1;i &lt;= m;i++) c[i] = 0; // 先清空， m是当前第一关键字大小for (int i = 1;i &lt;= n;i++) c[x[i]]++; // 将每个第一关键字加入桶for (int i = 1;i &lt;= m;i++) c[i] += c[i - 1]; // 获得每个值的最大排名for (int i = n;i &gt;= 1;i--) sa[c[x[y[i]]]--] = y[i]; // 第一关键字相同时，第二关键字越大排名越靠后 最后，我们需要更新此时的第一关键字 用一个num表示当前不同元素个数，仅当sa[i], sa[i – 1]至少有一个关键字不同时，num才会累加1，更新x数组 用m更新num 12345678memcpy(y, x, sizeof(x)), num = x[sa[1]] = 1;// 这个memcpy只是临时存一下，后面那个是初值for (int i = 2;i &lt;= n;i++) x[sa[i]] = (y[sa[i - 1]] == y[sa[i]] &amp;&amp; y[sa[i - 1] + k] == y[sa[i] + k]) ? num : ++num; // 更新此时的第一关键字if (num == n) break; else m = num; // 更新第一关键字的最大值// 如果m等于n，则代表已经分清了所有后缀的排名，没有必要继续比较下去 最后总代码如下 1234567891011121314151617inline void GetSA(int n, char s[]) &#123; for (int i = 1;i &lt;= n;i++) c[x[i] = s[i]]++; for (int i = 1;i &lt;= m;i++) c[i] += c[i - 1]; for (int i = n;i &gt;= 1;i--) sa[c[x[i]]--] = i; for (int k = 1, num = 0;k &lt;= n;k &lt;&lt;= 1, num = 0) &#123; for (int i = n;i &gt;= n - k + 1;i--) y[++num] = i; for (int i = 1;i &lt;= n;i++) if (sa[i] &gt; k) y[++num] = sa[i] - k; for (int i = 1;i &lt;= m;i++) c[i] = 0; for (int i = 1;i &lt;= n;i++) c[x[i]]++; for (int i = 1;i &lt;= m;i++) c[i] += c[i - 1]; for (int i = n;i &gt;= 1;i--) sa[c[x[y[i]]]--] = y[i]; memcpy(y, x, sizeof(x)), num = x[sa[1]] = 1; for (int i = 2;i &lt;= n;i++) x[sa[i]] = (y[sa[i - 1]] == y[sa[i]] &amp;&amp; y[sa[i - 1] + k] == y[sa[i] + k]) ? num : ++num; if (num == n) break; else m = num; &#125;&#125; 关于DC3时间复杂度$O(n)$，但是实现较为繁琐，不推荐 其实是我不会233333 关于height $LCP$ 的几条定理 定义$LCP(i, j)​$为排名为i的后缀与排名为j的后缀的最长公共前缀长度 根据height数组的定义，$height[i] = LCP(i – 1, i)​$ $LCP(i, j) = LCP(j, i)$ // 显然 $LCP(i, i) = LCP(i, i)$ // 同上 $LCP(i, j) = \min{LCP(i, k), LCP(k, j)}$ // 对于任意i ≤ k ≤ j，即$LCP​$具有传递性 设$h[i] = height[rk[i]]$，即$height[i] = h[sa[i]]$，有$h[i] ≥ h[i – 1] – 1$ 第4条定理的证明： 代码如下 12345678910111213inline void Getheight(int n, char s[]) &#123; for (int i = 1;i &lt;= n;i++) rk[sa[i]] = i;// 根据定义，给rk赋值 for (int i = 1, k = 0;i &lt;= n;i++) &#123;// k表示h[i - 1]，注意i是编号 if (rk[i] == 1) continue; if (k) k--;// height[1]没有意义，且h[i] &gt;= h[i - 1] - 1 int at = sa[rk[i] - 1]; while (at + k &lt;= n &amp;&amp; i + k &lt;= n &amp;&amp; s[at + k] == s[i + k]) k++;// 暴力向后匹配 height[rk[i]] = k; &#125;&#125; 关于最长公共前缀由$LCP$的第三条定理可以快速确定任意两个后缀的最长公共前缀，具体地 $LCP(rk[i], rk[j]) = \min{height[rk[i] + 1], height[rk[i] + 2], \cdots ,height[rk[j]]}​$ 使用ST表查找区间最小值即可 1234567891011121314inline void GetST(int n) &#123; memset(mn, 0x3f, sizeof(mn)); for (int i = 2;i &lt;= n;i++) lg[i] = lg[i &gt;&gt; 1] + 1; for (int i = 1;i &lt;= n;i++) mn[0][i] = height[i]; for (int i = 1;i &lt;= 20;i++) for (int j = 1;j + (1 &lt;&lt; i) - 1 &lt;= n;j++) mn[i][j] = min(mn[i - 1][j], mn[i - 1][j + (1 &lt;&lt; i - 1)]); &#125;inline int GetLCP(int L, int R) &#123; // rank 为 L, R if (L &gt; R) swap(L, R); L++; int len = R - L + 1; if (!len) return 1e9; return min(mn[lg[len]][L], mn[lg[len]][R - (1 &lt;&lt; lg[len]) + 1]);&#125;]]></content>
       <tags>
         <tag>字符串</tag>
         <tag>算法</tag>
