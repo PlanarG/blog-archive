@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[SCOI2019 游记]]></title>
+    <url>%2F2019%2F04%2F14%2FSCOI2019-%E6%B8%B8%E8%AE%B0%2F</url>
+    <content type="text"><![CDATA[写在之前的话感觉NOIP之后就有点没救了，之后冬令营全机房都去了 425分有点凉凉 不过可以试试冲E类 赶紧复习一下exBSGS, exCRT, Cipolla 朱刘算法懒得看了 Day0比赛之前发了一个笔试考察范围，结果是去年NOI的笔试题库 本来以为要考什么神仙内容，结果笔试及其简单 重点是连题目顺序都和题库一样 笔试时间是一个小时，结果30分钟可以走人的时候我在的这个考室已经没人了 感觉只要看了题库就应该是100分吧（雾 话说电子科大的教学楼上“电子科技大学”这几个字看起来好像电子神技大学 晚上看卢爷颓风暴英雄 Celeste真好玩 Day1路上单向模ZJK 我自闭了 我爆零了 来机房看神仙 rank $10^9+7$ 结果每次考完之后都rank 1 这是某些选手的真实写照 拿到试题之后解压，嗯？密码是一串数字 先看T1，那个图片有点劣质啊。。。 貌似是用mspaint画的 不过还将就 手玩了一下样例，好像找到了一点规律的样子 开考5分钟找工作人员要了几张纸 上个厕所冷静一下，顺便思考一下T1 嗯？这不是SB题吗，只要不是划水选手都会做吧。。。 对于最有步数，显然有$$f_m=3f_{m-1}+n-1$$然后随便分治一下就行了 一发过掉大样例 题目中说$Q_i$小于等于答案的上限，然而又没说上限是多少 感觉有阴谋 保证答案小于等于30，有什么用呢 意思是$Q_i\leq (n-1)*3^{30}$吗 然后发现显然是假的，$Q_i$可以达到$3^{1000}$ 手写高精度！ T2的名字叫“肯赛训练” 这里是否有肯德基强行打广告的成份 思考了一下，感觉那个边权是假的 所以是个区间求重心？不会啊 先写暴力吧，好像很莫队的样子 加一个点很好处理，新的重心一定在原来的重心与加的点的连线上 貌似LCT维护虚子树信息可以做到$\log$? 于是开始码LCT，做好了6kb的准备 码了2kb的时候 woc?加点可以直接$\log$，那删点怎么办？ 冷静一下 这个东西好像不是很好维护的样子，干脆暴跳吧 好像加点之后重心的移动次数是$O(\log)​$的 先码一个树状数组 代码还是挺简单的 我的程序跑得巨慢无比 30s后过了大样例 来看T3 好像很多项式的样子 卷积的运算符是乘？是不是可以原根什么的啊 然后发现显然不是 还好暴力分给得很足 直接一行代码有5分 剩下的直接暴力数论分块可以再拿25分 貌似有两个$q=1$的点 欸是不是可以爆搜然后乘一个排列数啊 写完之后发现T成SB了 这个时候离考试结束大概还有10分钟 再来检查一下T1吧 手输了一组极限数据 wtf?RE? 赶紧看一下 还好在最后一分钟的时候发现是高精板子错了 那个高精乘的时候我是边乘边取模233 所以最后估分$100+[30-50]+30$? 莫队的分数很玄学的 ZJK说他T1可能会被卡常，然后期望$50+50+50$ ZYW貌似切了T2的60分 都好强啊 很不幸，我面试是第6轮，也就是最后一轮 本来以为要考什么小学奥数，结果是政治问题？（雾 Bh是第一轮，他说他们那组的面试题目是评论中美贸易战 hxy的题目是七中食堂事件 还有什么国民党为什么会失败 好有趣啊 4：10之前一直在楼梯上坐着 看陈爷玩炉石 经过漫长的等待，终于轮到我了 感觉我们这组只有我一个初中的 拿到题目：如何评价近年来自主招生政策遭到限制？ 开始10分钟讨论 丝毫没有面试经验 10分钟之后 考官：之前我提出的要求是讨论并选出一位代表发言，但是10分钟已经过去了，你们却没有选出一位代表 我们：。。。 考官：从面试的角度来说，你们这次讨论是失败的 我们：。。。 考官：现在再给你们一次机会，选出一个代表发言 显然不是我了2333 感觉面试是不是有点凉啊 晚上来看成绩 嗯？$60+45+30?$ T1的高精度果然T了啊 如果把11位压到17位应该就不会超时了 还是太菜了 orz陈爷180 ZYW165，看来她进E类稳了 ZJK好像有点爆炸？只有100，但是如果算上NOIP的话还是在我前面 看了看此时的加权成绩，rk21，好像有点凉？ 明天加油吧 Day2考前陈爷口胡动态SA，感觉他A类很稳 拿到试题，密码又全是数字 先看T1 好像很模板的样子 感觉那个分成两半部分，再取一个部分的操作没啥用 如果根据询问把每个点变一下，那不是最大子段和吗？ 50pts get 如果要动态的话，线段树维护凸包？？？ 反正这种东西我是很难写出来的 那线段树维护矩阵？？？ 好像不是 两个自变量有点不爽，可以去掉一个 等等，前缀和之后好像是个很裸的斜率优化 15分钟码完，代码只有2kb。。 对拍了上万组数据，感觉很稳 来看T2 哇，这是论文题欸！ 去年国家集训队论文，有一个“解决树上连通块问题的一些技巧和工具” 原题啊！！！！ 具体方法是利用“边数 = 点数 - 1”这个等式来容斥 枚举某个点作为$x$的方案数，减去某条边两个端点都是$x$的方案数 然后就切了？？？ 跑一下大样例 嗯？输出负数？改成long long 嗯？还是负数，看看答案 woc？答案怎么这么小 举手向监考老师求助 我：第二道题有模数吗 老师：题目中写了吗 我：没有啊，但是大样例无论如何都不可能这么小 老师：这个。。。你自己认真读题吧 我：&amp;#fsdl&amp;DFfd*#$jkrhf29873Q@!Rds 不久之后更正通知下来了，模数是$10^9+7$ 改一下程序，过了！很好 开始看T3 这看上去很线性基 事实上线性基的确可以获得20分的好成绩 思考了一下感觉没有发现什么好的性质，果断写暴力 前20分直接暴力，后面20分线性基，然后还有20分貌似是找规律？ 好像是$2^{不同数的个数}$的样子？ 写！ 11：00的时候我就码完了 T1仍然没有拍出错 前面好像有个七中大佬在玩纸牌？ 我默默地点开了扫雷 2min后 太不友好了！ 还是试试虚拟机吧 结果打开虚拟机让我的电脑卡了一会儿 无聊打了一个程序模ZJK 之后看了看各个IDE的作者信息 坐了2h后考试结束了 所以我今天估分$100+100+60?$感觉翻盘有望？ ZJK和ZYW都估分$100+40+40$ ZYW说她T1是在线，是在凸包上二分 蒟蒻只会离线 下午拿到成绩，前两道题确实是100，但是第三题只有40，总分240 看来是规律假了 不过，我竟然是rk 1？ ZYW和ZJK确实是180，E类稳了 BH有点神仙啊，切了T2，但是T1爆零了，本来是很有希望的 坐看卢爷翻盘240，orz 事实证明考前无聊的时候看看论文总是有用的 预祝陈爷NOI取得好成绩！ 后记如果不是第二天的成功翻盘，我有可能进不了E类 感觉这次我们学校进步好大啊，去年只有一个省队 强者都上了400分orz 想起去年我失败的SCOI，想要了解详情可以知乎搜索SCOI2018 希望我能够坚持到最后 NOI2019见]]></content>
+      <tags>
+        <tag>总结</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[二次剩余]]></title>
     <url>%2F2019%2F04%2F09%2F%E4%BA%8C%E6%AC%A1%E5%89%A9%E4%BD%99%2F</url>
     <content type="text"><![CDATA[若方程$x^2\equiv a\pmod p$有解，那么称$a$为$p$的二次剩余，否则$a$为$p$的非二次剩余 勒让德符号及欧拉判别法定义勒让德符号为$$\left(\frac{a}{p}\right)=\begin{cases}1&amp;a为p的二次剩余\\ -1&amp;a为p的非二次剩余\\ 0 &amp;a能被p整除\end{cases}$$ 欧拉判别法就是：如果$a$不能被$p$整除，那么有$$\left(\frac{a}{p}\right)=a^{\frac{p-1}{2}}$$ 定理1 对于方程$x^2\equiv a\pmod p$ ，共有$\frac{p-1}{2}$个不同的$a$使得该方程有解 我们忽略$x=0$，如果枚举$x$再求出$a$，那么$x$一共有$p-1$个不同的值，也就产生了$p-1$个$a$ 我们知道一个二次剩余恰好会产生两个解，那么这$p-1$个$a$就被分配到了$\frac{p-1}{2}$个不同的桶里面 所以共有$\frac{p-1}{2}$个$a$ 定理2 $(x+y)^p\equiv x^p+y^p\pmod p$ 我们将其二项式展开$$(x+y)^p=\sum_{i=0}^p{p\choose i}x^iy^{p-i}$$当$i\not=0$且$i\not=p$时，$p\choose i$一定包含因数$p$，所以可以忽略 只剩下第一项和最后一项 Cipolla算法现在要求出方程$x^2\equiv n\pmod p$的一个解 我们找出一个$a​$，使得$(a^2-n)^{\frac{p-1}{2}}\equiv-1\pmod p​$ 设$\omega=\sqrt{a^2-n}$ 结论：$x=(a+\omega)^{\frac{p+1}{2}}$ 证明如下： 我们知道 $$(a^2-n)^{\frac{p-1}{2}}\equiv-1\pmod p\Rightarrow (\omega^2)^{\frac{p-1}{2}}\equiv -1\pmod p\\\omega^{p-1}\equiv -1\pmod p$$ 那么有$$\begin{aligned}x&amp;\equiv (a+\omega)^{\frac{p+1}{2}}\\x^2&amp;\equiv (a+\omega)^{p+1}\equiv(a+\omega)^p(a+\omega)\\&amp;\equiv(a^p+\omega^p)(a+\omega)\\&amp;\equiv(a-\omega)(a+\omega)\\&amp;\equiv a^2-\omega^2\equiv a^2-a^2+n\equiv n\end{aligned}$$我们可以通过实现一个类似复数的结构体来进行运算 由于$p$的二次剩余一共有$\frac{p-1}{2}$个，而$a$在$[0,p)$中随机选取 那么成功的概率就是$\frac{1}{2}$ 此时答案中$\omega$部分的系数必然为0]]></content>
@@ -73,8 +81,8 @@
         <tag>总结</tag>
         <tag>数据结构</tag>
         <tag>期望</tag>
-        <tag>矩阵乘法</tag>
         <tag>二进制</tag>
+        <tag>矩阵乘法</tag>
       </tags>
   </entry>
   <entry>
@@ -86,9 +94,9 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
+        <tag>最短路</tag>
         <tag>分治</tag>
         <tag>期望</tag>
-        <tag>最短路</tag>
         <tag>线段树</tag>
         <tag>贪心</tag>
         <tag>分块</tag>
@@ -104,9 +112,9 @@
         <tag>数学</tag>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>最短路</tag>
         <tag>斜率优化</tag>
         <tag>gcd</tag>
+        <tag>最短路</tag>
         <tag>FWT</tag>
       </tags>
   </entry>
@@ -134,8 +142,8 @@
         <tag>网络流</tag>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>LCT</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -148,8 +156,8 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>线段树</tag>
         <tag>多项式</tag>
+        <tag>线段树</tag>
         <tag>FFT</tag>
         <tag>BM</tag>
         <tag>行列式</tag>
@@ -166,8 +174,8 @@
         <tag>总结</tag>
         <tag>数据结构</tag>
         <tag>线段树</tag>
-        <tag>扫描线</tag>
         <tag>泰勒展开</tag>
+        <tag>扫描线</tag>
       </tags>
   </entry>
   <entry>
@@ -210,13 +218,13 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>分块</tag>
         <tag>多项式求逆</tag>
         <tag>多项式</tag>
+        <tag>分块</tag>
         <tag>NTT</tag>
-        <tag>泰勒展开</tag>
         <tag>构造</tag>
         <tag>多项式ln</tag>
+        <tag>泰勒展开</tag>
       </tags>
   </entry>
   <entry>
@@ -239,9 +247,9 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
+        <tag>树状数组</tag>
         <tag>二分答案</tag>
         <tag>字符串</tag>
-        <tag>树状数组</tag>
         <tag>后缀自动机</tag>
       </tags>
   </entry>
@@ -255,8 +263,8 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>分块</tag>
         <tag>多项式</tag>
+        <tag>分块</tag>
         <tag>平衡树</tag>
         <tag>NTT</tag>
         <tag>概率</tag>
@@ -324,8 +332,8 @@
       <tags>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>分治</tag>
         <tag>多项式</tag>
+        <tag>分治</tag>
         <tag>FFT</tag>
         <tag>树上差分</tag>
       </tags>
@@ -358,8 +366,8 @@
       <tags>
         <tag>题解</tag>
         <tag>数据结构</tag>
-        <tag>线段树</tag>
         <tag>点分治</tag>
+        <tag>线段树</tag>
       </tags>
   </entry>
   <entry>
@@ -368,9 +376,9 @@
     <content type="text"><![CDATA[题目链接 感觉这题没啥好说的。。。就是对数据的分类讨论差评 首先对于所有的危险串建AC自动机，标记危险节点，转移的时候不从危险节点转移 然后预处理to[i][j]，即从自动机的i号节点出发，按照第j个基本串走，最后到达的节点，注意如果中途有危险节点就是-1 对于前60%的数据，直接dp即可，用dp[i][j]表示当前串长度为i，走到自动机的j号节点的方案数 对于后面40%的数据，没法直接dp了。注意到基本串的长度都特别小，直接上矩阵乘法 如果基本串的长度都为1，那么建一个$n*n$的矩阵就好了 否则要同时保存长度为$len-1,len-2$的方案，建一个$(2*n)^2$的矩阵 然后快速幂即可 代码如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091#include &lt;bits/stdc++.h&gt;using namespace std;#define N 110int ncnt, trie[N][26], val[N]; const int mod = 1e9 + 7;inline void insert(char s[], int len) &#123; int now = 0; for (int i = 1, c = s[i] - 'a';i &lt;= len;i++, c = s[i] - 'a') if (trie[now][c]) now = trie[now][c]; else now = trie[now][c] = ++ncnt; val[now] = 1;&#125; int fail[N]; queue&lt;int&gt; q; inline void BFS() &#123; for (int i = 0, now;i &lt; 26;i++) if (now = trie[0][i]) q.push(now); while (!q.empty()) &#123; int now = q.front(); q.pop(); for (int i = 0, f, son;i &lt; 26;i++) if (trie[now][i]) &#123; f = fail[now]; while (f &amp;&amp; !trie[f][i]) f = fail[f]; son = trie[now][i], fail[son] = trie[f][i], val[son] |= val[fail[son]], q.push(son); &#125; &#125; &#125;inline int query(int now, char s[], int len) &#123; for (int i = 1, c;i &lt;= len;i++) &#123; c = s[i] - 'a'; while (now &amp;&amp; !trie[now][c]) now = fail[now]; now = trie[now][c]; if (val[now]) return -1; &#125; return now;&#125;char basic[51][N], s[51][N]; int len[N], to[N][N], dp[N][N];#define LL long longstruct Matrix &#123; int a[2 * N][2 * N], n; Matrix(int _n = 0) : n(_n) &#123;memset(a, 0, sizeof(a));&#125; Matrix operator * (Matrix b) &#123; Matrix c(n); for (int i = 0;i &lt;= n;i++) for (int j = 0;j &lt;= n;j++) for (int k = 0;k &lt;= n;k++) c.a[i][j] = (c.a[i][j] + (LL)a[i][k] * b.a[k][j]) % mod; return c; &#125;&#125;;inline Matrix Pow(Matrix x, int y) &#123; Matrix res(x.n); for (int i = 0;i &lt;= res.n;i++) res.a[i][i] = 1; for (;y;y &gt;&gt;= 1, x = x * x) if (y &amp; 1) res = res * x; return res;&#125;inline int solve1(int n, int l) &#123; Matrix res(ncnt); for (int i = 0;i &lt;= ncnt;i++) if (!val[i]) for (int j = 1;j &lt;= n;j++) if (~to[i][j]) res.a[to[i][j]][i]++; res = Pow(res, l); int ans = 0; for (int i = 0;i &lt;= ncnt;i++) ans = (ans + res.a[i][0]) % mod; return ans;&#125;inline int solve2(int n, int l) &#123; Matrix res(2 * ncnt + 1); for (int i = ncnt + 1;i &lt;= 2 * ncnt + 1;i++) res.a[i][i - ncnt - 1] = 1; for (int i = 0;i &lt;= ncnt;i++) if (!val[i]) for (int j = 1;j &lt;= n;j++) if (~to[i][j]) res.a[to[i][j]][i + (len[j] == 1 ? 0 : ncnt + 1)]++; res = Pow(res, l); int ans = 0; for (int i = 0;i &lt;= ncnt;i++) ans = (ans + res.a[i][0]) % mod; return ans;&#125;int main() &#123; int n, m, l, mx = 0; scanf("%d%d%d", &amp;n, &amp;m, &amp;l); for (int i = 1;i &lt;= n;i++) scanf("%s", basic[i] + 1), len[i] = strlen(basic[i] + 1), mx = max(mx, len[i]); for (int i = 1;i &lt;= m;i++) scanf("%s", s[i] + 1), insert(s[i], strlen(s[i] + 1)); BFS(); for (int i = 0;i &lt;= ncnt;i++) for (int j = 1;j &lt;= n;j++) to[i][j] = val[i] ? -1 : query(i, basic[j], len[j]); if (l &lt;= 100) &#123; dp[0][0] = 1; for (int i = 0;i &lt;= l;i++) for (int j = 0;j &lt;= ncnt;j++) if (!val[j] &amp;&amp; dp[i][j]) for (int k = 1;k &lt;= n;k++) if (~to[j][k] &amp;&amp; i + len[k] &lt;= l) (dp[i + len[k]][to[j][k]] += dp[i][j]) %= mod; int ans = 0; for (int i = 0;i &lt;= ncnt;i++) (ans += dp[l][i]) %= mod; printf("%d\n", ans); &#125; else printf("%d\n", mx == 1 ? solve1(n, l) : solve2(n, l)); return 0; &#125;]]></content>
       <tags>
         <tag>题解</tag>
+        <tag>矩阵乘法</tag>
         <tag>AC自动机</tag>
         <tag>字符串</tag>
-        <tag>矩阵乘法</tag>
       </tags>
   </entry>
   <entry>
@@ -399,8 +407,8 @@
       <tags>
         <tag>多项式</tag>
         <tag>算法</tag>
-        <tag>NTT</tag>
         <tag>FFT</tag>
+        <tag>NTT</tag>
       </tags>
   </entry>
   <entry>
@@ -411,8 +419,8 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>线段树</tag>
         <tag>点分治</tag>
+        <tag>线段树</tag>
         <tag>动态点分治</tag>
         <tag>rmq</tag>
       </tags>
@@ -468,8 +476,8 @@
     <content type="text"><![CDATA[$$n\leq 3*10^5$$树链剖分好题，链上维护虚子树信息 我们考虑如何更新一条链 假设询问节点是$u$，$AC$是一条重链，$PB$是一条轻链，$P$是一个奇怪的节点 那么我们知道，此时$B$的点权加上了$P$ 如果$A$的下方还连接着一个奇怪的点$P_1$，那么$B$也会加上$P_1$的权值 而此时$C$不会加上$P_1$的权值，因为它不是lca 所以当$u$从一条链的顶端跳到另一条链时，对于$u$的父亲我们需要特殊考虑贡献，对于这条链上其它的点，权值都会加上在其子树中，且不在其重儿子子树中的奇怪的点的编号之和 这个东西不是很好维护，那么我们考虑维护它所乘的系数，即它的权值加了多少次不在重儿子的奇怪的点的编号之和 这样的话，我们只需要实现区间加1就可以了 我们另开一个数组ans，表示每个点除了那个区间加1以外的贡献 比如之前提到的$u$的父亲，我们就将它的重儿子所在的子树中奇怪的点的编号之和加入ans 假如一个点加了$a_i$次1，在它的子树中，且不在它重儿子的子树中的奇怪的点的编号之和为$b_i$，那么一个点最终的答案就是$a_ib_i+ans_i$ 12345678inline void Tupdate1(int u) &#123; ans[u] += query(1, id[u], 2); while (u) &#123; update(1, id[top[u]], id[u], 0, 1); // 区间ai + 1 u = top[u], ans[fa[u]] += query(1, id[fa[u]], 2) - query(1, id[u], 1) - query(1, id[u], 2); // 特殊处理链顶的父亲，注意要减去u自己所在的子树的贡献 u = fa[u]; &#125;&#125; 我们考虑如何实现询问2 我们记一个点的非重儿子子树中，奇怪的点的点权之和是$V_u$ 其重儿子子树中，奇怪的点的点权之和是$W_u$ 如果把$u$的状态改变了，那么这会影响一些点的$V_u$和$W_u$ 仍然考虑这张图 对于$B$，它的$V$变化而$W$不变化 对于$C$，它的$W$变化而$V$不变化 对于$A$，它的$W$和$V$都不变化 我们仍然将$B$视为特殊点，特殊处理贡献 注意到之前我们维护了$V_u$的贡献系数 而这里$B$的$V$值更新了，那么这会导致答案多统计一部分 方法是，在更新$B$之前，将$a_bV_b$下放到ans[b]，然后将$a_b$清零 注意最开始$u$还没有向上爬的时候，$u$节点本身也是一个特殊点 1234567891011inline void Tupdate2(int u) &#123; int tmp = mark[u] ? -u : u; mark[u] ^= 1; // 权值更改的值 LL del = query(1, id[u], 0); ans[u] += del * query(1, id[u], 1), update(1, id[u], id[u], 0, -del); // 特殊处理u ：0代表a[u]，1代表V[u]，2代表W[u]，清空a[u]并更新V[u] update(1, id[u], id[u], 1, tmp); while (u) &#123; update(1, id[top[u]], id[fa[u]], 2, tmp), u = top[u]; del = query(1, id[fa[u]], 0); ans[fa[u]] += del * query(1, id[fa[u]], 1), update(1, id[fa[u]], id[fa[u]], 0, -del), update(1, id[fa[u]], id[fa[u]], 1, tmp); // 同理 u = fa[u]; &#125;&#125; 关于动态dp，也是链上维护虚子树信息 去年四川省选D1T1也许可以LCT维护虚子树信息 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107#include &lt;bits/stdc++.h&gt;using namespace std;#define N 300010#define LL long longstruct edge &#123;int to, next;&#125; e[N * 2];int head[N], ecnt;inline void adde(int from, int to) &#123; e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt; e[++ecnt] = (edge)&#123;from, head[to]&#125;, head[to] = ecnt;&#125;struct node &#123; int l, r; LL sum, lazy, s1, s2, lazy1, lazy2; &#125; T[N &lt;&lt; 2];inline void pushdown(int rt) &#123; T[rt &lt;&lt; 1].sum += T[rt].lazy, T[rt &lt;&lt; 1 | 1].sum += T[rt].lazy, T[rt &lt;&lt; 1].lazy += T[rt].lazy, T[rt &lt;&lt; 1 | 1].lazy += T[rt].lazy, T[rt].lazy = 0; T[rt &lt;&lt; 1].s1 += T[rt].lazy1, T[rt &lt;&lt; 1 | 1].s1 += T[rt].lazy1, T[rt &lt;&lt; 1].lazy1 += T[rt].lazy1, T[rt &lt;&lt; 1 | 1].lazy1 += T[rt].lazy1, T[rt].lazy1 = 0; T[rt &lt;&lt; 1].s2 += T[rt].lazy2, T[rt &lt;&lt; 1 | 1].s2 += T[rt].lazy2, T[rt &lt;&lt; 1].lazy2 += T[rt].lazy2, T[rt &lt;&lt; 1 | 1].lazy2 += T[rt].lazy2, T[rt].lazy2 = 0;&#125;int rk[N]; LL v1[N], v2[N], ans[N];void build(int rt, int l, int r) &#123; T[rt].l = l, T[rt].r = r; int mid = (l + r) &gt;&gt; 1; if (l == r) &#123;T[rt].s1 = v1[rk[l]], T[rt].s2 = v2[rk[l]]; return;&#125; build(rt &lt;&lt; 1, l, mid), build(rt &lt;&lt; 1 | 1, mid + 1, r);&#125;void update(int rt, int start, int end, int type, LL x) &#123; if (end &lt;= 0 || start &gt; end) return; int l = T[rt].l, r = T[rt].r, mid = (l + r) &gt;&gt; 1; if (start &lt;= l &amp;&amp; r &lt;= end) &#123; if (type == 0) T[rt].lazy += x, T[rt].sum += x; else if (type == 1) T[rt].lazy1 += x, T[rt].s1 += x; else T[rt].lazy2 += x, T[rt].s2 += x; return; &#125; pushdown(rt); if (start &lt;= mid) update(rt &lt;&lt; 1, start, end, type, x); if (end &gt; mid) update(rt &lt;&lt; 1 | 1, start, end, type, x);&#125;LL query(int rt, int at, int type) &#123; if (!at) return 0; int l = T[rt].l, r = T[rt].r, mid = (l + r) &gt;&gt; 1; if (l == r) &#123; if (type == 0) return T[rt].sum; else if (type == 1) return T[rt].s1; else return T[rt].s2; &#125; pushdown(rt); return at &lt;= mid ? query(rt &lt;&lt; 1, at, type) : query(rt &lt;&lt; 1 | 1, at, type);&#125;int dfsn, sz[N], top[N], id[N], fa[N], mark[N], son[N];void dfs1(int u, int f) &#123; sz[u] = 1, fa[u] = f; for (int i = head[u];i;i = e[i].next) if (e[i].to != f) &#123; dfs1(e[i].to, u), sz[u] += sz[e[i].to]; if (sz[son[u]] &lt; sz[e[i].to]) son[u] = e[i].to; &#125;&#125;void dfs2(int u, int t) &#123; id[u] = ++dfsn, top[u] = t, v1[u] = mark[u] ? u : 0, rk[id[u]] = u; if (son[u]) dfs2(son[u], t), v2[u] += v2[son[u]] + v1[son[u]]; for (int i = head[u];i;i = e[i].next) if (e[i].to != fa[u] &amp;&amp; e[i].to != son[u]) dfs2(e[i].to, e[i].to), v1[u] += v1[e[i].to] + v2[e[i].to];&#125;inline void Tupdate1(int u) &#123; ans[u] += query(1, id[u], 2); while (u) &#123; update(1, id[top[u]], id[u], 0, 1); u = top[u], ans[fa[u]] += query(1, id[fa[u]], 2) - query(1, id[u], 1) - query(1, id[u], 2); u = fa[u]; &#125;&#125;inline void Tupdate2(int u) &#123; int tmp = mark[u] ? -u : u; mark[u] ^= 1; LL del = query(1, id[u], 0); ans[u] += del * query(1, id[u], 1), update(1, id[u], id[u], 0, -del); update(1, id[u], id[u], 1, tmp); while (u) &#123; update(1, id[top[u]], id[fa[u]], 2, tmp), u = top[u]; del = query(1, id[fa[u]], 0); ans[fa[u]] += del * query(1, id[fa[u]], 1), update(1, id[fa[u]], id[fa[u]], 0, -del), update(1, id[fa[u]], id[fa[u]], 1, tmp); u = fa[u]; &#125;&#125;inline LL query(int u) &#123; return ans[u] + query(1, id[u], 0) * query(1, id[u], 1);&#125;int __rd;inline void read(int &amp;x) &#123; x = 0; char c = getchar(); while (c &lt; '0' || c &gt; '9') c = getchar(); while ('0' &lt;= c &amp;&amp; c &lt;= '9') x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + c - '0', c = getchar();&#125;#define RD (read(__rd), __rd)#define OPEN(x) freopen(x".in", "r", stdin), freopen(x".out", "w", stdout)int main() &#123;// OPEN("strtree"); int n = RD, m = RD; for (int i = 1;i &lt;= n;i++) mark[i] = RD; for (int i = 1, a, b;i &lt; n;i++) a = RD, b = RD, adde(a, b); dfs1(1, 0), dfs2(1, 1), build(1, 1, n); while (m--) &#123; int a = RD, b = RD; if (a == 1) Tupdate1(b); else Tupdate2(b); &#125; for (int i = 1;i &lt;= n;i++) printf("%lld\n", query(i));&#125;]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>树链剖分</tag>
         <tag>数据结构</tag>
+        <tag>树链剖分</tag>
       </tags>
   </entry>
   <entry>
