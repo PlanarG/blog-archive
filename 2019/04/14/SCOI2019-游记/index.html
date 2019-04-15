@@ -134,7 +134,7 @@
 <meta property="og:site_name" content="An_Account&#39;s Blog">
 <meta property="og:description" content="写在之前的话感觉NOIP之后就有点没救了，之后冬令营全机房都去了 425分有点凉凉 不过可以试试冲E类 赶紧复习一下exBSGS, exCRT, Cipolla 朱刘算法懒得看了 Day0比赛之前发了一个笔试考察范围，结果是去年NOI的笔试题库 本来以为要考什么神仙内容，结果笔试及其简单 重点是连题目顺序都和题库一样 笔试时间是一个小时，结果30分钟可以走人的时候我在的这个考室已经没人了 感觉只要">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-14T12:19:32.212Z">
+<meta property="og:updated_time" content="2019-04-15T13:25:28.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SCOI2019 游记">
 <meta name="twitter:description" content="写在之前的话感觉NOIP之后就有点没救了，之后冬令营全机房都去了 425分有点凉凉 不过可以试试冲E类 赶紧复习一下exBSGS, exCRT, Cipolla 朱刘算法懒得看了 Day0比赛之前发了一个笔试考察范围，结果是去年NOI的笔试题库 本来以为要考什么神仙内容，结果笔试及其简单 重点是连题目顺序都和题库一样 笔试时间是一个小时，结果30分钟可以走人的时候我在的这个考室已经没人了 感觉只要">
@@ -416,12 +416,24 @@
                 
               
 
-              <time title="创建时间：2019-04-14 19:14:35 / 修改时间：20:19:32" itemprop="dateCreated datePublished" datetime="2019-04-14T19:14:35+08:00">2019-04-14</time>
+              <time title="创建时间：2019-04-14 19:14:35" itemprop="dateCreated datePublished" datetime="2019-04-14T19:14:35+08:00">2019-04-14</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-15 21:25:28" itemprop="dateModified" datetime="2019-04-15T21:25:28+08:00">2019-04-15</time>
               
             
           </span>
@@ -646,6 +658,86 @@
 <p>想起去年我失败的<code>SCOI</code>，想要了解详情可以知乎搜索<code>SCOI2018</code></p>
 <p>希望我能够坚持到最后</p>
 <p><code>NOI2019</code>见</p>
+<h1 id="补充：关于题意"><a href="#补充：关于题意" class="headerlink" title="补充：关于题意"></a>补充：关于题意</h1><h2 id="D1T1-跳跃游戏"><a href="#D1T1-跳跃游戏" class="headerlink" title="D1T1 跳跃游戏"></a>D1T1 跳跃游戏</h2><p>有$m$个小红球，$n$个空岛。其中第一个、最后一个空岛以及中间的第$k$个空岛是固定的$(1&lt;k&lt;n)$是固定的，其余空岛是悬浮的。一开始所有小红球都在第一个空岛，你的目标是把他们都移动到最后一个空岛，并且使用的步数尽量小。</p>
+<p>每回合你可以移动一个小红球到它左边或者右边的那个平台，但是有一些限制：</p>
+<ul>
+<li>移动的小红球必须是移动前/移动后它所在的平台上编号最小的。</li>
+<li>如果一个小红球移动到了一个浮动平台上，那下一回合必须将这个小红球移走，否则它就会掉下去。</li>
+</ul>
+<p>有$q$个询问，每次给出一个时刻，你需要回答在最优方案中，这个时刻正在跳跃的是哪个小红球。</p>
+<p>保证答案小于$30$，$n\leq 10^8,m\leq1000,q\leq5000$，时限$1$s</p>
+<p>保证询问给出的时刻小于等于最优方案数</p>
+<p>部分分：</p>
+<ul>
+<li>对于$20\%$的数据，保证$m,n,q\leq10$</li>
+<li>对于$50\%​$的数据，保证$n\leq 10^8,m\leq 10,q\leq 5000​$</li>
+</ul>
+<h2 id="D1T2-肯赛训练"><a href="#D1T2-肯赛训练" class="headerlink" title="D1T2 肯赛训练"></a>D1T2 肯赛训练</h2><p>给出一棵树，$n$个节点，每条边有边权$c_i$。</p>
+<p>给出一个点的序列，这个序列有$m$个数，第$i$个数$a_i$代表编号为$a_i$的点</p>
+<p>有$q​$个询问，每次询问给出一段区间$[l,r]​$，你要在树上选出一个点，使得这个点离$a_l,a_{l+1},\cdots,a_{r}​$的距离之和尽量小，输出这个点的编号</p>
+<p>注意，选出的点不一定是$a_{l},a_{l+1},\cdots,a_r​$其中的某一个</p>
+<p>保证$n\leq 3*10^5,c_i\leq 1000,m\leq5*10^5,q\leq10^6$，区间的长度是奇数，时限$3$s</p>
+<p>部分分：</p>
+<ul>
+<li>对于前$20\%​$的数据，保证$n,m,q\leq2*10^3​$</li>
+<li>对于前$35\%$的数据，保证$m,q\leq2*10^3$</li>
+<li><p>对于前$60\%$的数据，保证$n,m,q\leq10^5$</p>
+</li>
+<li><p>对于另$15\%​$的数据，保证每个点的度数不超过$2​$</p>
+</li>
+</ul>
+<h2 id="D1T3-超矩形"><a href="#D1T3-超矩形" class="headerlink" title="D1T3 超矩形"></a>D1T3 超矩形</h2><p>给出一个数$n$，你需要找到$k$个数$a_1,a_2,\cdots,a_k$使得$\prod_{i=1}^ka_i\leq n$</p>
+<p>给出一个变换$b_1,b_2,\cdots,b_k$，保证$b_i&lt;10$</p>
+<p>你需要求出<br>$$<br>\sum_{所有合法的方案}\prod_{i=1}^ka_i^{b^i}\pmod {998244353}<br>$$</p>
+<p>多组数据（$t$组）</p>
+<p>保证$n\leq10^6,\sum k\leq10^6,t\leq100$，时限$4$s</p>
+<p>给出$b​$的方式是$q​$个$s_i,r_i​$，表示有连续$r_i​$个$b_i​$是$s_i​$</p>
+<p>保证$s_i$互不相同，$q&lt;5$</p>
+<p>部分分：</p>
+<ul>
+<li>对于前$10\%$的数据，保证$k=1,q=1,s=0$</li>
+<li>对于前$20\%$的数据，保证$k=1,q=1,s\leq1$</li>
+<li><p>对于前$30\%$的数据，保证$k\leq2,q\leq2$</p>
+</li>
+<li><p>对于另$20\%$的数据，保证$q=1$</p>
+</li>
+</ul>
+<h2 id="D2T1-湖之精灵的游戏"><a href="#D2T1-湖之精灵的游戏" class="headerlink" title="D2T1 湖之精灵的游戏"></a>D2T1 湖之精灵的游戏</h2><p>一个二维平面上有$n$个点，第$i$个点的坐标是$(x_i,y_i)$，你要和一位神仙玩游戏。</p>
+<p>每次神仙会告诉你一个坐标$(x,y)$，连一条经过$(0,0),(x,y)$的直线，这会把平面分成两个部分$A,B$</p>
+<p>你要选择一个区间$[l,r]$，那么计算的时候只会考虑编号在$[l,r]$之内的点</p>
+<p>一个半平面的价值是这个半平面中，编号在$[l,r]$范围内的点与$(0,0),(x,y)$组成三角形的面积之和</p>
+<p>你要选择一个半平面，神仙会选择另一个半平面，你想要使得你得到的价值减去神仙得到的价值的结果尽量大</p>
+<p>有$m​$轮游戏，对于每轮游戏输出这个最大值乘以$2​$的结果</p>
+<p>保证$n,m\leq 10^6$，$1\leq x,y\leq1000$，时限$2$s</p>
+<p>部分分：</p>
+<ul>
+<li>对于$20\%$的数据，$n,m\leq200$</li>
+<li>对于$50\%$的数据，$n,m\leq 10^4$</li>
+</ul>
+<h2 id="D2T2-RGB"><a href="#D2T2-RGB" class="headerlink" title="D2T2 RGB"></a>D2T2 <font color="red">R</font><font color="green">G</font><font color="blue">B</font></h2><p>有一棵树，$n$个节点，每条边有边权$c_i$，每个点的颜色为<font color="red">R</font>,<font color="green">G</font>,<font color="blue">B</font>三种颜色之一</p>
+<p>你要统计有序对$(U,V)$的数量，其中$U,V​$是两个点集</p>
+<p>它还需要满足以下条件：</p>
+<ul>
+<li>$U​$和$V​$都必须是连通的</li>
+<li>$U$的颜色只能是红色或者绿色，$V$的颜色只能是绿色或者蓝色</li>
+<li>存在一个$U,V$均包含的点$x$，使得对于所有在$U,V$集合中的点$y$，有$dis(x,y)\leq w$</li>
+</ul>
+<p>保证$n\leq 2000,w\leq10^7,c_i\leq10^6$，时限$1$s</p>
+<p>部分分：</p>
+<ul>
+<li>对于$30\%$的数据，$n\leq 15$</li>
+<li>对于另$10\%$的数据，只有一个<font color="green">G</font></li>
+<li>对于另$20\%$的数据，树是一条链</li>
+</ul>
+<h2 id="D2T3-函数"><a href="#D2T3-函数" class="headerlink" title="D2T3 函数"></a>D2T3 函数</h2><p>有$n$个数$v_1,v_2,\cdots,v_n$，现在有一类函数$f_T(x)$，其中$T$是$V$的一个子集，它的定义是<br>$$<br>f_T(x)=\bigoplus_{v_i\in T}(x+v_i)\\<br>f_\emptyset(x)=0<br>$$<br>我们称两个函数$f_s,f_t$是$W-$本质不同的，当且仅当存在一个$0\leq x\leq W$，使得$f_s(x)\not=f_t(x)$</p>
+<p>问在这$2^n$个函数中，有多少函数是$W-$本质不同的</p>
+<p>保证$n,w,v_i&lt; 2^{17}$，时限$1$s</p>
+<p>部分分：</p>
+<ul>
+<li>对于$20\%$的数据，$n\leq15,w\leq10$</li>
+<li>对于另$20\%$的数据，$w=0$</li>
+<li>对于前$70\%$的数据，$n,w,v_i\leq2^{10}$</li>
+</ul>
 
       
     </div>
@@ -1018,7 +1110,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在之前的话"><span class="nav-number">1.</span> <span class="nav-text">写在之前的话</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day0"><span class="nav-number">2.</span> <span class="nav-text">Day0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day1"><span class="nav-number">3.</span> <span class="nav-text">Day1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day2"><span class="nav-number">4.</span> <span class="nav-text">Day2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在之前的话"><span class="nav-number">1.</span> <span class="nav-text">写在之前的话</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day0"><span class="nav-number">2.</span> <span class="nav-text">Day0</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day1"><span class="nav-number">3.</span> <span class="nav-text">Day1</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Day2"><span class="nav-number">4.</span> <span class="nav-text">Day2</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#后记"><span class="nav-number">5.</span> <span class="nav-text">后记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#补充：关于题意"><span class="nav-number">6.</span> <span class="nav-text">补充：关于题意</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#D1T1-跳跃游戏"><span class="nav-number">6.1.</span> <span class="nav-text">D1T1 跳跃游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#D1T2-肯赛训练"><span class="nav-number">6.2.</span> <span class="nav-text">D1T2 肯赛训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#D1T3-超矩形"><span class="nav-number">6.3.</span> <span class="nav-text">D1T3 超矩形</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#D2T1-湖之精灵的游戏"><span class="nav-number">6.4.</span> <span class="nav-text">D2T1 湖之精灵的游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#D2T2-RGB"><span class="nav-number">6.5.</span> <span class="nav-text">D2T2 RGB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#D2T3-函数"><span class="nav-number">6.6.</span> <span class="nav-text">D2T3 函数</span></a></li></ol></li></ol></div>
             
 
           </div>
