@@ -54,8 +54,8 @@
       <tags>
         <tag>题解</tag>
         <tag>数据结构</tag>
-        <tag>二进制</tag>
         <tag>线段树</tag>
+        <tag>二进制</tag>
       </tags>
   </entry>
   <entry>
@@ -80,8 +80,8 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>二进制</tag>
         <tag>期望</tag>
+        <tag>二进制</tag>
         <tag>矩阵乘法</tag>
       </tags>
   </entry>
@@ -95,11 +95,11 @@
         <tag>总结</tag>
         <tag>数据结构</tag>
         <tag>最短路</tag>
+        <tag>分治</tag>
         <tag>期望</tag>
         <tag>线段树</tag>
-        <tag>分块</tag>
-        <tag>分治</tag>
         <tag>贪心</tag>
+        <tag>分块</tag>
         <tag>二分答案</tag>
       </tags>
   </entry>
@@ -142,8 +142,8 @@
         <tag>网络流</tag>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>LCT</tag>
+        <tag>数据结构</tag>
       </tags>
   </entry>
   <entry>
@@ -174,8 +174,8 @@
         <tag>总结</tag>
         <tag>数据结构</tag>
         <tag>线段树</tag>
-        <tag>扫描线</tag>
         <tag>泰勒展开</tag>
+        <tag>扫描线</tag>
       </tags>
   </entry>
   <entry>
@@ -188,8 +188,8 @@
         <tag>总结</tag>
         <tag>数据结构</tag>
         <tag>多项式</tag>
-        <tag>置换</tag>
         <tag>平衡树</tag>
+        <tag>置换</tag>
         <tag>NTT</tag>
       </tags>
   </entry>
@@ -222,9 +222,9 @@
         <tag>多项式</tag>
         <tag>分块</tag>
         <tag>NTT</tag>
-        <tag>泰勒展开</tag>
         <tag>构造</tag>
         <tag>多项式ln</tag>
+        <tag>泰勒展开</tag>
       </tags>
   </entry>
   <entry>
@@ -248,8 +248,8 @@
         <tag>总结</tag>
         <tag>数据结构</tag>
         <tag>树状数组</tag>
-        <tag>字符串</tag>
         <tag>二分答案</tag>
+        <tag>字符串</tag>
         <tag>后缀自动机</tag>
       </tags>
   </entry>
@@ -334,8 +334,8 @@
         <tag>总结</tag>
         <tag>多项式</tag>
         <tag>分治</tag>
-        <tag>树上差分</tag>
         <tag>FFT</tag>
+        <tag>树上差分</tag>
       </tags>
   </entry>
   <entry>
@@ -407,8 +407,8 @@
       <tags>
         <tag>多项式</tag>
         <tag>算法</tag>
-        <tag>NTT</tag>
         <tag>FFT</tag>
+        <tag>NTT</tag>
       </tags>
   </entry>
   <entry>
@@ -476,8 +476,8 @@
     <content type="text"><![CDATA[$$n\leq 3*10^5$$树链剖分好题，链上维护虚子树信息 我们考虑如何更新一条链 假设询问节点是$u$，$AC$是一条重链，$PB$是一条轻链，$P$是一个奇怪的节点 那么我们知道，此时$B$的点权加上了$P$ 如果$A$的下方还连接着一个奇怪的点$P_1$，那么$B$也会加上$P_1$的权值 而此时$C$不会加上$P_1$的权值，因为它不是lca 所以当$u$从一条链的顶端跳到另一条链时，对于$u$的父亲我们需要特殊考虑贡献，对于这条链上其它的点，权值都会加上在其子树中，且不在其重儿子子树中的奇怪的点的编号之和 这个东西不是很好维护，那么我们考虑维护它所乘的系数，即它的权值加了多少次不在重儿子的奇怪的点的编号之和 这样的话，我们只需要实现区间加1就可以了 我们另开一个数组ans，表示每个点除了那个区间加1以外的贡献 比如之前提到的$u$的父亲，我们就将它的重儿子所在的子树中奇怪的点的编号之和加入ans 假如一个点加了$a_i$次1，在它的子树中，且不在它重儿子的子树中的奇怪的点的编号之和为$b_i$，那么一个点最终的答案就是$a_ib_i+ans_i$ 12345678inline void Tupdate1(int u) &#123; ans[u] += query(1, id[u], 2); while (u) &#123; update(1, id[top[u]], id[u], 0, 1); // 区间ai + 1 u = top[u], ans[fa[u]] += query(1, id[fa[u]], 2) - query(1, id[u], 1) - query(1, id[u], 2); // 特殊处理链顶的父亲，注意要减去u自己所在的子树的贡献 u = fa[u]; &#125;&#125; 我们考虑如何实现询问2 我们记一个点的非重儿子子树中，奇怪的点的点权之和是$V_u$ 其重儿子子树中，奇怪的点的点权之和是$W_u$ 如果把$u$的状态改变了，那么这会影响一些点的$V_u$和$W_u$ 仍然考虑这张图 对于$B$，它的$V$变化而$W$不变化 对于$C$，它的$W$变化而$V$不变化 对于$A$，它的$W$和$V$都不变化 我们仍然将$B$视为特殊点，特殊处理贡献 注意到之前我们维护了$V_u$的贡献系数 而这里$B$的$V$值更新了，那么这会导致答案多统计一部分 方法是，在更新$B$之前，将$a_bV_b$下放到ans[b]，然后将$a_b$清零 注意最开始$u$还没有向上爬的时候，$u$节点本身也是一个特殊点 1234567891011inline void Tupdate2(int u) &#123; int tmp = mark[u] ? -u : u; mark[u] ^= 1; // 权值更改的值 LL del = query(1, id[u], 0); ans[u] += del * query(1, id[u], 1), update(1, id[u], id[u], 0, -del); // 特殊处理u ：0代表a[u]，1代表V[u]，2代表W[u]，清空a[u]并更新V[u] update(1, id[u], id[u], 1, tmp); while (u) &#123; update(1, id[top[u]], id[fa[u]], 2, tmp), u = top[u]; del = query(1, id[fa[u]], 0); ans[fa[u]] += del * query(1, id[fa[u]], 1), update(1, id[fa[u]], id[fa[u]], 0, -del), update(1, id[fa[u]], id[fa[u]], 1, tmp); // 同理 u = fa[u]; &#125;&#125; 关于动态dp，也是链上维护虚子树信息 去年四川省选D1T1也许可以LCT维护虚子树信息 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107#include &lt;bits/stdc++.h&gt;using namespace std;#define N 300010#define LL long longstruct edge &#123;int to, next;&#125; e[N * 2];int head[N], ecnt;inline void adde(int from, int to) &#123; e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt; e[++ecnt] = (edge)&#123;from, head[to]&#125;, head[to] = ecnt;&#125;struct node &#123; int l, r; LL sum, lazy, s1, s2, lazy1, lazy2; &#125; T[N &lt;&lt; 2];inline void pushdown(int rt) &#123; T[rt &lt;&lt; 1].sum += T[rt].lazy, T[rt &lt;&lt; 1 | 1].sum += T[rt].lazy, T[rt &lt;&lt; 1].lazy += T[rt].lazy, T[rt &lt;&lt; 1 | 1].lazy += T[rt].lazy, T[rt].lazy = 0; T[rt &lt;&lt; 1].s1 += T[rt].lazy1, T[rt &lt;&lt; 1 | 1].s1 += T[rt].lazy1, T[rt &lt;&lt; 1].lazy1 += T[rt].lazy1, T[rt &lt;&lt; 1 | 1].lazy1 += T[rt].lazy1, T[rt].lazy1 = 0; T[rt &lt;&lt; 1].s2 += T[rt].lazy2, T[rt &lt;&lt; 1 | 1].s2 += T[rt].lazy2, T[rt &lt;&lt; 1].lazy2 += T[rt].lazy2, T[rt &lt;&lt; 1 | 1].lazy2 += T[rt].lazy2, T[rt].lazy2 = 0;&#125;int rk[N]; LL v1[N], v2[N], ans[N];void build(int rt, int l, int r) &#123; T[rt].l = l, T[rt].r = r; int mid = (l + r) &gt;&gt; 1; if (l == r) &#123;T[rt].s1 = v1[rk[l]], T[rt].s2 = v2[rk[l]]; return;&#125; build(rt &lt;&lt; 1, l, mid), build(rt &lt;&lt; 1 | 1, mid + 1, r);&#125;void update(int rt, int start, int end, int type, LL x) &#123; if (end &lt;= 0 || start &gt; end) return; int l = T[rt].l, r = T[rt].r, mid = (l + r) &gt;&gt; 1; if (start &lt;= l &amp;&amp; r &lt;= end) &#123; if (type == 0) T[rt].lazy += x, T[rt].sum += x; else if (type == 1) T[rt].lazy1 += x, T[rt].s1 += x; else T[rt].lazy2 += x, T[rt].s2 += x; return; &#125; pushdown(rt); if (start &lt;= mid) update(rt &lt;&lt; 1, start, end, type, x); if (end &gt; mid) update(rt &lt;&lt; 1 | 1, start, end, type, x);&#125;LL query(int rt, int at, int type) &#123; if (!at) return 0; int l = T[rt].l, r = T[rt].r, mid = (l + r) &gt;&gt; 1; if (l == r) &#123; if (type == 0) return T[rt].sum; else if (type == 1) return T[rt].s1; else return T[rt].s2; &#125; pushdown(rt); return at &lt;= mid ? query(rt &lt;&lt; 1, at, type) : query(rt &lt;&lt; 1 | 1, at, type);&#125;int dfsn, sz[N], top[N], id[N], fa[N], mark[N], son[N];void dfs1(int u, int f) &#123; sz[u] = 1, fa[u] = f; for (int i = head[u];i;i = e[i].next) if (e[i].to != f) &#123; dfs1(e[i].to, u), sz[u] += sz[e[i].to]; if (sz[son[u]] &lt; sz[e[i].to]) son[u] = e[i].to; &#125;&#125;void dfs2(int u, int t) &#123; id[u] = ++dfsn, top[u] = t, v1[u] = mark[u] ? u : 0, rk[id[u]] = u; if (son[u]) dfs2(son[u], t), v2[u] += v2[son[u]] + v1[son[u]]; for (int i = head[u];i;i = e[i].next) if (e[i].to != fa[u] &amp;&amp; e[i].to != son[u]) dfs2(e[i].to, e[i].to), v1[u] += v1[e[i].to] + v2[e[i].to];&#125;inline void Tupdate1(int u) &#123; ans[u] += query(1, id[u], 2); while (u) &#123; update(1, id[top[u]], id[u], 0, 1); u = top[u], ans[fa[u]] += query(1, id[fa[u]], 2) - query(1, id[u], 1) - query(1, id[u], 2); u = fa[u]; &#125;&#125;inline void Tupdate2(int u) &#123; int tmp = mark[u] ? -u : u; mark[u] ^= 1; LL del = query(1, id[u], 0); ans[u] += del * query(1, id[u], 1), update(1, id[u], id[u], 0, -del); update(1, id[u], id[u], 1, tmp); while (u) &#123; update(1, id[top[u]], id[fa[u]], 2, tmp), u = top[u]; del = query(1, id[fa[u]], 0); ans[fa[u]] += del * query(1, id[fa[u]], 1), update(1, id[fa[u]], id[fa[u]], 0, -del), update(1, id[fa[u]], id[fa[u]], 1, tmp); u = fa[u]; &#125;&#125;inline LL query(int u) &#123; return ans[u] + query(1, id[u], 0) * query(1, id[u], 1);&#125;int __rd;inline void read(int &amp;x) &#123; x = 0; char c = getchar(); while (c &lt; '0' || c &gt; '9') c = getchar(); while ('0' &lt;= c &amp;&amp; c &lt;= '9') x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + c - '0', c = getchar();&#125;#define RD (read(__rd), __rd)#define OPEN(x) freopen(x".in", "r", stdin), freopen(x".out", "w", stdout)int main() &#123;// OPEN("strtree"); int n = RD, m = RD; for (int i = 1;i &lt;= n;i++) mark[i] = RD; for (int i = 1, a, b;i &lt; n;i++) a = RD, b = RD, adde(a, b); dfs1(1, 0), dfs2(1, 1), build(1, 1, n); while (m--) &#123; int a = RD, b = RD; if (a == 1) Tupdate1(b); else Tupdate2(b); &#125; for (int i = 1;i &lt;= n;i++) printf("%lld\n", query(i));&#125;]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>树链剖分</tag>
         <tag>数据结构</tag>
+        <tag>树链剖分</tag>
       </tags>
   </entry>
   <entry>
