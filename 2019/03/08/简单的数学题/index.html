@@ -134,7 +134,7 @@
 
 
   <meta name="description" content="求 $$\sum_{i=1}^{n}\sum_{j=1}^{n}ijgcd(i,j)$$ $$n\leq 10^{10}$$ 根据$\varphi$的性质 $$\sum_{i|d}\varphi(i)=d$$ 可以改写上面那个式子 $$=\sum_{i=1}^{n}\sum_{j=1}^{n}ij\sum_{d|gcd(i,j)}\varphi(d)$$ 把d提到前面来 $$=\sum_{i=1}">
-<meta name="keywords" content="数学,题解,莫比乌斯反演,杜教筛">
+<meta name="keywords" content="数学,题解,杜教筛,莫比乌斯反演">
 <meta property="og:type" content="article">
 <meta property="og:title" content="简单的数学题">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/08/简单的数学题/index.html">
@@ -455,8 +455,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/03/08/简单的数学题/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/08/简单的数学题/" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/08/简单的数学题/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -552,9 +551,9 @@
           
             <a href="/tags/题解/" rel="tag"># 题解</a>
           
-            <a href="/tags/莫比乌斯反演/" rel="tag"># 莫比乌斯反演</a>
-          
             <a href="/tags/杜教筛/" rel="tag"># 杜教筛</a>
+          
+            <a href="/tags/莫比乌斯反演/" rel="tag"># 莫比乌斯反演</a>
           
         </div>
       
@@ -623,9 +622,6 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
     </div>
 
   
@@ -1071,27 +1067,8 @@
 
   
 
-  
-    <script id="dsq-count-scr" src="https://https-0x131cc05-github-io.disqus.com/count.js" async></script>
-  
 
-  
-    <script>
-      var disqus_config = function () {
-        this.page.url = "https://0x131cc05.github.io/2019/03/08/简单的数学题/";
-        this.page.identifier = "2019/03/08/简单的数学题/";
-        this.page.title = '简单的数学题';
-        };
-      function loadComments () {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-0x131cc05-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      }
-      
-        loadComments();
-      
-    </script>
+
   
 
 
@@ -1101,7 +1078,31 @@
 
 
 
-
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz# your leancloud application appid',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA# your leancloud application appkey',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
 
 
 

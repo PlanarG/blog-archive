@@ -134,7 +134,7 @@
 
 
   <meta name="description" content="T1 Diyiti  我们先考虑这样一个问题：给出$x,y$，如何计算$f(x,y)$ 分析一下第一个操作的本质，就是将$x$末尾连续的0都变成1，将第一处1变成0 考虑一种特殊情况：$y$是$x$的子集 也就是说，我们可以只通过操作2将$x$变成$y$ 如果我们使用了操作1，可以将最后一个1变成0 但是这样有一个副作用，就是后面所有的数都变成了1 根据之前的限制：$y$是$x$的子集，而$x$在">
-<meta name="keywords" content="数学,数据结构,题解,总结,动态规划,期望,二进制,矩阵乘法">
+<meta name="keywords" content="动态规划,数学,题解,总结,数据结构,二进制,期望,矩阵乘法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="4.3省选模拟">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/04/06/4-3省选模拟/index.html">
@@ -462,8 +462,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/04/06/4-3省选模拟/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/06/4-3省选模拟/" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/04/06/4-3省选模拟/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -589,19 +588,19 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数学/" rel="tag"># 数学</a>
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+            <a href="/tags/数学/" rel="tag"># 数学</a>
           
             <a href="/tags/题解/" rel="tag"># 题解</a>
           
             <a href="/tags/总结/" rel="tag"># 总结</a>
           
-            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
-          
-            <a href="/tags/期望/" rel="tag"># 期望</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
             <a href="/tags/二进制/" rel="tag"># 二进制</a>
+          
+            <a href="/tags/期望/" rel="tag"># 期望</a>
           
             <a href="/tags/矩阵乘法/" rel="tag"># 矩阵乘法</a>
           
@@ -672,9 +671,6 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
     </div>
 
   
@@ -1146,27 +1142,8 @@
 
   
 
-  
-    <script id="dsq-count-scr" src="https://https-0x131cc05-github-io.disqus.com/count.js" async></script>
-  
 
-  
-    <script>
-      var disqus_config = function () {
-        this.page.url = "https://0x131cc05.github.io/2019/04/06/4-3省选模拟/";
-        this.page.identifier = "2019/04/06/4-3省选模拟/";
-        this.page.title = '4.3省选模拟';
-        };
-      function loadComments () {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-0x131cc05-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      }
-      
-        loadComments();
-      
-    </script>
+
   
 
 
@@ -1176,7 +1153,31 @@
 
 
 
-
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz# your leancloud application appid',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA# your leancloud application appkey',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
 
 
 

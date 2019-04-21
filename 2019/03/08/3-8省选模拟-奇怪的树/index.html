@@ -134,7 +134,7 @@
 
 
   <meta name="description" content="$$n\leq 3*10^5$$树链剖分好题，链上维护虚子树信息 我们考虑如何更新一条链  假设询问节点是$u$，$AC$是一条重链，$PB$是一条轻链，$P$是一个奇怪的节点 那么我们知道，此时$B$的点权加上了$P$ 如果$A$的下方还连接着一个奇怪的点$P_1$，那么$B$也会加上$P_1$的权值 而此时$C$不会加上$P_1$的权值，因为它不是lca 所以当$u$从一条链的顶端跳到另一条链">
-<meta name="keywords" content="数据结构,题解,树链剖分">
+<meta name="keywords" content="题解,数据结构,树链剖分">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3.8省选模拟 奇怪的树">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/08/3-8省选模拟-奇怪的树/index.html">
@@ -459,8 +459,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/03/08/3-8省选模拟-奇怪的树/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/08/3-8省选模拟-奇怪的树/" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/08/3-8省选模拟-奇怪的树/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -550,9 +549,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
-          
             <a href="/tags/题解/" rel="tag"># 题解</a>
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
             <a href="/tags/树链剖分/" rel="tag"># 树链剖分</a>
           
@@ -623,9 +622,6 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
     </div>
 
   
@@ -1071,27 +1067,8 @@
 
   
 
-  
-    <script id="dsq-count-scr" src="https://https-0x131cc05-github-io.disqus.com/count.js" async></script>
-  
 
-  
-    <script>
-      var disqus_config = function () {
-        this.page.url = "https://0x131cc05.github.io/2019/03/08/3-8省选模拟-奇怪的树/";
-        this.page.identifier = "2019/03/08/3-8省选模拟-奇怪的树/";
-        this.page.title = '3.8省选模拟 奇怪的树';
-        };
-      function loadComments () {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-0x131cc05-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      }
-      
-        loadComments();
-      
-    </script>
+
   
 
 
@@ -1101,7 +1078,31 @@
 
 
 
-
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz# your leancloud application appid',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA# your leancloud application appkey',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
 
 
 

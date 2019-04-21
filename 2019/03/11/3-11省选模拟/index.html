@@ -134,7 +134,7 @@
 
 
   <meta name="description" content="T1 树上四次求和 本来写的100分算法，结果只有80分 发现是链的情况挂了，原因是有一个取模的地方我把%=写成了%，然后就呵呵了 考虑如何化简那个式子$$\sum_{i=1}^k\sum_{j=i}^kw(i,j)\\=\sum_{i=1}^k\sum_{j=i}^k\sum_{l=i}^j\sum_{r=l}^jdis(a_l,a_r)\\$$考虑后面每一个$dis(a_l,a_r)$对答案的">
-<meta name="keywords" content="数据结构,题解,总结,线段树,点分治,动态点分治,rmq">
+<meta name="keywords" content="题解,总结,数据结构,点分治,线段树,动态点分治,rmq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3.11省选模拟">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/11/3-11省选模拟/index.html">
@@ -460,8 +460,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/03/11/3-11省选模拟/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/11/3-11省选模拟/" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/3-11省选模拟/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -609,15 +608,15 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
-          
             <a href="/tags/题解/" rel="tag"># 题解</a>
           
             <a href="/tags/总结/" rel="tag"># 总结</a>
           
-            <a href="/tags/线段树/" rel="tag"># 线段树</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
             <a href="/tags/点分治/" rel="tag"># 点分治</a>
+          
+            <a href="/tags/线段树/" rel="tag"># 线段树</a>
           
             <a href="/tags/动态点分治/" rel="tag"># 动态点分治</a>
           
@@ -690,9 +689,6 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
     </div>
 
   
@@ -1164,27 +1160,8 @@
 
   
 
-  
-    <script id="dsq-count-scr" src="https://https-0x131cc05-github-io.disqus.com/count.js" async></script>
-  
 
-  
-    <script>
-      var disqus_config = function () {
-        this.page.url = "https://0x131cc05.github.io/2019/03/11/3-11省选模拟/";
-        this.page.identifier = "2019/03/11/3-11省选模拟/";
-        this.page.title = '3.11省选模拟';
-        };
-      function loadComments () {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-0x131cc05-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      }
-      
-        loadComments();
-      
-    </script>
+
   
 
 
@@ -1194,7 +1171,31 @@
 
 
 
-
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz# your leancloud application appid',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA# your leancloud application appkey',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
 
 
 

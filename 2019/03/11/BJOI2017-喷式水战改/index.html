@@ -134,7 +134,7 @@
 
 
   <meta name="description" content="题目链接 平衡树维护dp 对于平衡树上的一个点，维护f[i][j]表示它的子树所表示的这段区间内，从状态i开始，以状态j结束，能获得的最大收益 显然有一个结论，对于一段连续的、并且a、b、c值都相等的燃料，一定有一种最优的方案使得这一段燃料的状态都相同 所以对把每一次插入的区间压缩成一个点，同时分裂插入位置所在的节点 代码如下 12345678910111213141516171819202122">
-<meta name="keywords" content="数据结构,题解,动态规划,平衡树">
+<meta name="keywords" content="动态规划,题解,数据结构,平衡树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BJOI2017 喷式水战改">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/11/BJOI2017-喷式水战改/index.html">
@@ -443,8 +443,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/03/11/BJOI2017-喷式水战改/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/11/BJOI2017-喷式水战改/" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-喷式水战改/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -508,11 +507,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
           
             <a href="/tags/题解/" rel="tag"># 题解</a>
           
-            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
             <a href="/tags/平衡树/" rel="tag"># 平衡树</a>
           
@@ -583,9 +582,6 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
     </div>
 
   
@@ -1031,27 +1027,8 @@
 
   
 
-  
-    <script id="dsq-count-scr" src="https://https-0x131cc05-github-io.disqus.com/count.js" async></script>
-  
 
-  
-    <script>
-      var disqus_config = function () {
-        this.page.url = "https://0x131cc05.github.io/2019/03/11/BJOI2017-喷式水战改/";
-        this.page.identifier = "2019/03/11/BJOI2017-喷式水战改/";
-        this.page.title = 'BJOI2017 喷式水战改';
-        };
-      function loadComments () {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-0x131cc05-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      }
-      
-        loadComments();
-      
-    </script>
+
   
 
 
@@ -1061,7 +1038,31 @@
 
 
 
-
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz# your leancloud application appid',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA# your leancloud application appkey',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
 
 
 

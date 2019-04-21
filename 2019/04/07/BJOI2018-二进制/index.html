@@ -134,7 +134,7 @@
 
 
   <meta name="description" content="题目链接 先考虑哪些二进制在重新排列之后可以是3的倍数 我们分3种情况讨论：  0 ：模3的余数是0 10 ：就是1出现在下标为偶数的地方，模3余2 01 ：1出现在下标为奇数的地方，模3余1  那么，我们就可以用这三种余数来进行组合 考虑以下情况：  有偶数个1 ：显然，通过情况2与3组合可以成为3的倍数 有奇数个1 ：注意到3个情况2或者情况3的叠加仍然可以成为3的倍数，而这样至少需要2个0和">
-<meta name="keywords" content="数据结构,题解,线段树,二进制">
+<meta name="keywords" content="题解,数据结构,二进制,线段树">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BJOI2018 二进制">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/04/07/BJOI2018-二进制/index.html">
@@ -443,8 +443,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/04/07/BJOI2018-二进制/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/07/BJOI2018-二进制/" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/04/07/BJOI2018-二进制/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -543,13 +542,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
-          
             <a href="/tags/题解/" rel="tag"># 题解</a>
           
-            <a href="/tags/线段树/" rel="tag"># 线段树</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
             <a href="/tags/二进制/" rel="tag"># 二进制</a>
+          
+            <a href="/tags/线段树/" rel="tag"># 线段树</a>
           
         </div>
       
@@ -618,9 +617,6 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
     </div>
 
   
@@ -1066,27 +1062,8 @@
 
   
 
-  
-    <script id="dsq-count-scr" src="https://https-0x131cc05-github-io.disqus.com/count.js" async></script>
-  
 
-  
-    <script>
-      var disqus_config = function () {
-        this.page.url = "https://0x131cc05.github.io/2019/04/07/BJOI2018-二进制/";
-        this.page.identifier = "2019/04/07/BJOI2018-二进制/";
-        this.page.title = 'BJOI2018 二进制';
-        };
-      function loadComments () {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-0x131cc05-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      }
-      
-        loadComments();
-      
-    </script>
+
   
 
 
@@ -1096,7 +1073,31 @@
 
 
 
-
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz# your leancloud application appid',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA# your leancloud application appkey',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
 
 
 

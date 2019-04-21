@@ -134,7 +134,7 @@
 
 
   <meta name="description" content="题目链接 显然，最优的方案一定是将所有的加油站和车按照位置排序之后一一对应 但是如何考虑修改呢？这种东西是没法维护的 我们考虑另外一种统计答案的方式 将加油站和车都想象成数轴上的一些点，其中加油站是红点，车是黑点 单独考虑数轴上每一条线段的贡献 对于一条线段i，记这条线段的长度为$len_i$，前面一共有$a_i$个红点，$b_i$个黑点，那么这条线段对答案的贡献为 $$len_i|a_i-b_i">
-<meta name="keywords" content="数据结构,题解,分块">
+<meta name="keywords" content="题解,数据结构,分块">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BJOI2017 开车">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/11/BJOI2017-开车/index.html">
@@ -445,8 +445,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/03/11/BJOI2017-开车/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/11/BJOI2017-开车/" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-开车/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -531,9 +530,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
-          
             <a href="/tags/题解/" rel="tag"># 题解</a>
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
             <a href="/tags/分块/" rel="tag"># 分块</a>
           
@@ -604,9 +603,6 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
     </div>
 
   
@@ -1052,27 +1048,8 @@
 
   
 
-  
-    <script id="dsq-count-scr" src="https://https-0x131cc05-github-io.disqus.com/count.js" async></script>
-  
 
-  
-    <script>
-      var disqus_config = function () {
-        this.page.url = "https://0x131cc05.github.io/2019/03/11/BJOI2017-开车/";
-        this.page.identifier = "2019/03/11/BJOI2017-开车/";
-        this.page.title = 'BJOI2017 开车';
-        };
-      function loadComments () {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-0x131cc05-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      }
-      
-        loadComments();
-      
-    </script>
+
   
 
 
@@ -1082,7 +1059,31 @@
 
 
 
-
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz# your leancloud application appid',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA# your leancloud application appkey',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
 
 
 

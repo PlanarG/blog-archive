@@ -134,7 +134,7 @@
 
 
   <meta name="description" content="T1 全连  5分钟题目 dp[i][j]表示前$i$个音符，最后一个在$j$位置的最大收益 显然这个dp是可以用数据结构加速的 对于每个音符，查询$j$位于$[1,i-t_i]$的dp最大值 然后在位置$i+t_i$再把这个dp值放进树状数组，这样就保证了接下来点的时刻一定在$i+t_i$之后 这里用一个vector存一下待更新的答案即可 代码如下 12345678910111213141516">
-<meta name="keywords" content="网络流,数据结构,题解,总结,动态规划,二分答案,字符串,树状数组,后缀自动机">
+<meta name="keywords" content="动态规划,网络流,题解,总结,数据结构,树状数组,二分答案,字符串,后缀自动机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3.20省选模拟">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/21/3-20省选模拟/index.html">
@@ -460,8 +460,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/03/21/3-20省选模拟/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/21/3-20省选模拟/" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/21/3-20省选模拟/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -565,21 +564,21 @@
       
         <div class="post-tags">
           
-            <a href="/tags/网络流/" rel="tag"># 网络流</a>
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+            <a href="/tags/网络流/" rel="tag"># 网络流</a>
           
             <a href="/tags/题解/" rel="tag"># 题解</a>
           
             <a href="/tags/总结/" rel="tag"># 总结</a>
           
-            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/树状数组/" rel="tag"># 树状数组</a>
           
             <a href="/tags/二分答案/" rel="tag"># 二分答案</a>
           
             <a href="/tags/字符串/" rel="tag"># 字符串</a>
-          
-            <a href="/tags/树状数组/" rel="tag"># 树状数组</a>
           
             <a href="/tags/后缀自动机/" rel="tag"># 后缀自动机</a>
           
@@ -650,9 +649,6 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
     </div>
 
   
@@ -1124,27 +1120,8 @@
 
   
 
-  
-    <script id="dsq-count-scr" src="https://https-0x131cc05-github-io.disqus.com/count.js" async></script>
-  
 
-  
-    <script>
-      var disqus_config = function () {
-        this.page.url = "https://0x131cc05.github.io/2019/03/21/3-20省选模拟/";
-        this.page.identifier = "2019/03/21/3-20省选模拟/";
-        this.page.title = '3.20省选模拟';
-        };
-      function loadComments () {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-0x131cc05-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      }
-      
-        loadComments();
-      
-    </script>
+
   
 
 
@@ -1154,7 +1131,31 @@
 
 
 
-
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz# your leancloud application appid',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA# your leancloud application appkey',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
 
 
 

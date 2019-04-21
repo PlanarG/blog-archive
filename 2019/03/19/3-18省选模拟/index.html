@@ -134,7 +134,7 @@
 
 
   <meta name="description" content="T1 One?One!  不会啊。。先贴上题解吧  T2 Two?Two!  首先考虑dp 假设现在已经排了前$i$个人，我们知道这两个队中有一个对的最大值一定是$M_i$，即前$i$个人的最大值 那么我们可以设dp[i][j]表示已经排好了$i$个人，其中$M_i$不在的那一队的最大值为$j$的答案 我们考虑一下几种情况：  $M_i=x_i$  显然，将$i$排到$M_{i-1}$那一队会更优">
-<meta name="keywords" content="数学,数据结构,题解,总结,多项式,动态规划,分块,平衡树,NTT,概率">
+<meta name="keywords" content="动态规划,数学,题解,总结,数据结构,多项式,分块,平衡树,NTT,概率">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3.18省选模拟">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/19/3-18省选模拟/index.html">
@@ -463,8 +463,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/03/19/3-18省选模拟/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/19/3-18省选模拟/" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/19/3-18省选模拟/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -611,17 +610,17 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数学/" rel="tag"># 数学</a>
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
           
-            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+            <a href="/tags/数学/" rel="tag"># 数学</a>
           
             <a href="/tags/题解/" rel="tag"># 题解</a>
           
             <a href="/tags/总结/" rel="tag"># 总结</a>
           
-            <a href="/tags/多项式/" rel="tag"># 多项式</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
-            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+            <a href="/tags/多项式/" rel="tag"># 多项式</a>
           
             <a href="/tags/分块/" rel="tag"># 分块</a>
           
@@ -698,9 +697,6 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
     </div>
 
   
@@ -1172,27 +1168,8 @@
 
   
 
-  
-    <script id="dsq-count-scr" src="https://https-0x131cc05-github-io.disqus.com/count.js" async></script>
-  
 
-  
-    <script>
-      var disqus_config = function () {
-        this.page.url = "https://0x131cc05.github.io/2019/03/19/3-18省选模拟/";
-        this.page.identifier = "2019/03/19/3-18省选模拟/";
-        this.page.title = '3.18省选模拟';
-        };
-      function loadComments () {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-0x131cc05-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      }
-      
-        loadComments();
-      
-    </script>
+
   
 
 
@@ -1202,7 +1179,31 @@
 
 
 
-
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz# your leancloud application appid',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA# your leancloud application appkey',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
 
 
 

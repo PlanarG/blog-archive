@@ -134,7 +134,7 @@
 
 
   <meta name="description" content="T1 Line  如果我们知道了这条直线在$y$轴上的截距，那么我们就可以通过这$n$个点确定最终斜率的区间 假设这条直线是$kx+b$，现在我们已知$b$ 对于一个$r_i$，我们知道有$$ki+b\leq r_i\Rightarrow k\leq\lfloor\frac{r_i-b}{i}\rfloor$$对于一个$l_i$，我们知道有$$ki+b\geq l_i\Rightarrow k\g">
-<meta name="keywords" content="数学,题解,总结,斜率优化,gcd,最短路,动态规划,FWT">
+<meta name="keywords" content="动态规划,数学,题解,总结,斜率优化,gcd,最短路,FWT">
 <meta property="og:type" content="article">
 <meta property="og:title" content="4.1省选模拟">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/04/03/4-1省选模拟/index.html">
@@ -462,8 +462,7 @@
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2019/04/03/4-1省选模拟/#comments" itemprop="discussionUrl">
-                
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/03/4-1省选模拟/" itemprop="commentCount"></span>
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/04/03/4-1省选模拟/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -568,6 +567,8 @@
       
         <div class="post-tags">
           
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+          
             <a href="/tags/数学/" rel="tag"># 数学</a>
           
             <a href="/tags/题解/" rel="tag"># 题解</a>
@@ -579,8 +580,6 @@
             <a href="/tags/gcd/" rel="tag"># gcd</a>
           
             <a href="/tags/最短路/" rel="tag"># 最短路</a>
-          
-            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
           
             <a href="/tags/FWT/" rel="tag"># FWT</a>
           
@@ -651,9 +650,6 @@
 
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
-      </div>
     </div>
 
   
@@ -1125,27 +1121,8 @@
 
   
 
-  
-    <script id="dsq-count-scr" src="https://https-0x131cc05-github-io.disqus.com/count.js" async></script>
-  
 
-  
-    <script>
-      var disqus_config = function () {
-        this.page.url = "https://0x131cc05.github.io/2019/04/03/4-1省选模拟/";
-        this.page.identifier = "2019/04/03/4-1省选模拟/";
-        this.page.title = '4.1省选模拟';
-        };
-      function loadComments () {
-        var d = document, s = d.createElement('script');
-        s.src = 'https://https-0x131cc05-github-io.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      }
-      
-        loadComments();
-      
-    </script>
+
   
 
 
@@ -1155,7 +1132,31 @@
 
 
 
-
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz# your leancloud application appid',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA# your leancloud application appkey',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
 
 
 
