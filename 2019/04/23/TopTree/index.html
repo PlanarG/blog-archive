@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="引言TopTree可以说是LCT的扩展，LCT支持链上的修改与查询，而TopTree可以支持链与子树的修改与查询 TopTree的思想与LCT及其相似，都是将树进行轻重链剖分。但是与LCT不同的是，TopTree会单独维护某个节点的每个虚子树，而非简单地维护虚子树对当前点的贡献 TopTree的时间复杂度为每次操作$O(\log n)$，但是常数巨大无比，为$97$ 做好码7168+b的准备 例题">
+<meta name="keywords" content="数据结构,LCT,splay,TopTree">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TopTree">
+<meta property="og:url" content="https://0x131cc05.github.io/2019/04/23/TopTree/index.html">
+<meta property="og:site_name" content="An_Account&#39;s Blog">
+<meta property="og:description" content="引言TopTree可以说是LCT的扩展，LCT支持链上的修改与查询，而TopTree可以支持链与子树的修改与查询 TopTree的思想与LCT及其相似，都是将树进行轻重链剖分。但是与LCT不同的是，TopTree会单独维护某个节点的每个虚子树，而非简单地维护虚子树对当前点的贡献 TopTree的时间复杂度为每次操作$O(\log n)$，但是常数巨大无比，为$97$ 做好码7168+b的准备 例题">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/04/23/5cbe6488ac1fd.png">
+<meta property="og:image" content="https://i.loli.net/2019/04/23/5cbe66f56612a.png">
+<meta property="og:image" content="https://i.loli.net/2019/04/23/5cbef3dd1b777.png">
+<meta property="og:image" content="https://i.loli.net/2019/04/23/5cbef7a2519bf.png">
+<meta property="og:updated_time" content="2019-04-23T12:18:09.624Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="TopTree">
+<meta name="twitter:description" content="引言TopTree可以说是LCT的扩展，LCT支持链上的修改与查询，而TopTree可以支持链与子树的修改与查询 TopTree的思想与LCT及其相似，都是将树进行轻重链剖分。但是与LCT不同的是，TopTree会单独维护某个节点的每个虚子树，而非简单地维护虚子树对当前点的贡献 TopTree的时间复杂度为每次操作$O(\log n)$，但是常数巨大无比，为$97$ 做好码7168+b的准备 例题">
+<meta name="twitter:image" content="https://i.loli.net/2019/04/23/5cbe6488ac1fd.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://0x131cc05.github.io/2019/04/23/TopTree/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>TopTree | An_Account's Blog</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135896799-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-135896799-1');
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">An_Account's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/04/23/TopTree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">TopTree
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-23 08:21:54 / 修改时间：20:18:09" itemprop="dateCreated datePublished" datetime="2019-04-23T08:21:54+08:00">2019-04-23</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/23/TopTree/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/04/23/TopTree/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p><code>TopTree</code>可以说是<code>LCT</code>的扩展，<code>LCT</code>支持链上的修改与查询，而<code>TopTree</code>可以支持链与子树的修改与查询</p>
+<p><code>TopTree</code>的思想与<code>LCT</code>及其相似，都是将树进行轻重链剖分。但是与<code>LCT</code>不同的是，<code>TopTree</code>会单独维护某个节点的每个虚子树，而非简单地维护虚子树对当前点的贡献</p>
+<p><code>TopTree</code>的时间复杂度为每次操作$O(\log n)$，但是常数巨大无比，为$97$</p>
+<p>做好码<code>7168+b</code>的准备</p>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><p>让我们先从一道<del>神仙</del>题开始</p>
+<p><a href="https://www.lydsy.com/JudgeOnline/problem.php?id=3153" target="_blank" rel="noopener">BZOJ3153</a></p>
+<p>题意：有一棵树，每个点有一个权值，需要支持12个操作</p>
+<ul>
+<li>换根</li>
+<li>路径加/路径覆盖</li>
+<li>子树加/子树覆盖</li>
+<li>查询路径的和/最大值/最小值</li>
+<li>查询子树的和/最大值/最小值</li>
+<li>换父亲</li>
+</ul>
+<h1 id="虚点Splay"><a href="#虚点Splay" class="headerlink" title="虚点Splay"></a>虚点<code>Splay</code></h1><p>对于一个点$u$，在<code>LCT</code>上的<code>splay</code>中我们维护了它的两个儿子</p>
+<p>左儿子代表重链上比它高的节点，右儿子代表重链上比它低的节点</p>
+<p>在<code>TopTree</code>中，每个点我们还要额外维护一个<code>splay</code>，这个<code>splay</code>上挂的点是以虚边的形式与$u$相连的点</p>
+<p>举个例子</p>
+<p><img src="https://i.loli.net/2019/04/23/5cbe6488ac1fd.png" alt="1555981442131"></p>
+<p>图中的实线代表重边，虚线代表轻边</p>
+<p>注意${1,4,7}$单独是一棵<code>splay</code>,即$1$的虚儿子构成的<code>splay</code></p>
+<p>我们称在原树中出现的点为<strong>实点</strong>，在原树中未出现的点为<strong>虚点</strong></p>
+<p>那么在由某个点虚儿子构成的<code>splay</code>中，每一个实点都是<strong>叶子节点</strong>，除根节点外，每个非叶子节点都是<strong>虚点</strong></p>
+<p>另一个例子</p>
+<p><img src="https://i.loli.net/2019/04/23/5cbe66f56612a.png" alt="1555982055658"></p>
+<p>注意到根节点有$4$个虚子树，所以必须新建两个虚点来维护这些虚子树，图中的橙色节点就是虚点，图中的虚边即为虚子树<code>splay</code></p>
+<p>那么每个点我们维护$4$个儿子<code>ch[0 - 3][u]</code>，前两个儿子表示正常<code>LCT</code>中的儿子，即重链<code>splay</code>的左右儿子；后两个儿子表示虚子树中的两个儿子</p>
+<p>显然虚点是没有前两个儿子的</p>
+<h1 id="新的Rotate-Splay"><a href="#新的Rotate-Splay" class="headerlink" title="新的Rotate, Splay"></a>新的<code>Rotate, Splay</code></h1><p>如果一个虚点的<code>splay</code>转到实点里面去了，显然是不行的</p>
+<p>所以对于虚点、实点我们需要单独<code>rotate, splay</code></p>
+<p>注意<code>splay</code>时无论当前点是否为根节点，我们都要<code>pushup</code>一次</p>
+<p>所以<code>rotate</code>的时候改一改，再在<code>splay</code>的最后加上一次<code>pushup</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Connect</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> f, <span class="keyword">int</span> son)</span> </span>&#123;<span class="keyword">if</span> (u) fa[u] = f; ch[son][f] = u;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Rotate</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f = fa[u], tmp = (ch[type + <span class="number">1</span>][f] == u) + type, ff = fa[f];</span><br><span class="line">    <span class="keyword">if</span> (ff) <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">4</span>;i++) <span class="keyword">if</span> (ch[i][ff] == f) ch[i][ff] = u;</span><br><span class="line">    fa[u] = ff, Connect(ch[tmp ^ <span class="number">1</span>][u], f, tmp), Connect(f, u, tmp ^ <span class="number">1</span>), Pushup(f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>type = 0</code>代表是原树，<code>type = 2</code>代表是虚树</p>
+<p>其实跟原来的<code>rotate</code>差不多</p>
+<p><code>splay</code>同理</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> st[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Splay</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> now = u, top = <span class="number">0</span>; st[++top] = now;</span><br><span class="line">    <span class="keyword">while</span> (!Isroot(now, type)) st[++top] = now = fa[now];</span><br><span class="line">    <span class="keyword">while</span> (top) Pushdown(st[top--]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> f;!Isroot(u, type);Rotate(u, type)) </span><br><span class="line">        <span class="keyword">if</span> (!Isroot(f = fa[u], type))</span><br><span class="line">            Rotate((ch[type][f] == u) ^ (ch[type][fa[f]] == f) ? u : f, type); </span><br><span class="line">    Pushup(u);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="新的Pushdown"><a href="#新的Pushdown" class="headerlink" title="新的Pushdown"></a>新的<code>Pushdown</code></h1><p>在树上，我们需要维护两个标记</p>
+<p>第一个是给重链打上的标记</p>
+<p>第二个是给重链<code>splay</code>中它的后代的所有虚子树打上的标记（不包括重链节点）</p>
+<p>显然虚点只有第二种标记</p>
+<p>我们分以下几种情况讨论：</p>
+<ul>
+<li>当前点是实点，下放到重链上的左右儿子</li>
+</ul>
+<p>首先标记应该下传，同时给这两个儿子的点权打上第一个标记</p>
+<p>注意第二个标记不会对这两个点权产生影响，因为它是给虚子树打的</p>
+<ul>
+<li>当前点是实点，下放到虚点</li>
+</ul>
+<p>第一个标记没有必要下方，只需要下方第二种标记</p>
+<ul>
+<li>当前点是实点，下放到一个非重链实点</li>
+</ul>
+<p>此时除了修改点权，还应将这个儿子的点权打上这两种标记</p>
+<p>因为此时这个儿子是当前点的一个虚儿子</p>
+<ul>
+<li>当前点是虚点，下放到一个实点</li>
+</ul>
+<p>同上</p>
+<ul>
+<li>当前点是虚点，下放到虚点</li>
+</ul>
+<p>直接下传标记即可</p>
+<p>注意翻转标记不应该传入虚子树的<code>splay</code>中</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Pushdown</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!u) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (rev[u]) Rev(ch[<span class="number">0</span>][u]), Rev(ch[<span class="number">1</span>][u]), rev[u] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!in[u] &amp;&amp; tag[u].marked()) </span><br><span class="line">        Tag_Line(ch[<span class="number">0</span>][u], tag[u]), Tag_Line(ch[<span class="number">1</span>][u], tag[u]), tag[u] = Tag();</span><br><span class="line">    <span class="keyword">if</span> (T_tag[u].marked()) &#123;</span><br><span class="line">        Tag_Tree(ch[<span class="number">0</span>][u], T_tag[u], <span class="number">0</span>), Tag_Tree(ch[<span class="number">1</span>][u], T_tag[u], <span class="number">0</span>);</span><br><span class="line">        Tag_Tree(ch[<span class="number">2</span>][u], T_tag[u], <span class="number">1</span>), Tag_Tree(ch[<span class="number">3</span>][u], T_tag[u], <span class="number">1</span>), T_tag[u] = Tag();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>marked</code>代表是否有下传的必要</p>
+<p><code>tag</code>是给重链打的标记</p>
+<p><code>T_...</code>代表虚子树的信息或者标记</p>
+<p><code>Tag_line</code>与<code>Tag_Tree</code>，分别是给链/树打标记</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Tag_Line</span><span class="params">(<span class="keyword">int</span> u, Tag t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!u) <span class="keyword">return</span>;</span><br><span class="line">    sum[u] += t, A_sum[u] = sum[u] + T_sum[u], val[u] = Get(val[u], t), tag[u] += t;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Tag_Tree</span><span class="params">(<span class="keyword">int</span> u, Tag t, <span class="keyword">int</span> type)</span> </span>&#123; </span><br><span class="line">    <span class="keyword">if</span> (!u) <span class="keyword">return</span>;</span><br><span class="line">    T_sum[u] += t, T_tag[u] += t;</span><br><span class="line">    <span class="keyword">if</span> (!in[u] &amp;&amp; type) Tag_Line(u, t); <span class="keyword">else</span> A_sum[u] = sum[u] + T_sum[u];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>A_sum</code>代表全部信息</p>
+<p><code>Get(x, t)</code>代表$x$在标记$t$的作用下的值</p>
+<p><code>in</code>代表是否为虚点</p>
+<h1 id="新的Pushup"><a href="#新的Pushup" class="headerlink" title="新的Pushup"></a>新的<code>Pushup</code></h1><p>同样，我们分虚子树信息/重链信息以及全部信息来统计答案</p>
+<p>分情况讨论</p>
+<ul>
+<li>当前点是虚点，子树也是虚点</li>
+</ul>
+<p>当前点虚子树信息为子树虚子树信息的和，此时虚子树信息就是全部信息</p>
+<ul>
+<li>当前点是虚点，子树是实点</li>
+</ul>
+<p>当前点虚子树信息为子树全部信息</p>
+<ul>
+<li>当前点是实点，子树是虚点</li>
+</ul>
+<p>只更新子树信息与子树全部信息</p>
+<ul>
+<li>当前点是实点，子树是重链上的点</li>
+</ul>
+<p>只更新重链信息与子树全部信息</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Pushup</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    T_sum[u] = Data();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= <span class="number">1</span>;i++) <span class="keyword">if</span> (ch[i][u]) T_sum[u] += T_sum[ch[i][u]];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= <span class="number">3</span>;i++) <span class="keyword">if</span> (ch[i][u]) T_sum[u] += A_sum[ch[i][u]];</span><br><span class="line">    <span class="keyword">if</span> (in[u]) sum[u] = Data(), A_sum[u] = T_sum[u];</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        sum[u] = Data(val[u]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= <span class="number">1</span>;i++) <span class="keyword">if</span> (ch[i][u]) sum[u] += sum[ch[i][u]];</span><br><span class="line">        A_sum[u] = sum[u] + T_sum[u];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="新的操作Add"><a href="#新的操作Add" class="headerlink" title="新的操作Add"></a>新的操作<code>Add</code></h1><p>$Add(x,y)$表示从$x$向$y$连一条虚边</p>
+<p>方式其实很暴躁，就是一直跳左儿子，最后再新建一个虚点$v$，将当前点挂在$v$上面</p>
+<p><img src="https://i.loli.net/2019/04/23/5cbef3dd1b777.png" alt="1556018128092"></p>
+<p>图中黄色节点代表$v$</p>
+<p>注意在跳左儿子的时候要顺便<code>pushdown</code></p>
+<p>最后别忘了将新添加的点旋转到<code>splay</code>的根</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; </span><br><span class="line">    <span class="keyword">if</span> (!y) <span class="keyword">return</span>; Pushdown(x);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= <span class="number">3</span>;i++) <span class="keyword">if</span> (!ch[i][x]) <span class="keyword">return</span> <span class="keyword">void</span>(Connect(y, x, i));</span><br><span class="line">    <span class="keyword">while</span> (ch[<span class="number">2</span>][x] &amp;&amp; in[ch[<span class="number">2</span>][x]]) x = ch[<span class="number">2</span>][x], Pushdown(x);</span><br><span class="line">    <span class="keyword">int</span> u = Create();</span><br><span class="line">    Connect(ch[<span class="number">2</span>][x], u, <span class="number">2</span>), Connect(y, u, <span class="number">3</span>), Connect(u, x, <span class="number">2</span>), Splay(u, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="新的操作Del"><a href="#新的操作Del" class="headerlink" title="新的操作Del"></a>新的操作<code>Del</code></h1><p>$Del(u)$表示删除$u$与其父亲相连的虚边</p>
+<p>注意到每次$Add$操作都会新建一个点，那么$Del$操作我们也只需要删除一个点就可以保证空间为$O(n)$</p>
+<p>如果$u$与其父亲直接相连，那么断开这条虚边就好了</p>
+<p>否则我们找到$u$的虚点父亲$f$，先将$f$及它的祖先像<code>splay</code>一样<code>pushdown</code>，然后尝试删除$f$</p>
+<p>注意此时也要<code>splay</code>来保证复杂度</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Child</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">4</span>;i++) <span class="keyword">if</span> (ch[i][fa[u]] == u) <span class="keyword">return</span> i;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Del</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!u) <span class="keyword">return</span>; Splay(u, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (!fa[u]) <span class="keyword">return</span>; <span class="keyword">int</span> f = fa[u];</span><br><span class="line">    <span class="keyword">if</span> (in[f]) &#123;</span><br><span class="line">        <span class="keyword">int</span> top = <span class="number">0</span>, now = f, ff = fa[f]; st[++top] = now;</span><br><span class="line">        <span class="keyword">while</span> (!Isroot(now, <span class="number">2</span>)) st[++top] = now = fa[now];</span><br><span class="line">        <span class="keyword">while</span> (top) Pushdown(st[top--]);</span><br><span class="line">        <span class="keyword">if</span> (ff) &#123;<span class="keyword">int</span> other = ch[Child(u) ^ <span class="number">1</span>][f]; Pushdown(other), Connect(other, ff, Child(f)), Splay(ff, <span class="number">2</span>);&#125;</span><br><span class="line">        rub[++rcnt] = f;</span><br><span class="line">    &#125; <span class="keyword">else</span> ch[Child(u)][f] = <span class="number">0</span>, Splay(f, <span class="number">0</span>);</span><br><span class="line">    fa[u] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="新的操作Father"><a href="#新的操作Father" class="headerlink" title="新的操作Father"></a>新的操作<code>Father</code></h1><p>$Father(u)$表示找到$u$的以虚边相连的父亲</p>
+<p>实现很简单，如果$u$的父亲节点就是原树中的父亲，那么直接返回，否则将这个虚点<code>splay</code>到根，再返回它的父亲</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Father</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!u) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    Splay(u, <span class="number">0</span>); <span class="keyword">if</span> (!fa[u]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!in[fa[u]]) <span class="keyword">return</span> fa[u];</span><br><span class="line">    <span class="keyword">int</span> f = fa[u]; Splay(f, <span class="number">2</span>); <span class="keyword">return</span> fa[f];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="新的Access以及LCA"><a href="#新的Access以及LCA" class="headerlink" title="新的Access以及LCA"></a>新的<code>Access</code>以及<code>LCA</code></h1><p>其实跟<code>LCT</code>的差不多，就是将连边/断边改成<code>Del, Add</code>，将跳父亲改成<code>Father</code></p>
+<p>这里提一下如何求两个点的<code>LCA</code>，假设为$u,v$</p>
+<p>首先将$u$ $Access$一下，此时$u$到根节点的链已经被打通，那么$v$到根节点的路径一定分为若干段实链与虚边，最后一段实链的最深的那个点就是<code>LCA</code></p>
+<p><img src="https://i.loli.net/2019/04/23/5cbef7a2519bf.png" alt="1556019086677"></p>
+<p>那么在$Access$的时候，直接返回结束时的<code>ls</code>就好了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Access</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ls = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (;u;u = Father(ls = u)) </span><br><span class="line">        Splay(u, <span class="number">0</span>), Del(ls), Add(u, ch[<span class="number">1</span>][u]), Connect(ls, u, <span class="number">1</span>), Pushup(u);</span><br><span class="line">    <span class="keyword">return</span> ls;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">LCA</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;Access(x); <span class="keyword">return</span> Access(y);&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="一些例行操作"><a href="#一些例行操作" class="headerlink" title="一些例行操作"></a>一些例行操作</h1><p>由于这一部分的代码和<code>LCT</code>几乎是一样的，所以直接贴上来</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Findroot</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    Access(u), Splay(u, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">while</span> (ch[<span class="number">0</span>][u]) u = ch[<span class="number">0</span>][u];</span><br><span class="line">    <span class="keyword">return</span> u;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Makeroot</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;Access(u), Splay(u, <span class="number">0</span>), Rev(u);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Link</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;Makeroot(x), Add(y, x), Access(x);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Cut</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;Access(u), Splay(u, <span class="number">0</span>), ch[<span class="number">0</span>][u] = fa[ch[<span class="number">0</span>][u]] = <span class="number">0</span>, Pushup(u);&#125; </span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Split</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;Makeroot(x), Access(y), Splay(y, <span class="number">0</span>);&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="程序"><a href="#程序" class="headerlink" title="程序"></a>程序</h1><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Tag</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> k, b;</span><br><span class="line">    Tag(<span class="keyword">int</span> k = <span class="number">1</span>, <span class="keyword">int</span> b = <span class="number">0</span>) : k(k), b(b) &#123;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">marked</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> k != <span class="number">1</span> || b;&#125; </span><br><span class="line">    <span class="keyword">inline</span> Tag <span class="keyword">operator</span> + (<span class="keyword">const</span> Tag &amp;x) &#123;<span class="keyword">return</span> Tag(k * x.k, b * x.k + x.b);&#125;</span><br><span class="line">    <span class="keyword">inline</span> <span class="keyword">void</span> <span class="keyword">operator</span> += (<span class="keyword">const</span> Tag &amp;x) &#123;*<span class="keyword">this</span> = *<span class="keyword">this</span> + x;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF = <span class="number">2147483647</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Get</span><span class="params">(<span class="keyword">int</span> x, Tag y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * y.k + y.b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Data</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> sum, mn, mx, sz;</span><br><span class="line">    Data() &#123;sum = sz = <span class="number">0</span>, mn = INF, mx = -INF;&#125;</span><br><span class="line">    Data(<span class="keyword">int</span> x) &#123;sum = mn = mx = x, sz = <span class="number">1</span>;&#125;</span><br><span class="line">    Data(<span class="keyword">int</span> sum, <span class="keyword">int</span> mn, <span class="keyword">int</span> mx, <span class="keyword">int</span> sz) : sum(sum), mn(mn), mx(mx), sz(sz) &#123;&#125;</span><br><span class="line">    <span class="keyword">inline</span> Data <span class="keyword">operator</span> + (<span class="keyword">const</span> Data &amp;x) &#123;<span class="keyword">return</span> Data(sum + x.sum, min(mn, x.mn), max(mx, x.mx), sz + x.sz);&#125;</span><br><span class="line">    <span class="keyword">inline</span> <span class="keyword">void</span> <span class="keyword">operator</span> += (<span class="keyword">const</span> Data &amp;x) &#123;*<span class="keyword">this</span> = *<span class="keyword">this</span> + x;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">inline</span> Data <span class="keyword">operator</span> + (<span class="keyword">const</span> Data &amp;a, <span class="keyword">const</span> Tag &amp;b) &#123;<span class="keyword">return</span> a.sz ? Data(a.sum * b.k + a.sz * b.b, Get(a.mn, b), Get(a.mx, b), a.sz) : a;&#125;</span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="keyword">operator</span> += (Data &amp;a, <span class="keyword">const</span> Tag &amp;b) &#123;a = a + b;&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 200010</span></span><br><span class="line"><span class="keyword">int</span> fa[N], ch[<span class="number">4</span>][N], ncnt, rt, rev[N], in[N], val[N], rub[N], rcnt;</span><br><span class="line">Data sum[N], T_sum[N], A_sum[N]; Tag tag[N], T_tag[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">Isroot</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> type)</span> </span>&#123; </span><br><span class="line">    <span class="keyword">if</span> (type) <span class="keyword">return</span> !fa[u] || !in[fa[u]] || !in[u] || !u;</span><br><span class="line">    <span class="keyword">return</span> (ch[<span class="number">0</span>][fa[u]] != u &amp;&amp; ch[<span class="number">1</span>][fa[u]] != u) || !fa[u] || in[fa[u]] || in[u] || !u;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Rev</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!u) <span class="keyword">return</span>;</span><br><span class="line">    swap(ch[<span class="number">0</span>][u], ch[<span class="number">1</span>][u]), rev[u] ^= <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Tag_Line</span><span class="params">(<span class="keyword">int</span> u, Tag t)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!u) <span class="keyword">return</span>;</span><br><span class="line">    sum[u] += t, A_sum[u] = sum[u] + T_sum[u], val[u] = Get(val[u], t), tag[u] += t;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Tag_Tree</span><span class="params">(<span class="keyword">int</span> u, Tag t, <span class="keyword">int</span> type)</span> </span>&#123; </span><br><span class="line">    <span class="keyword">if</span> (!u) <span class="keyword">return</span>;</span><br><span class="line">    T_sum[u] += t, T_tag[u] += t;</span><br><span class="line">    <span class="keyword">if</span> (!in[u] &amp;&amp; type) Tag_Line(u, t); <span class="keyword">else</span> A_sum[u] = sum[u] + T_sum[u];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Pushdown</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!u) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (rev[u]) Rev(ch[<span class="number">0</span>][u]), Rev(ch[<span class="number">1</span>][u]), rev[u] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!in[u] &amp;&amp; tag[u].marked()) </span><br><span class="line">        Tag_Line(ch[<span class="number">0</span>][u], tag[u]), Tag_Line(ch[<span class="number">1</span>][u], tag[u]), tag[u] = Tag();</span><br><span class="line">    <span class="keyword">if</span> (T_tag[u].marked()) &#123;</span><br><span class="line">        Tag_Tree(ch[<span class="number">0</span>][u], T_tag[u], <span class="number">0</span>), Tag_Tree(ch[<span class="number">1</span>][u], T_tag[u], <span class="number">0</span>);</span><br><span class="line">        Tag_Tree(ch[<span class="number">2</span>][u], T_tag[u], <span class="number">1</span>), Tag_Tree(ch[<span class="number">3</span>][u], T_tag[u], <span class="number">1</span>), T_tag[u] = Tag();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Pushup</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    T_sum[u] = Data();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= <span class="number">1</span>;i++) <span class="keyword">if</span> (ch[i][u]) T_sum[u] += T_sum[ch[i][u]];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= <span class="number">3</span>;i++) <span class="keyword">if</span> (ch[i][u]) T_sum[u] += A_sum[ch[i][u]];</span><br><span class="line">    <span class="keyword">if</span> (in[u]) sum[u] = Data(), A_sum[u] = T_sum[u];</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        sum[u] = Data(val[u]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= <span class="number">1</span>;i++) <span class="keyword">if</span> (ch[i][u]) sum[u] += sum[ch[i][u]];</span><br><span class="line">        A_sum[u] = sum[u] + T_sum[u];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Connect</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> f, <span class="keyword">int</span> son)</span> </span>&#123;<span class="keyword">if</span> (u) fa[u] = f; ch[son][f] = u;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Rotate</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> f = fa[u], tmp = (ch[type + <span class="number">1</span>][f] == u) + type, ff = fa[f];</span><br><span class="line">    <span class="keyword">if</span> (ff) <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">4</span>;i++) <span class="keyword">if</span> (ch[i][ff] == f) ch[i][ff] = u;</span><br><span class="line">    fa[u] = ff, Connect(ch[tmp ^ <span class="number">1</span>][u], f, tmp), Connect(f, u, tmp ^ <span class="number">1</span>), Pushup(f);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> st[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Splay</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> now = u, top = <span class="number">0</span>; st[++top] = now;</span><br><span class="line">    <span class="keyword">while</span> (!Isroot(now, type)) st[++top] = now = fa[now];</span><br><span class="line">    <span class="keyword">while</span> (top) Pushdown(st[top--]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> f;!Isroot(u, type);Rotate(u, type)) </span><br><span class="line">        <span class="keyword">if</span> (!Isroot(f = fa[u], type))</span><br><span class="line">            Rotate((ch[type][f] == u) ^ (ch[type][fa[f]] == f) ? u : f, type); </span><br><span class="line">    Pushup(u);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Create</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> u = rcnt ? rub[rcnt--] : ++ncnt;</span><br><span class="line">    ch[<span class="number">2</span>][u] = ch[<span class="number">3</span>][u] = <span class="number">0</span>, in[u] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> u;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Child</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; <span class="number">4</span>;i++) <span class="keyword">if</span> (ch[i][fa[u]] == u) <span class="keyword">return</span> i;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">4</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Add</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123; </span><br><span class="line">    <span class="keyword">if</span> (!y) <span class="keyword">return</span>; Pushdown(x);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= <span class="number">3</span>;i++) <span class="keyword">if</span> (!ch[i][x]) <span class="keyword">return</span> <span class="keyword">void</span>(Connect(y, x, i));</span><br><span class="line">    <span class="keyword">while</span> (ch[<span class="number">2</span>][x] &amp;&amp; in[ch[<span class="number">2</span>][x]]) x = ch[<span class="number">2</span>][x], Pushdown(x);</span><br><span class="line">    <span class="keyword">int</span> u = Create();</span><br><span class="line">    Connect(ch[<span class="number">2</span>][x], u, <span class="number">2</span>), Connect(y, u, <span class="number">3</span>), Connect(u, x, <span class="number">2</span>), Splay(u, <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Del</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!u) <span class="keyword">return</span>; Splay(u, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (!fa[u]) <span class="keyword">return</span>; <span class="keyword">int</span> f = fa[u];</span><br><span class="line">    <span class="keyword">if</span> (in[f]) &#123;</span><br><span class="line">        <span class="keyword">int</span> top = <span class="number">0</span>, now = f, ff = fa[f]; st[++top] = now;</span><br><span class="line">        <span class="keyword">while</span> (!Isroot(now, <span class="number">2</span>)) st[++top] = now = fa[now];</span><br><span class="line">        <span class="keyword">while</span> (top) Pushdown(st[top--]);</span><br><span class="line">        <span class="keyword">if</span> (ff) &#123;<span class="keyword">int</span> other = ch[Child(u) ^ <span class="number">1</span>][f]; Pushdown(other), Connect(other, ff, Child(f)), Splay(ff, <span class="number">2</span>);&#125;</span><br><span class="line">        rub[++rcnt] = f;</span><br><span class="line">    &#125; <span class="keyword">else</span> ch[Child(u)][f] = <span class="number">0</span>, Splay(f, <span class="number">0</span>);</span><br><span class="line">    fa[u] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Father</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!u) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    Splay(u, <span class="number">0</span>); <span class="keyword">if</span> (!fa[u]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (!in[fa[u]]) <span class="keyword">return</span> fa[u];</span><br><span class="line">    <span class="keyword">int</span> f = fa[u]; Splay(f, <span class="number">2</span>); <span class="keyword">return</span> fa[f];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Access</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ls = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (;u;u = Father(ls = u)) </span><br><span class="line">        Splay(u, <span class="number">0</span>), Del(ls), Add(u, ch[<span class="number">1</span>][u]), Connect(ls, u, <span class="number">1</span>), Pushup(u);</span><br><span class="line">    <span class="keyword">return</span> ls;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">LCA</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;Access(x); <span class="keyword">return</span> Access(y);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Findroot</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    Access(u), Splay(u, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">while</span> (ch[<span class="number">0</span>][u]) u = ch[<span class="number">0</span>][u];</span><br><span class="line">    <span class="keyword">return</span> u;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Makeroot</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;Access(u), Splay(u, <span class="number">0</span>), Rev(u);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Link</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;Makeroot(x), Add(y, x), Access(x);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Cut</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;Access(u), Splay(u, <span class="number">0</span>), ch[<span class="number">0</span>][u] = fa[ch[<span class="number">0</span>][u]] = <span class="number">0</span>, Pushup(u);&#125; </span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Split</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;Makeroot(x), Access(y), Splay(y, <span class="number">0</span>);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Mark_Line</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, Tag t)</span> </span>&#123;Split(x, y), Tag_Line(y, t);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> Data <span class="title">Ask_Line</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;Split(x, y); <span class="keyword">return</span> sum[y];&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Mark_Tree</span><span class="params">(<span class="keyword">int</span> u, Tag t)</span> </span>&#123;</span><br><span class="line">    Access(u), Splay(u, <span class="number">0</span>), val[u] = Get(val[u], t);</span><br><span class="line">    Tag_Tree(ch[<span class="number">2</span>][u], t, <span class="number">1</span>), Tag_Tree(ch[<span class="number">3</span>][u], t, <span class="number">1</span>), Pushup(u), Splay(u, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> Data <span class="title">Ask_Tree</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    Access(u), Splay(u, <span class="number">0</span>); <span class="function">Data <span class="title">res</span><span class="params">(val[u])</span></span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= <span class="number">3</span>;i++) <span class="keyword">if</span> (ch[i][u]) res += A_sum[ch[i][u]];</span><br><span class="line">    <span class="keyword">return</span> res; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> ed[<span class="number">2</span>][N];</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">inline</span> <span class="title">void</span> <span class="title">read</span>(<span class="title">T</span> &amp;<span class="title">x</span>) &#123;</span></span><br><span class="line">    x = <span class="number">0</span>; <span class="keyword">char</span> c = getchar(); </span><br><span class="line">    <span class="keyword">while</span> (c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>) c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (<span class="string">'0'</span> &lt;= c &amp;&amp; c &lt;= <span class="string">'9'</span>) x = (x &lt;&lt; <span class="number">1</span>) + (x &lt;&lt; <span class="number">3</span>) + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, q, rt; read(n), read(q), ncnt = n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; n;i++) read(ed[<span class="number">0</span>][i]), read(ed[<span class="number">1</span>][i]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) read(val[i]), Pushup(i);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; n;i++) Link(ed[<span class="number">0</span>][i], ed[<span class="number">1</span>][i]);</span><br><span class="line">    read(rt), Makeroot(rt);</span><br><span class="line">    <span class="keyword">while</span> (q--) &#123;</span><br><span class="line">        <span class="keyword">int</span> op, x, y, z; read(op);</span><br><span class="line">        <span class="keyword">if</span> (op == <span class="number">1</span>) read(rt), Makeroot(rt);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">9</span>) &#123;</span><br><span class="line">            read(x), read(y);</span><br><span class="line">            <span class="keyword">if</span> (LCA(x, y) != x) Cut(x), Link(y, x), Makeroot(rt);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">0</span>) read(x), read(y), Mark_Tree(x, Tag(<span class="number">0</span>, y));</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">5</span>) read(x), read(y), Mark_Tree(x, Tag(<span class="number">1</span>, y));</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">3</span>) read(x), <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Ask_Tree(x).mn);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">4</span>) read(x), <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Ask_Tree(x).mx);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">11</span>) read(x), <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Ask_Tree(x).sum);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">2</span>) read(x), read(y), read(z), Mark_Line(x, y, Tag(<span class="number">0</span>, z)), Makeroot(rt);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">6</span>) read(x), read(y), read(z), Mark_Line(x, y, Tag(<span class="number">1</span>, z)), Makeroot(rt);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">7</span>) read(x), read(y), <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Ask_Line(x, y).mn), Makeroot(rt);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (op == <span class="number">8</span>) read(x), read(y), <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Ask_Line(x, y).mx), Makeroot(rt);</span><br><span class="line">        <span class="keyword">else</span> read(x), read(y), <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Ask_Line(x, y).sum), Makeroot(rt);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个疑问</p>
+<p>第159行，将<code>Link(y, x)</code>改为<code>Link(x, y)</code>会错，暂时还不知道为什么</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/LCT/" rel="tag"># LCT</a>
+          
+            <a href="/tags/splay/" rel="tag"># splay</a>
+          
+            <a href="/tags/TopTree/" rel="tag"># TopTree</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/18/4-17省选模拟/" rel="next" title="4.17省选模拟">
+                <i class="fa fa-chevron-left"></i> 4.17省选模拟
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/hh.jpg" alt="An_Account">
+            
+              <p class="site-author-name" itemprop="name">An_Account</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">49</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/0x131cc05" title="GitHub &rarr; https://github.com/0x131cc05" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.luogu.org/space/show?uid=39914" title="Luogu &rarr; https://www.luogu.org/space/show?uid=39914" rel="noopener" target="_blank"><i class="fa fa-fw fa-code"></i>Luogu</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:0x131cc05@gmail.com" title="E-Mail &rarr; mailto:0x131cc05@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://plus.google.com/0x131cc05" title="Google &rarr; https://plus.google.com/0x131cc05" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.luogu.org/space/show?uid=27329" title="https://www.luogu.org/space/show?uid=27329" rel="noopener" target="_blank">ZJK</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#例题"><span class="nav-number">2.</span> <span class="nav-text">例题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚点Splay"><span class="nav-number">3.</span> <span class="nav-text">虚点Splay</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新的Rotate-Splay"><span class="nav-number">4.</span> <span class="nav-text">新的Rotate, Splay</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新的Pushdown"><span class="nav-number">5.</span> <span class="nav-text">新的Pushdown</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新的Pushup"><span class="nav-number">6.</span> <span class="nav-text">新的Pushup</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新的操作Add"><span class="nav-number">7.</span> <span class="nav-text">新的操作Add</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新的操作Del"><span class="nav-number">8.</span> <span class="nav-text">新的操作Del</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新的操作Father"><span class="nav-number">9.</span> <span class="nav-text">新的操作Father</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#新的Access以及LCA"><span class="nav-number">10.</span> <span class="nav-text">新的Access以及LCA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些例行操作"><span class="nav-number">11.</span> <span class="nav-text">一些例行操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序"><span class="nav-number">12.</span> <span class="nav-text">程序</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">An_Account</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
+
+
+
+
+<div class="theme-info">
+	<div class="powered-by"></div>
+	<span class="post-count">全站共87.9k字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,0" opacity="0.8" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+      pbOptions = {};
+      
+        pbOptions.iconStyle = "box";
+      
+        pbOptions.boxForm = "horizontal";
+      
+        pbOptions.position = "bottomCenter";
+      
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+          if (result) $(this).text('复制成功');
+          else $(this).text('复制失败');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function () {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+  
+
+</body>
+</html>
