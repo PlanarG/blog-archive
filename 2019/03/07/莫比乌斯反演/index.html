@@ -503,7 +503,7 @@
 <p>则$\varphi(n)=n*\prod{(1-\frac{1}{p_i})}$</p>
 <p>关于<a href="https://baike.baidu.com/item/%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E4%B9%98%E7%A7%AF/18903903?fr=aladdin" target="_blank" rel="noopener">狄利克雷卷积</a></p>
 <ul>
-<li>定义二元关系$<em>​$，$f</em>g ​$的狄利克雷卷积为</li>
+<li>定义二元关系$_​$，$f_g ​$的狄利克雷卷积为</li>
 </ul>
 <p>$$<br>(f*g)(n)=\sum_{d|n}f(d)g(\frac{n}{d})​<br>$$</p>
 <ul>
@@ -587,7 +587,7 @@
 <p>设<br>$$<br>T=kd<br>$$<br>所以原式等于<br>$$<br>\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)*d^2*F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)<br>$$<br>枚举T，放到最前面<br>$$<br>\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)\sum_{d|T}\mu(d)*\frac{T}{d}*d^2<br>$$</p>
 <p>$$<br>\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)*F(\lfloor\frac{m}{T}\rfloor)\sum_{d|T}\mu(d)*d<br>$$</p>
 <p>考虑优化最后那一坨的求法</p>
-<p>直接求显然是$n\ log\ n$的</p>
+<p>直接求显然是$n log n$的</p>
 <h2 id="套路4-设出积性函数"><a href="#套路4-设出积性函数" class="headerlink" title="套路4.设出积性函数"></a>套路4.设出积性函数</h2><p>观察到$\mu$以及$f(x)=x$（它还有个名字叫id）都是积性函数</p>
 <p>两个积性函数的狄利克雷卷积以及直接对应相乘的结果都是积性函数</p>
 <p>也就是说，这个东西是可以线性筛的</p>
@@ -599,7 +599,7 @@
 <ul>
 <li>x被表示成了$i*prime[j]$，其中$prime[j]\bot i$</li>
 </ul>
-<p>此时根据积性函数性质，$g(i<em>prime[j])=g(i)</em>g(prime[j])$，直接乘即可</p>
+<p>此时根据积性函数性质，$g(i_prime[j])=g(i)_g(prime[j])$，直接乘即可</p>
 <ul>
 <li>x被表示成了$i*prime[j]$，其中$prime[j]|i$</li>
 </ul>
@@ -783,7 +783,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -922,7 +922,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1074,7 +1086,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

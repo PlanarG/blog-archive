@@ -145,7 +145,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/03/21/5c92f16217cf4.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/21/5c92f2ba51aaf.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/21/5c92f4847edeb.png">
-<meta property="og:updated_time" content="2019-03-22T11:51:24.528Z">
+<meta property="og:updated_time" content="2019-05-02T13:30:12.965Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3.20省选模拟">
 <meta name="twitter:description" content="T1 全连  5分钟题目 dp[i][j]表示前$i$个音符，最后一个在$j$位置的最大收益 显然这个dp是可以用数据结构加速的 对于每个音符，查询$j$位于$[1,i-t_i]$的dp最大值 然后在位置$i+t_i$再把这个dp值放进树状数组，这样就保证了接下来点的时刻一定在$i+t_i$之后 这里用一个vector存一下待更新的答案即可 代码如下 12345678910111213141516">
@@ -445,7 +445,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-22 19:51:24" itemprop="dateModified" datetime="2019-03-22T19:51:24+08:00">2019-03-22</time>
+                <time title="修改时间：2019-05-02 21:30:12" itemprop="dateModified" datetime="2019-05-02T21:30:12+08:00">2019-05-02</time>
               
             
           </span>
@@ -505,7 +505,7 @@
 <p>这里用一个<code>vector</code>存一下待更新的答案即可</p>
 <p>代码如下</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 1000010</span></span><br><span class="line"><span class="keyword">using</span> LL = <span class="keyword">long</span> <span class="keyword">long</span>;</span><br><span class="line">LL tree[N]; <span class="keyword">int</span> n;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> x, LL y)</span> </span>&#123;<span class="keyword">for</span> (;x &lt;= n + <span class="number">1</span>;x += x &amp; -x) tree[x] = max(tree[x], y);&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">query</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    LL res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (;x &gt; <span class="number">0</span>;x -= x &amp; -x) res = max(res, tree[x]);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> P pair<span class="meta-string">&lt;int, LL&gt;</span></span></span><br><span class="line">LL w[N]; <span class="keyword">int</span> t[N], __rd; <span class="built_in">vector</span>&lt;P &gt; q[N];</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">inline</span> <span class="title">void</span> <span class="title">read</span>(<span class="title">T</span> &amp;<span class="title">x</span>) &#123;</span></span><br><span class="line">    x = <span class="number">0</span>; <span class="keyword">char</span> c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>) c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (<span class="string">'0'</span> &lt;= c &amp;&amp; c &lt;= <span class="string">'9'</span>) x = (x &lt;&lt; <span class="number">1</span>) + (x &lt;&lt; <span class="number">3</span>) + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RD (read(__rd), __rd)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    freopen(<span class="string">"fc.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>), freopen(<span class="string">"fc.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">    n = RD; LL res = <span class="number">0</span>, tmp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) t[i] = RD;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) w[i] = RD, w[i] *= t[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; q[i].size();j++) update(q[i][j].first, q[i][j].second);</span><br><span class="line">        tmp = query(i - t[i]) + w[i], q[min(n + <span class="number">1</span>, i + t[i])].push_back(P(i, tmp)), res = max(res, tmp);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, res);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="T2-原样输入"><a href="#T2-原样输入" class="headerlink" title="T2 原样输入"></a>T2 原样输入</h1><p><img src="https://i.loli.net/2019/03/21/5c92f2ba51aaf.png" alt="1553134260387"></p>
+<h1 id="T2-原样输出"><a href="#T2-原样输出" class="headerlink" title="T2 原样输出"></a>T2 原样输出</h1><p><img src="https://i.loli.net/2019/03/21/5c92f2ba51aaf.png" alt="1553134260387"></p>
 <p>如果只有一个串，那么就是统计不同子串数量，显然后缀数组/后缀自动机都可以</p>
 <p>但是这里有多个串，而且最后会忽略空行</p>
 <p>我们考虑什么时候会重复</p>
@@ -701,7 +701,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -840,7 +840,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -938,7 +950,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#T1-全连"><span class="nav-number">1.</span> <span class="nav-text">T1 全连</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T2-原样输入"><span class="nav-number">2.</span> <span class="nav-text">T2 原样输入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T3-不同的缩写"><span class="nav-number">3.</span> <span class="nav-text">T3 不同的缩写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#T1-全连"><span class="nav-number">1.</span> <span class="nav-text">T1 全连</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T2-原样输出"><span class="nav-number">2.</span> <span class="nav-text">T2 原样输出</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T3-不同的缩写"><span class="nav-number">3.</span> <span class="nav-text">T3 不同的缩写</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -992,7 +1004,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

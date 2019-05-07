@@ -552,7 +552,7 @@
 <p>因为两个子序列中，一定有一个序列的结尾是当前最大的数</p>
 <p>如果我们在后面放比当前最大值还要大的数，那么在当前这一位可以随便放</p>
 <p>否则我们只能从小到大放</p>
-<p>也就是<br>$$<br>dp_{i,j}=dp_{i-1,j}+\sum_{k=1}^jdp_{i-1,j-k}\\<br>=\sum_{k=1}^jdp_{i-1,j-k}<br>$$<br>那个$k$是枚举当前放第几大的数，显然放了$k$之后当前最大的数就是这个数了，同时比最大的数还要大的数减少了$k$个</p>
+<p>也就是<br>$$<br>dp_{i,j}=dp_{i-1,j}+\sum_{k=1}^jdp_{i-1,j-k}\\\<br>=\sum_{k=1}^jdp_{i-1,j-k}<br>$$<br>那个$k$是枚举当前放第几大的数，显然放了$k$之后当前最大的数就是这个数了，同时比最大的数还要大的数减少了$k$个</p>
 <p>那么这道题也是类似</p>
 <p>我们用<code>dp[i][j][k]</code>表示还有$i$位没有填，后面的数中比当前最大的序列的末尾还要大的有$j$个，比次大的序列末尾还要大的有$k$个时的方案数</p>
 <p>显然有$k\geq j$</p>
@@ -733,7 +733,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -872,7 +872,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1024,7 +1036,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

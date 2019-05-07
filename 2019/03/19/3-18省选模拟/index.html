@@ -148,7 +148,7 @@
 <meta property="og:image" content="https://i.loli.net/2019/03/19/5c909a65f0cb3.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/19/5c909feab91c8.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/19/5c90a015dc236.png">
-<meta property="og:updated_time" content="2019-03-22T11:50:10.722Z">
+<meta property="og:updated_time" content="2019-05-02T13:29:39.700Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3.18省选模拟">
 <meta name="twitter:description" content="T1 One?One!  不会啊。。先贴上题解吧  T2 Two?Two!  首先考虑dp 假设现在已经排了前$i$个人，我们知道这两个队中有一个对的最大值一定是$M_i$，即前$i$个人的最大值 那么我们可以设dp[i][j]表示已经排好了$i$个人，其中$M_i$不在的那一队的最大值为$j$的答案 我们考虑一下几种情况：  $M_i=x_i$  显然，将$i$排到$M_{i-1}$那一队会更优">
@@ -448,7 +448,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-22 19:50:10" itemprop="dateModified" datetime="2019-03-22T19:50:10+08:00">2019-03-22</time>
+                <time title="修改时间：2019-05-02 21:29:39" itemprop="dateModified" datetime="2019-05-02T21:29:39+08:00">2019-05-02</time>
               
             
           </span>
@@ -516,13 +516,13 @@
 <ol start="2">
 <li>$x_i&lt;M_i,j\in[0,x_i)$</li>
 </ol>
-<p>排完了$i​$这个人之后仍然有一队的最大值小于$x_i​$，那么$i​$一定排到了最大值更大的那一边，即$M_{i-1}​$，也是$M_i$</p>
+<p>排完了$i$这个人之后仍然有一队的最大值小于$x_i$，那么$i$一定排到了最大值更大的那一边，即$M_{i-1}$，也是$M_i$</p>
 <p>此时有<code>dp[i][j] = dp[i - 1][j] + M[i] - x[i]</code></p>
 <ol start="3">
-<li>$x_i&lt;M_i,j=x_i​$</li>
+<li>$x_i&lt;M_i,j=x_i$</li>
 </ol>
 <p>排完了$i$这个人之后，最大值不在的那一对的最大值就咕了</p>
-<p>那么我们可以知道，这一队之前的最大值一定是$\leq x_i​$的</p>
+<p>那么我们可以知道，这一队之前的最大值一定是$\leq x_i$的</p>
 <p>所以有<code>dp[i][j] = min{dp[i - 1][k]}(k &lt;= j)</code></p>
 <ol start="4">
 <li>$x_i&lt;M_i,j\in(x_i,M_i]$</li>
@@ -556,7 +556,7 @@
 <p><img src="https://i.loli.net/2019/03/19/5c90a015dc236.png" alt="1552982029057"></p>
 <p>很奇妙的一道题，有两种方法</p>
 <h2 id="ZJK的做法"><a href="#ZJK的做法" class="headerlink" title="ZJK的做法"></a><code>ZJK</code>的做法</h2><p>考虑将每个选手选或不选转化成一个01串，那么对于<strong>一个</strong>有$i$位是1的01串，我们设$a$表示01对的数量，$b$表示10对的数量</p>
-<p>那么显然有<br>$$<br>p(该集合满足条件)=(1-p)^ap^b<br>$$<br>注意到$b$是可以被$a$表示的，有<br>$$<br>b=\frac{n(n-1)}{2}-a<br>$$<br>所以上面的式子<br>$$<br>=(1-p)^ap^{\frac{n(n-1)}{2}-a}\\<br>=(\frac{1-p}{p})^ap^\frac{n(n+1)}{2}<br>$$<br>我们需要求出所有有$i$位是1的01串合法的概率之和，而这些串的$n$都是固定的</p>
+<p>那么显然有<br>$$<br>p(该集合满足条件)=(1-p)^ap^b<br>$$<br>注意到$b$是可以被$a$表示的，有<br>$$<br>b=\frac{n(n-1)}{2}-a<br>$$<br>所以上面的式子<br>$$<br>=(1-p)^ap^{\frac{n(n-1)}{2}-a}\\\<br>=(\frac{1-p}{p})^ap^\frac{n(n+1)}{2}<br>$$<br>我们需要求出所有有$i$位是1的01串合法的概率之和，而这些串的$n$都是固定的</p>
 <p>所以可以把$p^\frac{n(n-1)}{2}$提出来</p>
 <p>所以我们实际上要求的是<br>$$<br>\sum_{s有i位是1}(\frac{1-p}{p})^{a_s}<br>$$<br>考虑$a_s$如何计算</p>
 <p>我们采用总数减去多余情况的方法</p>
@@ -569,7 +569,7 @@
 <p>如果不是1，那么对应括号中的1</p>
 <p>否则，当前答案就会乘上$(\frac{1-p}{p})^i$，$i$即当前位的下标</p>
 <p>最后答案就是$x^i$项的系数</p>
-<p>可以使用分治<code>NTT</code></p>
+<p>可以使用<del>分治<code>NTT</code></del>倍增</p>
 <h2 id="标程的做法"><a href="#标程的做法" class="headerlink" title="标程的做法"></a>标程的做法</h2><p>先考虑朴素的<code>dp</code></p>
 <p><code>dp[i][j]</code>表示有$i$个人，选了$j$个人并且合法的概率</p>
 <p>那么有两种思路</p>
@@ -749,7 +749,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -888,7 +888,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1040,7 +1052,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

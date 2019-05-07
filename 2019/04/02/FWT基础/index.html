@@ -133,18 +133,18 @@
 
 
 
-  <meta name="description" content="FWT有啥用啊我们知道，FFT可以解决多项式的卷积，即$$C_k=\sum_{i+j=k}A_i*B_j$$如果将操作符换一下，换成集合运算符 比如$$C_k=\sum_{i|j=k}A_i*B_j\\C_k=\sum_{i\&amp;amp;j=k}A_i*B_j\\C_k=\sum_{i\oplus j=k}A_i*B_j$$这时就不能使用FFT了 但是FFT使我们产生了一种想法 我们能不能用一种类似">
+  <meta name="description" content="FWT有啥用啊我们知道，FFT可以解决多项式的卷积，即$$C_k=\sum_{i+j=k}A_i*B_j$$如果将操作符换一下，换成集合运算符 比如$$C_k=\sum_{i|j=k}A_i*B_j\\\C_k=\sum_{i\&amp;amp;j=k}A_i*B_j\\\C_k=\sum_{i\oplus j=k}A_i*B_j$$这时就不能使用FFT了 但是FFT使我们产生了一种想法 我们能不能用一种">
 <meta name="keywords" content="多项式,FWT,算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FWT基础">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/04/02/FWT基础/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
-<meta property="og:description" content="FWT有啥用啊我们知道，FFT可以解决多项式的卷积，即$$C_k=\sum_{i+j=k}A_i*B_j$$如果将操作符换一下，换成集合运算符 比如$$C_k=\sum_{i|j=k}A_i*B_j\\C_k=\sum_{i\&amp;amp;j=k}A_i*B_j\\C_k=\sum_{i\oplus j=k}A_i*B_j$$这时就不能使用FFT了 但是FFT使我们产生了一种想法 我们能不能用一种类似">
+<meta property="og:description" content="FWT有啥用啊我们知道，FFT可以解决多项式的卷积，即$$C_k=\sum_{i+j=k}A_i*B_j$$如果将操作符换一下，换成集合运算符 比如$$C_k=\sum_{i|j=k}A_i*B_j\\\C_k=\sum_{i\&amp;amp;j=k}A_i*B_j\\\C_k=\sum_{i\oplus j=k}A_i*B_j$$这时就不能使用FFT了 但是FFT使我们产生了一种想法 我们能不能用一种">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-04-06T07:21:35.887Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FWT基础">
-<meta name="twitter:description" content="FWT有啥用啊我们知道，FFT可以解决多项式的卷积，即$$C_k=\sum_{i+j=k}A_i*B_j$$如果将操作符换一下，换成集合运算符 比如$$C_k=\sum_{i|j=k}A_i*B_j\\C_k=\sum_{i\&amp;amp;j=k}A_i*B_j\\C_k=\sum_{i\oplus j=k}A_i*B_j$$这时就不能使用FFT了 但是FFT使我们产生了一种想法 我们能不能用一种类似">
+<meta name="twitter:description" content="FWT有啥用啊我们知道，FFT可以解决多项式的卷积，即$$C_k=\sum_{i+j=k}A_i*B_j$$如果将操作符换一下，换成集合运算符 比如$$C_k=\sum_{i|j=k}A_i*B_j\\\C_k=\sum_{i\&amp;amp;j=k}A_i*B_j\\\C_k=\sum_{i\oplus j=k}A_i*B_j$$这时就不能使用FFT了 但是FFT使我们产生了一种想法 我们能不能用一种">
 
 
 
@@ -491,7 +491,7 @@
 
       
         <h1 id="FWT有啥用啊"><a href="#FWT有啥用啊" class="headerlink" title="FWT有啥用啊"></a>FWT有啥用啊</h1><p>我们知道，<code>FFT</code>可以解决多项式的卷积，即<br>$$<br>C_k=\sum_{i+j=k}A_i*B_j<br>$$<br>如果将操作符换一下，换成集合运算符</p>
-<p>比如<br>$$<br>C_k=\sum_{i|j=k}A_i*B_j\\<br>C_k=\sum_{i\&amp;j=k}A_i*B_j\\<br>C_k=\sum_{i\oplus j=k}A_i*B_j<br>$$<br>这时就不能使用<code>FFT</code>了</p>
+<p>比如<br>$$<br>C_k=\sum_{i|j=k}A_i*B_j\\\<br>C_k=\sum_{i\&amp;j=k}A_i*B_j\\\<br>C_k=\sum_{i\oplus j=k}A_i*B_j<br>$$<br>这时就不能使用<code>FFT</code>了</p>
 <p>但是<code>FFT</code>使我们产生了一种想法</p>
 <p>我们能不能用一种类似<code>FFT</code>的方法，用另一个多项式来表示$A,B$，然后再对应相乘，最后再变换回来呢</p>
 <p>答案是可以的，这就是<code>FWT</code>，即快速沃尔什变换</p>
@@ -518,14 +518,14 @@
 <p>而此时右半边原来的$FWT$本来就对右半边的数有贡献</p>
 <p>所以这个式子成立</p>
 <blockquote>
-<p>性质2：$FWT(A|B)=FWT(A)*FWT(B)\ \ (对应相乘)$</p>
+<p>性质2：$FWT(A|B)=FWT(A)*FWT(B)  (对应相乘)$</p>
 </blockquote>
-<p>我们采用归纳法证明<br>$$<br>\begin{aligned}<br>FWT(A|B)&amp;=FWT((A|B)_0,(A|B)_1)\\<br>&amp;=FWT(A_0|B_0,A_1|B_0+A_0|B_1+A_1|B_1)\\<br>&amp;=(FWT(A_0|B_0),FWT(A_0|B_0+A_1|B_0+A_0|B_1+A_1|B_1))\\<br>&amp;=(FWT(A_0)*FWT(B_0),FWT(A_0)*FWT(B_0)+FWT(A_1)*FWT(B_0)\\<br>&amp;+FWT(A_0)*FWT(B_1)+FWT(A_1)*FWT(B_1))\\<br>&amp;=(FWT(A_0)*FWT(B_0),(FWT(A_0)+FWT(A_1)*(FWT(B_0)+FWT(B_1))))\\<br>&amp;=(FWT(A_0),FWT(A_0)+FWT(A_1))*(FWT(B_0),FWT(B_0)+FWT(B_1))\\<br>&amp;=FWT(A)*FWT(B)<br>\end{aligned}<br>$$<br>定义$IFWT$变换为$FWT$变换的逆变换</p>
-<p>我们断言，$IFWT$满足<br>$$<br>IFWT(A)=\begin{cases}(IFWT(A_0),IFWT(A_1)-IFWT(A_0))&amp;n&gt;1\\ A&amp;n=0\end{cases}<br>$$<br>证明如下：<br>$$<br>\begin{aligned}<br>IFWT(FWT(A))&amp;=IFWT(FWT(A_0),FWT(A_0)+FWT(A_1))\\<br>&amp;=(IFWT(FWT(A_0)),IFWT(FWT(A_1)))\\<br>&amp;=(A_0,A_1)\\<br>&amp;=A<br>\end{aligned}<br>$$</p>
+<p>我们采用归纳法证明<br>$$<br>\begin{aligned}<br>FWT(A|B)&amp;=FWT((A|B)_0,(A|B)_1)\\\<br>&amp;=FWT(A_0|B_0,A_1|B_0+A_0|B_1+A_1|B_1)\\\<br>&amp;=(FWT(A_0|B_0),FWT(A_0|B_0+A_1|B_0+A_0|B_1+A_1|B_1))\\\<br>&amp;=(FWT(A_0)*FWT(B_0),FWT(A_0)*FWT(B_0)+FWT(A_1)*FWT(B_0)\\\<br>&amp;+FWT(A_0)*FWT(B_1)+FWT(A_1)*FWT(B_1))\\\<br>&amp;=(FWT(A_0)*FWT(B_0),(FWT(A_0)+FWT(A_1)*(FWT(B_0)+FWT(B_1))))\\\<br>&amp;=(FWT(A_0),FWT(A_0)+FWT(A_1))*(FWT(B_0),FWT(B_0)+FWT(B_1))\\\<br>&amp;=FWT(A)*FWT(B)<br>\end{aligned}<br>$$<br>定义$IFWT$变换为$FWT$变换的逆变换</p>
+<p>我们断言，$IFWT$满足<br>$$<br>IFWT(A)=\begin{cases}(IFWT(A_0),IFWT(A_1)-IFWT(A_0))&amp;n&gt;1\\ A&amp;n=0\end{cases}<br>$$<br>证明如下：<br>$$<br>\begin{aligned}<br>IFWT(FWT(A))&amp;=IFWT(FWT(A_0),FWT(A_0)+FWT(A_1))\\\<br>&amp;=(IFWT(FWT(A_0)),IFWT(FWT(A_1)))\\\<br>&amp;=(A_0,A_1)\\\<br>&amp;=A<br>\end{aligned}<br>$$</p>
 <h1 id="与卷积及其逆运算"><a href="#与卷积及其逆运算" class="headerlink" title="与卷积及其逆运算"></a>与卷积及其逆运算</h1><p>定义$FWT$变换为<br>$$<br>FWT(A)[i]=\sum_{i\&amp;j=j}A_i<br>$$<br>类似或卷积，我们可以得出此时$FWT$的递推式<br>$$<br>FWT(A)=\begin{cases}(FWT(A_0)+FWT(A_1),FWT(A_1))&amp;n&gt;1\\ A &amp;n=0\end{cases}<br>$$<br>证明很简单，$A$数组的右半部分与上一个首位为0的数，得到的结果一定在$A$的左半部分</p>
 <p>显然，它们仍然对自己所在的部分有贡献</p>
 <p>$FWT(A\&amp;B)=FWT(A)*FWT(B)$在此时成立</p>
-<p>证明如下：<br>$$<br>\begin{aligned}<br>FWT(A\&amp;B)&amp;=FWT((A\&amp;B)_0,(A\&amp;B)_1)\\<br>&amp;=FWT(A_0\&amp;B_0+A_0\&amp;B_1+A_1\&amp;B_0,A_1\&amp;B_1)\\<br>&amp;=(FWT(A_0\&amp;B_0+A_0\&amp;B_1+A_1\&amp;B_0+A_1\&amp;B_1),FWT(A_1\&amp;B_1))\\<br>&amp;=((FWT(A_0)+FWT(A_1))*(FWT(B_0)+FWT(B_1)),FWT(A_1)*FWT(B_1))\\<br>&amp;=(FWT(A_0)+FWT(A_1),FWT(A_1))*(FWT(B_0)+FWT(B_1),FWT(B_1))\\<br>&amp;=FWT(A)*FWT(B)<br>\end{aligned}<br>$$<br>定义$IFWT$变换为<br>$$<br>IFWT(A)=\begin{cases}(IFWT(A_0)-IFWT(A_1),IFWT(A_1))&amp;n&gt;1\\ A&amp;n=0\end{cases}<br>$$<br>证明如下：<br>$$<br>\begin{aligned}<br>IFWT(FWT(A))&amp;=IFWT(FWT(A_0)+FWT(A_1),FWT(A_1))\\<br>&amp;=(IFWT(FWT(A_0)),IFWT(FWT(A_1))\\<br>&amp;=(A_0,A_1)\\<br>&amp;=A<br>\end{aligned}<br>$$</p>
+<p>证明如下：<br>$$<br>\begin{aligned}<br>FWT(A\&amp;B)&amp;=FWT((A\&amp;B)_0,(A\&amp;B)_1)\\\<br>&amp;=FWT(A_0\&amp;B_0+A_0\&amp;B_1+A_1\&amp;B_0,A_1\&amp;B_1)\\\<br>&amp;=(FWT(A_0\&amp;B_0+A_0\&amp;B_1+A_1\&amp;B_0+A_1\&amp;B_1),FWT(A_1\&amp;B_1))\\\<br>&amp;=((FWT(A_0)+FWT(A_1))*(FWT(B_0)+FWT(B_1)),FWT(A_1)*FWT(B_1))\\\<br>&amp;=(FWT(A_0)+FWT(A_1),FWT(A_1))*(FWT(B_0)+FWT(B_1),FWT(B_1))\\\<br>&amp;=FWT(A)*FWT(B)<br>\end{aligned}<br>$$<br>定义$IFWT$变换为<br>$$<br>IFWT(A)=\begin{cases}(IFWT(A_0)-IFWT(A_1),IFWT(A_1))&amp;n&gt;1\\ A&amp;n=0\end{cases}<br>$$<br>证明如下：<br>$$<br>\begin{aligned}<br>IFWT(FWT(A))&amp;=IFWT(FWT(A_0)+FWT(A_1),FWT(A_1))\\\<br>&amp;=(IFWT(FWT(A_0)),IFWT(FWT(A_1))\\\<br>&amp;=(A_0,A_1)\\\<br>&amp;=A<br>\end{aligned}<br>$$</p>
 <h1 id="异或卷积及其逆运算"><a href="#异或卷积及其逆运算" class="headerlink" title="异或卷积及其逆运算"></a>异或卷积及其逆运算</h1><p>异或卷积的$FWT$稍微麻烦一点</p>
 <p>我们定义函数$d(x)$表示$x$<strong>在二进制下</strong>1的数量</p>
 <p>定义$FWT$变换为<br>$$<br>FWT(A)[i]=\sum_{d(j\&amp;i)\equiv0\mod 2}A_j-\sum_{d(k\&amp;i)\equiv1\mod 2}A_k<br>$$<br>那么此时，它的递推式为<br>$$<br>FWT(A)=\begin{cases}(FWT(A_0)+FWT(A_1),FWT(A_0)-FWT(A_1))&amp;n&gt;0\\ A&amp;n=0\end{cases}<br>$$<br>我们考虑这个式子是怎么来的</p>
@@ -537,7 +537,7 @@
 <p>$A_1$的下标的最高位多了一个1，与上一个最高位为1的数之后奇偶性就变了，所以要取反</p>
 <p>所以这个也是成立的</p>
 <p>$FWT(A\oplus B)=FWT(A)*FWT(B)$在此时成立</p>
-<p>证明如下<br>$$<br>\begin{aligned}<br>FWT(A\oplus B)&amp;=FWT((A\oplus B)_0,(A\oplus B)_1)\\<br>&amp;=FWT(A_0\oplus B_0+A_1\oplus B_1,A_0\oplus B_1+A_1\oplus B_0)\\<br>&amp;=(FWT(A_0\oplus B_0+A_1\oplus B_1+A_0\oplus B_1+A_1\oplus B_0),\\<br>&amp;FWT(A_0\oplus B_0+A_1\oplus B_1-A_0\oplus B_1-A_1\oplus B_0))\\<br>&amp;=((FWT(A_0)+FWT(A_1))*(FWT(B_0)+FWT(B_1)),\\<br>&amp;(FWT(A_0)-FWT(A_1))*(FWT(B_0)-FWT(B_1)))\\<br>&amp;=(FWT(A_0+A_1),FWT(A_0-A_1))*(FWT(B_0+B_1),FWT(B_0-B_1))\\<br>&amp;=FWT(A)*FWT(B)<br>\end{aligned}<br>$$<br>定义$IFWT$为<br>$$<br>IFWT(A)=\begin{cases}(\frac{IFWT(A_0+A_1)}{2},\frac{IFWT(A_0-A_1)}{2})&amp;n&gt;1\\ A&amp;n=0\end{cases}<br>$$<br>证明如下：<br>$$<br>\begin{aligned}<br>IFWT(FWT(A))&amp;=IFWT(FWT(A_0)+FWT(A_1),FWT(A_0)-FWT(A_1))\\<br>&amp;=(IFWT(FWT(A_0)),IFWT(FWT(A_1)))\\<br>&amp;=(A_0,A_1)\\<br>&amp;=A<br>\end{aligned}<br>$$</p>
+<p>证明如下<br>$$<br>\begin{aligned}<br>FWT(A\oplus B)&amp;=FWT((A\oplus B)_0,(A\oplus B)_1)\\\<br>&amp;=FWT(A_0\oplus B_0+A_1\oplus B_1,A_0\oplus B_1+A_1\oplus B_0)\\\<br>&amp;=(FWT(A_0\oplus B_0+A_1\oplus B_1+A_0\oplus B_1+A_1\oplus B_0),\\\<br>&amp;FWT(A_0\oplus B_0+A_1\oplus B_1-A_0\oplus B_1-A_1\oplus B_0))\\\<br>&amp;=((FWT(A_0)+FWT(A_1))*(FWT(B_0)+FWT(B_1)),\\\<br>&amp;(FWT(A_0)-FWT(A_1))*(FWT(B_0)-FWT(B_1)))\\\<br>&amp;=(FWT(A_0+A_1),FWT(A_0-A_1))*(FWT(B_0+B_1),FWT(B_0-B_1))\\\<br>&amp;=FWT(A)*FWT(B)<br>\end{aligned}<br>$$<br>定义$IFWT$为<br>$$<br>IFWT(A)=\begin{cases}(\frac{IFWT(A_0+A_1)}{2},\frac{IFWT(A_0-A_1)}{2})&amp;n&gt;1\\ A&amp;n=0\end{cases}<br>$$<br>证明如下：<br>$$<br>\begin{aligned}<br>IFWT(FWT(A))&amp;=IFWT(FWT(A_0)+FWT(A_1),FWT(A_0)-FWT(A_1))\\\<br>&amp;=(IFWT(FWT(A_0)),IFWT(FWT(A_1)))\\\<br>&amp;=(A_0,A_1)\\\<br>&amp;=A<br>\end{aligned}<br>$$</p>
 
       
     </div>
@@ -686,7 +686,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -825,7 +825,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -977,7 +989,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

@@ -133,18 +133,18 @@
 
 
 
-  <meta name="description" content="题目链接 表示并不会$n^2$高斯消元做法 如果用dp[i]表示当前为i，到0还需要进行操作数的期望值，那么显然有转移$$dp_0 = 0\\dp_1 = G_{1,0}dp_0 + G_{1,1}dp_1 + G_{1,2}dp_2 + 1\\\cdots\\dp_{n-1} = G_{n-1,0}dp_0 + G_{n-1,1}dp_1 + \cdots + G_{n-1,n}dp_n + 1">
+  <meta name="description" content="题目链接 表示并不会$n^2$高斯消元做法 如果用dp[i]表示当前为i，到0还需要进行操作数的期望值，那么显然有转移$$dp_0 = 0\\\dp_1 = G_{1,0}dp_0 + G_{1,1}dp_1 + G_{1,2}dp_2 + 1\\\\cdots\\\dp_{n-1} = G_{n-1,0}dp_0 + G_{n-1,1}dp_1 + \cdots + G_{n-1,n}dp_n">
 <meta name="keywords" content="题解,期望,高斯消元">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BJOI2018 治疗之雨">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/11/BJOI2018-治疗之雨/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
-<meta property="og:description" content="题目链接 表示并不会$n^2$高斯消元做法 如果用dp[i]表示当前为i，到0还需要进行操作数的期望值，那么显然有转移$$dp_0 = 0\\dp_1 = G_{1,0}dp_0 + G_{1,1}dp_1 + G_{1,2}dp_2 + 1\\\cdots\\dp_{n-1} = G_{n-1,0}dp_0 + G_{n-1,1}dp_1 + \cdots + G_{n-1,n}dp_n + 1">
+<meta property="og:description" content="题目链接 表示并不会$n^2$高斯消元做法 如果用dp[i]表示当前为i，到0还需要进行操作数的期望值，那么显然有转移$$dp_0 = 0\\\dp_1 = G_{1,0}dp_0 + G_{1,1}dp_1 + G_{1,2}dp_2 + 1\\\\cdots\\\dp_{n-1} = G_{n-1,0}dp_0 + G_{n-1,1}dp_1 + \cdots + G_{n-1,n}dp_n">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-03-11T13:52:53.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BJOI2018 治疗之雨">
-<meta name="twitter:description" content="题目链接 表示并不会$n^2$高斯消元做法 如果用dp[i]表示当前为i，到0还需要进行操作数的期望值，那么显然有转移$$dp_0 = 0\\dp_1 = G_{1,0}dp_0 + G_{1,1}dp_1 + G_{1,2}dp_2 + 1\\\cdots\\dp_{n-1} = G_{n-1,0}dp_0 + G_{n-1,1}dp_1 + \cdots + G_{n-1,n}dp_n + 1">
+<meta name="twitter:description" content="题目链接 表示并不会$n^2$高斯消元做法 如果用dp[i]表示当前为i，到0还需要进行操作数的期望值，那么显然有转移$$dp_0 = 0\\\dp_1 = G_{1,0}dp_0 + G_{1,1}dp_1 + G_{1,2}dp_2 + 1\\\\cdots\\\dp_{n-1} = G_{n-1,0}dp_0 + G_{n-1,1}dp_1 + \cdots + G_{n-1,n}dp_n">
 
 
 
@@ -480,7 +480,7 @@
       
         <p><a href="https://www.luogu.org/problemnew/show/P4457" target="_blank" rel="noopener">题目链接</a></p>
 <p>表示并不会$n^2$高斯消元做法</p>
-<p>如果用<code>dp[i]</code>表示当前为i，到0还需要进行操作数的期望值，那么显然有转移<br>$$<br>dp_0 = 0\\<br>dp_1 = G_{1,0}dp_0 + G_{1,1}dp_1 + G_{1,2}dp_2 + 1\\<br>\cdots\\<br>dp_{n-1} = G_{n-1,0}dp_0 + G_{n-1,1}dp_1 + \cdots + G_{n-1,n}dp_n + 1\\<br>dp_n = G_{n,0}dp_0 + G_{n,1}dp_1 + \cdots + G_{n,n}dp_n + 1<br>$$<br>其中，G表示系数矩阵，<code>G[i][j]</code>表示进行一次操作后，i变成j的概率</p>
+<p>如果用<code>dp[i]</code>表示当前为i，到0还需要进行操作数的期望值，那么显然有转移<br>$$<br>dp_0 = 0\\\<br>dp_1 = G_{1,0}dp_0 + G_{1,1}dp_1 + G_{1,2}dp_2 + 1\\\<br>\cdots\\\<br>dp_{n-1} = G_{n-1,0}dp_0 + G_{n-1,1}dp_1 + \cdots + G_{n-1,n}dp_n + 1\\\<br>dp_n = G_{n,0}dp_0 + G_{n,1}dp_1 + \cdots + G_{n,n}dp_n + 1<br>$$<br>其中，G表示系数矩阵，<code>G[i][j]</code>表示进行一次操作后，i变成j的概率</p>
 <p>首先预处理<code>f[i]</code>表示一次操作中，对第一个数减i的概率</p>
 <p>那么有</p>
 <p>$$<br>f[i]=\frac{C_i^km^{k-i}}{(m+1)^k}<br>$$</p>
@@ -635,7 +635,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -774,7 +774,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -909,7 +921,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

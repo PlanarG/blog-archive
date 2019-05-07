@@ -133,13 +133,13 @@
 
 
 
-  <meta name="description" content="T1 树上四次求和 本来写的100分算法，结果只有80分 发现是链的情况挂了，原因是有一个取模的地方我把%=写成了%，然后就呵呵了 考虑如何化简那个式子$$\sum_{i=1}^k\sum_{j=i}^kw(i,j)\\=\sum_{i=1}^k\sum_{j=i}^k\sum_{l=i}^j\sum_{r=l}^jdis(a_l,a_r)\\$$考虑后面每一个$dis(a_l,a_r)$对答案的">
+  <meta name="description" content="T1 树上四次求和 本来写的100分算法，结果只有80分 发现是链的情况挂了，原因是有一个取模的地方我把%=写成了%，然后就呵呵了 考虑如何化简那个式子$$\sum_{i=1}^k\sum_{j=i}^kw(i,j)\\\=\sum_{i=1}^k\sum_{j=i}^k\sum_{l=i}^j\sum_{r=l}^jdis(a_l,a_r)\\\$$考虑后面每一个$dis(a_l,a_r)$对答">
 <meta name="keywords" content="题解,总结,数据结构,点分治,线段树,动态点分治,rmq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3.11省选模拟">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/11/3-11省选模拟/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
-<meta property="og:description" content="T1 树上四次求和 本来写的100分算法，结果只有80分 发现是链的情况挂了，原因是有一个取模的地方我把%=写成了%，然后就呵呵了 考虑如何化简那个式子$$\sum_{i=1}^k\sum_{j=i}^kw(i,j)\\=\sum_{i=1}^k\sum_{j=i}^k\sum_{l=i}^j\sum_{r=l}^jdis(a_l,a_r)\\$$考虑后面每一个$dis(a_l,a_r)$对答案的">
+<meta property="og:description" content="T1 树上四次求和 本来写的100分算法，结果只有80分 发现是链的情况挂了，原因是有一个取模的地方我把%=写成了%，然后就呵呵了 考虑如何化简那个式子$$\sum_{i=1}^k\sum_{j=i}^kw(i,j)\\\=\sum_{i=1}^k\sum_{j=i}^k\sum_{l=i}^j\sum_{r=l}^jdis(a_l,a_r)\\\$$考虑后面每一个$dis(a_l,a_r)$对答">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.loli.net/2019/03/11/5c864659de9ef.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/11/5c864a849fe27.png">
@@ -148,7 +148,7 @@
 <meta property="og:updated_time" content="2019-03-22T11:50:37.104Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3.11省选模拟">
-<meta name="twitter:description" content="T1 树上四次求和 本来写的100分算法，结果只有80分 发现是链的情况挂了，原因是有一个取模的地方我把%=写成了%，然后就呵呵了 考虑如何化简那个式子$$\sum_{i=1}^k\sum_{j=i}^kw(i,j)\\=\sum_{i=1}^k\sum_{j=i}^k\sum_{l=i}^j\sum_{r=l}^jdis(a_l,a_r)\\$$考虑后面每一个$dis(a_l,a_r)$对答案的">
+<meta name="twitter:description" content="T1 树上四次求和 本来写的100分算法，结果只有80分 发现是链的情况挂了，原因是有一个取模的地方我把%=写成了%，然后就呵呵了 考虑如何化简那个式子$$\sum_{i=1}^k\sum_{j=i}^kw(i,j)\\\=\sum_{i=1}^k\sum_{j=i}^k\sum_{l=i}^j\sum_{r=l}^jdis(a_l,a_r)\\\$$考虑后面每一个$dis(a_l,a_r)$对答">
 <meta name="twitter:image" content="https://i.loli.net/2019/03/11/5c864659de9ef.png">
 
 
@@ -498,10 +498,10 @@
         <h1 id="T1-树上四次求和"><a href="#T1-树上四次求和" class="headerlink" title="T1 树上四次求和"></a>T1 树上四次求和</h1><p><img src="https://i.loli.net/2019/03/11/5c864659de9ef.png" alt></p>
 <p>本来写的100分算法，结果只有80分</p>
 <p>发现是链的情况挂了，原因是有一个取模的地方我把<code>%=</code>写成了<code>%</code>，然后就呵呵了</p>
-<p>考虑如何化简那个式子<br>$$<br>\sum_{i=1}^k\sum_{j=i}^kw(i,j)\\<br>=\sum_{i=1}^k\sum_{j=i}^k\sum_{l=i}^j\sum_{r=l}^jdis(a_l,a_r)\\<br>$$<br>考虑后面每一个$dis(a_l,a_r)$对答案的贡献，就是把$\sum$提到前面来<br>$$<br>=\sum_{l=1}^k\sum_{r=l}^kdis(a_l,a_r)*l*(k-r+1)<br>$$<br>但是这样仍然是$n^kq$，难以承受</p>
-<p>那么我们考虑分开维护<br>$$<br>\sum_{i=1}^n\sum_{j=i}^ndis(a_i,a_j)*i*(n-j+1)\\<br>=(n+1)\sum_{i=1}^ni\sum_{j=i}^ndis(a_i,a_j)-\sum_{i=1}^ni\sum_{j=i}^nj*dis(a_i,a_j)<br>$$<br>考虑将询问离线，当$n$变成$n+1$时式子将会如何变化</p>
+<p>考虑如何化简那个式子<br>$$<br>\sum_{i=1}^k\sum_{j=i}^kw(i,j)\\\<br>=\sum_{i=1}^k\sum_{j=i}^k\sum_{l=i}^j\sum_{r=l}^jdis(a_l,a_r)\\\<br>$$<br>考虑后面每一个$dis(a_l,a_r)$对答案的贡献，就是把$\sum$提到前面来<br>$$<br>=\sum_{l=1}^k\sum_{r=l}^kdis(a_l,a_r)*l*(k-r+1)<br>$$<br>但是这样仍然是$n^kq$，难以承受</p>
+<p>那么我们考虑分开维护<br>$$<br>\sum_{i=1}^n\sum_{j=i}^ndis(a_i,a_j)*i*(n-j+1)\\\<br>=(n+1)\sum_{i=1}^ni\sum_{j=i}^ndis(a_i,a_j)-\sum_{i=1}^ni\sum_{j=i}^nj*dis(a_i,a_j)<br>$$<br>考虑将询问离线，当$n$变成$n+1$时式子将会如何变化</p>
 <p>注意到第一项的系数$n+1​$与$n​$有关，所以把它去掉，考虑维护$\sum\limits_{i=1}^ni\sum\limits_{j=i}^ndis(a_i,a_j)​$</p>
-<p>那么有<br>$$<br>\sum\limits_{i=1}^{n+1}i\sum\limits_{j=i}^{n+1}dis(a_i,a_j)-\sum\limits_{i=1}^ni\sum\limits_{j=i}^ndis(a_i,a_j)\<br>=\sum_{i=1}^ni*dis(a_i,a_{n+1})<br>$$<br>而对于后一项<br>$$<br>\sum_{i=1}^{n+1}i\sum_{j=i}^{n+1}j*dis(a_i,a_j)-\sum_{i=1}^ni\sum_{j=i}^nj*dis(a_i,a_j)\\<br>=(n+1)\sum_{i=1}^ni*dis(a_i,a_{n+1})<br>$$<br>$n+1$是已知的，所以我们只需要维护$\sum\limits_{i=1}^ni*dis(a_i,a_{n+1})$就可以了</p>
+<p>那么有<br>$$<br>\sum\limits_{i=1}^{n+1}i\sum\limits_{j=i}^{n+1}dis(a_i,a_j)-\sum\limits_{i=1}^ni\sum\limits_{j=i}^ndis(a_i,a_j)\\<br>=\sum_{i=1}^ni*dis(a_i,a_{n+1})<br>$$<br>而对于后一项<br>$$<br>\sum_{i=1}^{n+1}i\sum_{j=i}^{n+1}j*dis(a_i,a_j)-\sum_{i=1}^ni\sum_{j=i}^nj*dis(a_i,a_j)\\\<br>=(n+1)\sum_{i=1}^ni*dis(a_i,a_{n+1})<br>$$<br>$n+1$是已知的，所以我们只需要维护$\sum\limits_{i=1}^ni*dis(a_i,a_{n+1})$就可以了</p>
 <p>所以现在题目变成了给你一棵树，每个点有两种颜色，初始每个点都是黑色，有两种操作：</p>
 <ol>
 <li>询问某个点到所有黑点的距离乘以该点编号的和</li>
@@ -538,7 +538,7 @@
 <p>对于其它区间，$a_n$对它们已经没用了，因为有更大的数出现了</p>
 <p>那么这些区间的答案就是$f_T(r+1)$，即左端点为$r+1$的区间权值总和</p>
 <p>因为对于每一个被统计的区间，只要把$a_n,\cdots,a_r$拼在它的左边，就一定可以得到另一个区间，并且权值不变</p>
-<p>所以有转移<br>$$<br>f_T(n)=a_n(r_n-n+1)+f_T(r+1)\\<br>f(n)=f(n+1)+f_T(n)<br>$$<br>那么如何求这个$[左端点在[l,pos)，右端点在[pos,n]的区间答案]$呢</p>
+<p>所以有转移<br>$$<br>f_T(n)=a_n(r_n-n+1)+f_T(r+1)\\\<br>f(n)=f(n+1)+f_T(n)<br>$$<br>那么如何求这个$[左端点在[l,pos)，右端点在[pos,n]的区间答案]$呢</p>
 <p>我们已经知道$pos$是$[l,r]$中最大值的位置，换句话说，$a_l,\cdots,a_{pos-1}$一定不会对这个值造成影响</p>
 <p>我们把每个合法的区间从$pos$划分成两半</p>
 <p>对于右半部分，答案就是$f_T(pos)$</p>
@@ -548,7 +548,7 @@
 <p>最后说一下细节</p>
 <p>对于如何求$l_i,r_i$，单调栈即可</p>
 <p>对于最后要减去什么，我们可以枚举区间左端点，即<br>$$<br>\sum_{i=l}^ra_{i-1}(r-i)<br>$$<br>即对于每一个左端点，它会被选择$r-i$次</p>
-<p>我们分别维护<br>$$<br>p_1(n)=\sum_{i=1}^na_{i-1}\\<br>p_2(n)=\sum_{i=1}^na_{i-1}i<br>$$<br>即可</p>
+<p>我们分别维护<br>$$<br>p_1(n)=\sum_{i=1}^na_{i-1}\\\<br>p_2(n)=\sum_{i=1}^na_{i-1}i<br>$$<br>即可</p>
 <p>代码如下</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 2000010</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line">LL pre[N], f[N], g[N], tf[N], tg[N], pre2[N], pre3[N]; <span class="keyword">int</span> cur[<span class="number">21</span>][N], lg[N], num[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Max</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> pre[a] &gt; pre[b] ? a : b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> st[N], top, tl[N], tr[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Construct</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        pre[i] = pre[i - <span class="number">1</span>] + num[i], cur[<span class="number">0</span>][i] = i, lg[i] = i == <span class="number">1</span> ? <span class="number">0</span> : lg[i &gt;&gt; <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">        pre2[i] = pre2[i - <span class="number">1</span>] + pre[i - <span class="number">1</span>], pre3[i] = pre3[i - <span class="number">1</span>] + pre[i - <span class="number">1</span>] * i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">20</span>;i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j + (<span class="number">1</span> &lt;&lt; i) - <span class="number">1</span> &lt;= n;j++)  </span><br><span class="line">            cur[i][j] = Max(cur[i - <span class="number">1</span>][j], cur[i - <span class="number">1</span>][j + (<span class="number">1</span> &lt;&lt; i - <span class="number">1</span>)]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        <span class="keyword">while</span> (top &amp;&amp; pre[st[top]] &lt; pre[i]) tr[st[top--]] = i - <span class="number">1</span>;</span><br><span class="line">        st[++top] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (top) tr[st[top--]] = n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= <span class="number">1</span>;i--) &#123;</span><br><span class="line">        <span class="keyword">while</span> (top &amp;&amp; pre[st[top]] &lt; pre[i]) tl[st[top--]] = i + <span class="number">1</span>;</span><br><span class="line">        st[++top] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (top) tl[st[top--]] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) &#123;</span><br><span class="line">        tf[i] = tf[tl[i] - <span class="number">1</span>] + pre[i] * (i - tl[i] + <span class="number">1</span>);</span><br><span class="line">        f[i] = f[i - <span class="number">1</span>] + tf[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= <span class="number">1</span>;i--) &#123;</span><br><span class="line">        tg[i] = tg[tr[i] + <span class="number">1</span>] + pre[i] * (tr[i] - i + <span class="number">1</span>);</span><br><span class="line">        g[i] = g[i + <span class="number">1</span>] + tg[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len = R - L + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> Max(cur[lg[len]][L], cur[lg[len]][R - (<span class="number">1</span> &lt;&lt; lg[len]) + <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">solve</span><span class="params">(<span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pos = query(L, R); LL res = <span class="number">0</span>;</span><br><span class="line">    res = pre[pos] * (R - pos + <span class="number">1</span>) * (pos - L + <span class="number">1</span>);</span><br><span class="line">    res = res + g[L] - g[pos] - tg[pos] * (pos - L);</span><br><span class="line">    res = res + f[R] - f[pos] - tf[pos] * (R - pos);</span><br><span class="line">    <span class="keyword">return</span> res - (pre2[R] - pre2[L - <span class="number">1</span>]) * (R + <span class="number">1</span>) + (pre3[R] - pre3[L - <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> S, A, B, P, tp; LL lastans;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Rand</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    S = (S * A % P + (B ^ (tp * lastans))) % P;</span><br><span class="line">    S = S &lt; <span class="number">0</span> ? -S : S;</span><br><span class="line">    <span class="keyword">return</span> S;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, q, l, r, res = <span class="number">0</span>; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;q);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;num[i]);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d%d%d%d"</span>, &amp;S, &amp;A, &amp;B, &amp;P, &amp;tp);</span><br><span class="line">    Construct(n);</span><br><span class="line">    <span class="keyword">while</span> (q--) &#123;</span><br><span class="line">        l = Rand() % n + <span class="number">1</span>, r = Rand() % n + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span> (l &gt; r) swap(l, r);</span><br><span class="line">        lastans = solve(l, r), res = (res + lastans) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (res + mod) % mod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="T3-Cuvelia"><a href="#T3-Cuvelia" class="headerlink" title="T3 Cuvelia"></a>T3 Cuvelia</h1><p><img src="https://i.loli.net/2019/03/11/5c864fe051c87.png" alt></p>
@@ -741,7 +741,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -880,7 +880,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1032,7 +1044,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

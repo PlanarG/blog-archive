@@ -527,12 +527,12 @@
 <p>考虑原串$S$的一个非空子串$T$，$endpos(T)$就是$T$在$S$中的所有结束位置的集合。我们称两个子串$s_1,s_2$<code>endpos</code>等价当且仅当它们的结束位置完全相同，即$endpos(s_1)=endpos(s_2)$</p>
 <p>对于一个串“<strong>aba</strong>”</p>
 <ol>
-<li>$endpos(“aba”)={3}$</li>
-<li>$endpos(“ba”)={3}$</li>
-<li>$endpos(“a”)={1,3}$</li>
-<li>$endpos(“ab”)={2}$</li>
-<li>$endpos(“b”)={2}$</li>
-<li>$endpos(“”)={0,1,2,3}$</li>
+<li>$endpos(“aba”)=\{3\}$</li>
+<li>$endpos(“ba”)=\{3\}$</li>
+<li>$endpos(“a”)=\{1,3\}$</li>
+<li>$endpos(“ab”)=\{2\}$</li>
+<li>$endpos(“b”)=\{2\}$</li>
+<li>$endpos(“”)=\{0,1,2,3\}$</li>
 </ol>
 <p>在这个串中，“<strong>ab</strong>”和“<strong>b</strong>”以及“<strong>aba</strong>”和“<strong>ba</strong>”是<code>endpos</code>等价的</p>
 <p>在我们最终构造的后缀自动机中，<code>endpos</code>类的个数等于节点个数，也就是说，一个节点代表一个<code>endpos</code>等价类。在这个例子中，节点的数量等于4</p>
@@ -541,18 +541,18 @@
 </blockquote>
 <p>显然，如果$u$和$v$的<code>endpos</code>等价，那么$u$是$v$的一个后缀。当$u$仅以$v$的后缀在$s$中出现时，两个子串的<code>endpos</code>等价</p>
 <blockquote>
-<p><strong>引理2.</strong> 考虑两个$s$的非空子串$u$和$v\ (|s|\leq|v|)$，要么$endpos(s)$与$endpos(v)$没有交集，要么$endpos(s)$是$endpos(v)$的子集。这依赖于$u$是否是$v$的一个后缀<br>$$<br>\begin{cases}endpos(u)\subseteq endpos(v)&amp;\text{if  }u\ -\ \text{suffix}\ v,\\ endpos(u)\cap endpos(v)=\emptyset&amp;\text{otherwise.}\end{cases}<br>$$</p>
+<p><strong>引理2.</strong> 考虑两个$s$的非空子串$u$和$v (|s|\leq|v|)$，要么$endpos(s)$与$endpos(v)$没有交集，要么$endpos(s)$是$endpos(v)$的子集。这依赖于$u$是否是$v$的一个后缀<br>$$<br>\begin{cases}endpos(u)\subseteq endpos(v)&amp;\text{if  }u - \text{suffix} v,\\ endpos(u)\cap endpos(v)=\emptyset&amp;\text{otherwise.}\end{cases}<br>$$</p>
 </blockquote>
 <p>证明是显然的，另一个重要的定理是，如果把一个<code>endpos</code>等价类的所有子串按照长度排序，那么相邻两个一定只差1</p>
 <p>我们记排序之后的长度区间为$[minlen(u),len(u)]$，$len(u)$为在这个<code>endpos</code>等价类中长度最长的子串的长度，$minlen(u)​$为最短的子串的长度</p>
-<p>考虑上面的例子中的一个等价类${“ab”,”b”}$，则有$len(u)=2,minlen(u)=1$</p>
+<p>考虑上面的例子中的一个等价类$\{“ab”,”b”\}$，则有$len(u)=2,minlen(u)=1$</p>
 <ul>
 <li><strong>后缀连接<code>link</code></strong></li>
 </ul>
 <p>考虑后缀自动机中满足$u\not=t_0$的一些状态。我们知道$u$对应着一个<code>endpos</code>等价类。如果我们记这个类中最长的串为$w$，那么其它的串都是$w$的后缀</p>
 <p>我们已经知道$w$的最长的一些后缀已经被包含在状态$u$里面了，而另一些则没有被包含。如果我们记这些没有被包含的后缀中最长的那个串所在的状态为$t$，那么$u$将使用后缀连接链接到$t$上</p>
-<p>这告诉我们两个性质<br>$$<br>1.\ minlen(u)=len(link(u))+1\\<br>2.\ endpos(u)\subset endpos(link(u))<br>$$<br>我们规定$endpos(t_0)={0,1,2,\cdots,|s|}$</p>
-<p>在我们的例子中，节点$u={“aba”,”ba”}$的后缀连接为$t={“a”}$</p>
+<p>这告诉我们两个性质<br>$$<br>1. minlen(u)=len(link(u))+1\\\<br>2. endpos(u)\subset endpos(link(u))<br>$$<br>我们规定$endpos(t_0)=\{0,1,2,\cdots,|s|\}$</p>
+<p>在我们的例子中，节点$u=\{“aba”,”ba”\}$的后缀连接为$t=\{“a”\}$</p>
 <blockquote>
 <p><strong>引理3.</strong> 所有的后缀连接构成一棵根节点为$t_0$的树</p>
 </blockquote>
@@ -587,7 +587,7 @@
 <p><img src="https://i.loli.net/2019/03/21/5c938dbec2d50.png" alt="1553173935954"></p>
 <p>其中，节点$ab$的转移$d$是在添加字符$d$之前就有的</p>
 <p>如果有$len(ab)+1=len(q)$，这意味着能走到$q$中的串只有节点$ab$所代表的串连接上$d$</p>
-<p>因为$ab$中的串能到达$q$，这意味着$q$中的串一定包含$<em>d$格式的串，其中</em>是$ab​$所代表的串</p>
+<p>因为$ab$中的串能到达$q$，这意味着$q$中的串一定包含$_d$格式的串，其中_是$ab​$所代表的串</p>
 <p>如果没有这个条件，那么其它以$ab$为后缀的串也可以转移到$q$，$q$就可以表示类似$zjkabd$这样的奇怪的串，而这样的串是$ab$所不能转移的，$q$也不是$abcd$的某个后缀，不能成为$abcd$的后缀连接</p>
 <p>所以解决方法就是将转移到$q$的串分为两类，一类是一定为$abcd$的后缀的串，一类是其它奇怪的串</p>
 <p>以$abcd$为后缀的串就是$ab$的所有祖先经过$d$的转移。如果这个转移走到了$q$，显然我们需要重定向至分出来的那个节点</p>
@@ -743,7 +743,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -882,7 +882,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1034,7 +1046,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

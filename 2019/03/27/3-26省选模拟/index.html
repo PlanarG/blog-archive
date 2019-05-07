@@ -550,7 +550,7 @@
 <p>考虑实际上我们需要维护的东西</p>
 <p>其实就是<br>$$<br>\prod_{i=l}^r(1-\frac{a_i}{x})<br>$$<br>其中$x$是变量</p>
 <p>这个连乘很不好处理，此时我们有一个套路</p>
-<p>我们知道<br>$$<br>\begin{align}<br>\prod_{i=l}^{r}(1-\frac{a_i}{x})&amp;=\exp{\ln[\prod_{i=l}^r(1-\frac{a_i}{x})]}\\<br>&amp;=\exp(\sum_{i=l}^r\ln(1-\frac{a_i}{x}))\\<br>&amp;=\exp(\frac{1}{x}\sum_{i=l}^r(-\sum_{j=1}^\infty\frac{a_i}{j}))<br>\end{align}<br>$$<br>由于<br>$$<br>-\sum_{j=1}^\infty\frac{a_i}{j}<br>$$<br>是收敛得比较快的，而我们又只需要达到$10^{-6}$的精度，所以我们可以只维护前20项</p>
+<p>我们知道<br>$$<br>\begin{align}<br>\prod_{i=l}^{r}(1-\frac{a_i}{x})&amp;=\exp\{\ln[\prod_{i=l}^r(1-\frac{a_i}{x})]\}\\\<br>&amp;=\exp(\sum_{i=l}^r\ln(1-\frac{a_i}{x}))\\\<br>&amp;=\exp(\frac{1}{x}\sum_{i=l}^r(-\sum_{j=1}^\infty\frac{a_i}{j}))<br>\end{align}<br>$$<br>由于<br>$$<br>-\sum_{j=1}^\infty\frac{a_i}{j}<br>$$<br>是收敛得比较快的，而我们又只需要达到$10^{-6}$的精度，所以我们可以只维护前20项</p>
 <p>此时就是一个前缀和的形式，就可以维护了</p>
 <p>还有一个优化就是如果$\frac{a_i}{x}$比较大，那么$(1-\frac{a_i}{x})$就会很小，如果当前答案已经小于<code>eps</code>了，那么就可以直接<code>break</code>了</p>
 <p>大概就是这样</p>
@@ -712,7 +712,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -851,7 +851,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1003,7 +1015,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

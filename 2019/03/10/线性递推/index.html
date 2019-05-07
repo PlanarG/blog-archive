@@ -495,7 +495,7 @@
 <p>已知$f$，以及$a_0,a_1,\cdots,a_{k-1}$<br>$$<br>n\leq 10^9, k\leq 32000<br>$$<br>如果$k$小一点，那么直接矩阵乘法是可以的</p>
 <p>但是这个是$O(k^3\log n)$的，时间复杂度难以承受</p>
 <p>注意到这个是其次线性递推，也就是说，我们构造出的矩阵只有第一行是$f​$，其余的行上全是1和0</p>
-<p>我们设这个矩阵是$A$，现在有一个奇妙的序列$c$使得<br>$$<br>A^n=\sum_{i=0}^{k-1}c_iA^i<br>$$<br>我们设初始列向量是$base$，那么有<br>$$<br>A^n\times base=\sum_{i=0}^{k-1}c_iA^i\times base\<br>$$<br>在矩阵运算中，我们只取第一行的值，那么有<br>$$<br>a_n=\sum_{i=0}^{k-1}c_ia_i<br>$$<br>这也就是说，如果我们成功地构造出了这个$c$，那么我们就可以使用$a$的前$k$项推出$a_n$</p>
+<p>我们设这个矩阵是$A$，现在有一个奇妙的序列$c$使得<br>$$<br>A^n=\sum_{i=0}^{k-1}c_iA^i<br>$$<br>我们设初始列向量是$base$，那么有<br>$$<br>A^n\times base=\sum_{i=0}^{k-1}c_iA^i\times base\\<br>$$<br>在矩阵运算中，我们只取第一行的值，那么有<br>$$<br>a_n=\sum_{i=0}^{k-1}c_ia_i<br>$$<br>这也就是说，如果我们成功地构造出了这个$c$，那么我们就可以使用$a$的前$k$项推出$a_n$</p>
 <p>我们重新考虑之前的那个式子<br>$$<br>A^n=\sum_{i=0}^{k-1}c_iA^i<br>$$<br>它一定可以被写成这样的式子<br>$$<br>A^n=Q(A)G(A)+R(A)<br>$$<br>即<br>$$<br>R(A)=A^n\mod G(A)<br>$$</p>
 <p>其中$Q,G,R$都是以矩阵为参数的函数</p>
 <p>我们令这个$G$的次数为$k$，那么$R$的次数为$k-1$</p>
@@ -651,7 +651,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -790,7 +790,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -925,7 +937,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

@@ -505,7 +505,7 @@
 <p>对于颜色<code>4,5</code>，我们将它们各缩成长度为2的点，它在第二段</p>
 <p>对于每一段，我们分别进行<code>dp</code>，算出答案的最大值，因为段与段之间不能相互跨越，否则中间那个<code>1</code>就永远都刷不上了</p>
 <p>我们用<code>dp[i][j]</code>表示已经刷好了<code>[i,j]</code>这些点，能获得的最大收益</p>
-<p>如果我们假设第$i$个点缩成的长度是$b_i$，那么这个<code>dp</code>就满足<br>$$<br>dp_{i,j}=\sum_{l=i}^jb_l+\max_{mid=i}^j{dp_{i,mid-1}+dp_{mid+1,j}}<br>$$<br>含义是我们枚举第一次刷的颜色$mid$，这会将序列分成两段独立的区间，分别刷即可</p>
+<p>如果我们假设第$i$个点缩成的长度是$b_i$，那么这个<code>dp</code>就满足<br>$$<br>dp_{i,j}=\sum_{l=i}^jb_l+\max_{mid=i}^j\{dp_{i,mid-1}+dp_{mid+1,j}\}<br>$$<br>含义是我们枚举第一次刷的颜色$mid$，这会将序列分成两段独立的区间，分别刷即可</p>
 <p>这个<code>dp</code>是$m^3$的</p>
 <p>如果我们打出这个<code>dp</code>取最优值的位置，可以发现它一定在左端点或者右端点转移</p>
 <p>不会证明</p>
@@ -527,7 +527,7 @@
 <p>可以发现，最优策略一定是选择一个点集$v$，然后一直在$u$点等待，直到$u$和$v$连通，然后走这条出现的边</p>
 <p>我们用<code>dp[u]</code>表示在最优策略下，$u$点到$n$需要的期望时间</p>
 <p>我们将$u$点能到达的边按照<code>dp</code>值排序，可以发现选择的点集一定是一段前缀</p>
-<p>我们枚举这个前缀，对于一个前缀$v_i$，如果选择这个前缀的点集，那么有转移<br>$$<br>dp_u=\min_{i=1}^{|v|}{\frac{1}{i}\sum_{t\in v_i}dp_t+\frac{m}{i}}<br>$$<br>含义是，如果选择了这个前缀，那么所选择的点中作为第一个出现的点的概率是相等的，为了走这一条边，我们期望要等$\frac{m}{i}$轮</p>
+<p>我们枚举这个前缀，对于一个前缀$v_i$，如果选择这个前缀的点集，那么有转移<br>$$<br>dp_u=\min_{i=1}^{|v|}\{\frac{1}{i}\sum_{t\in v_i}dp_t+\frac{m}{i}\}<br>$$<br>含义是，如果选择了这个前缀，那么所选择的点中作为第一个出现的点的概率是相等的，为了走这一条边，我们期望要等$\frac{m}{i}$轮</p>
 <p>由于有$\min$，所以无法高斯消元</p>
 <p>一种方法是进行若干次迭代，每次迭代枚举每个点更新</p>
 <p>另一种方法是使用一个类似<code>SPFA</code>的方法，将这次更新的点放进队列，继续拓展</p>
@@ -707,7 +707,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -846,7 +846,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -998,7 +1010,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

@@ -133,13 +133,13 @@
 
 
 
-  <meta name="description" content="T1 碱基配对  注意到每一种字符是互不影响的，所以我们可以对于每一种字符分别计算有哪些位置合法，最后取一个交集 问题就转化为了给出两个01串$A,B$，对于$B$的每一个为1的位置$B_i$，$A_{i+p-k}-A_{i+p+k}$这些位置中至少要有一个1 那么我们可以把第一个串转化一下，将$A_i$变成原来的$A’{i-k}-A’{i+k}$中是否有1 对于这种条件比较奇怪的字符串匹配问题，">
+  <meta name="description" content="T1 碱基配对  注意到每一种字符是互不影响的，所以我们可以对于每一种字符分别计算有哪些位置合法，最后取一个交集 问题就转化为了给出两个01串$A,B$，对于$B$的每一个为1的位置$B_i$，$A_{i+p-k}-A_{i+p+k}$这些位置中至少要有一个1 那么我们可以把第一个串转化一下，将$A_i$变成原来的$A’_{i-k}-A’_{i+k}$中是否有1 对于这种条件比较奇怪的字符串匹配问">
 <meta name="keywords" content="数学,题解,总结,多项式,字符串,NTT,组合数学,Trie">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3.13省选模拟">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/13/3-13省选模拟/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
-<meta property="og:description" content="T1 碱基配对  注意到每一种字符是互不影响的，所以我们可以对于每一种字符分别计算有哪些位置合法，最后取一个交集 问题就转化为了给出两个01串$A,B$，对于$B$的每一个为1的位置$B_i$，$A_{i+p-k}-A_{i+p+k}$这些位置中至少要有一个1 那么我们可以把第一个串转化一下，将$A_i$变成原来的$A’{i-k}-A’{i+k}$中是否有1 对于这种条件比较奇怪的字符串匹配问题，">
+<meta property="og:description" content="T1 碱基配对  注意到每一种字符是互不影响的，所以我们可以对于每一种字符分别计算有哪些位置合法，最后取一个交集 问题就转化为了给出两个01串$A,B$，对于$B$的每一个为1的位置$B_i$，$A_{i+p-k}-A_{i+p+k}$这些位置中至少要有一个1 那么我们可以把第一个串转化一下，将$A_i$变成原来的$A’_{i-k}-A’_{i+k}$中是否有1 对于这种条件比较奇怪的字符串匹配问">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.loli.net/2019/03/13/5c88e968525a4.png">
 <meta property="og:image" content="https://i.loli.net/2019/03/13/5c88e9a821349.png">
@@ -157,7 +157,7 @@
 <meta property="og:updated_time" content="2019-03-22T11:51:00.318Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3.13省选模拟">
-<meta name="twitter:description" content="T1 碱基配对  注意到每一种字符是互不影响的，所以我们可以对于每一种字符分别计算有哪些位置合法，最后取一个交集 问题就转化为了给出两个01串$A,B$，对于$B$的每一个为1的位置$B_i$，$A_{i+p-k}-A_{i+p+k}$这些位置中至少要有一个1 那么我们可以把第一个串转化一下，将$A_i$变成原来的$A’{i-k}-A’{i+k}$中是否有1 对于这种条件比较奇怪的字符串匹配问题，">
+<meta name="twitter:description" content="T1 碱基配对  注意到每一种字符是互不影响的，所以我们可以对于每一种字符分别计算有哪些位置合法，最后取一个交集 问题就转化为了给出两个01串$A,B$，对于$B$的每一个为1的位置$B_i$，$A_{i+p-k}-A_{i+p+k}$这些位置中至少要有一个1 那么我们可以把第一个串转化一下，将$A_i$变成原来的$A’_{i-k}-A’_{i+k}$中是否有1 对于这种条件比较奇怪的字符串匹配问">
 <meta name="twitter:image" content="https://i.loli.net/2019/03/13/5c88e968525a4.png">
 
 
@@ -508,15 +508,15 @@
 <p><img src="https://i.loli.net/2019/03/13/5c88e9a821349.png" alt="1552476546262"></p>
 <p>注意到每一种字符是互不影响的，所以我们可以对于每一种字符分别计算有哪些位置合法，最后取一个交集</p>
 <p>问题就转化为了给出两个01串$A,B$，对于$B$的每一个为1的位置$B_i$，$A_{i+p-k}-A_{i+p+k}$这些位置中至少要有一个1</p>
-<p>那么我们可以把第一个串转化一下，将$A_i$变成原来的$A’<em>{i-k}-A’</em>{i+k}$中是否有1</p>
+<p>那么我们可以把第一个串转化一下，将$A_i$变成原来的$A’_{i-k}-A’_{i+k}$中是否有1</p>
 <p>对于这种条件比较奇怪的字符串匹配问题，一个比较常用的方法是<code>FFT</code></p>
 <p>我们设差异函数$F(p)$代表$A$串在$p$这个位置的差异值</p>
 <p>我们考虑什么时候会产生差异</p>
 <p>如果当前$B_i=0$，那么$A_{i+p}$随意</p>
 <p>如果当前$B_i=1$，那么$A_{i+p}$必须为1</p>
 <p>所以定义差异函数为<br>$$<br>F(p)=\sum_{i=0}^m(B_i-A_{i+p})B_i<br>$$<br>那么只要$F(p)\not=1$，$p$这个位置就不能匹配</p>
-<p>把它化简一下<br>$$<br>F(p)=\sum_{i=0}^mB_i^2-\sum_{i=0}^mA_{i+p}B_i\\<br>=\sum_{i=0}^mB_i-\sum_{i=0}^mA_{i+p}B_i<br>$$<br>根据套路，设$A’(x)=A(n-x)$</p>
-<p>有<br>$$<br>G(p)=\sum_{i=0}^mA_{i+p}B_i\\<br>=\sum_{i=0}^mA’_{n-i-p}B_i\\<br>$$<br>令<br>$$<br>G’(n-p)=\sum_{i=0}^mA’_{n-i-p}B_i\\<br>G(p)=G’(n-p)<br>$$<br>直接<code>NTT</code>即可</p>
+<p>把它化简一下<br>$$<br>F(p)=\sum_{i=0}^mB_i^2-\sum_{i=0}^mA_{i+p}B_i\\\<br>=\sum_{i=0}^mB_i-\sum_{i=0}^mA_{i+p}B_i<br>$$<br>根据套路，设$A’(x)=A(n-x)$</p>
+<p>有<br>$$<br>G(p)=\sum_{i=0}^mA_{i+p}B_i\\\<br>=\sum_{i=0}^mA’_{n-i-p}B_i\\\<br>$$<br>令<br>$$<br>G’(n-p)=\sum_{i=0}^mA’_{n-i-p}B_i\\\<br>G(p)=G’(n-p)<br>$$<br>直接<code>NTT</code>即可</p>
 <p>代码如下</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 800010</span></span><br><span class="line"><span class="keyword">int</span> pre[N], ta[N], tb[N], n, m, k, tmp[N], r[N], ans[N]; <span class="keyword">char</span> A[N], B[N];</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (;y;y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">NTT</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> len, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) <span class="keyword">if</span> (i &lt; r[i]) swap(a[i], a[r[i]]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> mid = <span class="number">2</span>;mid &lt;= len;mid &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> Wn = Pow(<span class="number">3</span>, type ? (mod - <span class="number">1</span>) / mid : mod - <span class="number">1</span> - (mod - <span class="number">1</span>) / mid);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i += mid)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i, w = <span class="number">1</span>, t;j &lt; i + (mid &gt;&gt; <span class="number">1</span>);j++, w = (LL)w * Wn % mod)</span><br><span class="line">                t = (LL)w * a[j + (mid &gt;&gt; <span class="number">1</span>)] % mod, a[j + (mid &gt;&gt; <span class="number">1</span>)] = (a[j] - t + mod) % mod, a[j] = (a[j] + t) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!type) <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, inv = Pow(len, mod - <span class="number">2</span>);i &lt; len;i++)</span><br><span class="line">        a[i] = (LL)a[i] * inv % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">char</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>, l = <span class="number">0</span>, len = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) pre[i] = (i ? pre[i - <span class="number">1</span>] : <span class="number">0</span>) + (A[i] == s);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;i++) tb[i] = (B[i] == s), sum += tb[i] * tb[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> t = i - k - <span class="number">1</span>;</span><br><span class="line">        tmp[i] = (pre[min(n - <span class="number">1</span>, i + k)] - (t &gt;= <span class="number">0</span> ? pre[t] : <span class="number">0</span>)) &gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) ta[n - i] = tmp[i];</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= n + m) len &lt;&lt;= <span class="number">1</span>, l++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n + <span class="number">1</span>;i &lt; len;i++) ta[i] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m;i &lt; len;i++) tb[i] = <span class="number">0</span>; ta[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    NTT(ta, len, <span class="number">1</span>), NTT(tb, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) ta[i] = (LL)ta[i] * tb[i] % mod;</span><br><span class="line">    NTT(ta, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n - m;i++) ans[i] &amp;= ta[n - i] == sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">//    freopen("base1.in", "r", stdin);</span></span><br><span class="line">    freopen(<span class="string">"base.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>), freopen(<span class="string">"base.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%s%s"</span>, &amp;k, A, B), n = <span class="built_in">strlen</span>(A), m = <span class="built_in">strlen</span>(B);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n - m;i++) ans[i] = <span class="number">1</span>;</span><br><span class="line">    solve(<span class="string">'Z'</span>), solve(<span class="string">'P'</span>), solve(<span class="string">'S'</span>), solve(<span class="string">'B'</span>);</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n - m;i++) res += ans[i];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, res);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="T2-小凯的疑惑"><a href="#T2-小凯的疑惑" class="headerlink" title="T2 小凯的疑惑"></a>T2 小凯的疑惑</h1><p><img src="https://i.loli.net/2019/03/13/5c88fb6082474.png" alt="1552481105547"></p>
@@ -724,7 +724,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -863,7 +863,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1015,7 +1027,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

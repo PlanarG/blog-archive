@@ -483,7 +483,7 @@
 <p>如果$C$比较小，那么我们可以直接枚举$x$然后暴力判断</p>
 <p>考虑$C$比较大的情况，这时就需要使用<code>BSGS</code>了</p>
 <p>我们设$x=i*m-j$，其中$j&lt;m$，这个$m$是一个常量，我们设为$\sqrt{C}$</p>
-<p>那么有<br>$$<br>A^{i*m-j}\equiv B\mod C\\<br>A^{i*m}\equiv B*A^j\mod C<br>$$<br>我们开一个<code>map</code>，枚举$j$，将$B*A^j$放到这个<code>map</code>里面</p>
+<p>那么有<br>$$<br>A^{i*m-j}\equiv B\mod C\\\<br>A^{i*m}\equiv B*A^j\mod C<br>$$<br>我们开一个<code>map</code>，枚举$j$，将$B*A^j$放到这个<code>map</code>里面</p>
 <p>然后我们枚举$i*m$，在<code>map</code>中查找是否存在$A^{i*m}​$即可</p>
 <p>注意这样枚举是取不到$x=0$的，这种情况我们需要特判</p>
 <p>如果$i*m$此时已经大于$C$了，那么就无解</p>
@@ -647,7 +647,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -786,7 +786,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -938,7 +950,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

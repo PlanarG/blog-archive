@@ -482,10 +482,10 @@
 <p>那么我们知道$Q$是一个$n-m$次的多项式，而$R$是一个$m-1$次的多项式</p>
 <p>我们定义变换$R$，满足<br>$$<br>F_R(x)=x^nF(\frac 1x)<br>$$<br>我们考虑这个$R$是怎么得到的</p>
 <p>假设有<br>$$<br>F(x)=a_0+a_1x+a_2x^2+\cdots+a_nx^n<br>$$<br>代入$\frac 1x$之后我们得到<br>$$<br>F(\frac 1x)=a_0+\frac{a_1}{x}+\frac{a_2}{x^2}+\cdots+\frac{a_n}{x^n}<br>$$<br>再乘以$x^n$<br>$$<br>x^nF(\frac 1x)=a_n+a_{n-1}x+a_{n-2}x^2+\cdots+a_0x^n<br>$$<br>我们发现，得到的结果就是把原来多项式的系数反过来，就是$R​$变换</p>
-<p>那么有<br>$$<br>F(x)=Q(x)G(x)+R(x)<br>$$<br>代入$\frac 1x$<br>$$<br>F(\frac 1x)=Q(\frac 1x)G(\frac 1x)+R(\frac 1x)<br>$$<br>同时乘以$x^n$<br>$$<br>x^nF(\frac 1x)=x^{n-m}Q(\frac 1x)x^mG(\frac 1x)+x^{n-m+1}*x^{m-1}R(\frac 1x)\\<br>F_R(x)=Q_R(x)G_R(x)+x^{n-m+1}R_R(x)<br>$$<br>考虑如何把最后那个余数$R$给搞掉</p>
+<p>那么有<br>$$<br>F(x)=Q(x)G(x)+R(x)<br>$$<br>代入$\frac 1x$<br>$$<br>F(\frac 1x)=Q(\frac 1x)G(\frac 1x)+R(\frac 1x)<br>$$<br>同时乘以$x^n$<br>$$<br>x^nF(\frac 1x)=x^{n-m}Q(\frac 1x)x^mG(\frac 1x)+x^{n-m+1}*x^{m-1}R(\frac 1x)\\\<br>F_R(x)=Q_R(x)G_R(x)+x^{n-m+1}R_R(x)<br>$$<br>考虑如何把最后那个余数$R$给搞掉</p>
 <p>注意到它乘了一个系数</p>
 <p>那么我们直接在模$x^{n-m+1}$下运算即可</p>
-<p>此时有<br>$$<br>F_R(x)=Q_R(x)G_R(x)\mod x^{n-m+1}\\<br>Q_R(x)=\frac{F_R(x)}{G_R(x)}\mod x^{n-m+1}<br>$$<br>所以我们求出$G_R$在模$x^{n-m+1}$下的逆，再乘上$F_R$就可以得到$G_R$ </p>
+<p>此时有<br>$$<br>F_R(x)=Q_R(x)G_R(x)\mod x^{n-m+1}\\\<br>Q_R(x)=\frac{F_R(x)}{G_R(x)}\mod x^{n-m+1}<br>$$<br>所以我们求出$G_R$在模$x^{n-m+1}$下的逆，再乘上$F_R$就可以得到$G_R$ </p>
 <p>由于$Q​$的次数就是$n-m​$，所以此时求出的模意义下的$Q_R​$等价于$Q_R​$</p>
 <p>注意此时$F_R,G_R​$都是$n-m​$次多项式</p>
 <p>我们求出了$Q_R​$，将它倒序可以得到$Q​$，然后将$Q​$代入$F(x)=Q(x)G(x)+R(x)​$，就可以求出$R​$了</p>
@@ -634,7 +634,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -773,7 +773,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -908,7 +920,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

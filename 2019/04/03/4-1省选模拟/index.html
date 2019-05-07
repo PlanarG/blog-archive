@@ -501,7 +501,7 @@
 <p><img src="https://i.loli.net/2019/04/03/5ca49babedb1e.png" alt="1554291616688"></p>
 <p>如果我们知道了这条直线在$y$轴上的截距，那么我们就可以通过这$n$个点确定最终斜率的区间</p>
 <p>假设这条直线是$kx+b$，现在我们已知$b$</p>
-<p>对于一个$r_i$，我们知道有<br>$$<br>ki+b\leq r_i\Rightarrow k\leq\lfloor\frac{r_i-b}{i}\rfloor<br>$$<br>对于一个$l_i$，我们知道有<br>$$<br>ki+b\geq l_i\Rightarrow k\geq\lceil\frac{l_i-b}{i}\rceil<br>$$<br>那么对于一个$b$，它对答案的贡献就是<br>$$<br>\max{0,\min_{i=1}^n{\lfloor\frac{r_i-b}{i}\rfloor}-\max_{j=1}^n{\lceil\frac{l_j-b}{j}\rceil}+1}<br>$$<br>如果我们知道此时$\min$取的是哪个位置，$\max$取的是哪个位置，我们就可以$O(1)$计算答案</p>
+<p>对于一个$r_i$，我们知道有<br>$$<br>ki+b\leq r_i\Rightarrow k\leq\lfloor\frac{r_i-b}{i}\rfloor<br>$$<br>对于一个$l_i$，我们知道有<br>$$<br>ki+b\geq l_i\Rightarrow k\geq\lceil\frac{l_i-b}{i}\rceil<br>$$<br>那么对于一个$b$，它对答案的贡献就是<br>$$<br>\max\{0,\min_{i=1}^n\{\lfloor\frac{r_i-b}{i}\rfloor\}-\max_{j=1}^n\{\lceil\frac{l_j-b}{j}\rceil\}+1\}<br>$$<br>如果我们知道此时$\min$取的是哪个位置，$\max$取的是哪个位置，我们就可以$O(1)$计算答案</p>
 <p>由于我们之前是枚举的$b$，现在就把$b$看作自变量$x$</p>
 <p>对于$\min,\max$我们分开考虑</p>
 <p>以$\min$为例</p>
@@ -514,7 +514,7 @@
 <p>此时我们已经确定了$\min,\max$的位置</p>
 <p>首先考虑将前面那个0搞掉</p>
 <p>我们发现这对应着收紧一下区间</p>
-<p>解方程<br>$$<br>\begin{align}<br>\frac{r_i-x}{i}&amp;=\frac{l_j-x}{j}\\<br>r_ij-xj&amp;=l_ji-xi\\<br>x(i-j)&amp;=l_ji-r_ij\\<br>\Rightarrow x&amp;=\frac{l_ji-r_ij}{i-j}<br>\end{align}<br>$$<br>当$i=j$时，我们不做处理</p>
+<p>解方程<br>$$<br>\begin{align}<br>\frac{r_i-x}{i}&amp;=\frac{l_j-x}{j}\\\<br>r_ij-xj&amp;=l_ji-xi\\\<br>x(i-j)&amp;=l_ji-r_ij\\\<br>\Rightarrow x&amp;=\frac{l_ji-r_ij}{i-j}<br>\end{align}<br>$$<br>当$i=j$时，我们不做处理</p>
 <p>当$i&gt;j$时，这对应着$b$的新下界</p>
 <p>当$i&lt;j$时，这对应着$b$的新上界</p>
 <p>此时我们就可以把前面的0搞掉了</p>
@@ -702,7 +702,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -841,7 +841,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -993,7 +1005,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

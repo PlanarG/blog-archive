@@ -506,7 +506,7 @@
 <h1 id="T2-移动"><a href="#T2-移动" class="headerlink" title="T2 移动"></a>T2 移动</h1><p><img src="https://i.loli.net/2019/03/17/5c8d96a41a70a.png" alt="1552783004369"></p>
 <p>很经典的一道题，可以参考环形均分纸牌问题</p>
 <p>我们假设位置$i$向右传递了$x_i$，其原来的值为$c_i$</p>
-<p>那么有<br>$$<br>c_1+x_n-x_1=1\\<br>c_2+x_1-x_2=1\\<br>\Rightarrow c_2-1+c_1-1+x_n=x_2\\<br>c_3-1+c_2-1+c_1-1+x_n=x_3\\<br>ans=\sum_{i=1}^n|x_i|=\sum_{i=1}^n|\sum_{j=1}^i(c_j-1)+x_n|\\<br>=\sum_{i=1}^n|x_n-\sum_{j=1}^i(1-c_j)|<br>$$<br>如果要让$ans$尽量小，那么就要让后面那个数尽量小</p>
+<p>那么有<br>$$<br>c_1+x_n-x_1=1\\\<br>c_2+x_1-x_2=1\\\<br>\Rightarrow c_2-1+c_1-1+x_n=x_2\\\<br>c_3-1+c_2-1+c_1-1+x_n=x_3\\\<br>ans=\sum_{i=1}^n|x_i|=\sum_{i=1}^n|\sum_{j=1}^i(c_j-1)+x_n|\\\<br>=\sum_{i=1}^n|x_n-\sum_{j=1}^i(1-c_j)|<br>$$<br>如果要让$ans$尽量小，那么就要让后面那个数尽量小</p>
 <p>我们设$s_n=\sum\limits_{i=1}^n(1-c_i)$</p>
 <p>所以$x_n$取到$s$的中位数时最优秀</p>
 <p>代码如下</p>
@@ -683,7 +683,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -822,7 +822,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -974,7 +986,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

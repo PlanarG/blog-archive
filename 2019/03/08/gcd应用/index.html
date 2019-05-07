@@ -133,19 +133,19 @@
 
 
 
-  <meta name="description" content="两有理数间求一个分数，使得分子最小就是要求$\frac ab&amp;lt;\frac xy&amp;lt;\frac cd$$$几种情况：\\  a=0:x=1,y=\lfloor\frac dc\rfloor+1\\ a\geq b:将\frac ab转化成真分数，递归\\ c&amp;gt;d:此时有a&amp;lt;b,则a=1,b=1\\ 否则有\frac dc\leq \frac yx\leq \frac ba，递归">
+  <meta name="description" content="两有理数间求一个分数，使得分子最小就是要求$\frac ab&amp;lt;\frac xy&amp;lt;\frac cd$$$几种情况：\\\  a=0:x=1,y=\lfloor\frac dc\rfloor+1\\\ a\geq b:将\frac ab转化成真分数，递归\\\ c&amp;gt;d:此时有a&amp;lt;b,则a=1,b=1\\\ 否则有\frac dc\leq \frac yx\leq \frac b">
 <meta name="keywords" content="gcd,算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="gcd应用">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/08/gcd应用/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
-<meta property="og:description" content="两有理数间求一个分数，使得分子最小就是要求$\frac ab&amp;lt;\frac xy&amp;lt;\frac cd$$$几种情况：\\  a=0:x=1,y=\lfloor\frac dc\rfloor+1\\ a\geq b:将\frac ab转化成真分数，递归\\ c&amp;gt;d:此时有a&amp;lt;b,则a=1,b=1\\ 否则有\frac dc\leq \frac yx\leq \frac ba，递归">
+<meta property="og:description" content="两有理数间求一个分数，使得分子最小就是要求$\frac ab&amp;lt;\frac xy&amp;lt;\frac cd$$$几种情况：\\\  a=0:x=1,y=\lfloor\frac dc\rfloor+1\\\ a\geq b:将\frac ab转化成真分数，递归\\\ c&amp;gt;d:此时有a&amp;lt;b,则a=1,b=1\\\ 否则有\frac dc\leq \frac yx\leq \frac b">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://s2.ax1x.com/2019/03/08/kzjhWV.png">
 <meta property="og:updated_time" content="2019-03-09T03:39:18.769Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gcd应用">
-<meta name="twitter:description" content="两有理数间求一个分数，使得分子最小就是要求$\frac ab&amp;lt;\frac xy&amp;lt;\frac cd$$$几种情况：\\  a=0:x=1,y=\lfloor\frac dc\rfloor+1\\ a\geq b:将\frac ab转化成真分数，递归\\ c&amp;gt;d:此时有a&amp;lt;b,则a=1,b=1\\ 否则有\frac dc\leq \frac yx\leq \frac ba，递归">
+<meta name="twitter:description" content="两有理数间求一个分数，使得分子最小就是要求$\frac ab&amp;lt;\frac xy&amp;lt;\frac cd$$$几种情况：\\\  a=0:x=1,y=\lfloor\frac dc\rfloor+1\\\ a\geq b:将\frac ab转化成真分数，递归\\\ c&amp;gt;d:此时有a&amp;lt;b,则a=1,b=1\\\ 否则有\frac dc\leq \frac yx\leq \frac b">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/03/08/kzjhWV.png">
 
 
@@ -492,11 +492,11 @@
       
 
       
-        <h1 id="两有理数间求一个分数，使得分子最小"><a href="#两有理数间求一个分数，使得分子最小" class="headerlink" title="两有理数间求一个分数，使得分子最小"></a>两有理数间求一个分数，使得分子最小</h1><p>就是要求$\frac ab&lt;\frac xy&lt;\frac cd$<br>$$<br>几种情况：\\</p>
+        <h1 id="两有理数间求一个分数，使得分子最小"><a href="#两有理数间求一个分数，使得分子最小" class="headerlink" title="两有理数间求一个分数，使得分子最小"></a>两有理数间求一个分数，使得分子最小</h1><p>就是要求$\frac ab&lt;\frac xy&lt;\frac cd$<br>$$<br>几种情况：\\\</p>
 <ol>
-<li>a=0:x=1,y=\lfloor\frac dc\rfloor+1\\</li>
-<li>a\geq b:将\frac ab转化成真分数，递归\\</li>
-<li>c&gt;d:此时有a&lt;b,则a=1,b=1\\</li>
+<li>a=0:x=1,y=\lfloor\frac dc\rfloor+1\\\</li>
+<li>a\geq b:将\frac ab转化成真分数，递归\\\</li>
+<li>c&gt;d:此时有a&lt;b,则a=1,b=1\\\</li>
 <li>否则有\frac dc\leq \frac yx\leq \frac ba，递归然后交换分母和分子<br>$$<br>代码</li>
 </ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> P pair<span class="meta-string">&lt;int, int&gt;</span></span></span><br><span class="line"><span class="function">P <span class="title">work</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c, <span class="keyword">int</span> d)</span> </span>&#123; <span class="comment">// a / b &lt;= x &lt;= c / d</span></span><br><span class="line">	<span class="keyword">if</span> (!a) <span class="keyword">return</span> P(<span class="number">1</span>, d / c + <span class="number">1</span>); P tmp;</span><br><span class="line">	<span class="keyword">if</span> (a &gt;= b) <span class="keyword">return</span> tmp = work(a % b, b, c - (a / b) * d, d), tmp.first += tmp.second * (a / b), tmp;</span><br><span class="line">	<span class="keyword">if</span> (c &gt; d) <span class="keyword">return</span> P(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> tmp = work(d, c, b, a), swap(tmp.first, tmp.second), tmp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">		<span class="keyword">int</span> a, b, c, d; <span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;a, &amp;b, &amp;c, &amp;d); </span><br><span class="line">		P tmp = work(a, b, c, d); <span class="built_in">printf</span>(<span class="string">"%d/%d\n"</span>, tmp.first, tmp.second);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -651,7 +651,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -790,7 +790,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -942,7 +954,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

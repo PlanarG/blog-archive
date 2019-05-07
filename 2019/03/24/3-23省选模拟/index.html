@@ -539,7 +539,7 @@
 <p><img src="https://i.loli.net/2019/03/24/5c9780dd8083b.png" alt="1553432789266"></p>
 <p>表示只会60分</p>
 <p>首先我们知道，对于第$i$天，如果给这一天分配$j$道题，那么方案数为$(v+ui)^j$</p>
-<p>那么根据这个我们可以写出它的生成函数<br>$$<br>G(x)=\prod_{i=1}^m\sum_{j=0}^\infty(v+ui)^jx^j\\<br>=\prod_{i=1}^m\frac{1}{1-(v+ui)x}<br>$$<br>可以利用分治<code>NTT</code>求出分母的积，然后多项式求逆</p>
+<p>那么根据这个我们可以写出它的生成函数<br>$$<br>G(x)=\prod_{i=1}^m\sum_{j=0}^\infty(v+ui)^jx^j\\\<br>=\prod_{i=1}^m\frac{1}{1-(v+ui)x}<br>$$<br>可以利用分治<code>NTT</code>求出分母的积，然后多项式求逆</p>
 <p>由于这个多项式求逆没法算到$10^{18}$项，所以此时只有40分</p>
 <p>对于第一个点，直接<code>pow</code>一下</p>
 <p>对于第二个点，答案是类似<br>$$<br>\sum_{i=0}^na^ib^{n-i}<br>$$<br>的东西，然后有<br>$$<br>=a^n\sum_{i=0}^n(\frac{b}{a})^{n-i}<br>$$<br>然后等比数列求和就好了</p>
@@ -721,7 +721,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -860,7 +860,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1012,7 +1024,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

@@ -133,19 +133,19 @@
 
 
 
-  <meta name="description" content="我们设$t_n$表示长度为$n$时的答案，$s_n$表示最后$k$个字符是一个给定的排列，在位置$n-1$时都合法的方案数 我们考虑两个基本的式子$$\begin{gather}t_n=kt_{n-1}-k!s_n\ \ \ (1)\\t_n=\sum_{i=1}^{k}(k-i)!s_{n+i}\ \ (2)\end{gather}$$对于第一个式子，我们在$t_{n-1}$后面随便加一种字符">
+  <meta name="description" content="我们设$t_n$表示长度为$n$时的答案，$s_n$表示最后$k$个字符是一个给定的排列，在位置$n-1$时都合法的方案数 我们考虑两个基本的式子$$\begin{gather}t_n=kt_{n-1}-k!s_n   (1)\\\t_n=\sum_{i=1}^{k}(k-i)!s_{n+i}  (2)\end{gather}$$对于第一个式子，我们在$t_{n-1}$后面随便加一种字符，然后减">
 <meta name="keywords" content="数学,题解,多项式求逆,多项式除法,多项式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3.8省选模拟 冬至">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/14/3-8省选模拟-冬至/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
-<meta property="og:description" content="我们设$t_n$表示长度为$n$时的答案，$s_n$表示最后$k$个字符是一个给定的排列，在位置$n-1$时都合法的方案数 我们考虑两个基本的式子$$\begin{gather}t_n=kt_{n-1}-k!s_n\ \ \ (1)\\t_n=\sum_{i=1}^{k}(k-i)!s_{n+i}\ \ (2)\end{gather}$$对于第一个式子，我们在$t_{n-1}$后面随便加一种字符">
+<meta property="og:description" content="我们设$t_n$表示长度为$n$时的答案，$s_n$表示最后$k$个字符是一个给定的排列，在位置$n-1$时都合法的方案数 我们考虑两个基本的式子$$\begin{gather}t_n=kt_{n-1}-k!s_n   (1)\\\t_n=\sum_{i=1}^{k}(k-i)!s_{n+i}  (2)\end{gather}$$对于第一个式子，我们在$t_{n-1}$后面随便加一种字符，然后减">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.loli.net/2019/03/14/5c89b9fac5cbb.png">
 <meta property="og:updated_time" content="2019-03-14T12:27:38.147Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3.8省选模拟 冬至">
-<meta name="twitter:description" content="我们设$t_n$表示长度为$n$时的答案，$s_n$表示最后$k$个字符是一个给定的排列，在位置$n-1$时都合法的方案数 我们考虑两个基本的式子$$\begin{gather}t_n=kt_{n-1}-k!s_n\ \ \ (1)\\t_n=\sum_{i=1}^{k}(k-i)!s_{n+i}\ \ (2)\end{gather}$$对于第一个式子，我们在$t_{n-1}$后面随便加一种字符">
+<meta name="twitter:description" content="我们设$t_n$表示长度为$n$时的答案，$s_n$表示最后$k$个字符是一个给定的排列，在位置$n-1$时都合法的方案数 我们考虑两个基本的式子$$\begin{gather}t_n=kt_{n-1}-k!s_n   (1)\\\t_n=\sum_{i=1}^{k}(k-i)!s_{n+i}  (2)\end{gather}$$对于第一个式子，我们在$t_{n-1}$后面随便加一种字符，然后减">
 <meta name="twitter:image" content="https://i.loli.net/2019/03/14/5c89b9fac5cbb.png">
 
 
@@ -482,11 +482,11 @@
       
         <p><img src="https://i.loli.net/2019/03/14/5c89b9fac5cbb.png" alt="1552529871533"></p>
 <p>我们设$t_n$表示长度为$n$时的答案，$s_n$表示最后$k$个字符是一个<strong>给定的</strong>排列，在位置$n-1$时都合法的方案数</p>
-<p>我们考虑两个基本的式子<br>$$<br>\begin{gather}<br>t_n=kt_{n-1}-k!s_n\ \ \ (1)\\<br>t_n=\sum_{i=1}^{k}(k-i)!s_{n+i}\ \ (2)<br>\end{gather}<br>$$<br>对于第一个式子，我们在$t_{n-1}$后面随便加一种字符，然后减去不合法的情况，即$k!s_n$，这里枚举了最后$k$个字符分别是什么</p>
+<p>我们考虑两个基本的式子<br>$$<br>\begin{gather}<br>t_n=kt_{n-1}-k!s_n   (1)\\\<br>t_n=\sum_{i=1}^{k}(k-i)!s_{n+i}  (2)<br>\end{gather}<br>$$<br>对于第一个式子，我们在$t_{n-1}$后面随便加一种字符，然后减去不合法的情况，即$k!s_n$，这里枚举了最后$k$个字符分别是什么</p>
 <p>对于第二个式子，我们尝试在$t_n$之后依次加上$1,2,3,\cdots,k$，枚举在加到哪个数字时候，这个序列变得不合法</p>
 <p>追加了$i$个，前面的最后$k-i$个一定是一个排列，共$(k-i)!$种方案</p>
-<p>根据这两个式子，我们可以推出<br>$$<br>(1)\Rightarrow s_n=\frac1{k!}(kt_{n-1}-t_n)\\<br>(2)\Rightarrow t_n=\sum_{i=1}^k(k-i)!\frac1{k!}(kt_{n+i-1}-t_{n+i})\\<br>=t_n+\sum_{i=1}^{k-1}((k-i-1)!\frac1{k!}kt_{n+i}-(k-i)!\frac1{k!}t_{n+i})-\frac1{k!}t_{n+k}<br>$$</p>
-<p>注意这里把第一项的$kt_{n+i+1}$和最后一项的$t_n$拿了出来<br>$$<br>t_n=t_n+\sum_{i=1}^{k-1}((k-i-1)!\frac1{k!}kt_{n+i}-(k-i)!\frac1{k!}t_{n+i})-\frac1{k!}t_{n+k}\\<br>t_{n+k}=\sum_{i=1}^{k-1}((k-i-1)!kt_{n+i}-(k-i)!t_{n+i})\\<br>=\sum_{i=1}^{k-1}(k-i-1)!*i*t_{n+i}<br>$$<br>然后线性递推就可以了</p>
+<p>根据这两个式子，我们可以推出<br>$$<br>(1)\Rightarrow s_n=\frac1{k!}(kt_{n-1}-t_n)\\\<br>(2)\Rightarrow t_n=\sum_{i=1}^k(k-i)!\frac1{k!}(kt_{n+i-1}-t_{n+i})\\\<br>=t_n+\sum_{i=1}^{k-1}((k-i-1)!\frac1{k!}kt_{n+i}-(k-i)!\frac1{k!}t_{n+i})-\frac1{k!}t_{n+k}<br>$$</p>
+<p>注意这里把第一项的$kt_{n+i+1}$和最后一项的$t_n$拿了出来<br>$$<br>t_n=t_n+\sum_{i=1}^{k-1}((k-i-1)!\frac1{k!}kt_{n+i}-(k-i)!\frac1{k!}t_{n+i})-\frac1{k!}t_{n+k}\\\<br>t_{n+k}=\sum_{i=1}^{k-1}((k-i-1)!kt_{n+i}-(k-i)!t_{n+i})\\\<br>=\sum_{i=1}^{k-1}(k-i-1)!*i*t_{n+i}<br>$$<br>然后线性递推就可以了</p>
 
       
     </div>
@@ -630,7 +630,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -769,7 +769,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -904,7 +916,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

@@ -133,19 +133,19 @@
 
 
 
-  <meta name="description" content="A – 礼物先不管旋转操作，考虑化简这个差异值 $$\begin{aligned}\sum_{i=1}^n(x_i-y_i-c)^2&amp;amp;=\sum_{i=1}^n(x_i-y_i)^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)\\&amp;amp;=\sum_{i=1}^nx_i^2+\sum_{i=1}^ny_i^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)-2\s">
+  <meta name="description" content="A – 礼物先不管旋转操作，考虑化简这个差异值 $$\begin{aligned}\sum_{i=1}^n(x_i-y_i-c)^2&amp;amp;=\sum_{i=1}^n(x_i-y_i)^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)\\\&amp;amp;=\sum_{i=1}^nx_i^2+\sum_{i=1}^ny_i^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)-2\">
 <meta name="keywords" content="题解,多项式,字符串,FFT,manacher">
 <meta property="og:type" content="article">
 <meta property="og:title" content="FFT与NTT专题">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/04/07/FFT与NTT专题/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
-<meta property="og:description" content="A – 礼物先不管旋转操作，考虑化简这个差异值 $$\begin{aligned}\sum_{i=1}^n(x_i-y_i-c)^2&amp;amp;=\sum_{i=1}^n(x_i-y_i)^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)\\&amp;amp;=\sum_{i=1}^nx_i^2+\sum_{i=1}^ny_i^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)-2\s">
+<meta property="og:description" content="A – 礼物先不管旋转操作，考虑化简这个差异值 $$\begin{aligned}\sum_{i=1}^n(x_i-y_i-c)^2&amp;amp;=\sum_{i=1}^n(x_i-y_i)^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)\\\&amp;amp;=\sum_{i=1}^nx_i^2+\sum_{i=1}^ny_i^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)-2\">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/02/1.jpg?w=700">
 <meta property="og:updated_time" content="2019-04-07T03:48:50.569Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FFT与NTT专题">
-<meta name="twitter:description" content="A – 礼物先不管旋转操作，考虑化简这个差异值 $$\begin{aligned}\sum_{i=1}^n(x_i-y_i-c)^2&amp;amp;=\sum_{i=1}^n(x_i-y_i)^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)\\&amp;amp;=\sum_{i=1}^nx_i^2+\sum_{i=1}^ny_i^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)-2\s">
+<meta name="twitter:description" content="A – 礼物先不管旋转操作，考虑化简这个差异值 $$\begin{aligned}\sum_{i=1}^n(x_i-y_i-c)^2&amp;amp;=\sum_{i=1}^n(x_i-y_i)^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)\\\&amp;amp;=\sum_{i=1}^nx_i^2+\sum_{i=1}^ny_i^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)-2\">
 <meta name="twitter:image" content="https://0x131cc05home.files.wordpress.com/2019/02/1.jpg?w=700">
 
 
@@ -481,7 +481,7 @@
 
       
         <h1 id="A-–-礼物"><a href="#A-–-礼物" class="headerlink" title="A – 礼物"></a>A – 礼物</h1><p>先不管旋转操作，考虑化简这个差异值</p>
-<p>$$<br>\begin{aligned}<br>\sum_{i=1}^n(x_i-y_i-c)^2<br>&amp;=\sum_{i=1}^n(x_i-y_i)^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)\\<br>&amp;=\sum_{i=1}^nx_i^2+\sum_{i=1}^ny_i^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)-2\sum_{i=1}^nx_iy_i<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>\sum_{i=1}^n(x_i-y_i-c)^2<br>&amp;=\sum_{i=1}^n(x_i-y_i)^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)\\\<br>&amp;=\sum_{i=1}^nx_i^2+\sum_{i=1}^ny_i^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)-2\sum_{i=1}^nx_iy_i<br>\end{aligned}<br>$$</p>
 <p>注意到$\sum x^2+\sum y^2$是常数，先不管</p>
 <p>可以发现，这是一个关于$c$的二次函数</p>
 <p>那么我们知道，此时$c$的极值点就在$-\frac{b}{2a}$处</p>
@@ -519,7 +519,7 @@
 <p>由于斯特林数的性质，把这个$i$换成$n$也没有问题</p>
 <p>因为当$m&gt;n$时，$S(n,m)=0$</p>
 <p>所以有</p>
-<p>$$<br>\begin{aligned}<br>\sum_{i=0}^n\sum_{j=0}^nS(i,j)*2^j*j!<br>&amp;=\sum_{j=0}^n2^j*j!\sum_{i=0}^n\sum_{k=0}^j(-1)^k{j\choose k}(j-k)^i\frac{1}{j!}\\<br>&amp;=\sum_{j=0}^n2^j*j!\sum_{k=0}^j\frac{(-1)^k}{k!}*\frac{\sum_{i=0}^n(j-k)^i}{(j-k)!}<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>\sum_{i=0}^n\sum_{j=0}^nS(i,j)*2^j*j!<br>&amp;=\sum_{j=0}^n2^j*j!\sum_{i=0}^n\sum_{k=0}^j(-1)^k{j\choose k}(j-k)^i\frac{1}{j!}\\\<br>&amp;=\sum_{j=0}^n2^j*j!\sum_{k=0}^j\frac{(-1)^k}{k!}*\frac{\sum_{i=0}^n(j-k)^i}{(j-k)!}<br>\end{aligned}<br>$$</p>
 <p>注意到后面那个是卷积的形式</p>
 <p>第一个多项式很好求，第二个的分子是等比数列</p>
 <p>我们设$B$是第二个多项式</p>
@@ -547,7 +547,7 @@
 <p>$$<br>g(x)=\sum_{i=x}^{x+m-1}(B_i-A_{i-x+1})^2<br>$$</p>
 <p>显然，只有当$A$串从$x$位置开始与$B$串完全相同，$g$的值才为0</p>
 <p>化简原式</p>
-<p>$$<br>\begin{aligned}<br>g(x)&amp;=\sum_{i=x}^{x+m-1}A_{i-x+1}^2+\sum_{i=x}^{x+m-1}B_i^2-2\sum_{i=x}^{x+m-1}B_iA_{i-x+1}\\<br>&amp;=\sum_{i=1}^mA_i^2+\sum_{i=1}^mB_{i+x-1}^2-2\sum_{i=1}^mA_iB_{i+x-1}<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>g(x)&amp;=\sum_{i=x}^{x+m-1}A_{i-x+1}^2+\sum_{i=x}^{x+m-1}B_i^2-2\sum_{i=x}^{x+m-1}B_iA_{i-x+1}\\\<br>&amp;=\sum_{i=1}^mA_i^2+\sum_{i=1}^mB_{i+x-1}^2-2\sum_{i=1}^mA_iB_{i+x-1}<br>\end{aligned}<br>$$</p>
 <p>前两项可以通过预处理前缀和得出，后面的是一个下标差相等的卷积</p>
 <p>那么模仿之前的套路，我们将$A$序列倒序一下再求卷积就行了</p>
 <p>解决了不带通配符的问题，再考虑带通配符</p>
@@ -591,7 +591,7 @@
 <p>$$<br>c*a^{n-i}*b^{n-j}*{n-i+n-j\choose n-i}<br>$$</p>
 <p>含义是，从这个格子开始，有$c$种走法，向有走$n-j$次，向下走$n-i$次，在$n-j+n-i$步中，有$n-i​$步是往下走的</p>
 <p>那么，把这些空白的格子加起来，我们可以得到</p>
-<p>$$<br>\begin{aligned}<br>c\sum_{i=2}^n\sum_{j=2}^na^{n-i}b^{n-j}{n-i+n-j\choose n-i}<br>&amp;=c\sum_{i=0}^{n-2}\sum_{j=0}^{n-2}a^ib^j{i+j\choose i}\\<br>&amp;=c\sum_{i=0}^{n-2}\frac{a^i}{i!}\sum_{j=0}^{n-2}(i+j)!\frac{b^j}{j!}<br>\end{aligned}<br>$$</p>
+<p>$$<br>\begin{aligned}<br>c\sum_{i=2}^n\sum_{j=2}^na^{n-i}b^{n-j}{n-i+n-j\choose n-i}<br>&amp;=c\sum_{i=0}^{n-2}\sum_{j=0}^{n-2}a^ib^j{i+j\choose i}\\\<br>&amp;=c\sum_{i=0}^{n-2}\frac{a^i}{i!}\sum_{j=0}^{n-2}(i+j)!\frac{b^j}{j!}<br>\end{aligned}<br>$$</p>
 <p>我们可以枚举$i$，后面的是一个下标差相等的卷积</p>
 <p>将多项式逆序一下就可以了</p>
 <p>这道题没有给模数，而答案又很大</p>
@@ -749,7 +749,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -888,7 +888,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1040,7 +1052,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         

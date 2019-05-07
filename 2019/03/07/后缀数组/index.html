@@ -133,13 +133,13 @@
 
 
 
-  <meta name="description" content="一些约定 sa[i] 排名为i的后缀在原串中的编号 rk[i] 原串中第i个后缀所对应的排名 height[i] 排名为i的后缀与排名为i – 1的后缀的最长公共前缀  一些例子字符串S = bacaab 中，sa，rk，height分别为  一些解释在S中，所有的后缀分别为bacaab, acaab, caab, aab, ab, b 将这些串按照字典序排序，可以得到aab, ab, acaab">
+  <meta name="description" content="一些约定 _sa[i]_ 排名为_i_的后缀在原串中的编号 _rk[i]_ 原串中第_i_个后缀所对应的排名 _height[i]_ 排名为_i_的后缀与排名为_i – 1_的后缀的最长公共前缀  一些例子字符串_S = bacaab_ 中，_sa，rk，height_分别为  一些解释在_S_中，所有的后缀分别为_bacaab, acaab, caab, aab, ab, b_ 将这些串按照字典">
 <meta name="keywords" content="字符串,算法,后缀数组">
 <meta property="og:type" content="article">
 <meta property="og:title" content="后缀数组">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/03/07/后缀数组/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
-<meta property="og:description" content="一些约定 sa[i] 排名为i的后缀在原串中的编号 rk[i] 原串中第i个后缀所对应的排名 height[i] 排名为i的后缀与排名为i – 1的后缀的最长公共前缀  一些例子字符串S = bacaab 中，sa，rk，height分别为  一些解释在S中，所有的后缀分别为bacaab, acaab, caab, aab, ab, b 将这些串按照字典序排序，可以得到aab, ab, acaab">
+<meta property="og:description" content="一些约定 _sa[i]_ 排名为_i_的后缀在原串中的编号 _rk[i]_ 原串中第_i_个后缀所对应的排名 _height[i]_ 排名为_i_的后缀与排名为_i – 1_的后缀的最长公共前缀  一些例子字符串_S = bacaab_ 中，_sa，rk，height_分别为  一些解释在_S_中，所有的后缀分别为_bacaab, acaab, caab, aab, ab, b_ 将这些串按照字典">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7.png?w=700">
 <meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-1.png?w=700">
@@ -147,7 +147,7 @@
 <meta property="og:updated_time" content="2019-04-09T02:34:21.508Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="后缀数组">
-<meta name="twitter:description" content="一些约定 sa[i] 排名为i的后缀在原串中的编号 rk[i] 原串中第i个后缀所对应的排名 height[i] 排名为i的后缀与排名为i – 1的后缀的最长公共前缀  一些例子字符串S = bacaab 中，sa，rk，height分别为  一些解释在S中，所有的后缀分别为bacaab, acaab, caab, aab, ab, b 将这些串按照字典序排序，可以得到aab, ab, acaab">
+<meta name="twitter:description" content="一些约定 _sa[i]_ 排名为_i_的后缀在原串中的编号 _rk[i]_ 原串中第_i_个后缀所对应的排名 _height[i]_ 排名为_i_的后缀与排名为_i – 1_的后缀的最长公共前缀  一些例子字符串_S = bacaab_ 中，_sa，rk，height_分别为  一些解释在_S_中，所有的后缀分别为_bacaab, acaab, caab, aab, ab, b_ 将这些串按照字典">
 <meta name="twitter:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7.png?w=700">
 
 
@@ -495,57 +495,57 @@
 
       
         <h2 id="一些约定"><a href="#一些约定" class="headerlink" title="一些约定"></a>一些约定</h2><ul>
-<li><em>sa[i]</em> 排名为<em>i</em>的后缀在原串中的编号</li>
-<li><em>rk[i]</em> 原串中第<em>i</em>个后缀所对应的排名</li>
-<li><em>height[i]</em> <strong>排名</strong>为<em>i</em>的后缀与<strong>排名</strong>为<em>i – 1</em>的后缀的最长公共前缀</li>
+<li>_sa[i]_ 排名为_i_的后缀在原串中的编号</li>
+<li>_rk[i]_ 原串中第_i_个后缀所对应的排名</li>
+<li>_height[i]_ <strong>排名</strong>为_i_的后缀与<strong>排名</strong>为_i – 1_的后缀的最长公共前缀</li>
 </ul>
-<h2 id="一些例子"><a href="#一些例子" class="headerlink" title="一些例子"></a>一些例子</h2><p>字符串<em>S = bacaab</em> 中，<em>sa，rk，height</em>分别为</p>
+<h2 id="一些例子"><a href="#一些例子" class="headerlink" title="一些例子"></a>一些例子</h2><p>字符串_S = bacaab_ 中，_sa，rk，height_分别为</p>
 <p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7.png?w=700" alt="捕获"></p>
-<h2 id="一些解释"><a href="#一些解释" class="headerlink" title="一些解释"></a>一些解释</h2><p>在<em>S</em>中，所有的后缀分别为<em>bacaab, acaab, caab, aab, ab, b</em></p>
-<p>将这些串按照字典序排序，可以得到<em>aab, ab, acaab, b, bacaab, caab</em></p>
-<p>对应出来的<em>rk</em>值就是5, 3, 6, 1, 2, 4</p>
-<p>根据上面的定义可以得出<em>sa[rk[i]] = i, rk[sa[i]] = i</em></p>
-<p><em>sa[1] = 4</em> 对应后缀<em>aab</em>，<em>sa[2] = 5</em> 对应后缀<em>ab</em></p>
-<p>因此<em>height[2]</em> = <em>lcp(sa[1],  sa[2]) = lcp(aab, ab) = 1</em></p>
-<p>注：<em>height[1]</em> 没有意义，约定其等于0</p>
-<h2 id="倍增"><a href="#倍增" class="headerlink" title="倍增"></a>倍增</h2><p>直接暴力求<em>sa</em>显然不行，由于涉及到后缀排序，所以考虑倍增</p>
+<h2 id="一些解释"><a href="#一些解释" class="headerlink" title="一些解释"></a>一些解释</h2><p>在_S_中，所有的后缀分别为_bacaab, acaab, caab, aab, ab, b_</p>
+<p>将这些串按照字典序排序，可以得到_aab, ab, acaab, b, bacaab, caab_</p>
+<p>对应出来的_rk_值就是5, 3, 6, 1, 2, 4</p>
+<p>根据上面的定义可以得出_sa[rk[i]] = i, rk[sa[i]] = i_</p>
+<p>_sa[1] = 4_ 对应后缀_aab_，_sa[2] = 5_ 对应后缀_ab_</p>
+<p>因此_height[2]_ = _lcp(sa[1],  sa[2]) = lcp(aab, ab) = 1_</p>
+<p>注：_height[1]_ 没有意义，约定其等于0</p>
+<h2 id="倍增"><a href="#倍增" class="headerlink" title="倍增"></a>倍增</h2><p>直接暴力求_sa_显然不行，由于涉及到后缀排序，所以考虑倍增</p>
 <p>假设对于<strong>每个后缀的前k个字符</strong>，我们已经排好了序，考虑进一步的转移</p>
-<p>如果直接比较每个后缀的第<em>k + 1</em>个字符，忽视了太多已经求出的信息</p>
-<p>对于两个后缀<em>s1 = S[i, …], s2 = S[j,</em> …]，如果它们的前<em>k</em>个字母不全相同，那么我们在之前的比较中就已经确定好了这两个后缀的顺序</p>
-<p>如果这两个后缀的前<em>k</em>个字母都相同，我们这次就比较<em>s1[k + 1, 2k], s2[k + 1, 2k]</em>的大小</p>
-<p>显然，这两个串的长度都是<em>k</em>，这意味着我们已经比较过这两个串</p>
+<p>如果直接比较每个后缀的第_k + 1_个字符，忽视了太多已经求出的信息</p>
+<p>对于两个后缀_s1 = S[i, …], s2 = S[j,_ …]，如果它们的前_k_个字母不全相同，那么我们在之前的比较中就已经确定好了这两个后缀的顺序</p>
+<p>如果这两个后缀的前_k_个字母都相同，我们这次就比较_s1[k + 1, 2k], s2[k + 1, 2k]_的大小</p>
+<p>显然，这两个串的长度都是_k_，这意味着我们已经比较过这两个串</p>
 <p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-1.png?w=700" alt="捕获"></p>
 <p>图中括号中的数字表示当前层中此串的排名，注意相同串的排名相同。</p>
-<p>第一次比较将串<em>s1</em>与<em>s2</em>拼在一起，将串<em>s2</em>与<em>s3</em>拼在一起…</p>
-<p>第二次比较将串<em>s1</em>与<em>s3</em>拼在一起，将串<em>s2</em>与<em>s4</em>拼在一起…</p>
-<p>第三次比较将串<em>s1</em>与<em>s5</em>拼在一起，将串<em>s2</em>与<em>s6</em>拼在一起…</p>
+<p>第一次比较将串_s1_与_s2_拼在一起，将串_s2_与_s3_拼在一起…</p>
+<p>第二次比较将串_s1_与_s3_拼在一起，将串_s2_与_s4_拼在一起…</p>
+<p>第三次比较将串_s1_与_s5_拼在一起，将串_s2_与_s6_拼在一起…</p>
 <p>直到不同的串的个数为原串长度</p>
 <p>那么问题来了，如何高效地比较？</p>
 <p>首先利用好已得出的信息，将这次比较前各个串的排名作为<strong>第一关键字</strong></p>
-<p>在这次比较中，每个字符串都将添加<em>k</em>个字符，对于串<em>s[i, …]</em>来说，将串<em>s[i + k, …]</em>的排名作为<strong>第二关键字</strong></p>
-<p>注意空串的字典序最小，假设原串长度为<em>n</em>，注意到在<em>n – k + 1</em>到<em>n</em>位置的第二关键字都是空串，我们约定此时<em>n</em>位置的第二关键字最小，其次是<em>n – 1</em>，然后以此类推</p>
+<p>在这次比较中，每个字符串都将添加_k_个字符，对于串_s[i, …]_来说，将串_s[i + k, …]_的排名作为<strong>第二关键字</strong></p>
+<p>注意空串的字典序最小，假设原串长度为_n_，注意到在_n – k + 1_到_n_位置的第二关键字都是空串，我们约定此时_n_位置的第二关键字最小，其次是_n – 1_，然后以此类推</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= n - k + <span class="number">1</span>;i--) y[++num] = i; </span><br><span class="line"><span class="comment">// 添加的串为空</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) <span class="keyword">if</span> (sa[i] &gt; k) y[++num] = sa[i] - k; </span><br><span class="line"><span class="comment">// 此时的i就是串sa[i] - k的第二关键字，注意枚举的i代表排名</span></span><br><span class="line"><span class="comment">// sa[i] &lt;= k时没有串会在后面添加串sa[i]，所以无视</span></span><br><span class="line"><span class="comment">// y[i] 表示排名为i的第二关键字对应的是哪个串</span></span><br></pre></td></tr></table></figure>
 <p>对此时的所有串重新排序，第一关键字小的排前面，如果第一关键字相同，则第二关键字小的排前面</p>
 <p>不能直接$n \log n$排序，这样的总时间复杂度与直接用哈希构造无异，因此选择桶排序</p>
-<p>我们开一个桶<em>c</em>，将所有的第一关键字放进去，然后做一遍前缀和，可以得出每个元素的最大排名</p>
-<p>由于第一关键字相同时，第二关键字较小的排名较前，因此我们从大到小枚举第二关键字，更新每个桶此时的最大排名和当前的<em>sa</em>数组</p>
+<p>我们开一个桶_c_，将所有的第一关键字放进去，然后做一遍前缀和，可以得出每个元素的最大排名</p>
+<p>由于第一关键字相同时，第二关键字较小的排名较前，因此我们从大到小枚举第二关键字，更新每个桶此时的最大排名和当前的_sa_数组</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) c[i] = <span class="number">0</span>; </span><br><span class="line"><span class="comment">// 先清空， m是当前第一关键字大小</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) c[x[i]]++; </span><br><span class="line"><span class="comment">// 将每个第一关键字加入桶</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) c[i] += c[i - <span class="number">1</span>]; </span><br><span class="line"><span class="comment">// 获得每个值的最大排名</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= <span class="number">1</span>;i--) sa[c[x[y[i]]]--] = y[i]; </span><br><span class="line"><span class="comment">// 第一关键字相同时，第二关键字越大排名越靠后</span></span><br></pre></td></tr></table></figure>
 <p>最后，我们需要更新此时的第一关键字</p>
-<p>用一个<em>num</em>表示当前不同元素个数，仅当<em>sa[i], sa[i – 1]</em>至少有一个关键字不同时，<em>num</em>才会累加1，更新<em>x</em>数组</p>
-<p>用<em>m</em>更新<em>num</em></p>
+<p>用一个_num_表示当前不同元素个数，仅当_sa[i], sa[i – 1]_至少有一个关键字不同时，_num_才会累加1，更新_x_数组</p>
+<p>用_m_更新_num_</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memcpy</span>(y, x, <span class="keyword">sizeof</span>(x)), num = x[sa[<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 这个memcpy只是临时存一下，后面那个是初值</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= n;i++)</span><br><span class="line">    x[sa[i]] = (y[sa[i - <span class="number">1</span>]] == y[sa[i]] &amp;&amp; y[sa[i - <span class="number">1</span>] + k] == y[sa[i] + k]) ? num : ++num; </span><br><span class="line"><span class="comment">// 更新此时的第一关键字</span></span><br><span class="line"><span class="keyword">if</span> (num == n) <span class="keyword">break</span>; <span class="keyword">else</span> m = num; </span><br><span class="line"><span class="comment">// 更新第一关键字的最大值</span></span><br><span class="line"><span class="comment">// 如果m等于n，则代表已经分清了所有后缀的排名，没有必要继续比较下去</span></span><br></pre></td></tr></table></figure>
 <p>最后总代码如下</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">GetSA</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> s[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) c[x[i] = s[i]]++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) c[i] += c[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= <span class="number">1</span>;i--) sa[c[x[i]]--] = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>, num = <span class="number">0</span>;k &lt;= n;k &lt;&lt;= <span class="number">1</span>, num = <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= n - k + <span class="number">1</span>;i--) y[++num] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) <span class="keyword">if</span> (sa[i] &gt; k) y[++num] = sa[i] - k;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) c[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) c[x[i]]++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) c[i] += c[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= <span class="number">1</span>;i--) sa[c[x[y[i]]]--] = y[i];</span><br><span class="line">        <span class="built_in">memcpy</span>(y, x, <span class="keyword">sizeof</span>(x)), num = x[sa[<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= n;i++)</span><br><span class="line">            x[sa[i]] = (y[sa[i - <span class="number">1</span>]] == y[sa[i]] &amp;&amp; y[sa[i - <span class="number">1</span>] + k] == y[sa[i] + k]) ? num : ++num;</span><br><span class="line">        <span class="keyword">if</span> (num == n) <span class="keyword">break</span>; <span class="keyword">else</span> m = num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="关于DC3"><a href="#关于DC3" class="headerlink" title="关于DC3"></a>关于DC3</h2><p>时间复杂度$O(n)$，但是实现较为繁琐，不推荐</p>
 <p><del>其实是我不会233333</del></p>
-<h2 id="关于height"><a href="#关于height" class="headerlink" title="关于height"></a>关于<em>height</em></h2><blockquote>
+<h2 id="关于-height"><a href="#关于-height" class="headerlink" title="关于_height_"></a>关于_height_</h2><blockquote>
 <p>$LCP$ 的几条定理</p>
-<p>定义$LCP(i, j)​$为<strong>排名</strong>为<em>i</em>的后缀与<strong>排名</strong>为<em>j</em>的后缀的最长公共前缀长度</p>
-<p>根据<em>height</em>数组的定义，$height[i] = LCP(i – 1, i)​$</p>
+<p>定义$LCP(i, j)​$为<strong>排名</strong>为_i_的后缀与<strong>排名</strong>为_j_的后缀的最长公共前缀长度</p>
+<p>根据_height_数组的定义，$height[i] = LCP(i – 1, i)​$</p>
 <ol>
 <li>$LCP(i, j) = LCP(j, i)$ // 显然</li>
 <li>$LCP(i, i) = LCP(i, i)$ // 同上</li>
-<li>$LCP(i, j) = \min{LCP(i, k), LCP(k, j)}$ //  对于任意<em>i ≤</em> <em>k ≤ j</em>，即$LCP​$具有传递性</li>
+<li>$LCP(i, j) = \min\{LCP(i, k), LCP(k, j)\}$ //  对于任意_i ≤_ _k ≤ j_，即$LCP​$具有传递性</li>
 <li>设$h[i] = height[rk[i]]$，即$height[i] = h[sa[i]]$，有$h[i] ≥ h[i – 1] – 1$</li>
 </ol>
 </blockquote>
@@ -554,7 +554,7 @@
 <p>代码如下</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Getheight</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> s[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) rk[sa[i]] = i;</span><br><span class="line"><span class="comment">// 根据定义，给rk赋值</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, k = <span class="number">0</span>;i &lt;= n;i++) &#123;</span><br><span class="line"><span class="comment">// k表示h[i - 1]，注意i是编号</span></span><br><span class="line">        <span class="keyword">if</span> (rk[i] == <span class="number">1</span>) <span class="keyword">continue</span>; <span class="keyword">if</span> (k) k--;</span><br><span class="line"><span class="comment">// height[1]没有意义，且h[i] &gt;= h[i - 1] - 1</span></span><br><span class="line">        <span class="keyword">int</span> at = sa[rk[i] - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">while</span> (at + k &lt;= n &amp;&amp; i + k &lt;= n &amp;&amp; s[at + k] == s[i + k]) k++;</span><br><span class="line"><span class="comment">// 暴力向后匹配</span></span><br><span class="line">        height[rk[i]] = k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="关于最长公共前缀"><a href="#关于最长公共前缀" class="headerlink" title="关于最长公共前缀"></a>关于最长公共前缀</h2><p>由$LCP$的第三条定理可以快速确定任意两个后缀的最长公共前缀，具体地</p>
-<p>$LCP(rk[i], rk[j]) = \min{height[rk[i] + 1], height[rk[i] + 2], \cdots ,height[rk[j]]}​$</p>
+<p>$LCP(rk[i], rk[j]) = \min\{height[rk[i] + 1], height[rk[i] + 2], \cdots ,height[rk[j]]\}​$</p>
 <p>使用ST表查找区间最小值即可</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">GetST</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(mn, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(mn));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= n;i++) lg[i] = lg[i &gt;&gt; <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) mn[<span class="number">0</span>][i] = height[i]; </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">20</span>;i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j + (<span class="number">1</span> &lt;&lt; i) - <span class="number">1</span> &lt;= n;j++) </span><br><span class="line">            mn[i][j] = min(mn[i - <span class="number">1</span>][j], mn[i - <span class="number">1</span>][j + (<span class="number">1</span> &lt;&lt; i - <span class="number">1</span>)]); </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">GetLCP</span><span class="params">(<span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123; <span class="comment">// rank 为 L, R </span></span><br><span class="line">    <span class="keyword">if</span> (L &gt; R) swap(L, R);</span><br><span class="line">    L++; <span class="keyword">int</span> len = R - L + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (!len) <span class="keyword">return</span> <span class="number">1e9</span>;</span><br><span class="line">    <span class="keyword">return</span> min(mn[lg[len]][L], mn[lg[len]][R - (<span class="number">1</span> &lt;&lt; lg[len]) + <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
@@ -700,7 +700,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">50</span>
+                    <span class="site-state-item-count">53</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -839,7 +839,19 @@
                     
                       
                     
-                    <span class="site-state-item-count">62</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">68</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -937,7 +949,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些约定"><span class="nav-number">1.</span> <span class="nav-text">一些约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些例子"><span class="nav-number">2.</span> <span class="nav-text">一些例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些解释"><span class="nav-number">3.</span> <span class="nav-text">一些解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#倍增"><span class="nav-number">4.</span> <span class="nav-text">倍增</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于DC3"><span class="nav-number">5.</span> <span class="nav-text">关于DC3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于height"><span class="nav-number">6.</span> <span class="nav-text">关于height</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于最长公共前缀"><span class="nav-number">7.</span> <span class="nav-text">关于最长公共前缀</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些约定"><span class="nav-number">1.</span> <span class="nav-text">一些约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些例子"><span class="nav-number">2.</span> <span class="nav-text">一些例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些解释"><span class="nav-number">3.</span> <span class="nav-text">一些解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#倍增"><span class="nav-number">4.</span> <span class="nav-text">倍增</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于DC3"><span class="nav-number">5.</span> <span class="nav-text">关于DC3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于-height"><span class="nav-number">6.</span> <span class="nav-text">关于_height_</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于最长公共前缀"><span class="nav-number">7.</span> <span class="nav-text">关于最长公共前缀</span></a></li></ol></div>
             
 
           </div>
@@ -991,7 +1003,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共91.6k字</span>
+	<span class="post-count">全站共104.4k字</span>
 </div>
 
         
