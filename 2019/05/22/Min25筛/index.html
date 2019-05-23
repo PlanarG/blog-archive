@@ -133,20 +133,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="An_Account&#39;s Blog">
-<meta property="og:url" content="https://0x131cc05.github.io/archives/2019/page/5/index.html">
+  <meta name="description" content="设$f(x)$是一个给定的积性函数，并且是一个关于$x$的简单多项式，还可以快速算出$f(p^k)$，其中$p$是质数 那么Min25筛可以在$O(\frac{n^{\frac34}}{\log n})$的时间内求出$f(x)$的前缀和 算法Min25筛的大体流程是，先求出所有质数的$f(x)$的和，再用质数的和推出所有合数的$f(x)$的和 定义另一个函数$f’(x)$，必须保证$f’(x)$是">
+<meta name="keywords" content="数学,算法,min25筛">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Min25筛">
+<meta property="og:url" content="https://0x131cc05.github.io/2019/05/22/Min25筛/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
+<meta property="og:description" content="设$f(x)$是一个给定的积性函数，并且是一个关于$x$的简单多项式，还可以快速算出$f(p^k)$，其中$p$是质数 那么Min25筛可以在$O(\frac{n^{\frac34}}{\log n})$的时间内求出$f(x)$的前缀和 算法Min25筛的大体流程是，先求出所有质数的$f(x)$的和，再用质数的和推出所有合数的$f(x)$的和 定义另一个函数$f’(x)$，必须保证$f’(x)$是">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-23T01:29:27.058Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="An_Account&#39;s Blog">
+<meta name="twitter:title" content="Min25筛">
+<meta name="twitter:description" content="设$f(x)$是一个给定的积性函数，并且是一个关于$x$的简单多项式，还可以快速算出$f(p^k)$，其中$p$是质数 那么Min25筛可以在$O(\frac{n^{\frac34}}{\log n})$的时间内求出$f(x)$的前缀和 算法Min25筛的大体流程是，先求出所有质数的$f(x)$的和，再用质数的和推出所有合数的$f(x)$的和 定义另一个函数$f’(x)$，必须保证$f’(x)$是">
 
 
 
 
 
 
-  <link rel="canonical" href="https://0x131cc05.github.io/archives/2019/page/5/">
+  <link rel="canonical" href="https://0x131cc05.github.io/2019/05/22/Min25筛/">
 
 
 
@@ -156,7 +161,7 @@
   };
 </script>
 
-  <title>归档 | An_Account's Blog</title>
+  <title>Min25筛 | An_Account's Blog</title>
   
 
 
@@ -212,7 +217,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -284,7 +289,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -355,416 +360,292 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/05/22/Min25筛/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
-         
+          <h1 class="post-title" itemprop="name headline">Min25筛
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-22 16:09:04" itemprop="dateCreated datePublished" datetime="2019-05-22T16:09:04+08:00">2019-05-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-23 09:29:27" itemprop="dateModified" datetime="2019-05-23T09:29:27+08:00">2019-05-23</time>
+              
+            
+          </span>
+
           
-        不错! 目前共计 55 篇日志。 继续努力。
-      </span>
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/22/Min25筛/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/05/22/Min25筛/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
       
+        <p>设$f(x)$是一个给定的积性函数，并且是一个关于$x$的简单多项式，还可以快速算出$f(p^k)$，其中$p$是质数</p>
+<p>那么<code>Min25</code>筛可以在$O(\frac{n^{\frac34}}{\log n})$的时间内求出$f(x)$的前缀和</p>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><p><code>Min25</code>筛的大体流程是，先求出所有质数的$f(x)$的和，再用质数的和推出所有合数的$f(x)$的和</p>
+<p>定义另一个函数$f’(x)$，必须保证$f’(x)$是<strong>完全积性函数</strong>，并且在质数位置的结果与$f(x)$相等，其它位置随意，且$f’(x)$的前缀和能够快速求出</p>
+<p>定义$s(x)$表示$x$的最小质因子</p>
+<p>定义$g(n,k)$表示<br>$$<br>\sum_{i=2}^n[i是质数或s(i)&gt;p_k]f’(i)<br>$$<br>即要么$i$是质数，要么$i$的最小质因子大于第$k$个质数</p>
+<p>注意到对于任意一个合数，它的最小质因子不可能大于$\sqrt n$，因此$k$只需要取到$\sqrt n$即可</p>
+<p>我们先预处理出所有的$g(n,0)$</p>
+<p>即<br>$$<br>\sum_{i=2}^nf’(i)<br>$$<br>我们定义$m$表示$p_{m+1}&gt;\sqrt n$的第一个位置</p>
+<p>那么$g(n,m)$就是所有质数的$f’(x)$也就是$f(x)$之和</p>
+<p>考虑递推$g$，从$g(*,j-1)$递推到$g(*,j)$</p>
+<p>显然有<br>$$<br>g(n,j)=g(n,j-1)-\sum_{i=2}^n[i\not=p_j,s(i)=p_j]f’(i)<br>$$<br>我们知道<br>$$<br>g(n,j)-g(p_j,j)<br>$$<br>它等价于<br>$$<br>\sum_{i=p_j+1}^n[s(i)=p_j]f’(i)<br>$$<br>即大于$p_j$且最小质因子是$p_j$的所有数</p>
+<p>因为$g(p_j,j)$就表示$2-p_j$中的质数以及最小质因子大于$p_j$的数</p>
+<p>显然只有$2-p_j$的质数满足条件</p>
+<p>如果$s(i)=p_j$，我们就将它的质因子提出来一个$p_j$</p>
+<p>由于$f’(x)$是完全积性函数，因此$f’(p)f’(\frac{n}{p})=f’(n)$</p>
+<p>因此<br>$$<br>g(n,j)=g(n,j-1)-[g(\lfloor\frac{n}{p_j}\rfloor,j-1)-g(p_j,j-1)]*f’(p_j)<br>$$<br>最终我们只关心$g(n,m)$，而此时$g(n,m)$仅包含所有质数的$f’(x)$之和</p>
+<p>当$x$是质数时，根据定义$f’(x)=f(x)$</p>
+<p>因此$g(n,m)$就是所有质数的$f(x)$之和</p>
+<hr>
+<p>现在我们算出了所有质数的和，考虑从质数推到合数</p>
+<p>定义$S(n,k)$表示<br>$$<br>\sum_{i=p_k}^n[s(i)\geq p_k]f(i)<br>$$<br>我们将这些数分为两类：质数和合数</p>
+<p>对于质数的和，它等于$g(n,m)-p_1到p_{k-1}的f(x)之和$</p>
+<p>对于合数，我们采用枚举最小质因子以及这个质因子的次数的方式统计</p>
+<p>我们将合数分成两类：至少有两个质因子的，以及只有一个质因子的</p>
+<p>假设我们枚举到了最小质因子$p_k$</p>
+<p>现在枚举它的次数$e$</p>
+<p>先考虑第一种合数</p>
+<p>首先必须满足$p_k^e\leq n$</p>
+<p>其实可以将这个上界进一步缩紧，变成$p_k^{e+1}\leq n$</p>
+<p>因为$p_k$是某个数的最小质因子，如果$p_k^e\leq n$，而$p_k^{e+1}&gt; n$，一定不存在$\leq n$的这样的数</p>
+<p>那么此时这些合数的和为<br>$$<br>\sum_{p_k^{e+1}\leq n}f(p_k^e)S(\lfloor\frac{n}{p_k^e}\rfloor,k+1)<br>$$<br>我们再考虑第二种合数</p>
+<p>假设它为$p_k^e$</p>
+<p>那么$e\not=1,p_k^e\leq n$</p>
+<p>这一类合数的和为<br>$$<br>\sum_{e\not=1,p_k^e\leq n}f(p_k^e)=\sum_{p_k^{e+1}}f(p_k^{e+1})<br>$$<br>将这两类合数加起来<br>$$<br>\begin{aligned}<br>S(n,t)&amp;=\sum_{k=t}^m[\sum_{p_k^{e+1}\leq n}f(p_k^e)S(\lfloor\frac{n}{p_k^e}\rfloor, k+1)+\sum_{p_k^{e+1}\leq n}f(p_k^{e+1})]\\<br>&amp;=\sum_{k=t}^m\sum_{p_k^{e+1}\leq n}[f(p_k^e)S(\lfloor\frac{n}{p_k^e}\rfloor,k+1)+f(p_k^{e+1})]<br>\end{aligned}<br>$$<br>然后递归就行了</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>注意到计算$g,S$的时候用到的$n$的种数非常少，只会用到$n,\lfloor\frac{n}{2}\rfloor,\lfloor\frac n3\rfloor,\cdots,\lfloor\frac{n}{n-1}\rfloor,\lfloor\frac{n}{n}\rfloor$</p>
+<p>实际上不同的取值只有$\sqrt n$个</p>
+<p>我们把这$\sqrt n$个值离散化一下</p>
+<p>考虑怎么快速查一个数$\lfloor\frac{n}{k}\rfloor=a$的编号</p>
+<p>当然你要用<code>map</code>也行，但是就多了一个$\log$</p>
+<p>这里我们开两个大小为$\sqrt n$的数组<code>id1, id2</code></p>
+<p>我们用<code>id1[a]</code>表示$a(\leq \sqrt n)$的编号</p>
+<p>用<code>id2[a]</code>表示$\lfloor\frac na\rfloor(a&gt;\sqrt n)$的编号</p>
+<p>这样两个数组都只要开到$\sqrt n$就可以存下所有数</p>
+<p>如果$a\leq \sqrt n$，那么直接返回<code>id1[a]</code></p>
+<p>否则返回<code>id2[n / a]</code></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">ID</span><span class="params">(LL x)</span> </span>&#123;<span class="keyword">return</span> x &lt;= T ? id1[x] : id2[n / x];&#125;</span><br></pre></td></tr></table></figure>
+<p>对于$g(n,j)$，我们可以使用滚动数组的方式把第二维滚掉</p>
+<p>这里给出初始化以及求$S$的代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    T = <span class="built_in">sqrt</span>(n + <span class="number">0.5</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= T;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) prime[++ncnt] = i, sum[ncnt] = (sum[ncnt - <span class="number">1</span>] + f1(i)) % mod;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; (LL)i * prime[j] &lt;= T;j++) &#123;</span><br><span class="line">                flag[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">for</span> (LL l = <span class="number">1</span>;l &lt;= n;l = n / (n / l) + <span class="number">1</span>) &#123;</span><br><span class="line">        a[++m] = n / l;</span><br><span class="line">        <span class="keyword">if</span> (a[m] &lt;= T) id1[a[m]] = m; <span class="keyword">else</span> id2[n / a[m]] = m;</span><br><span class="line">        g[m] = calc(a[m]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= ncnt;i++) </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= m &amp;&amp; (LL)prime[i] * prime[i] &lt;= a[j];j++) </span><br><span class="line">            g[j] = (g[j] - (LL)f1(prime[i]) * (g[ID(a[j] / prime[i])] - sum[i - <span class="number">1</span>]) % mod + mod) % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">(LL n, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n &lt; prime[m]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> res = (g[ID(n)] * (LL)<span class="number">2</span> * t - (LL)sum[m - <span class="number">1</span>] * <span class="number">2</span> * t) % mod; res = (res + mod) % mod;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m;i &lt;= ncnt &amp;&amp; (LL)prime[i] * prime[i] &lt;= n;i++)</span><br><span class="line">        <span class="keyword">for</span> (LL j = prime[i], c = <span class="number">1</span>;j * prime[i] &lt;= n;j *= prime[i], c++) </span><br><span class="line">            Inc(res, ((LL)solve(n / j, i + <span class="number">1</span>) * f(j, c) + f(j * prime[i], c + <span class="number">1</span>)) % mod);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h1><p><a href="https://www.luogu.org/problemnew/show/P5325" target="_blank" rel="noopener">洛谷P5325</a></p>
+<p>求<br>$$<br>\sum_{i=1}^nf(i),f(p^k)=p^k(p^k-1)<br>$$<br>其中$f$是积性函数</p>
+<p>对于质数$p$，$f(p)=p(p-1)$</p>
+<p>这个东西并不是一个完全积性函数</p>
+<p>考虑把它拆开，$f(p)=p^2-p$</p>
+<p>注意到$p^2,p$都是完全积性函数，所以可以直接上<code>Min25</code>筛分别求这两个东西</p>
+<p>其实就是维护两个$g$，第一个$g$对应的函数就是$p^2$，第二个对应的函数是$p$，然后在求$S$的时候合并</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1000010</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"><span class="keyword">namespace</span> Min25 &#123;</span><br><span class="line">    <span class="keyword">int</span> prime[N], id1[N], id2[N], flag[N], g1[N], g2[N], sum1[N], sum2[N], ncnt, m, inv6 = <span class="number">166666668</span>;</span><br><span class="line">    LL a[N], T, n;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">ID</span><span class="params">(LL x)</span> </span>&#123;<span class="keyword">return</span> x &lt;= T ? id1[x] : id2[n / x];&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">calc</span><span class="params">(LL x)</span> </span>&#123;x %= mod; <span class="keyword">return</span> x * (x + <span class="number">1</span>) / <span class="number">2</span> % mod - <span class="number">1</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">calc2</span><span class="params">(LL x)</span> </span>&#123;x %= mod; <span class="keyword">return</span> x * (x + <span class="number">1</span>) % mod * (<span class="number">2</span> * x + <span class="number">1</span>) % mod * inv6 % mod - <span class="number">1</span>;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">f</span><span class="params">(LL x)</span> </span>&#123;x %= mod; <span class="keyword">return</span> x * (x - <span class="number">1</span>) % mod;&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        T = <span class="built_in">sqrt</span>(n + <span class="number">0.5</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= T;i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!flag[i]) prime[++ncnt] = i, sum1[ncnt] = (sum1[ncnt - <span class="number">1</span>] + (LL)i * i) % mod, sum2[ncnt] = (sum2[ncnt - <span class="number">1</span>] + i) % mod;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= T;j++) &#123;</span><br><span class="line">                flag[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (LL l = <span class="number">1</span>;l &lt;= n;l = n / (n / l) + <span class="number">1</span>) &#123;</span><br><span class="line">            a[++m] = n / l;</span><br><span class="line">            <span class="keyword">if</span> (a[m] &lt;= T) id1[a[m]] = m; <span class="keyword">else</span> id2[n / a[m]] = m;</span><br><span class="line">            g1[m] = calc2(a[m]), g2[m] = calc(a[m]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= ncnt;i++) </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= m &amp;&amp; (LL)prime[i] * prime[i] &lt;= a[j];j++) &#123;</span><br><span class="line">                g1[j] = (g1[j] - (LL)prime[i] * prime[i] % mod * (g1[ID(a[j] / prime[i])] - sum1[i - <span class="number">1</span>] + mod) % mod + mod) % mod;</span><br><span class="line">                g2[j] = (g2[j] - (LL)prime[i] * (g2[ID(a[j] / prime[i])] - sum2[i - <span class="number">1</span>] + mod) % mod + mod) % mod;</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">(LL n, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; prime[m]) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> res = ((LL)g1[ID(n)] - g2[ID(n)] - sum1[m - <span class="number">1</span>] + sum2[m - <span class="number">1</span>]) % mod; res = (res + mod) % mod;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = m;i &lt;= ncnt &amp;&amp; (LL)prime[i] * prime[i] &lt;= n;i++)</span><br><span class="line">            <span class="keyword">for</span> (LL j = prime[i];j * prime[i] &lt;= n;j *= prime[i]) </span><br><span class="line">                res = (res + (LL)solve(n / j, i + <span class="number">1</span>) * f(j) + f(j * prime[i])) % mod;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">solve</span><span class="params">(LL x)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (x &lt;= <span class="number">1</span>) <span class="keyword">return</span> x;</span><br><span class="line">        <span class="keyword">return</span> n = x, init(), solve(x, <span class="number">1</span>) + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    LL n; <span class="built_in">scanf</span>(<span class="string">"%lld"</span>, &amp;n), <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, Min25::solve(n));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/min25筛/" rel="tag"># min25筛</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
         
-        
+
         
 
         
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
+          <div class="social_share">
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
           </div>
         
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/11/FFT与NTT基础/" itemprop="url">
-            
-              <span itemprop="name">FFT与NTT基础</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-11T20:36:46+08:00" content="2019-03-11">
-          03-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        </div>
+      
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/11/3-11省选模拟/" itemprop="url">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span itemprop="name">3.11省选模拟</span>
+              <a href="/2019/05/09/5-8CTS模拟/" rel="next" title="5.8CTS模拟">
+                <i class="fa fa-chevron-left"></i> 5.8CTS模拟
+              </a>
             
-          </a>
-        
-      </h2>
+          </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-11T19:25:28+08:00" content="2019-03-11">
-          03-11
-        </time>
-      </div>
+          <span class="post-nav-divider"></span>
 
-    </header>
-  </article>
-
-
-
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/10/线性递推/" itemprop="url">
-            
-              <span itemprop="name">线性递推</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-10T21:20:11+08:00" content="2019-03-10">
-          03-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/09/3-8省选模拟-斐波那契树/" itemprop="url">
-            
-              <span itemprop="name">3.8省选模拟 斐波那契树</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-09T11:03:47+08:00" content="2019-03-09">
-          03-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/09/多项式除法/" itemprop="url">
-            
-              <span itemprop="name">多项式除法</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-09T10:31:35+08:00" content="2019-03-09">
-          03-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/09/多项式求逆/" itemprop="url">
-            
-              <span itemprop="name">多项式求逆</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-09T10:31:24+08:00" content="2019-03-09">
-          03-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/08/3-8省选模拟-奇怪的树/" itemprop="url">
-            
-              <span itemprop="name">3.8省选模拟 奇怪的树</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-08T20:29:42+08:00" content="2019-03-08">
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/08/gcd应用/" itemprop="url">
-            
-              <span itemprop="name">gcd应用</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-08T20:18:34+08:00" content="2019-03-08">
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/08/CodeChef-Adi-and-the-Matrix/" itemprop="url">
-            
-              <span itemprop="name">[CodeChef] Adi and the Matrix</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-08T19:53:05+08:00" content="2019-03-08">
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/08/置换专题/" itemprop="url">
-            
-              <span itemprop="name">置换专题</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-08T19:38:47+08:00" content="2019-03-08">
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-    </div>
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2019/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/archives/2019/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2019/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/archives/2019/page/6/">6</a><a class="extend next" rel="next" href="/archives/2019/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+  </article>
 
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -785,8 +666,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1044,6 +934,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#算法"><span class="nav-number">1.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#例题"><span class="nav-number">3.</span> <span class="nav-text">例题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -1209,6 +1116,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
