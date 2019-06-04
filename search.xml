@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[多项式exp]]></title>
+    <url>%2F2019%2F05%2F29%2F%E5%A4%9A%E9%A1%B9%E5%BC%8Fexp%2F</url>
+    <content type="text"><![CDATA[给出$A(x)$，求$e^{A(x)}\mod x^n$，每一项的系数模$998244353$ 这里要求$A(x)$的常数项为$0$ 牛顿迭代法与泰勒展开假如我们要用一个无穷级数来表示$f(x)$ 首先选一个展开点$x_0$，然后有$$f(x)=\sum_{i=0}^\infty \frac{f^{(i)}(x_0)(x-x_0)^i}{i!}$$其中，$f^{(i)}$表示$f$的$i$阶导数 现在我们知道$G(x)$，要求求出一个$F(x)$，使得$$G(F(x))\equiv 0\pmod {x^n}$$设$F_t(x)$表示$F$经过$t$次迭代之后的结果，即$$G(F_t(x))\equiv0\pmod{x^{2^t}}$$考虑如何从第$t$次迭代推到第$t+1$次迭代 首先将这个式子从$F_{t}(x)$这个点泰勒展开$$\begin{aligned}G(F_{t+1}(x))&amp;=\sum_{i=0}^\infty \frac{G^{(i)}(F_t(x))}{i!}(F_{t+1}(x)-F_{t}(x))^i\\&amp;=G(F_t(x))+G’(F_t(x))(F_{t+1}(x)-F_t(x))+\sum_{i=2}^\infty 一些东西\end{aligned}$$现在将这个式子放到模$x^{2^{t+1}}$下 注意到$F_{t+1}(x)$与$F_t(x)$在模$x^{2^t}$下同余 也就是说，这两个多项式的最后$2^t$项是相同的 如果我们让$(F_{t+1}(x)-F_t(x))^i$这里的$i$至少取到$2$ 那么结果最后的至少$2^{t+1}$项都是$0$，放到模$x^{2^{t+1}}$下就是$0$ 所以后面的那些东西就可以不管了，只留下了前两项$$\begin{aligned}G(F_{t+1}(x))&amp;\equiv G(F_t(x))+G’(F_t(x))(F_{t+1}(x)-F_t(x))\pmod {x^{2^{t+1}}}\\0&amp;\equiv G(F_t(x))+G’(F_t(x))F_{t+1}(x)-G’(F_t(x))F_t(x)\\F_{t+1}(x)&amp;\equiv F_t(x)-\frac{G(F_t(x))}{G’(F_t(x))}\end{aligned}$$这就是牛顿迭代法的公式 多项式$\ln$有两种方法，第一种是先求导后积分，第二种是利用牛顿迭代的公式 这里讲一下第二种 令$F(x)=\frac{1}{A(x)}$ 那么有$G(F(x))=A(x)F(x)-1,G’(F(x))=A(x)F’(x)$$$F_{t+1}(x)\equiv F_t(x)-\frac{A(x)F_t(x)-1}{A(x)F_t’(x)}$$好吧事实上完全没必要这么复杂 多项式$\exp$令$F(x)=e^{A(x)}$ 那么$G(F(x))=\ln F(x)-A(x)$ 我们将$A(x)$当作常数，那么$G’(F(x))=\frac{1}{F(x)}$ 有$$\begin{aligned}F_{t+1}(x)&amp;\equiv F_t(x)-\frac{G(F_t(x))}{G’(F_t(x))}\\&amp;\equiv F_t(x)-F_t(x)(\ln F_t(x)-A(x))\\&amp;\equiv F_t(x)(1-\ln F_t(x)+A(x))\end{aligned}$$所以多项式$\exp$需要多项式$\ln$ 时间复杂度$O(n\log n)$ 代码如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364#include &lt;bits/stdc++.h&gt;using namespace std;typedef long long LL;const int mod = 998244353, N = 600010;inline int Pow(int x, int y) &#123; int res = 1; for (;y;y &gt;&gt;= 1, x = (LL)x * x % mod) if (y &amp; 1) res = (LL)res * x % mod; return res;&#125;int r[N], inv[N];inline void NTT(int a[], int len, int type) &#123; for (int i = 0;i &lt; len;i++) if (i &lt; r[i]) swap(a[i], a[r[i]]); for (int mid = 2;mid &lt;= len;mid &lt;&lt;= 1) &#123; int Wn = Pow(3, type ? (mod - 1) / mid : mod - 1 - (mod - 1) / mid); for (int i = 0;i &lt; len;i += mid) for (int j = i, w = 1, t;j &lt; i + (mid &gt;&gt; 1);j++, w = (LL)w * Wn % mod) t = (LL)w * a[j + (mid &gt;&gt; 1)] % mod, a[j + (mid &gt;&gt; 1)] = (a[j] - t + mod) % mod, a[j] = (a[j] + t) % mod; &#125; if (!type) for (int i = 0, inv = Pow(len, mod - 2);i &lt; len;i++) a[i] = (LL)a[i] * inv % mod;&#125;inline void Inv(const int A[], int B[], int n) &#123; if (n == 1) return void(B[0] = Pow(A[0], mod - 2)); Inv(A, B, (n + 1) &gt;&gt; 1); static int tmpa[N]; int len = 1, l = 0; while (len &lt;= 3 * n) len &lt;&lt;= 1, l++; for (int i = 0;i &lt; len;i++) r[i] = (r[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; l - 1); for (int i = 0;i &lt; n;i++) tmpa[i] = A[i]; for (int i = n;i &lt; len;i++) tmpa[i] = 0; NTT(tmpa, len, 1), NTT(B, len, 1); for (int i = 0;i &lt; len;i++) B[i] = (2 - (LL)tmpa[i] * B[i] % mod + mod) * B[i] % mod; NTT(B, len, 0); for (int i = n;i &lt; len;i++) B[i] = 0;&#125;inline void Ln(const int A[], int B[], int n) &#123; static int tmpa[N], inva[N]; memset(tmpa, 0, sizeof(tmpa)), memset(inva, 0, sizeof(inva)); for (int i = 0;i &lt; n;i++) tmpa[i] = (LL)A[i + 1] * (i + 1) % mod; Inv(A, inva, n); int len = 1, l = 0; while (len &lt;= 2 * n) len &lt;&lt;= 1, l++; for (int i = 0;i &lt; len;i++) r[i] = (r[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; l - 1); NTT(tmpa, len, 1), NTT(inva, len, 1); for (int i = 0;i &lt; len;i++) tmpa[i] = (LL)tmpa[i] * inva[i] % mod; NTT(tmpa, len, 0); for (int i = 1;i &lt; n;i++) B[i] = (LL)tmpa[i - 1] * inv[i] % mod;&#125;inline void Exp(const int A[], int B[], int n) &#123; if (n == 1) return void(B[0] = 1); Exp(A, B, (n + 1) &gt;&gt; 1); static int lnb[N]; memset(lnb, 0, sizeof(lnb)); Ln(B, lnb, n); int len = 1, l = 0; for (int i = 0;i &lt; n;i++) lnb[i] = (A[i] - lnb[i] + mod) % mod; lnb[0]++; while (len &lt;= 2 * n) len &lt;&lt;= 1, l++; for (int i = 0;i &lt; len;i++) r[i] = (r[i &gt;&gt; 1] &gt;&gt; 1) | ((i &amp; 1) &lt;&lt; l - 1); NTT(B, len, 1), NTT(lnb, len, 1); for (int i = 0;i &lt; len;i++) B[i] = (LL)B[i] * lnb[i] % mod; NTT(B, len, 0); for (int i = n;i &lt; len;i++) B[i] = 0;&#125;int A[N], B[N];int main() &#123; int n; scanf("%d", &amp;n), inv[0] = 1; for (int i = 1;i &lt;= n;i++) inv[i] = Pow(i, mod - 2); for (int i = 0;i &lt; n;i++) scanf("%d", &amp;A[i]); Exp(A, B, n); for (int i = 0;i &lt; n;i++) printf("%d ", B[i]);&#125;]]></content>
+      <tags>
+        <tag>数学</tag>
+        <tag>多项式</tag>
+        <tag>算法</tag>
+        <tag>NTT</tag>
+        <tag>多项式ln</tag>
+        <tag>多项式exp</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Min25筛]]></title>
     <url>%2F2019%2F05%2F22%2FMin25%E7%AD%9B%2F</url>
     <content type="text"><![CDATA[设$f(x)$是一个给定的积性函数，并且是一个关于$x$的简单多项式，还可以快速算出$f(p^k)$，其中$p$是质数 那么Min25筛可以在$O(\frac{n^{\frac34}}{\log n})$的时间内求出$f(x)$的前缀和 算法Min25筛的大体流程是，先求出所有质数的$f(x)$的和，再用质数的和推出所有合数的$f(x)$的和 定义另一个函数$f’(x)$，必须保证$f’(x)$是完全积性函数，并且在质数位置的结果与$f(x)$相等，其它位置随意，且$f’(x)$的前缀和能够快速求出 定义$s(x)$表示$x$的最小质因子 定义$g(n,k)$表示$$\sum_{i=2}^n[i是质数或s(i)&gt;p_k]f’(i)$$即要么$i$是质数，要么$i$的最小质因子大于第$k$个质数 注意到对于任意一个合数，它的最小质因子不可能大于$\sqrt n$，因此$k$只需要取到$\sqrt n$即可 我们先预处理出所有的$g(n,0)$ 即$$\sum_{i=2}^nf’(i)$$我们定义$m$表示$p_{m+1}&gt;\sqrt n$的第一个位置 那么$g(n,m)$就是所有质数的$f’(x)$也就是$f(x)$之和 考虑递推$g$，从$g(*,j-1)$递推到$g(*,j)$ 显然有$$g(n,j)=g(n,j-1)-\sum_{i=2}^n[i\not=p_j,s(i)=p_j]f’(i)$$我们知道$$g(n,j)-g(p_j,j)$$它等价于$$\sum_{i=p_j+1}^n[s(i)=p_j]f’(i)$$即大于$p_j$且最小质因子是$p_j$的所有数 因为$g(p_j,j)$就表示$2-p_j$中的质数以及最小质因子大于$p_j$的数 显然只有$2-p_j$的质数满足条件 如果$s(i)=p_j$，我们就将它的质因子提出来一个$p_j$ 由于$f’(x)$是完全积性函数，因此$f’(p)f’(\frac{n}{p})=f’(n)$ 因此$$g(n,j)=g(n,j-1)-[g(\lfloor\frac{n}{p_j}\rfloor,j-1)-g(p_j,j-1)]*f’(p_j)$$最终我们只关心$g(n,m)$，而此时$g(n,m)$仅包含所有质数的$f’(x)$之和 当$x$是质数时，根据定义$f’(x)=f(x)$ 因此$g(n,m)$就是所有质数的$f(x)$之和 现在我们算出了所有质数的和，考虑从质数推到合数 定义$S(n,k)$表示$$\sum_{i=p_k}^n[s(i)\geq p_k]f(i)$$我们将这些数分为两类：质数和合数 对于质数的和，它等于$g(n,m)-p_1到p_{k-1}的f(x)之和$ 对于合数，我们采用枚举最小质因子以及这个质因子的次数的方式统计 我们将合数分成两类：至少有两个质因子的，以及只有一个质因子的 假设我们枚举到了最小质因子$p_k$ 现在枚举它的次数$e$ 先考虑第一种合数 首先必须满足$p_k^e\leq n$ 其实可以将这个上界进一步缩紧，变成$p_k^{e+1}\leq n$ 因为$p_k$是某个数的最小质因子，如果$p_k^e\leq n$，而$p_k^{e+1}&gt; n$，一定不存在$\leq n$的这样的数 那么此时这些合数的和为$$\sum_{p_k^{e+1}\leq n}f(p_k^e)S(\lfloor\frac{n}{p_k^e}\rfloor,k+1)$$我们再考虑第二种合数 假设它为$p_k^e$ 那么$e\not=1,p_k^e\leq n$ 这一类合数的和为$$\sum_{e\not=1,p_k^e\leq n}f(p_k^e)=\sum_{p_k^{e+1}}f(p_k^{e+1})$$将这两类合数加起来$$\begin{aligned}S(n,t)&amp;=\sum_{k=t}^m[\sum_{p_k^{e+1}\leq n}f(p_k^e)S(\lfloor\frac{n}{p_k^e}\rfloor, k+1)+\sum_{p_k^{e+1}\leq n}f(p_k^{e+1})]\\&amp;=\sum_{k=t}^m\sum_{p_k^{e+1}\leq n}[f(p_k^e)S(\lfloor\frac{n}{p_k^e}\rfloor,k+1)+f(p_k^{e+1})]\end{aligned}$$然后递归就行了 实现注意到计算$g,S$的时候用到的$n$的种数非常少，只会用到$n,\lfloor\frac{n}{2}\rfloor,\lfloor\frac n3\rfloor,\cdots,\lfloor\frac{n}{n-1}\rfloor,\lfloor\frac{n}{n}\rfloor$ 实际上不同的取值只有$\sqrt n$个 我们把这$\sqrt n$个值离散化一下 考虑怎么快速查一个数$\lfloor\frac{n}{k}\rfloor=a$的编号 当然你要用map也行，但是就多了一个$\log$ 这里我们开两个大小为$\sqrt n$的数组id1, id2 我们用id1[a]表示$a(\leq \sqrt n)$的编号 用id2[a]表示$\lfloor\frac na\rfloor(a&gt;\sqrt n)$的编号 这样两个数组都只要开到$\sqrt n$就可以存下所有数 如果$a\leq \sqrt n$，那么直接返回id1[a] 否则返回id2[n / a] 1inline int ID(LL x) &#123;return x &lt;= T ? id1[x] : id2[n / x];&#125; 对于$g(n,j)$，我们可以使用滚动数组的方式把第二维滚掉 这里给出初始化以及求$S$的代码 1234567891011121314151617181920212223242526inline void init() &#123; T = sqrt(n + 0.5); for (int i = 2;i &lt;= T;i++) &#123; if (!flag[i]) prime[++ncnt] = i, sum[ncnt] = (sum[ncnt - 1] + f1(i)) % mod; for (int j = 1;j &lt;= ncnt &amp;&amp; (LL)i * prime[j] &lt;= T;j++) &#123; flag[i * prime[j]] = 1; if (i % prime[j] == 0) break; &#125; &#125; for (LL l = 1;l &lt;= n;l = n / (n / l) + 1) &#123; a[++m] = n / l; if (a[m] &lt;= T) id1[a[m]] = m; else id2[n / a[m]] = m; g[m] = calc(a[m]); &#125; for (int i = 1;i &lt;= ncnt;i++) for (int j = 1;j &lt;= m &amp;&amp; (LL)prime[i] * prime[i] &lt;= a[j];j++) g[j] = (g[j] - (LL)f1(prime[i]) * (g[ID(a[j] / prime[i])] - sum[i - 1]) % mod + mod) % mod;&#125;int solve(LL n, int m) &#123; if (n &lt; prime[m]) return 0; int res = (g[ID(n)] * (LL)2 * t - (LL)sum[m - 1] * 2 * t) % mod; res = (res + mod) % mod; for (int i = m;i &lt;= ncnt &amp;&amp; (LL)prime[i] * prime[i] &lt;= n;i++) for (LL j = prime[i], c = 1;j * prime[i] &lt;= n;j *= prime[i], c++) Inc(res, ((LL)solve(n / j, i + 1) * f(j, c) + f(j * prime[i], c + 1)) % mod); return res;&#125; 例题洛谷P5325 求$$\sum_{i=1}^nf(i),f(p^k)=p^k(p^k-1)$$其中$f$是积性函数 对于质数$p$，$f(p)=p(p-1)$ 这个东西并不是一个完全积性函数 考虑把它拆开，$f(p)=p^2-p$ 注意到$p^2,p$都是完全积性函数，所以可以直接上Min25筛分别求这两个东西 其实就是维护两个$g$，第一个$g$对应的函数就是$p^2$，第二个对应的函数是$p$，然后在求$S$的时候合并 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 1000010;typedef long long LL;const int mod = 1e9 + 7;namespace Min25 &#123; int prime[N], id1[N], id2[N], flag[N], g1[N], g2[N], sum1[N], sum2[N], ncnt, m, inv6 = 166666668; LL a[N], T, n; inline int ID(LL x) &#123;return x &lt;= T ? id1[x] : id2[n / x];&#125; inline int calc(LL x) &#123;x %= mod; return x * (x + 1) / 2 % mod - 1;&#125; inline int calc2(LL x) &#123;x %= mod; return x * (x + 1) % mod * (2 * x + 1) % mod * inv6 % mod - 1;&#125; inline int f(LL x) &#123;x %= mod; return x * (x - 1) % mod;&#125; inline void init() &#123; T = sqrt(n + 0.5); for (int i = 2;i &lt;= T;i++) &#123; if (!flag[i]) prime[++ncnt] = i, sum1[ncnt] = (sum1[ncnt - 1] + (LL)i * i) % mod, sum2[ncnt] = (sum2[ncnt - 1] + i) % mod; for (int j = 1;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= T;j++) &#123; flag[i * prime[j]] = 1; if (i % prime[j] == 0) break; &#125; &#125; for (LL l = 1;l &lt;= n;l = n / (n / l) + 1) &#123; a[++m] = n / l; if (a[m] &lt;= T) id1[a[m]] = m; else id2[n / a[m]] = m; g1[m] = calc2(a[m]), g2[m] = calc(a[m]); &#125; for (int i = 1;i &lt;= ncnt;i++) for (int j = 1;j &lt;= m &amp;&amp; (LL)prime[i] * prime[i] &lt;= a[j];j++) &#123; g1[j] = (g1[j] - (LL)prime[i] * prime[i] % mod * (g1[ID(a[j] / prime[i])] - sum1[i - 1] + mod) % mod + mod) % mod; g2[j] = (g2[j] - (LL)prime[i] * (g2[ID(a[j] / prime[i])] - sum2[i - 1] + mod) % mod + mod) % mod; &#125; &#125; int solve(LL n, int m) &#123; if (n &lt; prime[m]) return 0; int res = ((LL)g1[ID(n)] - g2[ID(n)] - sum1[m - 1] + sum2[m - 1]) % mod; res = (res + mod) % mod; for (int i = m;i &lt;= ncnt &amp;&amp; (LL)prime[i] * prime[i] &lt;= n;i++) for (LL j = prime[i];j * prime[i] &lt;= n;j *= prime[i]) res = (res + (LL)solve(n / j, i + 1) * f(j) + f(j * prime[i])) % mod; return res; &#125; inline int solve(LL x) &#123; if (x &lt;= 1) return x; return n = x, init(), solve(x, 1) + 1; &#125;&#125;int main() &#123; LL n; scanf("%lld", &amp;n), printf("%d\n", Min25::solve(n));&#125;]]></content>
@@ -174,8 +187,8 @@
       <tags>
         <tag>题解</tag>
         <tag>数据结构</tag>
-        <tag>线段树</tag>
         <tag>二进制</tag>
+        <tag>线段树</tag>
       </tags>
   </entry>
   <entry>
@@ -200,8 +213,8 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>期望</tag>
         <tag>二进制</tag>
+        <tag>期望</tag>
         <tag>矩阵乘法</tag>
       </tags>
   </entry>
@@ -214,9 +227,9 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
+        <tag>期望</tag>
         <tag>最短路</tag>
         <tag>分治</tag>
-        <tag>期望</tag>
         <tag>线段树</tag>
         <tag>贪心</tag>
         <tag>分块</tag>
@@ -342,8 +355,8 @@
         <tag>多项式</tag>
         <tag>分块</tag>
         <tag>NTT</tag>
-        <tag>构造</tag>
         <tag>多项式ln</tag>
+        <tag>构造</tag>
         <tag>泰勒展开</tag>
       </tags>
   </entry>
@@ -367,8 +380,8 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>树状数组</tag>
         <tag>二分答案</tag>
+        <tag>树状数组</tag>
         <tag>字符串</tag>
         <tag>后缀自动机</tag>
       </tags>
@@ -486,8 +499,8 @@
       <tags>
         <tag>题解</tag>
         <tag>数据结构</tag>
-        <tag>点分治</tag>
         <tag>线段树</tag>
+        <tag>点分治</tag>
       </tags>
   </entry>
   <entry>
@@ -539,8 +552,8 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>点分治</tag>
         <tag>线段树</tag>
+        <tag>点分治</tag>
         <tag>动态点分治</tag>
         <tag>rmq</tag>
       </tags>

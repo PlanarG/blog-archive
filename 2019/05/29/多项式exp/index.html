@@ -133,20 +133,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="An_Account&#39;s Blog">
-<meta property="og:url" content="https://0x131cc05.github.io/tags/二分答案/index.html">
+  <meta name="description" content="给出$A(x)$，求$e^{A(x)}\mod x^n$，每一项的系数模$998244353$ 这里要求$A(x)$的常数项为$0$ 牛顿迭代法与泰勒展开假如我们要用一个无穷级数来表示$f(x)$ 首先选一个展开点$x_0$，然后有$$f(x)=\sum_{i=0}^\infty \frac{f^{(i)}(x_0)(x-x_0)^i}{i!}$$其中，$f^{(i)}$表示$f$的$i$阶导数">
+<meta name="keywords" content="数学,多项式,算法,NTT,多项式ln,多项式exp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多项式exp">
+<meta property="og:url" content="https://0x131cc05.github.io/2019/05/29/多项式exp/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
+<meta property="og:description" content="给出$A(x)$，求$e^{A(x)}\mod x^n$，每一项的系数模$998244353$ 这里要求$A(x)$的常数项为$0$ 牛顿迭代法与泰勒展开假如我们要用一个无穷级数来表示$f(x)$ 首先选一个展开点$x_0$，然后有$$f(x)=\sum_{i=0}^\infty \frac{f^{(i)}(x_0)(x-x_0)^i}{i!}$$其中，$f^{(i)}$表示$f$的$i$阶导数">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-29T09:54:20.478Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="An_Account&#39;s Blog">
+<meta name="twitter:title" content="多项式exp">
+<meta name="twitter:description" content="给出$A(x)$，求$e^{A(x)}\mod x^n$，每一项的系数模$998244353$ 这里要求$A(x)$的常数项为$0$ 牛顿迭代法与泰勒展开假如我们要用一个无穷级数来表示$f(x)$ 首先选一个展开点$x_0$，然后有$$f(x)=\sum_{i=0}^\infty \frac{f^{(i)}(x_0)(x-x_0)^i}{i!}$$其中，$f^{(i)}$表示$f$的$i$阶导数">
 
 
 
 
 
 
-  <link rel="canonical" href="https://0x131cc05.github.io/tags/二分答案/">
+  <link rel="canonical" href="https://0x131cc05.github.io/2019/05/29/多项式exp/">
 
 
 
@@ -156,7 +161,7 @@
   };
 </script>
 
-  <title>标签: 二分答案 | An_Account's Blog</title>
+  <title>多项式exp | An_Account's Blog</title>
   
 
 
@@ -218,7 +223,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -273,7 +278,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
 
     
     
@@ -361,128 +366,250 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>二分答案<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/05/29/多项式exp/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2019/04/25/4-24省选模拟/" itemprop="url">
-            
-              <span itemprop="name">4.24省选模拟</span>
-            
-          </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">多项式exp
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-25T14:31:53+08:00" content="2019-04-25">
-          04-25
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-29 17:20:12 / 修改时间：17:54:20" itemprop="dateCreated datePublished" datetime="2019-05-29T17:20:12+08:00">2019-05-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/29/多项式exp/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/05/29/多项式exp/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/04/06/4-2省选模拟/" itemprop="url">
-            
-              <span itemprop="name">4.2省选模拟</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-04-06T15:22:26+08:00" content="2019-04-06">
-          04-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/03/21/3-20省选模拟/" itemprop="url">
-            
-              <span itemprop="name">3.20省选模拟</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-03-21T10:02:31+08:00" content="2019-03-21">
-          03-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p>给出$A(x)$，求$e^{A(x)}\mod x^n$，每一项的系数模$998244353$</p>
+<p>这里要求$A(x)$的常数项为$0$</p>
+<h1 id="牛顿迭代法与泰勒展开"><a href="#牛顿迭代法与泰勒展开" class="headerlink" title="牛顿迭代法与泰勒展开"></a>牛顿迭代法与泰勒展开</h1><p>假如我们要用一个无穷级数来表示$f(x)$</p>
+<p>首先选一个展开点$x_0$，然后有<br>$$<br>f(x)=\sum_{i=0}^\infty \frac{f^{(i)}(x_0)(x-x_0)^i}{i!}<br>$$<br>其中，$f^{(i)}$表示$f$的$i$阶导数</p>
+<hr>
+<p>现在我们知道$G(x)$，要求求出一个$F(x)$，使得<br>$$<br>G(F(x))\equiv 0\pmod {x^n}<br>$$<br>设$F_t(x)$表示$F$经过$t$次迭代之后的结果，即<br>$$<br>G(F_t(x))\equiv0\pmod{x^{2^t}}<br>$$<br>考虑如何从第$t$次迭代推到第$t+1$次迭代</p>
+<p>首先将这个式子从$F_{t}(x)$这个点泰勒展开<br>$$<br>\begin{aligned}<br>G(F_{t+1}(x))&amp;=\sum_{i=0}^\infty \frac{G^{(i)}(F_t(x))}{i!}(F_{t+1}(x)-F_{t}(x))^i\\<br>&amp;=G(F_t(x))+G’(F_t(x))(F_{t+1}(x)-F_t(x))+\sum_{i=2}^\infty 一些东西<br>\end{aligned}<br>$$<br>现在将这个式子放到模$x^{2^{t+1}}$下</p>
+<p>注意到$F_{t+1}(x)$与$F_t(x)$在模$x^{2^t}$下同余</p>
+<p>也就是说，这两个多项式的最后$2^t$项是相同的</p>
+<p>如果我们让$(F_{t+1}(x)-F_t(x))^i$这里的$i$至少取到$2$</p>
+<p>那么结果最后的至少$2^{t+1}$项都是$0$，放到模$x^{2^{t+1}}$下就是$0$</p>
+<p>所以后面的那些东西就可以不管了，只留下了前两项<br>$$<br>\begin{aligned}<br>G(F_{t+1}(x))&amp;\equiv G(F_t(x))+G’(F_t(x))(F_{t+1}(x)-F_t(x))\pmod {x^{2^{t+1}}}\\<br>0&amp;\equiv G(F_t(x))+G’(F_t(x))F_{t+1}(x)-G’(F_t(x))F_t(x)\\<br>F_{t+1}(x)&amp;\equiv F_t(x)-\frac{G(F_t(x))}{G’(F_t(x))}<br>\end{aligned}<br>$$<br>这就是牛顿迭代法的公式</p>
+<h1 id="多项式-ln"><a href="#多项式-ln" class="headerlink" title="多项式$\ln$"></a>多项式$\ln$</h1><p>有两种方法，第一种是先求导后积分，第二种是利用牛顿迭代的公式</p>
+<p>这里讲一下第二种</p>
+<p>令$F(x)=\frac{1}{A(x)}$</p>
+<p>那么有$G(F(x))=A(x)F(x)-1,G’(F(x))=A(x)F’(x)$<br>$$<br>F_{t+1}(x)\equiv F_t(x)-\frac{A(x)F_t(x)-1}{A(x)F_t’(x)}<br>$$<br>好吧事实上完全没必要这么复杂</p>
+<h1 id="多项式-exp"><a href="#多项式-exp" class="headerlink" title="多项式$\exp$"></a>多项式$\exp$</h1><p>令$F(x)=e^{A(x)}$</p>
+<p>那么$G(F(x))=\ln F(x)-A(x)$</p>
+<p>我们将$A(x)$当作常数，那么$G’(F(x))=\frac{1}{F(x)}$</p>
+<p>有<br>$$<br>\begin{aligned}<br>F_{t+1}(x)&amp;\equiv F_t(x)-\frac{G(F_t(x))}{G’(F_t(x))}\\<br>&amp;\equiv F_t(x)-F_t(x)(\ln F_t(x)-A(x))\\<br>&amp;\equiv F_t(x)(1-\ln F_t(x)+A(x))<br>\end{aligned}<br>$$<br>所以多项式$\exp$需要多项式$\ln$</p>
+<p>时间复杂度$O(n\log n)$</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>, N = <span class="number">600010</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (;y;y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> r[N], inv[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">NTT</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> len, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) <span class="keyword">if</span> (i &lt; r[i]) swap(a[i], a[r[i]]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> mid = <span class="number">2</span>;mid &lt;= len;mid &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> Wn = Pow(<span class="number">3</span>, type ? (mod - <span class="number">1</span>) / mid : mod - <span class="number">1</span> - (mod - <span class="number">1</span>) / mid);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i += mid)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i, w = <span class="number">1</span>, t;j &lt; i + (mid &gt;&gt; <span class="number">1</span>);j++, w = (LL)w * Wn % mod)</span><br><span class="line">                t = (LL)w * a[j + (mid &gt;&gt; <span class="number">1</span>)] % mod, a[j + (mid &gt;&gt; <span class="number">1</span>)] = (a[j] - t + mod) % mod, a[j] = (a[j] + t) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!type) <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, inv = Pow(len, mod - <span class="number">2</span>);i &lt; len;i++) a[i] = (LL)a[i] * inv % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Inv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> A[], <span class="keyword">int</span> B[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="keyword">void</span>(B[<span class="number">0</span>] = Pow(A[<span class="number">0</span>], mod - <span class="number">2</span>));</span><br><span class="line">    Inv(A, B, (n + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>); <span class="keyword">static</span> <span class="keyword">int</span> tmpa[N]; <span class="keyword">int</span> len = <span class="number">1</span>, l = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= <span class="number">3</span> * n) len &lt;&lt;= <span class="number">1</span>, l++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) tmpa[i] = A[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &lt; len;i++) tmpa[i] = <span class="number">0</span>;</span><br><span class="line">    NTT(tmpa, len, <span class="number">1</span>), NTT(B, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) B[i] = (<span class="number">2</span> - (LL)tmpa[i] * B[i] % mod + mod) * B[i] % mod;</span><br><span class="line">    NTT(B, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &lt; len;i++) B[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Ln</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> A[], <span class="keyword">int</span> B[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> tmpa[N], inva[N]; <span class="built_in">memset</span>(tmpa, <span class="number">0</span>, <span class="keyword">sizeof</span>(tmpa)), <span class="built_in">memset</span>(inva, <span class="number">0</span>, <span class="keyword">sizeof</span>(inva));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) tmpa[i] = (LL)A[i + <span class="number">1</span>] * (i + <span class="number">1</span>) % mod;</span><br><span class="line">    Inv(A, inva, n); <span class="keyword">int</span> len = <span class="number">1</span>, l = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= <span class="number">2</span> * n) len &lt;&lt;= <span class="number">1</span>, l++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    NTT(tmpa, len, <span class="number">1</span>), NTT(inva, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) tmpa[i] = (LL)tmpa[i] * inva[i] % mod;</span><br><span class="line">    NTT(tmpa, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; n;i++) B[i] = (LL)tmpa[i - <span class="number">1</span>] * inv[i] % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Exp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> A[], <span class="keyword">int</span> B[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="keyword">void</span>(B[<span class="number">0</span>] = <span class="number">1</span>); Exp(A, B, (n + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> lnb[N]; <span class="built_in">memset</span>(lnb, <span class="number">0</span>, <span class="keyword">sizeof</span>(lnb));</span><br><span class="line">    Ln(B, lnb, n); <span class="keyword">int</span> len = <span class="number">1</span>, l = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) lnb[i] = (A[i] - lnb[i] + mod) % mod;</span><br><span class="line">    lnb[<span class="number">0</span>]++;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= <span class="number">2</span> * n) len &lt;&lt;= <span class="number">1</span>, l++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    NTT(B, len, <span class="number">1</span>), NTT(lnb, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) B[i] = (LL)B[i] * lnb[i] % mod;</span><br><span class="line">    NTT(B, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &lt; len;i++) B[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> A[N], B[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), inv[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) inv[i] = Pow(i, mod - <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;A[i]);</span><br><span class="line">    Exp(A, B, n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) <span class="built_in">printf</span>(<span class="string">"%d "</span>, B[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+            <a href="/tags/多项式/" rel="tag"># 多项式</a>
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/NTT/" rel="tag"># NTT</a>
+          
+            <a href="/tags/多项式ln/" rel="tag"># 多项式ln</a>
+          
+            <a href="/tags/多项式exp/" rel="tag"># 多项式exp</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/22/Min25筛/" rel="next" title="Min25筛">
+                <i class="fa fa-chevron-left"></i> Min25筛
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -503,8 +630,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -764,6 +900,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#牛顿迭代法与泰勒展开"><span class="nav-number">1.</span> <span class="nav-text">牛顿迭代法与泰勒展开</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多项式-ln"><span class="nav-number">2.</span> <span class="nav-text">多项式$\ln$</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多项式-exp"><span class="nav-number">3.</span> <span class="nav-text">多项式$\exp$</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -929,6 +1082,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 

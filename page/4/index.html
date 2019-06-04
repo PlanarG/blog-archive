@@ -382,6 +382,188 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/17/3-16省选模拟/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/17/3-16省选模拟/" class="post-title-link" itemprop="url">3.16省选模拟</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-17 08:25:35" itemprop="dateCreated datePublished" datetime="2019-03-17T08:25:35+08:00">2019-03-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-22 19:51:12" itemprop="dateModified" datetime="2019-03-22T19:51:12+08:00">2019-03-22</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/17/3-16省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/17/3-16省选模拟/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              T1 计算
+比较简单的一道题
+考虑将这个式子拆开
+注意到这个幂是可以拆分的，即$a^b*a^c=a^{b+c}$
+而$\sum\sum ab=\sum a\sum b$
+如果将这个式子一位一位地拆分，假设$k$的第一位是$x$，有$m$位，那么有$$\sum_k e^{\frac kn}=\sum_xe^\frac{x*10^m}{n}\sum_{k去除第一位}e^{\frac kn}$$直接数位dp就可以了，注意需要特判$m=0$时的前导0的情况
+对于“不含$m$这个子串”这个条件，可以先用KMP求出next数组，再处理合法的转移
+代码如下
+#incl
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/17/3-16省选模拟/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/15/3-15省选模拟/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1923,178 +2105,6 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2017-开车/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="An_Account">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/hh.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="An_Account's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/11/BJOI2017-开车/" class="post-title-link" itemprop="url">BJOI2017 开车</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-11 20:50:16 / 修改时间：21:51:10" itemprop="dateCreated datePublished" datetime="2019-03-11T20:50:16+08:00">2019-03-11</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/03/11/BJOI2017-开车/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-开车/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              题目链接
-显然，最优的方案一定是将所有的加油站和车按照位置排序之后一一对应
-但是如何考虑修改呢？这种东西是没法维护的
-我们考虑另外一种统计答案的方式
-将加油站和车都想象成数轴上的一些点，其中加油站是红点，车是黑点
-单独考虑数轴上每一条线段的贡献
-对于一条线段i，记这条线段的长度为$len_i$，前面一共有$a_i$个红点，$b_i$个黑点，那么这条线段对答案的贡献为
-$$len_i|a_i-b_i|$$
-由于询问中涉及到更改点的位置这个操作，我们可以将询问离线下来，先把所有在询问中即将出现的点都标记出来就可以了
-现在考虑每个询问都干了啥
-将一辆车从A点挪
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/11/BJOI2017-开车/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2144,7 +2154,7 @@ $$len_i|a_i-b_i|$$
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">55</span>
+                    <span class="site-state-item-count">56</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2297,7 +2307,9 @@ $$len_i|a_i-b_i|$$
                     
                       
                     
-                    <span class="site-state-item-count">69</span>
+                      
+                    
+                    <span class="site-state-item-count">70</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2432,7 +2444,7 @@ $$len_i|a_i-b_i|$$
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共109.7k字</span>
+	<span class="post-count">全站共111k字</span>
 </div>
 
         
