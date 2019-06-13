@@ -427,12 +427,24 @@
                 
               
 
-              <time title="创建时间：2019-06-11 19:44:10 / 修改时间：20:56:36" itemprop="dateCreated datePublished" datetime="2019-06-11T19:44:10+08:00">2019-06-11</time>
+              <time title="创建时间：2019-06-11 19:44:10" itemprop="dateCreated datePublished" datetime="2019-06-11T19:44:10+08:00">2019-06-11</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-06-13 15:32:42" itemprop="dateModified" datetime="2019-06-13T15:32:42+08:00">2019-06-13</time>
               
             
           </span>
@@ -482,8 +494,14 @@
 
 注意到前三个串中每个数字最多出现两次，因此我们可以枚举第四个串的匹配位置，用一个三位的二进制数来表示前三个串的匹配情况
 dp[i][2][2][2]表示在第四个串中匹配到了第$i$个字符，在第一个串中处于这个串的第一/第二个位置，后两维类似
-
-              
+于是我们得到了一个$n^2$的做法，现在考虑优化
+注意到对于$dp[i]$，有用的都是在它前面的项，并且后三位都小于它的$dp$
+这是一个四维偏序
+第一层CDQ可以按照$i$排序，第二层CDQ就按照后面的分治
+时间复杂度$n\log^2 n$
+代码如下
+#include &lt;bits/st
+              ...
             </p>
           <!--noindex-->
           
@@ -2332,7 +2350,9 @@ dp是可以的，但是这里我们不能使用dp的方式来推，因为这样�
                     
                       
                     
-                    <span class="site-state-item-count">72</span>
+                      
+                    
+                    <span class="site-state-item-count">73</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2467,7 +2487,7 @@ dp是可以的，但是这里我们不能使用dp的方式来推，因为这样�
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共115.8k字</span>
+	<span class="post-count">全站共118.1k字</span>
 </div>
 
         
