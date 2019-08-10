@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext">
+  
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=6.7.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.7.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.7.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.7.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.7.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Minimum Palindromic Factorization定义：  $S$：将要被分割的字符串，其中$S[i]$表示$S$第$i$个位置的字符，$S[l\cdots r]$表示$S$从$l$开始，到$r$结束的子串 $PL(S)$表示将$S$划分成回文串的最小数量，比如$PL(abaab)=3$ $P_j$表示所有以位置$j$结尾的回文串的起始位置的集合  一个简单的算法我们先尝试在$O(">
+<meta name="keywords" content="字符串">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Minimum Palindromic Factorization">
+<meta property="og:url" content="https://0x131cc05.github.io/2019/08/10/Minimum-Palindromic-Factorization/index.html">
+<meta property="og:site_name" content="An_Account&#39;s Blog">
+<meta property="og:description" content="Minimum Palindromic Factorization定义：  $S$：将要被分割的字符串，其中$S[i]$表示$S$第$i$个位置的字符，$S[l\cdots r]$表示$S$从$l$开始，到$r$结束的子串 $PL(S)$表示将$S$划分成回文串的最小数量，比如$PL(abaab)=3$ $P_j$表示所有以位置$j$结尾的回文串的起始位置的集合  一个简单的算法我们先尝试在$O(">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.loli.net/2019/08/10/dePGkKgiTH8IRwV.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/10/hA8YVoKgqumtcSw.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/10/WOnfGmRlDtUVKsc.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/10/hIdClEXD9So8Bqy.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/10/IkzS8O4lF3oLANG.png">
+<meta property="og:updated_time" content="2019-08-10T14:53:23.754Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Minimum Palindromic Factorization">
+<meta name="twitter:description" content="Minimum Palindromic Factorization定义：  $S$：将要被分割的字符串，其中$S[i]$表示$S$第$i$个位置的字符，$S[l\cdots r]$表示$S$从$l$开始，到$r$结束的子串 $PL(S)$表示将$S$划分成回文串的最小数量，比如$PL(abaab)=3$ $P_j$表示所有以位置$j$结尾的回文串的起始位置的集合  一个简单的算法我们先尝试在$O(">
+<meta name="twitter:image" content="https://i.loli.net/2019/08/10/dePGkKgiTH8IRwV.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://0x131cc05.github.io/2019/08/10/Minimum-Palindromic-Factorization/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Minimum Palindromic Factorization | An_Account's Blog</title>
+  
+
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135896799-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-135896799-1');
+  </script>
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;"></canvas> 
+  <script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script> 
+  <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">An_Account's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/08/10/Minimum-Palindromic-Factorization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Minimum Palindromic Factorization
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-10 19:14:35 / 修改时间：22:53:23" itemprop="dateCreated datePublished" datetime="2019-08-10T19:14:35+08:00">2019-08-10</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/10/Minimum-Palindromic-Factorization/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/08/10/Minimum-Palindromic-Factorization/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Minimum-Palindromic-Factorization"><a href="#Minimum-Palindromic-Factorization" class="headerlink" title="Minimum Palindromic Factorization"></a>Minimum Palindromic Factorization</h1><p><strong>定义</strong>：</p>
+<ol>
+<li>$S$：将要被分割的字符串，其中$S[i]$表示$S$第$i$个位置的字符，$S[l\cdots r]$表示$S$从$l$开始，到$r$结束的子串</li>
+<li>$PL(S)$表示将$S$划分成回文串的最小数量，比如$PL(abaab)=3$</li>
+<li>$P_j$表示所有以位置$j$结尾的回文串的起始位置的集合</li>
+</ol>
+<h1 id="一个简单的算法"><a href="#一个简单的算法" class="headerlink" title="一个简单的算法"></a>一个简单的算法</h1><p>我们先尝试在$O(n^2)$的时间内解决这个问题，对于$PL$，显然有<br>$$<br>PL(S[1\cdots j])=\min_{i\in P_j}\{PL(S[1\cdots i-1])+1\}<br>$$<br>定义$PL[i]=PL(S[1\cdots i])$，我们可以依次计算并保存下$PL$的值，显然当$S=a^n$的时候这个算法的时间复杂度为$O(n^2)$</p>
+<h1 id="更快地计算回文串"><a href="#更快地计算回文串" class="headerlink" title="更快地计算回文串"></a>更快地计算回文串</h1><p>在这一节中，我们将尝试用一个大小为$O(\log j)$的集合$G_j$来代替$P_j$，并且$G_j$可以在$O(\log j)$的时间内由$G_{j-1}$递推而来</p>
+<p><strong>定义：</strong>字符串$y$是字符串$x$的<code>border</code>当且仅当$y$同时是$x$的前缀和后缀，如果$y\not=x$，我们称$y$是<strong>非平凡</strong>的。下面的定理建立了<code>border</code>与回文串的联系</p>
+<h2 id="定理1"><a href="#定理1" class="headerlink" title="定理1"></a>定理1</h2><blockquote>
+<p>令$y$是回文串$x$的一个后缀，$y$是$x$的<code>border</code>当且仅当$y$是一个回文串</p>
+</blockquote>
+<p>证明显然</p>
+<h2 id="定理2"><a href="#定理2" class="headerlink" title="定理2"></a>定理2</h2><blockquote>
+<p>假设$y$是$x$的一个<code>border</code>，并且$|x|\leq 2|y|$，那么$x$是一个回文串当且仅当$y$是一个回文串</p>
+</blockquote>
+<p>证明也很显然</p>
+<p><strong>定义：</strong>当正整数$p$满足$p\leq |x|$且存在一个长度为$p$的字符串$w$，使得$x$是$w^\infty$的子串时，我们称$p$是$x$的一个<strong>周期</strong></p>
+<p>一个众所周知的事实是当$y$是$x$的一个非平凡<code>border</code>时，$|x|-|y|$是$x$的一个周期</p>
+<p>根据以上的两个定理，我们可以得出定理3</p>
+<h2 id="定理3"><a href="#定理3" class="headerlink" title="定理3"></a>定理3</h2><blockquote>
+<p>令$y$是回文串$x$的一个非平凡<code>border</code>，那么$|x|-|y|$是$x$的一个周期当且仅当$y$是回文的。</p>
+<p>特别地，$|x|-|y|$是$x$的最小周期当且仅当$y$是$x$的最长非平凡<code>border</code></p>
+</blockquote>
+<h2 id="定理4"><a href="#定理4" class="headerlink" title="定理4"></a>定理4</h2><blockquote>
+<p>$x$是一个回文串，$y$是$x$的最长非平凡<code>border</code>，$z$是$y$的最长非平凡<code>border</code>，令$u,v$是满足$x=uy,y=vz$的两个字符串，那么有</p>
+<ol>
+<li>$|u|\geq|v|$</li>
+<li>如果$|u|&gt;|v|$，则$|u|&gt;|z|$</li>
+<li>如果$|u|=|v|$，则$u=v$</li>
+</ol>
+</blockquote>
+<p><img src="https://i.loli.net/2019/08/10/dePGkKgiTH8IRwV.png" alt></p>
+<p><img src="https://i.loli.net/2019/08/10/hA8YVoKgqumtcSw.png" alt="1565428566073.png"></p>
+<p><strong>证明：</strong></p>
+<ol>
+<li><p>根据<strong>定理3</strong>，$|u|=|x|-|y|$是$x$的最小周期，$|v|=|y|-|z|$是$y$的最小周期。由于$y$是$x$的子串，因此，要么$|u|&gt;|y|&gt;|v|$，要么$|u|$也是$|y|$的一个周期，并且$|u|\geq|v|$</p>
+<p> 由于$y$是$x$的<code>border</code>，因此当$|y|\geq|u|$时可以得出$u$是$y$的<code>border</code>，由于$z$是$y$的最长非平凡<code>border</code>，根据<strong>定理3</strong>，$v$是$y$的最小周期，故此时$|u|\geq|v|$</p>
+</li>
+<li><p>显然$v$是$x$的前缀，我们设$x=vw$，那么$|z|$是$w$的周期，并且$|w|=|z|+|u|$。假设$|z|\geq|u|$，那么有$|w|\leq 2|z|$，根据<strong>定理2</strong>，可以得出$w$是回文串，这与$y$是$x$的最长回文后缀矛盾。因此$|u|&gt;|z|$</p>
+</li>
+<li><p>根据2可以得到$v$是$x$的前缀，如果$|u|=|v|$，显然有$u=v$</p>
+</li>
+</ol>
+<p><strong>定义：</strong>令$P_j=\{p_1,p_2,\cdots,p_m\}$，其中$p_1&lt;p_2&lt;\cdots&lt;p_m$。我们定义$p_i-p_{i-1}$为一个<strong>间隔</strong>，注意这里是向前差分</p>
+<h2 id="定理5"><a href="#定理5" class="headerlink" title="定理5"></a>定理5</h2><blockquote>
+<p>$P_j$的间隔序列是递减的，并且最多只有严格$O(\log j)$个不同的间隔</p>
+</blockquote>
+<p><strong>证明：</strong>对于任意的$i\in[2\cdots m-1]$，我们令$x=S[p_{i-1}\cdots j],y=S[p_j\cdots j],z=S[p_{j+1}\cdots j]$，这三个串的间隔为$|u|,|v|$。根据<strong>定理4</strong>，如果在这里间隔改变了，那么一定有$|u|&gt;|v|$，则$|x|&gt;|u|+|z|&gt;2|z|$，回文后缀的长度至少会减少一半，因此这样的情形最多发生$O(\log j)$次</p>
+<p>我们会根据$P_j$的间隔将其划分成$O(\log j)$个连续的子集。对于正整数$\Delta$，我们<strong>定义</strong>$P_{j,\Delta}=\{p_i:1&lt;i\leq m,p_i-p_{i-1}=\Delta\}$，且$P_{j,\infty}=\{p_1\}$。每个非空的$P_{j,\Delta}$都可以被三元组$(\min P_{j,\Delta},\Delta,|P_{j,\Delta}|)$表示。我们<strong>定义</strong>$G_j$表示这些三元组按照$\Delta$构成的递减序列。</p>
+<p>列表$G_j$仅用$O(\log j)$的空间就完全代表了$P_j$，我们会证明$G_j$可以在$O(|G_{j-1}|)$的时间内由$G_{j-1}$递推而来。在这个算法中，对于$P_{j-1}$中的每一个元素$i$，在$P_j$中要么被淘汰，要么被$i-1$替换。下面的定理说明了如何同时决定$P_{j-1,\Delta}$中的所有元素哪些应该被淘汰，哪些应该被替换。</p>
+<h2 id="定理6"><a href="#定理6" class="headerlink" title="定理6"></a>定理6</h2><blockquote>
+<p>$p_i,p_{i+1}$是$P_{j-1,\Delta}$中的两个连续的元素，那么$p_i-1\in P_j$当且仅当$p_{i+1}-1\in P_j$</p>
+</blockquote>
+<p><strong>证明：</strong>根据定义，$p_{i+1}-p_i=\Delta$，$p_i$的前驱是$p_{i-1}=p_i-\Delta$。根据<strong>定理4</strong>，这意味着$S[p_i-1]=S[p_{i+1}-1]=c$，从而$p_i-1\in P_j$当且仅当$S[j]=c$，即$p_{i+1}-1\in P_j$ </p>
+<p>因此，当我们计算$G_j$时，每一个三元组$(i,\Delta,k)\in G_{j-1}$要么被淘汰，要么被替换成$(i-1,\Delta,k)$，最终得到的序列为<br>$$<br>G’_j=\{(i-1,\Delta,k):(i,\Delta,k)\in G_{j-1},i&gt;1且S[i-1]=S[j]\}<br>$$<br>这表示了在$P_j$中所有长度大于$2$的回文串</p>
+<p>但是，这些$G’_j$中的三元组不一定完美地与最终的$P_{j,\Delta}$对应，因为有些间隔可能改变了。特别地，如果在$P_{j-1,\Delta}$中最小的元素$p_i$被替换成了$p_i-1$，但是它的前驱$p_{i-1}=p_i-\Delta$被淘汰了，那么$p_i-1$就不应该出现在$P_{j,\Delta}$中，因为间距变化了。注意只有每个组中最小的元素可能被影响，因此我们将第一个元素分裂出来。即，将$(p_i-1,\Delta,k)$分裂成$(p_i-1,\Delta’,1)$和$(p_i-1+\Delta,\Delta,k-1)$，这里的$\Delta’$表示$p_i-1$在$P_j$中的新的间隔。我们还会添加单独的三元组来表示长度为$1,2$的回文串</p>
+<p>我们令$G’’_j$表示经过上述操作之后的$G’_j$，它恰好代表了每一个在$P_j$中的回文串，并且此时$\Delta$的值是正确的，但是$G’’_j$中可能有一些三元组的$\Delta$相同。因此我们将$G’’_j$中$\Delta$相同的三元组合并来得到最终的$G_j$</p>
+<p><img src="https://i.loli.net/2019/08/10/WOnfGmRlDtUVKsc.png" alt="1565432215207"></p>
+<h2 id="定理7"><a href="#定理7" class="headerlink" title="定理7"></a>定理7</h2><blockquote>
+<p>$G_j$可以在$O(|G_{j-1}|)$的时间内由$G_{j-1}$转移而来</p>
+</blockquote>
+<h1 id="更快地求解"><a href="#更快地求解" class="headerlink" title="更快地求解"></a>更快地求解</h1><p>在这一节中，我们会展示如何在$O(|G_{j}|)$的时间内根据$PL[0\cdots j-1]$计算$PL[j]$。快速计算$G_j$的关键是利用$P_{j,\Delta}$与$P_{j-1,\Delta}$之间的密切关系，现在我们会依赖于由以下结论所揭示的$P_j,\Delta$与$P_{j-\Delta,\Delta}$之间的关系</p>
+<h2 id="定理8"><a href="#定理8" class="headerlink" title="定理8"></a>定理8</h2><blockquote>
+<p>如果$(i,\Delta,k)\in G_j$，且$k\geq 2$，则$(i,\Delta,k-1)\in G_{j-\Delta}$</p>
+</blockquote>
+<p><strong>证明：</strong>根据定义，$(i,\Delta,k)\in G_j$等价于$P_{j,\Delta}=\{i,i+\Delta,\cdots,i+(k-1)\Delta\}$，我们需要证明$P_{j-\Delta,\Delta}=\{i,i+\Delta,\cdots,i+(k-2)\Delta\}$。我们会先证明$P_{j-\Delta,\Delta}\cap|i-\Delta+1\cdots j-\Delta|=\{i,i+\Delta,\cdots,i+(k-2)\Delta\}$，接着我们会证明$P_{j-\Delta,\Delta}\cap|1\cdots i-\Delta|=\emptyset$</p>
+<p><img src="https://i.loli.net/2019/08/10/hIdClEXD9So8Bqy.png" alt="1565433244361"></p>
+<p>我们知道$y=S[i\cdots j]$与$x=S[i-\Delta\cdots j]$都是回文的，并且$y$是$x$的最长非平凡<code>border</code>，$S[i-\Delta\cdots j-\Delta]=y=S[i\cdots j]$。因此对于任意的$l\in[i\cdots j]$，$i\in P_j$当且仅当$l-\Delta\in P_{j-\Delta,\Delta}$。所以我们可以得出$P_{j-\Delta,\Delta}\cap|i-\Delta+1\cdots j-\Delta|=\{i,i+\Delta,\cdots,i+(k-2)\Delta\}$</p>
+<p>我们还需要证明$P_{j-\Delta,\Delta}\cap|1\cdots i-\Delta|=\emptyset$，当且仅当$i-2\Delta\not\in P_{j-\Delta}$时成立。我们使用反证法，假设$i-2\Delta\in P_{j-\Delta}$，那么$S[i-2\Delta\cdots j-\Delta]$是回文串。我们令$w=S[i-2\Delta\cdots i-\Delta-1]$，那么$S[j-2\Delta+1\cdots j-\Delta]=w^R$，即$w$的反串。令$z=S[i-\Delta\cdots j-\Delta]$，而$S[i-\Delta\cdots j]$也是一个回文串，因此有$S[i-\Delta\cdots i-1]=w$以及$S[j-\Delta+1\cdots j]=w^R$。最后，$z$也是一个回文串，$S[i-2\Delta\cdots j]=wzw^R$是回文串，这意味着$i-\Delta\in P_j$，与$(i,\Delta,k)\in G_j$矛盾</p>
+<p>根据以上的定理，$P_{j,\Delta}=P_{j-\Delta,\Delta}\cup\{\max P_{j,\Delta}\}$在$|P_{j,\Delta}|\geq2$时成立。那么我们可以在常数时间内计算$PL_{j,\Delta}=\min\{PL[i-1]+1:i\in P_{j,\Delta}\}$，让其由$PL_{j-\Delta,\Delta}$转移而来。我们会将$PL_{j,\Delta}$的值保存在数组$GPL[1\cdots n]$的第$m=\min P_{j,\Delta}-\Delta$项中。注意到$m$是$\min P_{j,\Delta}$在$P_j$中的前驱，并且当$|P_{j,\Delta}|\geq 2$时，$PL_{j-\Delta,\Delta}$也是保存在这个位置。接下来的定理说明了这个位置在第$j-\Delta$轮至第$j$轮中，不会被其他数覆写。</p>
+<h2 id="定理9"><a href="#定理9" class="headerlink" title="定理9"></a>定理9</h2><blockquote>
+<p>令$m=\min P_{j,\Delta}-\Delta$，那么对于任意的$l\in[j-\Delta+1\cdots j-1],m\not\in P_l$</p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/08/10/IkzS8O4lF3oLANG.png" alt="1565441130156"></p>
+<p><strong>证明：</strong>使用反证法，假设存在$l\in[j-\Delta+1\cdots j-1]$使得$m\in P_l$，即$S[m\cdots l]$是回文的。令$h=l-j+\Delta$，那么$S[m+h\cdots l-h]$是回文的，而$m&lt;m+h&lt;m+\Delta=\min P_{j-\Delta,\Delta}$，这意味着$m+h$是$\min P_{j-\Delta,\Delta}$的前驱，而非$m$，且$\min P_{j-\Delta,\Delta}\not\in P_{j-\Delta,\Delta}$，矛盾</p>
+<h2 id="定理10"><a href="#定理10" class="headerlink" title="定理10"></a>定理10</h2><blockquote>
+<p>可以在$O(n\log n)$的时间，以及$O(n)$的空间内得出一个串的最小回文划分数</p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/字符串/" rel="tag"># 字符串</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div class="social_share">
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/16/6-6NOI模拟/" rel="next" title="6.6NOI模拟">
+                <i class="fa fa-chevron-left"></i> 6.6NOI模拟
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/hh.jpg" alt="An_Account">
+            
+              <p class="site-author-name" itemprop="name">An_Account</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">62</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">73</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/0x131cc05" title="GitHub &rarr; https://github.com/0x131cc05" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://www.luogu.org/space/show?uid=39914" title="Luogu &rarr; https://www.luogu.org/space/show?uid=39914" rel="noopener" target="_blank"><i class="fa fa-fw fa-code"></i>Luogu</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:0x131cc05@gmail.com" title="E-Mail &rarr; mailto:0x131cc05@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://plus.google.com/0x131cc05" title="Google &rarr; https://plus.google.com/0x131cc05" rel="noopener" target="_blank"><i class="fa fa-fw fa-google"></i>Google</a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.luogu.org/space/show?uid=27329" title="https://www.luogu.org/space/show?uid=27329" rel="noopener" target="_blank">ZJK</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Minimum-Palindromic-Factorization"><span class="nav-number">1.</span> <span class="nav-text">Minimum Palindromic Factorization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个简单的算法"><span class="nav-number">2.</span> <span class="nav-text">一个简单的算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更快地计算回文串"><span class="nav-number">3.</span> <span class="nav-text">更快地计算回文串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定理1"><span class="nav-number">3.1.</span> <span class="nav-text">定理1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理2"><span class="nav-number">3.2.</span> <span class="nav-text">定理2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理3"><span class="nav-number">3.3.</span> <span class="nav-text">定理3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理4"><span class="nav-number">3.4.</span> <span class="nav-text">定理4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理5"><span class="nav-number">3.5.</span> <span class="nav-text">定理5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理6"><span class="nav-number">3.6.</span> <span class="nav-text">定理6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理7"><span class="nav-number">3.7.</span> <span class="nav-text">定理7</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更快地求解"><span class="nav-number">4.</span> <span class="nav-text">更快地求解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定理8"><span class="nav-number">4.1.</span> <span class="nav-text">定理8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理9"><span class="nav-number">4.2.</span> <span class="nav-text">定理9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理10"><span class="nav-number">4.3.</span> <span class="nav-text">定理10</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">An_Account</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.7.0</div>
+
+
+
+
+<div class="theme-info">
+	<div class="powered-by"></div>
+	<span class="post-count">全站共120.6k字</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,0" opacity="0.8" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.7.0"></script>
+
+  <script src="/js/src/motion.js?v=6.7.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.7.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.7.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.7.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.11.1/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item) > -1;
+    });
+    new Valine({
+      el: '#comments' ,
+      verify: false,
+      notify: false,
+      appId: 'h21LcAtR4Yvc0Cev5uJRiHO5-gzGzoHsz',
+      appKey: 'c6FEm48m1TF6zh9kJ2hlnGYA',
+      placeholder: 'Just go go',
+      avatar: 'mm',
+      meta:guest,
+      pageSize: '10' || 10,
+      visitor: false
+    });
+  </script>
+
+
+
+
+  
+
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+      <script type="text/x-mathjax-config">
+  
+
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+      
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+      for (i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+<script src="//cdn.jsdelivr.net/npm/mathjax@2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<style>
+.MathJax_Display {
+  overflow: auto hidden;
+}
+</style>
+
+    
+  
+
+
+  
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+  <script>
+    
+      pbOptions = {};
+      
+        pbOptions.iconStyle = "box";
+      
+        pbOptions.boxForm = "horizontal";
+      
+        pbOptions.position = "bottomCenter";
+      
+        pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap');
+      $(e).after($wrap);
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text();
+        }).toArray().join('\n');
+        var ta = document.createElement('textarea');
+        var range = document.createRange(); //For Chrome
+        var sel = window.getSelection(); //For Chrome
+        var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+        ta.style.top = yPosition + 'px'; //Prevent page scroll
+        ta.style.position = 'absolute';
+        ta.style.opacity = '0';
+        ta.value = code;
+        ta.textContent = code; //For FireFox
+        ta.contentEditable = true;
+        ta.readOnly = false;
+        document.body.appendChild(ta);
+        range.selectNode(ta);
+        sel.removeAllRanges();
+        sel.addRange(range);
+        ta.setSelectionRange(0, code.length);
+        var result = document.execCommand('copy');
+        
+          if (result) $(this).text('复制成功');
+          else $(this).text('复制失败');
+        
+        ta.blur(); //For iOS
+        $(this).blur();
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn');
+        setTimeout(function () {
+          $b.text('复制');
+        }, 300);
+      }).append(e);
+    })
+  </script>
+
+
+  
+
+</body>
+</html>
