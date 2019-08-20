@@ -382,6 +382,201 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/28/3-27省选模拟/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/28/3-27省选模拟/" class="post-title-link" itemprop="url">3.27省选模拟</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-28 19:25:02" itemprop="dateCreated datePublished" datetime="2019-03-28T19:25:02+08:00">2019-03-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-01 20:01:40" itemprop="dateModified" datetime="2019-04-01T20:01:40+08:00">2019-04-01</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/28/3-27省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/28/3-27省选模拟/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              T1 白
+
+不会，先贴上题解
+
+
+	
+    
+	
+
+
+
+T2 胖
+
+比较简单的一道题
+由于$X\leq 32768$，所以一次修改会影响的层数不超过15层
+考虑到在一次修改中，同一层所减少的权值是相同的，那么我们可以对于每一层都开一棵线段树
+但是这样会涉及到重复统计的问题
+比如当前已经更新了$u$，现在要更新它的父亲$f$的子树
+但是此时$u$的子树已经被更新了一遍，在处理$f$的子树时不需要再考虑$u$的子树
+我们知道子树中的dfs序是连续的
+那么对于每一层我们可以按照dfs序排序，这样修改只会改一段连续的区间
+对于每个区间我们维护一个区间最小值来处
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/28/3-27省选模拟/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/27/3-26省选模拟/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2036,171 +2231,6 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/14/3-8省选模拟-冬至/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="An_Account">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/hh.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="An_Account's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/14/3-8省选模拟-冬至/" class="post-title-link" itemprop="url">3.8省选模拟 冬至</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-14 10:17:01 / 修改时间：20:27:38" itemprop="dateCreated datePublished" datetime="2019-03-14T10:17:01+08:00">2019-03-14</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/03/14/3-8省选模拟-冬至/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/14/3-8省选模拟-冬至/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              
-我们设$t_n$表示长度为$n$时的答案，$s_n$表示最后$k$个字符是一个给定的排列，在位置$n-1$时都合法的方案数
-我们考虑两个基本的式子$$\begin{gather}t_n=kt_{n-1}-k!s_n   (1)\\\t_n=\sum_{i=1}^{k}(k-i)!s_{n+i}  (2)\end{gather}$$对于第一个式子，我们在$t_{n-1}$后面随便加一种字符，然后减去不合法的情况，即$k!s_n$，这里枚举了最后$k$个字符分别是什么
-对于第二个式子，我们尝试在$t_n$之后依次加上$1,2,3,\cdots,k$，枚举在
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/14/3-8省选模拟-冬至/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2250,7 +2280,7 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">63</span>
+                    <span class="site-state-item-count">64</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2546,7 +2576,7 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共122.3k字</span>
+	<span class="post-count">全站共123.8k字</span>
 </div>
 
         

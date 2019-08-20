@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[NOI赛前集训day2]]></title>
+    <url>%2F2019%2F08%2F20%2FNOI%E8%B5%9B%E5%89%8D%E9%9B%86%E8%AE%ADday2%2F</url>
+    <content type="text"><![CDATA[T1 我的方法做麻烦了 考虑枚举$S$中最远的两个点的横纵坐标之差$(w,h)$ 我们强制让这两个点必须选 答案为$$2\sum_{w=1}^W\sum_{h=1}^H{\gcd(w,h)-1\choose n-2}(W-w)(H-h)+H{W\choose N}+W{H\choose N}$$显然最后两项是常数，先不管 接着枚举$\gcd$，开始反演$$=2\sum_{d=1} ^ {w} {d-1\choose n-2} \sum_{w=1}^{\lfloor\frac{W}{d}\rfloor} \sum_{h=1} ^ {\lfloor\frac{H}{d}\rfloor}[\gcd(w,h)=1] (W-wd)(H-hd)\\=2\sum_{d=1}^w{d-1\choose n-2}\sum_{l=1}^{\lfloor\frac {W}{d}\rfloor}\mu(l)F(dl)$$其中$F(x)=\sum_{i=1}^{\frac {W}{x}}\sum_{j=1}^{\frac {H}{x}}(W-i)(H-j)$，可以$O(1)$计算 设$T=dl$ 那么原式为$$=2\sum_{T=1}^WF(T)\sum_{d|T}{d-1\choose n-2}\mu(\frac Td)$$然后就可以$O(n\log n)$计算了 这里贴一下我考试时的代码 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253#include &lt;bits/stdc++.h&gt;using namespace std;typedef long long LL;const int N = 100010;int flag[N], prime[N], mu[N], pcnt, frac[N], inv[N];inline void sieve(int n) &#123; mu[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; if (!flag[i]) prime[++pcnt] = i, mu[i] = -1; for (int j = 1; j &lt;= pcnt &amp;&amp; i * prime[j] &lt;= n; j++) &#123; flag[i * prime[j]] = 1; if (i % prime[j] == 0) break; mu[i * prime[j]] = -mu[i]; &#125; &#125;&#125;const int mod = 323232323;inline int Pow(int x, int y) &#123; int res = 1; for (; y; y &gt;&gt;= 1, x = (LL)x * x % mod) if (y &amp; 1) res = (LL)res * x % mod; return res;&#125;inline int C(int n, int r) &#123; if (n &lt; r) return 0; return (LL)frac[n] * inv[r] % mod * inv[n - r] % mod;&#125;inline void pre(int n) &#123; sieve(n), frac[0] = inv[0] = 1; for (int i = 1; i &lt;= n; i++) frac[i] = (LL)frac[i - 1] * i % mod; inv[n] = Pow(frac[n], mod - 2); for (int i = n - 1; i &gt;= 0; i--) inv[i] = (LL)inv[i + 1] * (i + 1) % mod;&#125;inline int S(int a) &#123;return (LL)a * (a + 1) / 2 % mod;&#125;inline int F(int n, int d) &#123; int len = n / d; return ((LL)n * len - (LL)S(len) * d + len) % mod;&#125;int tmp[N], ans[N];int main() &#123; int n, m, p, orz, res = 0; cin &gt;&gt; n &gt;&gt; m &gt;&gt; p; if (p == 1) return cout &lt;&lt; (LL)n * m % mod, 0; pre(max(n, m)), p--, n--, m--, orz = min(n, m); for (int i = orz, sum = 0, sum2 = 0; i &gt;= p; i--) &#123; tmp[i] = (LL)F(n, i) * F(m, i) % mod; int hh = 0, t; for (int j = i; j &lt;= orz; j += i) hh = (hh + mu[j / i] * tmp[j]) % mod; ans[i] = hh; ans[i] = (ans[i] - sum2 + (LL)(i - 1) * sum) % mod; sum2 = (sum2 + (LL)ans[i] * i) % mod, sum = (sum + ans[i]) % mod; res = (res + (LL)ans[i] * C(i + 1, p + 1)) % mod; &#125; res = res * 2 % mod, res = (res + (LL)C(n + 1, p + 1) * (m + 1) + (LL)C(m + 1, p + 1) * (n + 1)) % mod; cout &lt;&lt; res &lt;&lt; endl;&#125; T2 我们先考虑第一问 显然我们可以贪心，每次选择未被覆盖的区间中右端点最靠左的区间，选择这个区间的右端点覆盖 考虑如何才能保证“包含的点数最少” 之前我们选出的点将数轴划分成了很多段，除了最靠右的那一段，其它每段都应选择恰好一个点 如果一段中没有被点覆盖，那么至少存在一个区间没有被覆盖 如果一段中的点数多余1，那么选中的点数就不是最少的 考虑最终答案中相邻的两个被选出的点$i,j$ 对于所有中点在$(j,i]$的区间，重点小于等于$\frac{i+j}{2}$的区间会被$j$覆盖，否则被$i$覆盖 我们在计算$i$时考虑这个贡献，计算最终答案时要考虑那些中点在最后一个点右边的区间 用query(p, l, r)表示仅考虑中点在$[l,r]$的区间，如果选择$p$这个点覆盖的代价 从而我们可以计算出cost(i, j)表示这次选择的代价 注意到cost满足四边形不等式 因此我们可以使用决策单调性优化 对每一段我们都单独拿出来做决策单调性，从上一段转移而来 代码如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 500010, M = N * 2;typedef long long LL;struct zjk &#123; int l, r; bool operator &lt; (const zjk &amp;b) const &#123;return r &lt; b.r;&#125;&#125; d[N];int n, fuck[M]; LL sum[2][M], dp[M]; vector&lt;int&gt; pos;inline void solve() &#123; pos.push_back(0); for (int i = 1, ls = 0; i &lt;= n; i++) if (d[i].l &gt; ls) ls = d[i].r, pos.push_back(d[i].r); printf("%d\n", pos.size() - 1);&#125;inline LL query(int p, int l, int r) &#123;return abs(sum[1][r] - sum[1][l] - (sum[0][r] - sum[0][l]) * 2 * p);&#125;inline LL cost(int a, int b) &#123; int mid = (a + b) &gt;&gt; 1; return query(a, a, mid) + query(b, mid, b);&#125;void solve(int l, int r, int L, int R) &#123; if (l &gt; r) return; if (l == r) &#123; dp[l] = 1e18; for (int i = L; i &lt;= R; i++) dp[l] = min(dp[l], dp[i] + cost(i, l)); return; &#125; int mid = (l + r) &gt;&gt; 1, pos = L; dp[mid] = 1e18; for (int i = max(fuck[mid], L); i &lt;= R; i++) &#123; LL tmp = dp[i] + cost(i, mid); if (tmp &lt; dp[mid]) dp[mid] = tmp, pos = i; &#125; solve(l, mid - 1, L, pos), solve(mid + 1, r, pos, R);&#125;inline void solve2() &#123; int mx = 0; for (int i = 1; i &lt;= n; i++) &#123; mx = max(mx, d[i].r); fuck[d[i].r + 1] = max(fuck[d[i].r + 1], d[i].l); int mid = (d[i].l + d[i].r) &gt;&gt; 1; sum[0][mid]++, sum[1][mid] += d[i].r + d[i].l; &#125; for (int i = 1; i &lt;= mx; i++) &#123; fuck[i] = max(fuck[i], fuck[i - 1]); sum[0][i] += sum[0][i - 1], sum[1][i] += sum[1][i - 1]; &#125; int s = pos.size(); for (int i = 1; i &lt;= pos[1]; i++) dp[i] = query(i, 1, i); for (int i = 2; i &lt; s; i++) solve(pos[i - 1] + 1, pos[i], pos[i - 2] + 1, pos[i - 1]); LL ans = 1e18; for (int i = pos[s - 2] + 1; i &lt;= pos[s - 1]; i++) ans = min(ans, dp[i] + query(i, i, mx)); printf("%lld\n", ans / 2);&#125;int main() &#123; scanf("%d", &amp;n); for (int i = 1; i &lt;= n; i++) scanf("%d%d", &amp;d[i].l, &amp;d[i].r), d[i].l *= 2, d[i].r *= 2; sort(d + 1, d + n + 1), solve(), solve2();&#125; T3 不太会啊。。。 贴一下题解]]></content>
+      <tags>
+        <tag>动态规划</tag>
+        <tag>数学</tag>
+        <tag>题解</tag>
+        <tag>总结</tag>
+        <tag>莫比乌斯反演</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[NOI赛前集训day1]]></title>
     <url>%2F2019%2F08%2F17%2FNOI%E8%B5%9B%E5%89%8D%E9%9B%86%E8%AE%ADday1%2F</url>
     <content type="text"><![CDATA[T1 挖矿题 首先我们将这个三角形的图转成正方形，空白处补0 当$k=1$的时候答案就是第一行与第一列的前缀最大值之和 接下来我们讨论$k=2$的情况 最终的答案一定是每行每列选出一个前缀，使得这些前缀互不相交 我们枚举最后第一行与第一列选了哪个前缀，那么剩下的前缀一定是挂在这一行一列上面的 dp[i][j]表示只考虑左上角$[2\cdots i][2\cdots j]$的这个矩阵，选出的前缀不相交且不超过$i,j$边界的最大值 转移的时候枚举最后一行/最后一列 注意只有在枚举出的那个第一行与第一列的前缀下面才能挂另外的前缀 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 55;typedef long long LL;int v[N][N]; LL mx[2][N][N], sum[2][N][N], dp[N][N];int main() &#123;// freopen("biggest.in", "r", stdin), freopen("biggest.out", "w", stdout); int T; scanf("%d", &amp;T); while (T--) &#123; int n, k; scanf("%d%d", &amp;n, &amp;k); memset(v, 0, sizeof(v)), memset(mx, 0, sizeof(mx)), memset(sum, 0, sizeof(sum)); for (int i = 2; i &lt;= n; i++) for (int j = 1; j &lt;= i; j++) scanf("%d", &amp;v[i - j + 1][j]); LL ans = 0, t1 = 0, t2 = 0; for (int i = n; i &gt;= 1; i--) t1 = v[1][i] + max(0ll, t1), t2 = v[i][1] + max(0ll, t2); ans = t1 + t2; if (k == 1) &#123;printf("%lld\n", ans); continue;&#125; for (int i = 1; i &lt;= n; i++) sum[0][1][i] = sum[0][1][i - 1] + v[1][i], sum[1][i][1] = sum[1][i - 1][1] + v[i][1]; for (int i = 2; i &lt;= n; i++) for (int j = 2; j &lt;= n; j++) &#123; sum[0][i][j] = sum[1][i][j] = v[i][j]; if (j != 2) sum[0][i][j] += sum[0][i][j - 1]; if (i != 2) sum[1][i][j] += sum[1][i - 1][j]; &#125; for (int i = 2; i &lt;= n; i++) for (int j = 2; j &lt;= n; j++) &#123; mx[0][i][j] = max(mx[0][i][j - 1], sum[0][i][j]); mx[1][i][j] = max(mx[1][i - 1][j], sum[1][i][j]); &#125; for (int i = 1; i &lt;= n; i++) for (int j = 1; j &lt;= n; j++) &#123; for (int k = 1; k &lt;= n; k++) for (int l = 1; l &lt;= n; l++) &#123; dp[k][l] = max(dp[k - 1][l], dp[k][l - 1]); if (k &lt;= i) dp[k][l] = max(dp[k][l], mx[0][k][l] + dp[k - 1][l]); if (l &lt;= j) dp[k][l] = max(dp[k][l], mx[1][k][l] + dp[k][l - 1]); ans = max(ans, sum[0][1][j] + sum[1][i][1] + dp[k][l]); &#125; &#125; printf("%lld\n", ans); &#125;&#125; T2 大水题 一道很有趣的题 我们采用这样的策略：枚举最终水形成的连通块，二分出这个连通块的最高水位 我们现在要将这个区间左边以及右边的水全部汇聚到这个区间，但是有可能出现下面的情况 蓝色代表水，灰色代表泥土，现在要将水运到最右边的区间内 显然中间的橙色部分需要被挖去，才能让水流过去 因此，我们找到最左边以及最右边的水，然后依次扫过去，用一个变量记录当前最低高度，如果下一块泥土大于当前最低高度则需要被挖走 于是我们可以得出最终需要挖走的泥土的数量，对于区间外的泥土直接计算，对于区间内的泥土，数量为总水量加上区间内的泥土数量减去区间长度乘以水位高度 由于时间复杂度为$n^2\log n$，需要卡一下常 未卡常的代码如下 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 5010;int h[N], d[N], n;inline bool check(const int &amp;l, const int &amp;r, const double &amp;mid) &#123; double tmp = 0; for (int i = 1; i &lt; l; i++) tmp += d[i]; for (int i = n; i &gt; r; i--) tmp += d[i]; for (int i = l; i &lt;= r; i++) if (h[i] + d[i] &lt; mid) tmp -= mid - h[i] - d[i]; else if (h[i] &lt; mid) tmp += h[i] + d[i] - mid; else tmp += d[i]; return tmp &gt;= 0;&#125;int main() &#123; int T; cin &gt;&gt; T; while (T--) &#123; cin &gt;&gt; n; double ans = 1e18; if (n &gt;= 800) exit(0); for (int i = 1; i &lt;= n; i++) cin &gt;&gt; h[i]; for (int i = 1; i &lt;= n; i++) cin &gt;&gt; d[i]; h[0] = h[n + 1] = 1e9; for (int i = 1; i &lt;= n; i++) for (int j = i; j &lt;= n; j++) &#123; int hh = 1e9; double res = 0; for (int k = 1; k &lt; i; k++) if (d[k]) &#123; int ls = h[k]; for (int l = k + 1; l &lt; i; l++) &#123; if (h[l] &gt; ls) res += h[l] - ls; else ls = h[l]; &#125; hh = min(hh, ls); break; &#125; for (int k = n; k &gt; j; k--) if (d[k]) &#123; int ls = h[k]; for (int l = k - 1; l &gt; j; l--) &#123; if (h[l] &gt; ls) res += h[l] - ls; else ls = h[l]; &#125; hh = min(hh, ls); break; &#125; double l = -1e9, r = min(hh, min(h[i - 1], h[j + 1])), mid, tot; while (fabs(r - l) &gt; 1e-6) &#123; if (check(i, j, mid = (l + r) / 2)) l = mid; else r = mid; &#125; tot = -l * (j - i + 1); for (int k = 1; k &lt;= n; k++) &#123; if (k &lt; i || k &gt; j) tot += d[k]; else tot += h[k] + d[k]; &#125; res += tot; ans = min(ans, res); &#125; printf("%.4f\n", ans); &#125;&#125; 卡常之后的代码如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 5010;int h[N], d[N], n, sum[2][1010][N], zjk, mn[2][N], w[2][N], pre[N]; double eps = 1e-6;inline bool check(const int &amp;l, const int &amp;r, const double &amp;mid) &#123; double tmp = zjk; int hh = floor(mid); tmp += sum[1][hh][r] - sum[1][hh][l - 1] - mid * (sum[0][hh][r] - sum[0][hh][l - 1]); return tmp &gt;= -eps;&#125;#define RG registerint main() &#123; int T; scanf("%d", &amp;T); while (T--) &#123; scanf("%d", &amp;n), zjk = 0; double ans = 1e18; for (int i = 1; i &lt;= n; i++) scanf("%d", &amp;h[i]), pre[i] = pre[i - 1] + h[i]; for (int i = 1; i &lt;= n; i++) scanf("%d", &amp;d[i]), zjk += d[i]; for (int i = 1; i &lt;= n; i++) &#123; for (RG int j = h[i]; j &lt;= 1000; ++j) sum[0][j][i] = sum[0][j][i - 1] + 1; for (RG int j = 0; j &lt; h[i]; ++j) sum[0][j][i] = sum[0][j][i - 1]; for (RG int j = h[i]; j &lt;= 1000; ++j) sum[1][j][i] = sum[1][j][i - 1] + h[i]; for (RG int j = 0; j &lt; h[i]; ++j) sum[1][j][i] = sum[1][j][i - 1]; &#125; mn[0][0] = mn[1][n + 1] = 1e3, w[0][0] = w[1][n + 1] = 0; for (int i = 1, flg = false, ls = 1e3; i &lt;= n; i++) &#123; if (!flg &amp;&amp; d[i]) flg = true, ls = h[i]; mn[0][i] = h[i], w[0][i] = 0; if (!flg) continue; ls = min(ls, h[i]), mn[0][i] = ls, w[0][i] = w[0][i - 1] + h[i] - ls; &#125; for (int i = n, flg = false, ls = 1e3; i &gt;= 1; i--) &#123; if (!flg &amp;&amp; d[i]) flg = true, ls = h[i]; mn[1][i] = h[i], w[1][i] = 0; if (!flg) continue; ls = min(ls, h[i]), mn[1][i] = ls, w[1][i] = w[1][i + 1] + h[i] - ls; &#125; for (int i = 1; i &lt;= n; i++) for (int j = i; j &lt;= n; j++) &#123; double res = w[0][i - 1] + w[1][j + 1] + zjk + pre[j] - pre[i - 1]; double l = 0, r = min(mn[0][i - 1], mn[1][j + 1]), mid, tot, p = 0; if (res - r * (j - i + 1) &gt;= ans) continue; while (fabs(r - l) &gt; eps) &#123; if (check(i, j, mid = (l + r) / 2)) l = mid + eps, p = mid; else r = mid - eps; &#125; res += -p * (j - i + 1), ans = min(ans, res); &#125; printf("%.4f\n", ans); &#125;&#125; T3 套路题 不会啊。。先贴上题解吧]]></content>
@@ -120,9 +132,9 @@
       <tags>
         <tag>题解</tag>
         <tag>总结</tag>
+        <tag>多项式</tag>
         <tag>LCT</tag>
         <tag>数据结构</tag>
-        <tag>多项式</tag>
         <tag>线段树</tag>
         <tag>平衡树</tag>
         <tag>FFT</tag>
@@ -261,8 +273,8 @@
       <tags>
         <tag>题解</tag>
         <tag>数据结构</tag>
-        <tag>二进制</tag>
         <tag>线段树</tag>
+        <tag>二进制</tag>
       </tags>
   </entry>
   <entry>
@@ -287,8 +299,8 @@
         <tag>题解</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>二进制</tag>
         <tag>期望</tag>
+        <tag>二进制</tag>
         <tag>矩阵乘法</tag>
       </tags>
   </entry>
@@ -302,8 +314,8 @@
         <tag>总结</tag>
         <tag>数据结构</tag>
         <tag>最短路</tag>
-        <tag>期望</tag>
         <tag>分治</tag>
+        <tag>期望</tag>
         <tag>线段树</tag>
         <tag>贪心</tag>
         <tag>分块</tag>
@@ -362,8 +374,8 @@
         <tag>数学</tag>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>线段树</tag>
         <tag>FFT</tag>
         <tag>BM</tag>
@@ -393,8 +405,8 @@
         <tag>数学</tag>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>平衡树</tag>
         <tag>置换</tag>
         <tag>NTT</tag>
@@ -424,9 +436,9 @@
       <tags>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式求逆</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>分块</tag>
         <tag>NTT</tag>
         <tag>多项式ln</tag>
@@ -469,8 +481,8 @@
         <tag>数学</tag>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>分块</tag>
         <tag>平衡树</tag>
         <tag>NTT</tag>
@@ -725,8 +737,8 @@
       <tags>
         <tag>数学</tag>
         <tag>题解</tag>
-        <tag>杜教筛</tag>
         <tag>莫比乌斯反演</tag>
+        <tag>杜教筛</tag>
       </tags>
   </entry>
   <entry>
@@ -736,8 +748,8 @@
       <tags>
         <tag>数学</tag>
         <tag>题解</tag>
-        <tag>杜教筛</tag>
         <tag>莫比乌斯反演</tag>
+        <tag>杜教筛</tag>
       </tags>
   </entry>
   <entry>
