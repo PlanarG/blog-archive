@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[2018集训队作业1]]></title>
+    <url>%2F2019%2F10%2F05%2F2018%E9%9B%86%E8%AE%AD%E9%98%9F%E4%BD%9C%E4%B8%9A1%2F</url>
+    <content type="text"><![CDATA[T1 AGC014D Black and White Tree比较简单的一个题 首先有一个结论：如果这棵树存在完美匹配，那么后手胜，否则先手胜 如果有完美匹配，那么先手每选一个点，后手就能选择跟它匹配的那个点，这样无论如何每个点都会与一个黑色点相邻，因此后手必胜 如果没有完美匹配，那么先手每次可以选择一个叶子节点的父亲染白，这样后手就必须染叶子。此时先手可以删除这两个点，对结果没有影响，最后一定会留下若干个只有一个点的连通块，先手就赢了 代码如下 1234567891011121314151617181920212223#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 100010;struct edge &#123; int to, next;&#125; e[N * 2];int head[N], ecnt, mark[N];inline void adde(int from, int to) &#123; e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt; e[++ecnt] = (edge)&#123;from, head[to]&#125;, head[to] = ecnt;&#125;void dfs(int u, int f) &#123; mark[u] = 1; int ct = 0; for (int i = head[u]; i; i = e[i].next) if (e[i].to != f) dfs(e[i].to, u), ct += mark[e[i].to]; if (ct &gt; 1 || (u == 1 &amp;&amp; ct == 0)) puts("First"), exit(0); if (ct == 1) mark[u] = 0;&#125;int main() &#123; int n; scanf("%d", &amp;n); for (int i = 1, a, b; i &lt; n; i++) scanf("%d%d", &amp;a, &amp;b), adde(a, b); dfs(1, 0), puts("Second");&#125;// T2 AGC012F Prefix Median首先$b_n$是已经确定好了的，一定是$a$序列的中位数 由于$a$的顺序无关紧要，因此我们可以先将$a$排好序 考虑$b_{n+1}$与$b_{n}$的大小关系 $b_n$是$2n-1$个数的中位数，而$b_{n+1}$是$2n+1$个数的中位数，多了两个数 因此如果我们从右往左考虑$b$，那么$b_n$与$b_{n+1}$的排名至多相差$1$ 所以有$a_i\leq b_i\leq a_{2n-i}$ 这也就意味着，对于任意的$i$，不存在$j&lt;i$使得$b_i&lt;b_j&lt;b_{i+1}$或$b_i&gt;b_j&gt;b_{i+1}$ 因此我们可以设计一个$dp$状态：$dp[i][j][k]$表示当前已经填好了$b_i-b_n$，在当前$b$可以取的集合中，有$j$个数$\leq b_i$，有$k$个数$&gt;b_i$ 转移的时候枚举当前数的排名就行了 代码如下 1234567891011121314151617181920212223#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 60;int a[N * 2], dp[N][N * 2][N * 2]; const int mod = 1e9 + 7;inline void Inc(int &amp;x, int y) &#123;x += y, x -= x &gt;= mod ? mod : 0;&#125;int main() &#123; int n, res = 0; scanf("%d", &amp;n); for (int i = 1; i &lt;= 2 * n - 1; i++) scanf("%d", &amp;a[i]); sort(a + 1, a + 2 * n), dp[n][1][0] = 1; for (int i = n - 1; i &gt;= 1; i--) &#123; int tl = a[i] != a[i + 1], tr = a[2 * n - i - 1] != a[2 * n - i]; for (int j = 0; j &lt;= 2 * n - 1; j++) for (int k = 0; j + k &lt;= 2 * n - 1; k++) if (dp[i + 1][j][k]) &#123; for (int t = 1; t &lt;= tl + j; t++) Inc(dp[i][j + tl - (t - 1)][k + tr + (t != 1)], dp[i + 1][j][k]); for (int t = 1; t &lt;= tr + k; t++) Inc(dp[i][j + tl + 1][k + tr - t], dp[i + 1][j][k]); &#125; &#125; for (int i = 0; i &lt;= 2 * n - 1; i++) for (int j = 0; i + j &lt;= 2 * n - 1; j++) Inc(res, dp[1][i][j]); printf("%d\n", res);&#125;]]></content>
+      <tags>
+        <tag>题解</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[10.1三地联考]]></title>
     <url>%2F2019%2F10%2F02%2F10-1%E4%B8%89%E5%9C%B0%E8%81%94%E8%80%83%2F</url>
     <content type="text"><![CDATA[T1 幸福 将那个卷积的式子写出来，然后这题就完了。。。$$\begin{aligned}F_n&amp;=f_0f_n+f_1f_{n-1}+f_2f_{n-2}+\cdots\\F_{n-1}&amp;=\quad\quad\quad f_0f_{n-1}+f_{1}f_{n-2}+\cdots\\F_n-F_{n-1}&amp;=f_0f_n+\quad\quad\quad \quad f_0f_{n-2}+f_1f_{n-3}+\cdots\\&amp;=f_n+F_{n-2}\\F_n&amp;=F_{n-1}+F_{n-2}+f_n\end{aligned}$$写成矩阵的形式就是$$\begin{bmatrix}1&amp;1&amp;1&amp;1&amp;0\\1&amp;0&amp;0&amp;0&amp;0\\0&amp;0&amp;1&amp;1&amp;0\\0&amp;0&amp;1&amp;0&amp;0\\1&amp;1&amp;1&amp;1&amp;1\end{bmatrix}^{n-1}\begin{bmatrix}F_1\\F_0\\f_1\\f_0\\S_1\end{bmatrix}=\begin{bmatrix}F_n\\F_{n-1}\\f_n\\f_{n-1}\\S_n\end{bmatrix}$$代码如下 12345678910111213141516171819202122232425262728293031#include &lt;bits/stdc++.h&gt;using namespace std;typedef long long LL;const int mod = 998244353;inline void Inc(int &amp;x, int y) &#123;x += y, x -= x &gt;= mod ? mod : 0;&#125;struct Matrix &#123; int a[5][5]; Matrix() &#123;memset(a, 0, sizeof(a));&#125; Matrix operator * (const Matrix &amp;b) &#123; Matrix res; for (int i = 0; i &lt; 5; i++) for (int k = 0; k &lt; 5; k++) if (a[i][k]) for (int j = 0; j &lt; 5; j++) Inc(res.a[i][j], (LL)a[i][k] * b.a[k][j] % mod); return res; &#125;&#125;;inline Matrix Pow(Matrix x, LL y) &#123; Matrix res; for (int i = 0; i &lt; 5; i++) res.a[i][i] = 1; for (; y; y &gt;&gt;= 1, x = x * x) if (y &amp; 1) res = res * x; return res;&#125;int tmp[] = &#123;2, 1, 1, 1, 3&#125;;int main() &#123; Matrix base; base.a[0][0] = base.a[0][1] = base.a[0][2] = base.a[0][3] = base.a[1][0] = base.a[2][2] = base.a[2][3] = base.a[3][2] = base.a[4][0] = base.a[4][1] = base.a[4][2] = base.a[4][3] = base.a[4][4] = 1; LL n; scanf("%lld", &amp;n), base = Pow(base, n - 1); int res = 0; for (int i = 0; i &lt; 5; i++) Inc(res, (LL)base.a[4][i] * tmp[i] % mod); printf("%d\n", res); &#125; T2 树链剖分 比较简单的一道题 首先可以通过树上差分算出每条边被覆盖了多少次，问题就可以转化为在确定根的情况下，每个点不选一条连向儿子的边，使得总边权最小。等价于每个点选择一条来自儿子的最长的边 先求出以$1$号节点为根的答案，对于每个点维护到子树以及到全树的最大/次大边权，dfs两次就可以了 代码如下 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 100010;struct edge &#123;int to, next;&#125; e[N * 2];typedef long long LL;int head[N], ecnt, dep[N], fa[N][18], sum[N];inline void adde(int from, int to) &#123; e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt; e[++ecnt] = (edge)&#123;from, head[to]&#125;, head[to] = ecnt;&#125;void dfs(int u, int f) &#123; fa[u][0] = f, dep[u] = dep[f] + 1; for (int i = 1; i &lt;= 17; i++) fa[u][i] = fa[fa[u][i - 1]][i - 1]; for (int i = head[u]; i; i = e[i].next) if (e[i].to != f) dfs(e[i].to, u);&#125;inline int LCA(int a, int b) &#123; if (dep[a] &lt; dep[b]) swap(a, b); for (int i = 17; i &gt;= 0; i--) if (dep[fa[a][i]] &gt;= dep[b]) a = fa[a][i]; if (a == b) return a; for (int i = 17; i &gt;= 0; i--) if (fa[a][i] != fa[b][i]) a = fa[a][i], b = fa[b][i]; return fa[a][0];&#125;inline void mark(int u, int v) &#123;sum[u]++, sum[v]++, sum[LCA(u, v)] -= 2;&#125;LL dp[N], mx[N][2];void dfs1(int u, int f) &#123; for (int i = head[u]; i; i = e[i].next) if (e[i].to != f) &#123; dfs1(e[i].to, u), dp[u] += dp[e[i].to]; if (sum[e[i].to] &gt; mx[u][0]) mx[u][1] = mx[u][0], mx[u][0] = sum[e[i].to]; else if (sum[e[i].to] &gt; mx[u][1]) mx[u][1] = sum[e[i].to]; sum[u] += sum[e[i].to]; &#125; dp[u] += mx[u][0];&#125;void dfs2(int u, int f) &#123; for (int i = head[u]; i; i = e[i].next) if (e[i].to != f) &#123; dp[e[i].to] = dp[u]; if (sum[e[i].to] == mx[u][0]) dp[e[i].to] -= mx[u][0] - mx[u][1]; if (sum[e[i].to] &gt; mx[e[i].to][0]) dp[e[i].to] += sum[e[i].to] - mx[e[i].to][0], mx[e[i].to][1] = mx[e[i].to][0], mx[e[i].to][0] = sum[e[i].to]; else if (sum[e[i].to] &gt; mx[e[i].to][1]) mx[e[i].to][1] = sum[e[i].to]; dfs2(e[i].to, u); &#125;&#125;int main() &#123; int n, m; scanf("%d%d", &amp;n, &amp;m); for (int i = 1, a, b; i &lt; n; i++) scanf("%d%d", &amp;a, &amp;b), adde(a, b); dfs(1, 0); for (int i = 1, a, b; i &lt;= m; i++) scanf("%d%d", &amp;a, &amp;b), mark(a, b); dfs1(1, 0), dfs2(1, 0); LL res = 0; for (int i = 1; i &lt;= n; i++) res = max(res, dp[i]); res = -res; for (int i = 1; i &lt;= n; i++) res += sum[i]; printf("%lld\n", res);&#125; T3 小E和小F strikes again 首先有一点题目没说清楚：每张牌有编号，即颜色相同的两张牌也被认为是不同的 我们先计算在选定了前$x$张牌，并且小E已经选定了一种颜色$c$时的胜率 记$b_c$表示此时前$x$张牌中，花色为$c$的牌的数量，$S=\sum a_i$ 假设我们确定了后$y$张牌中，颜色为$c$的牌有$j$张，那么后面$y$张牌的排列方法为$${a_c-b_c\choose j}{S-x-(a_c-b_c)\choose y-j}y!$$排列总数为$${S-x\choose y}y!$$因此胜率为$$\sum_{j\leq b_c-z}\frac{ {a_c-b_c\choose j} {S-x-(a_c-b_c)\choose y-j} }{S-x\choose y}$$注意到这个只与$b_c$有关，因此我们可以处理出$p[i][j]$表示选择花色$i$，并且前$x$张牌中花色为$i$的一共有$j$张的胜率 假设我们已经确定了前$x$张牌每种花色有多少张，那么这件事情发生的概率为$$\frac{\prod{a_i\choose b_i} x!} { {S\choose x} x!}=\frac{\prod a_i\choose b_i} {S\choose x}$$现在我们需要强制小E选择这种花色，即其它花色的胜率不能大于这个 将$p$从小到大排序，每次强制选择当前枚举的花色，可以处理出此时其它花色最多选择多少张。$dp[i][j]$表示当前已经考虑了$i$种花色，并且已经放了$j$个位置的概率，然后更新答案就可以了 由于$S\leq 100$，因此__int128即可 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566#include &lt;bits/stdc++.h&gt;using namespace std;typedef long long LL;const int N = 110, mod = 998244353;struct Int &#123; __int128 A; int B; Int(int x = 0): A(x), B(x) &#123;&#125; Int operator + (const Int &amp;b) &#123; Int res; res.A = A + b.A, res.B = (B + b.B) % mod; return res; &#125; Int operator - (const Int &amp;b) &#123; Int res; res.A = A - b.A, res.B = (B - b.B + mod) % mod; return res; &#125; Int operator * (const Int &amp;b) &#123; Int res; res.A = A * b.A, res.B = (LL)B * b.B % mod; return res; &#125; bool operator &lt; (const Int &amp;b) const &#123;return A &lt; b.A;&#125;&#125; C[N][N];inline Int Pow(Int x, int y) &#123; Int res(1); for (; y; y &gt;&gt;= 1, x = x * x) if (y &amp; 1) res = res * x; return res;&#125;struct FUCK &#123; __int128 P; int cnt, id, p; bool operator &lt; (const FUCK &amp;b) const &#123; if (P != b.P) return P &lt; b.P; return cnt &lt; b.cnt; &#125;&#125; t[N * N];int cnt[N], tot, dp[N][N], mx[N];int main() &#123; int n, x, y, z, S = 0, res = 0; scanf("%d%d%d%d", &amp;n, &amp;x, &amp;y, &amp;z); for (int i = 1; i &lt;= n; i++) scanf("%d", &amp;cnt[i]), S += cnt[i]; C[0][0] = Int(1); for (int i = 1; i &lt;= S; i++) &#123; C[i][0] = Int(1); for (int j = 1; j &lt;= i; j++) C[i][j] = C[i - 1][j - 1] + C[i - 1][j]; &#125; for (int i = 1; i &lt;= n; i++) for (int j = 0; j &lt;= min(cnt[i], x); j++) &#123; Int p; for (int k = 0; k &lt;= y &amp;&amp; j + k &lt;= cnt[i] &amp;&amp; k &lt;= j - z; k++) p = p + C[cnt[i] - j][k] * C[S - x - (cnt[i] - j)][y - k]; t[++tot] = (FUCK)&#123;p.A, j, i, p.B&#125;; &#125; sort(t + 1, t + tot + 1), memset(mx, -1, sizeof(mx)); for (int i = 1; i &lt;= tot; i++) &#123; memset(dp, 0, sizeof(dp)), dp[0][0] = 1; for (int j = 1; j &lt;= n; j++) &#123; if (j == t[i].id) &#123; for (int k = 0; k + t[i].cnt &lt;= x; k++) dp[j][k + t[i].cnt] = (LL)dp[j - 1][k] * C[cnt[j]][t[i].cnt].B % mod; &#125; else &#123; for (int k = 0; k &lt;= mx[j]; k++) for (int l = 0; l + k &lt;= x; l++) dp[j][k + l] = (dp[j][k + l] + (LL)dp[j - 1][l] * C[cnt[j]][k].B) % mod; &#125; &#125; res = (res + (LL)t[i].p * dp[n][x]) % mod, mx[t[i].id] = t[i].cnt; &#125; printf("%d\n", (LL)res * Pow(C[S][x].B, mod - 2).B % mod * Pow(C[S - x][y].B, mod - 2).B % mod);&#125;]]></content>
@@ -194,11 +202,11 @@
         <tag>数学</tag>
         <tag>网络流</tag>
         <tag>多项式</tag>
+        <tag>扫描线</tag>
         <tag>分治</tag>
         <tag>二分答案</tag>
-        <tag>扫描线</tag>
-        <tag>NTT</tag>
         <tag>置换</tag>
+        <tag>NTT</tag>
         <tag>Trie</tag>
         <tag>最小生成树</tag>
         <tag>计算几何</tag>
@@ -286,8 +294,8 @@
       <tags>
         <tag>题解</tag>
         <tag>数据结构</tag>
-        <tag>线段树</tag>
         <tag>二进制</tag>
+        <tag>线段树</tag>
       </tags>
   </entry>
   <entry>
@@ -313,8 +321,8 @@
         <tag>数学</tag>
         <tag>矩阵乘法</tag>
         <tag>数据结构</tag>
-        <tag>期望</tag>
         <tag>二进制</tag>
+        <tag>期望</tag>
       </tags>
   </entry>
   <entry>
@@ -326,10 +334,10 @@
         <tag>总结</tag>
         <tag>动态规划</tag>
         <tag>数据结构</tag>
-        <tag>分治</tag>
-        <tag>期望</tag>
         <tag>最短路</tag>
+        <tag>期望</tag>
         <tag>线段树</tag>
+        <tag>分治</tag>
         <tag>贪心</tag>
         <tag>分块</tag>
         <tag>二分答案</tag>
@@ -344,9 +352,9 @@
         <tag>总结</tag>
         <tag>动态规划</tag>
         <tag>数学</tag>
-        <tag>最短路</tag>
         <tag>斜率优化</tag>
         <tag>gcd</tag>
+        <tag>最短路</tag>
         <tag>FWT</tag>
       </tags>
   </entry>
@@ -421,8 +429,8 @@
         <tag>多项式</tag>
         <tag>数据结构</tag>
         <tag>平衡树</tag>
-        <tag>NTT</tag>
         <tag>置换</tag>
+        <tag>NTT</tag>
       </tags>
   </entry>
   <entry>
