@@ -382,6 +382,198 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/19/3-18省选模拟/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/19/3-18省选模拟/" class="post-title-link" itemprop="url">3.18省选模拟</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-19 15:23:03" itemprop="dateCreated datePublished" datetime="2019-03-19T15:23:03+08:00">2019-03-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-05-02 21:29:39" itemprop="dateModified" datetime="2019-05-02T21:29:39+08:00">2019-05-02</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/19/3-18省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/19/3-18省选模拟/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              T1 One?One!
+
+不会啊。。先贴上题解吧
+
+T2 Two?Two!
+
+首先考虑dp
+假设现在已经排了前$i$个人，我们知道这两个队中有一个对的最大值一定是$M_i$，即前$i$个人的最大值
+那么我们可以设dp[i][j]表示已经排好了$i$个人，其中$M_i$不在的那一队的最大值为$j$的答案
+我们考虑一下几种情况：
+
+$M_i=x_i$
+
+显然，将$i$排到$M_{i-1}$那一队会更优秀
+即对于任意的$j$，dp[i][j] = dp[i - 1][j]
+
+$x_i&lt;M_i,j\in[0,x_i)$
+
+排完了$i$这个人之后仍然有一队的
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/19/3-18省选模拟/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/17/3-16省选模拟/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1934,177 +2126,6 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2017-机动训练/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="An_Account">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/hh.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="An_Account's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/11/BJOI2017-机动训练/" class="post-title-link" itemprop="url">BJOI2017 机动训练</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-11 20:55:18 / 修改时间：20:56:18" itemprop="dateCreated datePublished" datetime="2019-03-11T20:55:18+08:00">2019-03-11</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/03/11/BJOI2017-机动训练/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-机动训练/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              题目链接
-显然一条合法的机动路径就是一直朝某个象限走，可以走坐标轴的路径
-对于每一条机动路径，它的权值是经过地形与它相同的机动路径条数
-也就是每种机动路径数量的平方和
-对于这个平方，我们可以换一种统计方案，即两条机动路径，相同的方案数
-分别枚举两条机动路径的朝向
-记dp[i][j][p][q]表示在当前枚举的方向上第一条机动路径从$(i,j)$出发，第二条机动路径从$(p,q)$出发，相同的方案数
-由于可以走坐标轴，这样会重复统计一些路径
-比如当前选定了第一条路径走第二象限，我们会发现统计出来的结果与第一条路径走第一象限有交集
-怎么办呢？减去重复的即可，
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/11/BJOI2017-机动训练/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2154,7 +2175,7 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">66</span>
+                    <span class="site-state-item-count">67</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2450,7 +2471,7 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共126.6k字</span>
+	<span class="post-count">全站共129.2k字</span>
 </div>
 
         
