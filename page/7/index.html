@@ -382,7 +382,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/08/CodeChef-Adi-and-the-Matrix/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2018-治疗之雨/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -402,7 +402,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/08/CodeChef-Adi-and-the-Matrix/" class="post-title-link" itemprop="url">[CodeChef] Adi and the Matrix</a>
+                <a href="/2019/03/11/BJOI2018-治疗之雨/" class="post-title-link" itemprop="url">BJOI2018 治疗之雨</a>
               
             
           </h1>
@@ -427,24 +427,12 @@
                 
               
 
-              <time title="创建时间：2019-03-08 19:53:05" itemprop="dateCreated datePublished" datetime="2019-03-08T19:53:05+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-11 21:42:35 / 修改时间：21:52:53" itemprop="dateCreated datePublished" datetime="2019-03-11T21:42:35+08:00">2019-03-11</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-09 11:39:13" itemprop="dateModified" datetime="2019-03-09T11:39:13+08:00">2019-03-09</time>
               
             
           </span>
@@ -458,8 +446,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/08/CodeChef-Adi-and-the-Matrix/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/08/CodeChef-Adi-and-the-Matrix/" itemprop="commentCount"></span>
+                <a href="/2019/03/11/BJOI2018-治疗之雨/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2018-治疗之雨/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -491,20 +479,14 @@
           
             <p>
               题目链接
-
-有$N*M\leq 550$
-注意到数据范围，它的含义是说，N和M中较小的那个不会超过23
-我们考虑置换，首先假设$N\leq M$
-枚举N的划分方案，注意要从小到大枚举，这个数不会太大
-这个划分方案中每一个集合对应着一个循环
-如果元素个数是$n$，划分方案为$(a_i,b_i)$，即长度为$a_i$的循环有$b_i$个
-那么它对应的置换总数为$$\frac{n!}{\prod a_i^{b_i}b_i!}$$这个式子的意思是说，将所有元素进行排列，每一个循环中都有$a_i$种等价方案，即旋转0次、旋转1次，……，旋转$a_i-1$次，长度相
+表示并不会$n^2$高斯消元做法
+如果用dp[i]表示当前为i，到0还需要进行操作数的期望值，那么显然有转移$$dp_0 = 0\\\dp_1 = G_{1,0}dp_0 + G_{1,1}dp_1 + G_{1,2}dp_2 + 1\\\\cdots\\\dp_{n-1} = G_{n-1,0}dp_0 + G_{n-1,1}dp_1 + \cdots + G_{n-1,n}dp_n + 1\\\dp_n = G_{n,0}dp_0 + G_{n,1}dp_1 + \cdots + G_{n,n}dp_n + 1$$其中，G表示系数矩阵，G[
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/08/CodeChef-Adi-and-the-Matrix/#more" rel="contents">
+              <a class="btn" href="/2019/03/11/BJOI2018-治疗之雨/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -564,7 +546,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/08/置换专题/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2017-喷式水战改/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -584,7 +566,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/08/置换专题/" class="post-title-link" itemprop="url">置换专题</a>
+                <a href="/2019/03/11/BJOI2017-喷式水战改/" class="post-title-link" itemprop="url">BJOI2017 喷式水战改</a>
               
             
           </h1>
@@ -609,24 +591,12 @@
                 
               
 
-              <time title="创建时间：2019-03-08 19:38:47" itemprop="dateCreated datePublished" datetime="2019-03-08T19:38:47+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-11 21:04:09 / 修改时间：21:04:55" itemprop="dateCreated datePublished" datetime="2019-03-11T21:04:09+08:00">2019-03-11</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-09 11:39:52" itemprop="dateModified" datetime="2019-03-09T11:39:52+08:00">2019-03-09</time>
               
             
           </span>
@@ -640,8 +610,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/08/置换专题/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/08/置换专题/" itemprop="commentCount"></span>
+                <a href="/2019/03/11/BJOI2017-喷式水战改/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-喷式水战改/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -672,24 +642,19 @@
         
           
             <p>
-              A – Necklace of BeadsBurnside定理模板
-假设有n个条件$S$，每个条件都是形如“$A$与$B$等价”的形式，要求集合$X$在这些条件下的方案数
-将条件分解成循环的形式，那么方案数
-$$=\frac{1}{n}\sum_{g\in S}|X^g|$$
-其中，$X^g$是置换$g$作用于集合$X$之后的不动点个数，即不变的元素的个数
-那么对于这道题，我们考虑两类置换
-
-1.旋转
-
-假设有一条长度为n的项链，旋转之后相同被视为相同方案，那么显然地，我们有n种对应的置换
-即不旋转，旋转1次，旋转2次，…，旋转n-1次
-考虑计算不动点个
+              题目链接
+平衡树维护dp
+对于平衡树上的一个点，维护f[i][j]表示它的子树所表示的这段区间内，从状态i开始，以状态j结束，能获得的最大收益
+显然有一个结论，对于一段连续的、并且a、b、c值都相等的燃料，一定有一种最优的方案使得这一段燃料的状态都相同
+所以对把每一次插入的区间压缩成一个点，同时分裂插入位置所在的节点
+代码如下
+#include &lt;bits/stdc++.h&gt;using namespace std;#define N 200010#define LL long longint fa[N], ch[2][N], ncnt, cn
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/08/置换专题/#more" rel="contents">
+              <a class="btn" href="/2019/03/11/BJOI2017-喷式水战改/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -749,7 +714,7 @@ $$=\frac{1}{n}\sum_{g\in S}|X^g|$$
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/08/莫比乌斯反演与杜教筛专题/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2017-树的难题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -769,7 +734,7 @@ $$=\frac{1}{n}\sum_{g\in S}|X^g|$$
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/08/莫比乌斯反演与杜教筛专题/" class="post-title-link" itemprop="url">莫比乌斯反演与杜教筛专题</a>
+                <a href="/2019/03/11/BJOI2017-树的难题/" class="post-title-link" itemprop="url">BJOI2017 树的难题</a>
               
             
           </h1>
@@ -794,24 +759,12 @@ $$=\frac{1}{n}\sum_{g\in S}|X^g|$$
                 
               
 
-              <time title="创建时间：2019-03-08 19:21:50" itemprop="dateCreated datePublished" datetime="2019-03-08T19:21:50+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-11 20:59:09 / 修改时间：21:02:13" itemprop="dateCreated datePublished" datetime="2019-03-11T20:59:09+08:00">2019-03-11</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-09 11:40:08" itemprop="dateModified" datetime="2019-03-09T11:40:08+08:00">2019-03-09</time>
               
             
           </span>
@@ -825,8 +778,8 @@ $$=\frac{1}{n}\sum_{g\in S}|X^g|$$
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/08/莫比乌斯反演与杜教筛专题/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/08/莫比乌斯反演与杜教筛专题/" itemprop="commentCount"></span>
+                <a href="/2019/03/11/BJOI2017-树的难题/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-树的难题/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -857,19 +810,20 @@ $$=\frac{1}{n}\sum_{g\in S}|X^g|$$
         
           
             <p>
-              A – GCD莫比乌斯反演模板，注意去重
-当$i\leq min(n,m)$时，每个gcd都被计算了两遍，除以2即可
-B – CA Loves GCD见莫比乌斯反演 CA Loves GCD
-C – Hillan and the girl首先转化成总数-gcd是完全平方数的个数
-$$\sum_{i=1}^{n}\sum_{j=1}^{n}[gcd(i,j)\in sqrt number]$$
-按照套路，先枚举gcd，此处是gcd的平方根
-$$=\sum_{d=1}^{\sqrt n}\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j
+              题目链接
+边数在l到r之间。。。那么这题就是点分治跑不掉了
+由于是统计的每一段颜色的权值之和，所以对于一条到分治中心的路径，我们需要保存路径长度、权值之和、顶端的颜色这三个值
+如果直接合并的话，时间复杂度最坏是$n^2$，呵呵
+所以我们考虑合并时的两种情况，分别进行优化
+1.两条路径的顶端颜色不同由于顶端颜色不同，那么这两条路径一定来自于两棵不同的子树
+如果我们按照路径的顶端颜色排序，那么对于路径i，它所应当匹配的另一条路径是排在i之前、顶端颜色与i不同、路径长度在一个区间之内的权值之和最大的路径
+也就是说，我们需要实现一个东西，可以支持单点修改、区间查
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/08/莫比乌斯反演与杜教筛专题/#more" rel="contents">
+              <a class="btn" href="/2019/03/11/BJOI2017-树的难题/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -929,7 +883,7 @@ $$=\sum_{d=1}^{\sqrt n}\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/08/简单的数学题/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2017-魔法咒语/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -949,7 +903,7 @@ $$=\sum_{d=1}^{\sqrt n}\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/08/简单的数学题/" class="post-title-link" itemprop="url">简单的数学题</a>
+                <a href="/2019/03/11/BJOI2017-魔法咒语/" class="post-title-link" itemprop="url">BJOI2017 魔法咒语</a>
               
             
           </h1>
@@ -974,24 +928,12 @@ $$=\sum_{d=1}^{\sqrt n}\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j
                 
               
 
-              <time title="创建时间：2019-03-08 19:15:33" itemprop="dateCreated datePublished" datetime="2019-03-08T19:15:33+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-11 20:56:54 / 修改时间：20:58:06" itemprop="dateCreated datePublished" datetime="2019-03-11T20:56:54+08:00">2019-03-11</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-09 11:39:46" itemprop="dateModified" datetime="2019-03-09T11:39:46+08:00">2019-03-09</time>
               
             
           </span>
@@ -1005,8 +947,8 @@ $$=\sum_{d=1}^{\sqrt n}\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/08/简单的数学题/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/08/简单的数学题/" itemprop="commentCount"></span>
+                <a href="/2019/03/11/BJOI2017-魔法咒语/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-魔法咒语/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1037,23 +979,20 @@ $$=\sum_{d=1}^{\sqrt n}\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j
         
           
             <p>
-              求
-$$\sum_{i=1}^{n}\sum_{j=1}^{n}ijgcd(i,j)$$
-$$n\leq 10^{10}$$
-根据$\varphi$的性质
-$$\sum_{i|d}\varphi(i)=d$$
-可以改写上面那个式子
-$$=\sum_{i=1}^{n}\sum_{j=1}^{n}ij\sum_{d|gcd(i,j)}\varphi(d)$$
-把d提到前面来
-$$=\sum_{i=1}^{n}\sum_{j=1}^{n}ij\sum_{d|gcd(i,j)}\varphi(d)$$
-为了方便快捷，设
-$$F(n)=\sum_{i=1}^{n}
+              题目链接
+感觉这题没啥好说的。。。就是对数据的分类讨论差评
+首先对于所有的危险串建AC自动机，标记危险节点，转移的时候不从危险节点转移
+然后预处理to[i][j]，即从自动机的i号节点出发，按照第j个基本串走，最后到达的节点，注意如果中途有危险节点就是-1
+对于前60%的数据，直接dp即可，用dp[i][j]表示当前串长度为i，走到自动机的j号节点的方案数
+对于后面40%的数据，没法直接dp了。注意到基本串的长度都特别小，直接上矩阵乘法
+如果基本串的长度都为1，那么建一个$n*n$的矩阵就好了
+否则要同时保存长度为$len-1,len-2$的方案，建一个
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/08/简单的数学题/#more" rel="contents">
+              <a class="btn" href="/2019/03/11/BJOI2017-魔法咒语/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1113,7 +1052,7 @@ $$F(n)=\sum_{i=1}^{n}
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/08/杜教筛/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2017-机动训练/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -1133,7 +1072,7 @@ $$F(n)=\sum_{i=1}^{n}
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/08/杜教筛/" class="post-title-link" itemprop="url">杜教筛</a>
+                <a href="/2019/03/11/BJOI2017-机动训练/" class="post-title-link" itemprop="url">BJOI2017 机动训练</a>
               
             
           </h1>
@@ -1158,24 +1097,12 @@ $$F(n)=\sum_{i=1}^{n}
                 
               
 
-              <time title="创建时间：2019-03-08 19:09:37" itemprop="dateCreated datePublished" datetime="2019-03-08T19:09:37+08:00">2019-03-08</time>
+              <time title="创建时间：2019-03-11 20:55:18 / 修改时间：20:56:18" itemprop="dateCreated datePublished" datetime="2019-03-11T20:55:18+08:00">2019-03-11</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-06 09:28:07" itemprop="dateModified" datetime="2019-04-06T09:28:07+08:00">2019-04-06</time>
               
             
           </span>
@@ -1189,8 +1116,8 @@ $$F(n)=\sum_{i=1}^{n}
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/08/杜教筛/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/08/杜教筛/" itemprop="commentCount"></span>
+                <a href="/2019/03/11/BJOI2017-机动训练/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-机动训练/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1221,26 +1148,22 @@ $$F(n)=\sum_{i=1}^{n}
         
           
             <p>
-              假设有一道题：求
-$$\sum_{i=1}^{n}\mu(i)$$
-然后$n\leq 10^9$
-线筛大家都知道怎么做
-考虑把这个东西转化
-设
-$$S(n)=\sum_{i=1}^{n}\mu(n)$$
-我们知道
-$$\sum_{i|d}\mu(i)=[d=1]$$
-如何利用这个性质呢？考虑用另一个函数来与这个$\mu$卷积
-我们使用1来卷，因为没有什么要抵消的
-$$\sum_{i|d}\mu(i)*1 = [d=1]=(\mu*1)(d)$$
-$$1=\sum_{d=1}^{n}\sum_{i|d}\mu(\frac{d}{i})*1$$
-$$=\su
+              题目链接
+显然一条合法的机动路径就是一直朝某个象限走，可以走坐标轴的路径
+对于每一条机动路径，它的权值是经过地形与它相同的机动路径条数
+也就是每种机动路径数量的平方和
+对于这个平方，我们可以换一种统计方案，即两条机动路径，相同的方案数
+分别枚举两条机动路径的朝向
+记dp[i][j][p][q]表示在当前枚举的方向上第一条机动路径从$(i,j)$出发，第二条机动路径从$(p,q)$出发，相同的方案数
+由于可以走坐标轴，这样会重复统计一些路径
+比如当前选定了第一条路径走第二象限，我们会发现统计出来的结果与第一条路径走第一象限有交集
+怎么办呢？减去重复的即可，
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/08/杜教筛/#more" rel="contents">
+              <a class="btn" href="/2019/03/11/BJOI2017-机动训练/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1300,7 +1223,7 @@ $$=\su
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/07/莫比乌斯反演/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2017-开车/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -1320,7 +1243,7 @@ $$=\su
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/07/莫比乌斯反演/" class="post-title-link" itemprop="url">莫比乌斯反演</a>
+                <a href="/2019/03/11/BJOI2017-开车/" class="post-title-link" itemprop="url">BJOI2017 开车</a>
               
             
           </h1>
@@ -1345,24 +1268,12 @@ $$=\su
                 
               
 
-              <time title="创建时间：2019-03-07 20:49:40" itemprop="dateCreated datePublished" datetime="2019-03-07T20:49:40+08:00">2019-03-07</time>
+              <time title="创建时间：2019-03-11 20:50:16 / 修改时间：21:51:10" itemprop="dateCreated datePublished" datetime="2019-03-11T20:50:16+08:00">2019-03-11</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-09 11:40:01" itemprop="dateModified" datetime="2019-03-09T11:40:01+08:00">2019-03-09</time>
               
             
           </span>
@@ -1376,8 +1287,8 @@ $$=\su
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/07/莫比乌斯反演/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/07/莫比乌斯反演/" itemprop="commentCount"></span>
+                <a href="/2019/03/11/BJOI2017-开车/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-开车/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1408,26 +1319,23 @@ $$=\su
         
           
             <p>
-              一些定义
-$\mu(i)$ 莫比乌斯函数
-
-设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$
-当$max(k) &gt; 1$时$\mu(i)=0$
-否则$\mu(i)=(-1)^{\sum k}$
-
-$\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数
-
-设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$
-则$\varphi(n)=n*\prod{(1-\frac{1}{p_i})}$
-关于狄利克雷卷积
-
-定义二元关系$_​$，
+              题目链接
+显然，最优的方案一定是将所有的加油站和车按照位置排序之后一一对应
+但是如何考虑修改呢？这种东西是没法维护的
+我们考虑另外一种统计答案的方式
+将加油站和车都想象成数轴上的一些点，其中加油站是红点，车是黑点
+单独考虑数轴上每一条线段的贡献
+对于一条线段i，记这条线段的长度为$len_i$，前面一共有$a_i$个红点，$b_i$个黑点，那么这条线段对答案的贡献为
+$$len_i|a_i-b_i|$$
+由于询问中涉及到更改点的位置这个操作，我们可以将询问离线下来，先把所有在询问中即将出现的点都标记出来就可以了
+现在考虑每个询问都干了啥
+将一辆车从A点挪
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/07/莫比乌斯反演/#more" rel="contents">
+              <a class="btn" href="/2019/03/11/BJOI2017-开车/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1487,7 +1395,7 @@ $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/07/后缀数组/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/FFT与NTT基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -1507,7 +1415,7 @@ $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/07/后缀数组/" class="post-title-link" itemprop="url">后缀数组</a>
+                <a href="/2019/03/11/FFT与NTT基础/" class="post-title-link" itemprop="url">FFT与NTT基础</a>
               
             
           </h1>
@@ -1532,24 +1440,12 @@ $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数
                 
               
 
-              <time title="创建时间：2019-03-07 20:44:37" itemprop="dateCreated datePublished" datetime="2019-03-07T20:44:37+08:00">2019-03-07</time>
+              <time title="创建时间：2019-03-11 20:36:46 / 修改时间：20:48:47" itemprop="dateCreated datePublished" datetime="2019-03-11T20:36:46+08:00">2019-03-11</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-09 10:34:21" itemprop="dateModified" datetime="2019-04-09T10:34:21+08:00">2019-04-09</time>
               
             
           </span>
@@ -1563,8 +1459,8 @@ $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/07/后缀数组/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/07/后缀数组/" itemprop="commentCount"></span>
+                <a href="/2019/03/11/FFT与NTT基础/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/FFT与NTT基础/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1595,23 +1491,549 @@ $\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数
         
           
             <p>
-              一些约定
-_sa[i]_ 排名为_i_的后缀在原串中的编号
-_rk[i]_ 原串中第_i_个后缀所对应的排名
-_height[i]_ 排名为_i_的后缀与排名为_i – 1_的后缀的最长公共前缀
-
-一些例子字符串_S = bacaab_ 中，_sa，rk，height_分别为
-
-一些解释在_S_中，所有的后缀分别为_bacaab, acaab, caab, aab, ab, b_
-将这些串按照字典序排序，可以得到_aab, ab, acaab, b, bacaab, caab_
-对应出来的_rk_值就是5, 3, 6, 1, 2, 4
-根据上面的定义可以
+              理论部分复数设$a, b$是实数，形如$a+bi$的数叫做复数，其中$i$叫做虚数单位
+我们可以用一个复平面上的向量表示一个复数。x轴代表实数，y轴代表虚数。比如：向量$(a,b)$就表示复数$a+bi$
+模长：就是这个向量的长度
+辐角：从x正半轴逆时针旋转到这个向量的角度
+复数乘法的几何意义是，模长相乘，辐角相加
+代数意义：$$(a+bi)*(c+di)$$
+$$=ac+adi+cbi+bdi^2$$
+$$= (ac-bd)+(ad+cb)i$$
+单位根在复平面上，以原点为圆心，半径为1画圆，得到的圆叫做单位圆
+将这个圆做n等分，那么我们得到了n个向量
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/07/后缀数组/#more" rel="contents">
+              <a class="btn" href="/2019/03/11/FFT与NTT基础/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/3-11省选模拟/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/11/3-11省选模拟/" class="post-title-link" itemprop="url">3.11省选模拟</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-11 19:25:28" itemprop="dateCreated datePublished" datetime="2019-03-11T19:25:28+08:00">2019-03-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-22 19:50:37" itemprop="dateModified" datetime="2019-03-22T19:50:37+08:00">2019-03-22</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/11/3-11省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/3-11省选模拟/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              T1 树上四次求和
+本来写的100分算法，结果只有80分
+发现是链的情况挂了，原因是有一个取模的地方我把%=写成了%，然后就呵呵了
+考虑如何化简那个式子$$\sum_{i=1}^k\sum_{j=i}^kw(i,j)\\\=\sum_{i=1}^k\sum_{j=i}^k\sum_{l=i}^j\sum_{r=l}^jdis(a_l,a_r)\\\$$考虑后面每一个$dis(a_l,a_r)$对答案的贡献，就是把$\sum$提到前面来$$=\sum_{l=1}^k\sum_{r=l}^kdis(a_l,a_r)*l*(k-r+1)$$但是这样仍然是$n^
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/11/3-11省选模拟/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/10/线性递推/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/10/线性递推/" class="post-title-link" itemprop="url">线性递推</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-10 21:20:11" itemprop="dateCreated datePublished" datetime="2019-03-10T21:20:11+08:00">2019-03-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-14 10:01:24" itemprop="dateModified" datetime="2019-03-14T10:01:24+08:00">2019-03-14</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/10/线性递推/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/10/线性递推/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              求一个满足$k$阶齐次线性递推数列$a_i$的第$n​$项
+即：$a_n=\sum\limits_{i=1}^kf_i\times a_{n-i}$
+已知$f$，以及$a_0,a_1,\cdots,a_{k-1}$$$n\leq 10^9, k\leq 32000$$如果$k$小一点，那么直接矩阵乘法是可以的
+但是这个是$O(k^3\log n)$的，时间复杂度难以承受
+注意到这个是其次线性递推，也就是说，我们构造出的矩阵只有第一行是$f​$，其余的行上全是1和0
+我们设这个矩阵是$A$，现在有一个奇妙的序列$c$使得$$A^n=\sum_{i=0}^{
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/10/线性递推/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/09/3-8省选模拟-斐波那契树/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/09/3-8省选模拟-斐波那契树/" class="post-title-link" itemprop="url">3.8省选模拟 斐波那契树</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-09 11:03:47 / 修改时间：11:39:07" itemprop="dateCreated datePublished" datetime="2019-03-09T11:03:47+08:00">2019-03-09</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/09/3-8省选模拟-斐波那契树/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/09/3-8省选模拟-斐波那契树/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              $$n,q\leq 2*10^5$$
+不知道出题人怎么想的，模$10^9+7$而不是$10^9+9$，$5$在模$10^9+7$下没有二次剩余
+我们知道斐波那契数列是可以叠加的，也就是一个斐波那契数列加上另一个斐波那契数列仍然是斐波那契数列
+那么我们只需要维护这个数列的第0项和第1项就可以了
+由于5没有二次剩余，所以可以通过预处理/矩阵乘法求得数列的第$k$项
+考虑如何维护这两个操作
+很显然，这是一个动态点分治
+对于点分树上的每一个点，我们维护两个树状数组
+两个数组都是根据深度建的，但是一个维护它对它自己子树的贡献，另一个维护它对它父亲的贡献
+比如现在要
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/03/09/3-8省选模拟-斐波那契树/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1660,7 +2082,7 @@ _height[i]_ 排名为_i_的后缀与排名为_i – 1_的后缀的最长公共�
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1705,7 +2127,7 @@ _height[i]_ 排名为_i_的后缀与排名为_i – 1_的后缀的最长公共�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">67</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1866,7 +2288,21 @@ _height[i]_ 排名为_i_的后缀与排名为_i – 1_的后缀的最长公共�
                     
                       
                     
-                    <span class="site-state-item-count">73</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">80</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2001,7 +2437,7 @@ _height[i]_ 排名为_i_的后缀与排名为_i – 1_的后缀的最长公共�
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共129.2k字</span>
+	<span class="post-count">全站共147k字</span>
 </div>
 
         
@@ -2508,6 +2944,12 @@ _height[i]_ 排名为_i_的后缀与排名为_i – 1_的后缀的最长公共�
 
   
   
+    
+      
+    
+      
+    
+      
     
       
     

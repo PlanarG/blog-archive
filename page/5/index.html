@@ -382,7 +382,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/19/3-18省选模拟/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/04/07/FFT与NTT专题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -402,7 +402,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/19/3-18省选模拟/" class="post-title-link" itemprop="url">3.18省选模拟</a>
+                <a href="/2019/04/07/FFT与NTT专题/" class="post-title-link" itemprop="url">FFT与NTT专题</a>
               
             
           </h1>
@@ -427,24 +427,12 @@
                 
               
 
-              <time title="创建时间：2019-03-19 15:23:03" itemprop="dateCreated datePublished" datetime="2019-03-19T15:23:03+08:00">2019-03-19</time>
+              <time title="创建时间：2019-04-07 11:27:43 / 修改时间：11:48:50" itemprop="dateCreated datePublished" datetime="2019-04-07T11:27:43+08:00">2019-04-07</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-02 21:29:39" itemprop="dateModified" datetime="2019-05-02T21:29:39+08:00">2019-05-02</time>
               
             
           </span>
@@ -458,8 +446,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/19/3-18省选模拟/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/19/3-18省选模拟/" itemprop="commentCount"></span>
+                <a href="/2019/04/07/FFT与NTT专题/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/04/07/FFT与NTT专题/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -490,31 +478,16 @@
         
           
             <p>
-              T1 One?One!
-
-不会啊。。先贴上题解吧
-
-T2 Two?Two!
-
-首先考虑dp
-假设现在已经排了前$i$个人，我们知道这两个队中有一个对的最大值一定是$M_i$，即前$i$个人的最大值
-那么我们可以设dp[i][j]表示已经排好了$i$个人，其中$M_i$不在的那一队的最大值为$j$的答案
-我们考虑一下几种情况：
-
-$M_i=x_i$
-
-显然，将$i$排到$M_{i-1}$那一队会更优秀
-即对于任意的$j$，dp[i][j] = dp[i - 1][j]
-
-$x_i&lt;M_i,j\in[0,x_i)$
-
-排完了$i$这个人之后仍然有一队的
+              A – 礼物先不管旋转操作，考虑化简这个差异值
+$$\begin{aligned}\sum_{i=1}^n(x_i-y_i-c)^2&amp;=\sum_{i=1}^n(x_i-y_i)^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)\\\&amp;=\sum_{i=1}^nx_i^2+\sum_{i=1}^ny_i^2+nc^2-2c\sum_{i=1}^n(x_i-y_i)-2\sum_{i=1}^nx_iy_i\end{aligned}$$
+注意到$\sum x^2+\sum y^2$是常数，先不管
+可以发现，这是一个关于$c$的二次
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/19/3-18省选模拟/#more" rel="contents">
+              <a class="btn" href="/2019/04/07/FFT与NTT专题/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -574,7 +547,7 @@ $x_i&lt;M_i,j\in[0,x_i)$
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/17/3-16省选模拟/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/04/06/4-3省选模拟/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -594,7 +567,7 @@ $x_i&lt;M_i,j\in[0,x_i)$
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/17/3-16省选模拟/" class="post-title-link" itemprop="url">3.16省选模拟</a>
+                <a href="/2019/04/06/4-3省选模拟/" class="post-title-link" itemprop="url">4.3省选模拟</a>
               
             
           </h1>
@@ -619,7 +592,7 @@ $x_i&lt;M_i,j\in[0,x_i)$
                 
               
 
-              <time title="创建时间：2019-03-17 08:25:35" itemprop="dateCreated datePublished" datetime="2019-03-17T08:25:35+08:00">2019-03-17</time>
+              <time title="创建时间：2019-04-06 16:12:46" itemprop="dateCreated datePublished" datetime="2019-04-06T16:12:46+08:00">2019-04-06</time>
             
 
             
@@ -636,7 +609,7 @@ $x_i&lt;M_i,j\in[0,x_i)$
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-22 19:51:12" itemprop="dateModified" datetime="2019-03-22T19:51:12+08:00">2019-03-22</time>
+                <time title="修改时间：2019-04-07 16:29:52" itemprop="dateModified" datetime="2019-04-07T16:29:52+08:00">2019-04-07</time>
               
             
           </span>
@@ -650,8 +623,8 @@ $x_i&lt;M_i,j\in[0,x_i)$
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/17/3-16省选模拟/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/17/3-16省选模拟/" itemprop="commentCount"></span>
+                <a href="/2019/04/06/4-3省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/04/06/4-3省选模拟/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -682,21 +655,1107 @@ $x_i&lt;M_i,j\in[0,x_i)$
         
           
             <p>
-              T1 计算
+              T1 Diyiti
+
+我们先考虑这样一个问题：给出$x,y$，如何计算$f(x,y)$
+分析一下第一个操作的本质，就是将$x$末尾连续的0都变成1，将第一处1变成0
+考虑一种特殊情况：$y$是$x$的子集
+也就是说，我们可以只通过操作2将$x$变成$y$
+如果我们使用了操作1，可以将最后一个1变成0
+但是这样有一个副作用，就是后面所有的数都变成了1
+根据之前的限制：$y$是$x$的子集，而$x$在这一位之后都是0
+也就是说，$y$在这一位之后也全部是0
+在这次操作之后，后面的数都变成了1
+如果这次操作在第$i$位，那么我们至少还需要$i-1$次操作2才能
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/06/4-3省选模拟/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/04/06/4-2省选模拟/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/06/4-2省选模拟/" class="post-title-link" itemprop="url">4.2省选模拟</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-06 15:22:26 / 修改时间：16:12:10" itemprop="dateCreated datePublished" datetime="2019-04-06T15:22:26+08:00">2019-04-06</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/06/4-2省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/04/06/4-2省选模拟/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              T1 Painting
+
+我们考虑这样一种情况：122133441
+显然，1必须在最开始就刷上，如果先刷其它的数再刷1，那么颜色2,3,4不可能被1包含
+颜色3,4刷的顺序无关紧要
+我们考虑更一般的情况
+如果存在颜色序列a...b...b...a，其中省略号的部分可能代表其它颜色，那么a一定在b之前被刷上
+对于颜色序列a..ab...b，a,b被刷的顺序可以随意
+我们可以通过这两个条件将拓扑关系建出来，可以发现，这是一棵树
+树的祖先与后代刷的顺序是确定的，同一个父亲的儿子节点刷的顺序可以随意
+于是我们考虑分治，假设当前分治到了区间[l,r]，这要求这个区
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/06/4-2省选模拟/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/04/03/4-1省选模拟/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/03/4-1省选模拟/" class="post-title-link" itemprop="url">4.1省选模拟</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-03 19:38:27" itemprop="dateCreated datePublished" datetime="2019-04-03T19:38:27+08:00">2019-04-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 07:38:16" itemprop="dateModified" datetime="2019-04-04T07:38:16+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/03/4-1省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/04/03/4-1省选模拟/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              T1 Line
+
+如果我们知道了这条直线在$y$轴上的截距，那么我们就可以通过这$n$个点确定最终斜率的区间
+假设这条直线是$kx+b$，现在我们已知$b$
+对于一个$r_i$，我们知道有$$ki+b\leq r_i\Rightarrow k\leq\lfloor\frac{r_i-b}{i}\rfloor$$对于一个$l_i$，我们知道有$$ki+b\geq l_i\Rightarrow k\geq\lceil\frac{l_i-b}{i}\rceil$$那么对于一个$b$，它对答案的贡献就是$$\max\{0,\min_{i=1}^n\{\lfloo
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/03/4-1省选模拟/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/04/02/FWT基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/02/FWT基础/" class="post-title-link" itemprop="url">FWT基础</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-02 21:10:02" itemprop="dateCreated datePublished" datetime="2019-04-02T21:10:02+08:00">2019-04-02</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-06 15:21:35" itemprop="dateModified" datetime="2019-04-06T15:21:35+08:00">2019-04-06</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/02/FWT基础/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/04/02/FWT基础/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              FWT有啥用啊我们知道，FFT可以解决多项式的卷积，即$$C_k=\sum_{i+j=k}A_i*B_j$$如果将操作符换一下，换成集合运算符
+比如$$C_k=\sum_{i|j=k}A_i*B_j\\\C_k=\sum_{i\&amp;j=k}A_i*B_j\\\C_k=\sum_{i\oplus j=k}A_i*B_j$$这时就不能使用FFT了
+但是FFT使我们产生了一种想法
+我们能不能用一种类似FFT的方法，用另一个多项式来表示$A,B$，然后再对应相乘，最后再变换回来呢
+答案是可以的，这就是FWT，即快速沃尔什变换
+一些定义令$A,B$为两个向量
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/02/FWT基础/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/04/01/3-30省选模拟/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/01/3-30省选模拟/" class="post-title-link" itemprop="url">3.30省选模拟</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-01 20:08:22 / 修改时间：21:38:05" itemprop="dateCreated datePublished" datetime="2019-04-01T20:08:22+08:00">2019-04-01</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/01/3-30省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/04/01/3-30省选模拟/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              T1 唐时月夜
+
+直接维护显然不太可行，我们考虑每个点单独维护
+对于某个点$(x,y)$，对它有影响的修改一定是一段后缀，那么我们可以二分出这个后缀
+考虑一个修改的本质是什么
+假如现在要对一个矩形$(x_1,y_1),(x_2,y_2)$进行行翻转，并且$(x,y)$在这个矩形内部
+那么此时$y$不变，$x$变为$x_1+x_2-x$
+如果要进行列翻转，那么$x$不变，$y$变为$y_1+y_2-y$
+现在来考虑最复杂的转置
+如果我们强制让$(x_1,y_1)$为原点，重置坐标系，那么此时每个点的$x,y$都会互换
+那么我们模拟这个过程，首先让$x$减去
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/01/3-30省选模拟/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/04/01/3-29省选模拟/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/04/01/3-29省选模拟/" class="post-title-link" itemprop="url">3.29省选模拟</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-04-01 16:15:14" itemprop="dateCreated datePublished" datetime="2019-04-01T16:15:14+08:00">2019-04-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-04 12:15:08" itemprop="dateModified" datetime="2019-04-04T12:15:08+08:00">2019-04-04</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/04/01/3-29省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/04/01/3-29省选模拟/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              T1 循环流
+
+一道比较神仙的题
+考试的时候我使用的是手玩+找规律
+我们考虑以下几种情况：
+
+$n=2$：这时需要特殊考虑
+ 如果没有1边，那么2边的数量必须是偶数
+ 否则如果1边的数量是奇数，那么一定不行
+ 此时如果1边的数量是偶数，如果2边的数量是奇数，那么我们可以用两条1边凑出一条2边，而此时1边的数量仍然是偶数
+
+$a=1$：显然此时不可能存在合法情况，因为找不到另一条1边来与这条边匹配
+
+$n\not=2,a=0或b=0$：我们可以将数量不为0的那条边连成一个环，这样至少需要$n$条边。如果数量不为0的那条边的边数大于$n$，并且是偶数，那么我
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/04/01/3-29省选模拟/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/28/3-27省选模拟/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/03/28/3-27省选模拟/" class="post-title-link" itemprop="url">3.27省选模拟</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-28 19:25:02" itemprop="dateCreated datePublished" datetime="2019-03-28T19:25:02+08:00">2019-03-28</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-04-01 20:01:40" itemprop="dateModified" datetime="2019-04-01T20:01:40+08:00">2019-04-01</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/28/3-27省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/28/3-27省选模拟/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              T1 白
+
+不会，先贴上题解
+
+
+	
+    
+	
+
+
+
+T2 胖
+
 比较简单的一道题
-考虑将这个式子拆开
-注意到这个幂是可以拆分的，即$a^b*a^c=a^{b+c}$
-而$\sum\sum ab=\sum a\sum b$
-如果将这个式子一位一位地拆分，假设$k$的第一位是$x$，有$m$位，那么有$$\sum_k e^{\frac kn}=\sum_xe^\frac{x*10^m}{n}\sum_{k去除第一位}e^{\frac kn}$$直接数位dp就可以了，注意需要特判$m=0$时的前导0的情况
-对于“不含$m$这个子串”这个条件，可以先用KMP求出next数组，再处理合法的转移
-代码如下
-#incl
+由于$X\leq 32768$，所以一次修改会影响的层数不超过15层
+考虑到在一次修改中，同一层所减少的权值是相同的，那么我们可以对于每一层都开一棵线段树
+但是这样会涉及到重复统计的问题
+比如当前已经更新了$u$，现在要更新它的父亲$f$的子树
+但是此时$u$的子树已经被更新了一遍，在处理$f$的子树时不需要再考虑$u$的子树
+我们知道子树中的dfs序是连续的
+那么对于每一层我们可以按照dfs序排序，这样修改只会改一段连续的区间
+对于每个区间我们维护一个区间最小值来处
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/17/3-16省选模拟/#more" rel="contents">
+              <a class="btn" href="/2019/03/28/3-27省选模拟/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -756,7 +1815,7 @@ $x_i&lt;M_i,j\in[0,x_i)$
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/15/3-15省选模拟/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/27/3-26省选模拟/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -776,7 +1835,7 @@ $x_i&lt;M_i,j\in[0,x_i)$
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/15/3-15省选模拟/" class="post-title-link" itemprop="url">3.15省选模拟</a>
+                <a href="/2019/03/27/3-26省选模拟/" class="post-title-link" itemprop="url">3.26省选模拟</a>
               
             
           </h1>
@@ -801,7 +1860,7 @@ $x_i&lt;M_i,j\in[0,x_i)$
                 
               
 
-              <time title="创建时间：2019-03-15 20:21:15" itemprop="dateCreated datePublished" datetime="2019-03-15T20:21:15+08:00">2019-03-15</time>
+              <time title="创建时间：2019-03-27 19:52:48" itemprop="dateCreated datePublished" datetime="2019-03-27T19:52:48+08:00">2019-03-27</time>
             
 
             
@@ -818,7 +1877,7 @@ $x_i&lt;M_i,j\in[0,x_i)$
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-04-06 15:21:57" itemprop="dateModified" datetime="2019-04-06T15:21:57+08:00">2019-04-06</time>
+                <time title="修改时间：2019-04-01 20:04:08" itemprop="dateModified" datetime="2019-04-01T20:04:08+08:00">2019-04-01</time>
               
             
           </span>
@@ -832,8 +1891,8 @@ $x_i&lt;M_i,j\in[0,x_i)$
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/15/3-15省选模拟/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/15/3-15省选模拟/" itemprop="commentCount"></span>
+                <a href="/2019/03/27/3-26省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/27/3-26省选模拟/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -864,23 +1923,22 @@ $x_i&lt;M_i,j\in[0,x_i)$
         
           
             <p>
-              T1 Tried
-之前做过一道Codeforces的题Run for beer，跟这道题很像
-先把所有环都缩在一起，就变成了一个DAG
-那么我们考虑在这个DAG上搞
-显然一条最长的路径首先要满足长度最长，注意这里的长度指的是不包含前缀0的长度
-其次要满足越靠下的路径要尽量长
-对于每个点我们可以求出两个值
-dep[u]表示从某个入度为0的点到$u$，经过的边数最多是多少
-f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多是多少。这要求连接$u$的那条边不能为0
-然后我们就可以维护两个队列，代表当前可能成为答案的点
-每次往上扩展一层，只扩展那些
+              T1 要换换名字
+
+显然不是多项式题目
+我们考虑枚举根节点，并且强制让根节点选，这样的话如果要选择一个点，那么它的父亲节点必须选
+此时对于每个点，它在两棵树里面有两个父亲，如果选择这个点，那么这两个父亲都必须选
+接下来就是最大权闭合子图模板
+建图方法是，保留原图中的所有边，将权值替换成$\infty$，对于一个节点$i$，如果$w_i&gt;0$，则从源点向$i$连一条权值为$w_i$的边，如果$w_i&lt;0$，则从$i$向汇点连一条权值为$-w_i$边
+左右正权点的和减去最小割就是答案
+如果一条从$s$出发的边被割了，就代表这个点不选
+如果一条从$
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/15/3-15省选模拟/#more" rel="contents">
+              <a class="btn" href="/2019/03/27/3-26省选模拟/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -940,7 +1998,7 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/14/3-8省选模拟-冬至/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/26/3-25省选模拟/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -960,7 +2018,7 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/03/14/3-8省选模拟-冬至/" class="post-title-link" itemprop="url">3.8省选模拟 冬至</a>
+                <a href="/2019/03/26/3-25省选模拟/" class="post-title-link" itemprop="url">3.25省选模拟</a>
               
             
           </h1>
@@ -985,172 +2043,7 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
                 
               
 
-              <time title="创建时间：2019-03-14 10:17:01 / 修改时间：20:27:38" itemprop="dateCreated datePublished" datetime="2019-03-14T10:17:01+08:00">2019-03-14</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/03/14/3-8省选模拟-冬至/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/14/3-8省选模拟-冬至/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              
-我们设$t_n$表示长度为$n$时的答案，$s_n$表示最后$k$个字符是一个给定的排列，在位置$n-1$时都合法的方案数
-我们考虑两个基本的式子$$\begin{gather}t_n=kt_{n-1}-k!s_n   (1)\\\t_n=\sum_{i=1}^{k}(k-i)!s_{n+i}  (2)\end{gather}$$对于第一个式子，我们在$t_{n-1}$后面随便加一种字符，然后减去不合法的情况，即$k!s_n$，这里枚举了最后$k$个字符分别是什么
-对于第二个式子，我们尝试在$t_n$之后依次加上$1,2,3,\cdots,k$，枚举在
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/14/3-8省选模拟-冬至/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/13/3-13省选模拟/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="An_Account">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/hh.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="An_Account's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/13/3-13省选模拟/" class="post-title-link" itemprop="url">3.13省选模拟</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-13 19:27:20" itemprop="dateCreated datePublished" datetime="2019-03-13T19:27:20+08:00">2019-03-13</time>
+              <time title="创建时间：2019-03-26 20:29:42" itemprop="dateCreated datePublished" datetime="2019-03-26T20:29:42+08:00">2019-03-26</time>
             
 
             
@@ -1167,7 +2060,7 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-03-22 19:51:00" itemprop="dateModified" datetime="2019-03-22T19:51:00+08:00">2019-03-22</time>
+                <time title="修改时间：2019-04-02 07:11:04" itemprop="dateModified" datetime="2019-04-02T07:11:04+08:00">2019-04-02</time>
               
             
           </span>
@@ -1181,8 +2074,8 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/03/13/3-13省选模拟/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/13/3-13省选模拟/" itemprop="commentCount"></span>
+                <a href="/2019/03/26/3-25省选模拟/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/26/3-25省选模拟/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1213,875 +2106,24 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
         
           
             <p>
-              T1 碱基配对
+              T1 染色问题
 
-注意到每一种字符是互不影响的，所以我们可以对于每一种字符分别计算有哪些位置合法，最后取一个交集
-问题就转化为了给出两个01串$A,B$，对于$B$的每一个为1的位置$B_i$，$A_{i+p-k}-A_{i+p+k}$这些位置中至少要有一个1
-那么我们可以把第一个串转化一下，将$A_i$变成原来的$A’_{i-k}-A’_{i+k}$中是否有1
-对于这种条件比较奇怪的字符串匹配问题，一个比较常用的方法是FFT
-我们设差异函数$F(p)$代表$A$串在$p$这个位置的差异值
-我们考虑什么时候会产生差异
-如果当前$B_i=0$，那么$A_{
+我们将所有操作倒过来看
+首先最后一种颜色是必定出现的
+如果删去这种颜色，倒数第二种颜色要么不出现，要么连在一起
+也就是说，对于颜色$i(i\not=m)$，如果将大于$i$的颜色都删去，那么剩下的格子中，要么没有颜色$i$，要么$i$连在一起
+我们考虑此时将操作正着看
+这等价于，对于颜色$i$，可以选择在之前的颜色序列中插入一段连续的$i$，也可以选择不插入
+当然，颜色$m$必须插入
+那么我们可以写出一个这样的dp
+设$f_{i,j}$表示考虑前$i$种颜色，已经染好了$j$个格子的方案数
+那么显然有$$f_{i+1,j}=f_{i,j
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/03/13/3-13省选模拟/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/12/3-12省选模拟/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="An_Account">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/hh.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="An_Account's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/12/3-12省选模拟/" class="post-title-link" itemprop="url">3.12省选模拟</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-12 14:45:33" itemprop="dateCreated datePublished" datetime="2019-03-12T14:45:33+08:00">2019-03-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-04-06 15:21:49" itemprop="dateModified" datetime="2019-04-06T15:21:49+08:00">2019-04-06</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/03/12/3-12省选模拟/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/12/3-12省选模拟/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              T1 Mas的仙人掌
-
-考虑每一条非树边的贡献
-首先它不能掉落$(1-p_i)$，而且所有与它有交的边都必须掉落$(p_i)$
-那么显然有$$E_i=(1-p_i)\prod_{j与i有交}p_j$$所以关键在于如何求所有与它有交的边的$\prod p_j$
-首先我们考虑一个比较基础的问题：如何判断两条路径是否有交
-假设这两条路径分别是$(a,b),(c,d)$
-如果是判断点相交，那么我们有结论：
-如果两条路径有公共点，那么其中一条路径的$lca$一定在另一条路径上
-如果是判断边相交，我们可以将这个结论推广
-如果两条路径有公共边，那么其中一条路径的$lc
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/12/3-12省选模拟/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2018-治疗之雨/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="An_Account">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/hh.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="An_Account's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/11/BJOI2018-治疗之雨/" class="post-title-link" itemprop="url">BJOI2018 治疗之雨</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-11 21:42:35 / 修改时间：21:52:53" itemprop="dateCreated datePublished" datetime="2019-03-11T21:42:35+08:00">2019-03-11</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/03/11/BJOI2018-治疗之雨/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2018-治疗之雨/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              题目链接
-表示并不会$n^2$高斯消元做法
-如果用dp[i]表示当前为i，到0还需要进行操作数的期望值，那么显然有转移$$dp_0 = 0\\\dp_1 = G_{1,0}dp_0 + G_{1,1}dp_1 + G_{1,2}dp_2 + 1\\\\cdots\\\dp_{n-1} = G_{n-1,0}dp_0 + G_{n-1,1}dp_1 + \cdots + G_{n-1,n}dp_n + 1\\\dp_n = G_{n,0}dp_0 + G_{n,1}dp_1 + \cdots + G_{n,n}dp_n + 1$$其中，G表示系数矩阵，G[
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/11/BJOI2018-治疗之雨/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2017-喷式水战改/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="An_Account">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/hh.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="An_Account's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/11/BJOI2017-喷式水战改/" class="post-title-link" itemprop="url">BJOI2017 喷式水战改</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-11 21:04:09 / 修改时间：21:04:55" itemprop="dateCreated datePublished" datetime="2019-03-11T21:04:09+08:00">2019-03-11</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/03/11/BJOI2017-喷式水战改/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-喷式水战改/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              题目链接
-平衡树维护dp
-对于平衡树上的一个点，维护f[i][j]表示它的子树所表示的这段区间内，从状态i开始，以状态j结束，能获得的最大收益
-显然有一个结论，对于一段连续的、并且a、b、c值都相等的燃料，一定有一种最优的方案使得这一段燃料的状态都相同
-所以对把每一次插入的区间压缩成一个点，同时分裂插入位置所在的节点
-代码如下
-#include &lt;bits/stdc++.h&gt;using namespace std;#define N 200010#define LL long longint fa[N], ch[2][N], ncnt, cn
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/11/BJOI2017-喷式水战改/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2017-树的难题/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="An_Account">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/hh.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="An_Account's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/11/BJOI2017-树的难题/" class="post-title-link" itemprop="url">BJOI2017 树的难题</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-11 20:59:09 / 修改时间：21:02:13" itemprop="dateCreated datePublished" datetime="2019-03-11T20:59:09+08:00">2019-03-11</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/03/11/BJOI2017-树的难题/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-树的难题/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              题目链接
-边数在l到r之间。。。那么这题就是点分治跑不掉了
-由于是统计的每一段颜色的权值之和，所以对于一条到分治中心的路径，我们需要保存路径长度、权值之和、顶端的颜色这三个值
-如果直接合并的话，时间复杂度最坏是$n^2$，呵呵
-所以我们考虑合并时的两种情况，分别进行优化
-1.两条路径的顶端颜色不同由于顶端颜色不同，那么这两条路径一定来自于两棵不同的子树
-如果我们按照路径的顶端颜色排序，那么对于路径i，它所应当匹配的另一条路径是排在i之前、顶端颜色与i不同、路径长度在一个区间之内的权值之和最大的路径
-也就是说，我们需要实现一个东西，可以支持单点修改、区间查
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/11/BJOI2017-树的难题/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/03/11/BJOI2017-魔法咒语/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="An_Account">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/hh.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="An_Account's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/03/11/BJOI2017-魔法咒语/" class="post-title-link" itemprop="url">BJOI2017 魔法咒语</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-03-11 20:56:54 / 修改时间：20:58:06" itemprop="dateCreated datePublished" datetime="2019-03-11T20:56:54+08:00">2019-03-11</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2019/03/11/BJOI2017-魔法咒语/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/03/11/BJOI2017-魔法咒语/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              题目链接
-感觉这题没啥好说的。。。就是对数据的分类讨论差评
-首先对于所有的危险串建AC自动机，标记危险节点，转移的时候不从危险节点转移
-然后预处理to[i][j]，即从自动机的i号节点出发，按照第j个基本串走，最后到达的节点，注意如果中途有危险节点就是-1
-对于前60%的数据，直接dp即可，用dp[i][j]表示当前串长度为i，走到自动机的j号节点的方案数
-对于后面40%的数据，没法直接dp了。注意到基本串的长度都特别小，直接上矩阵乘法
-如果基本串的长度都为1，那么建一个$n*n$的矩阵就好了
-否则要同时保存长度为$len-1,len-2$的方案，建一个
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/03/11/BJOI2017-魔法咒语/#more" rel="contents">
+              <a class="btn" href="/2019/03/26/3-25省选模拟/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -2130,7 +2172,7 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -2175,7 +2217,7 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">67</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2336,7 +2378,21 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
                     
                       
                     
-                    <span class="site-state-item-count">73</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">80</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2471,7 +2527,7 @@ f[u]表示如果以$u$为终点，到某个入度为0的点经过的边数最多
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共129.2k字</span>
+	<span class="post-count">全站共147k字</span>
 </div>
 
         
