@@ -134,14 +134,14 @@
 
 
   <meta name="description" content="题意一开始有一个为$0$的数$X$ 对于$0\leq i\leq 2^N-1$，每次你会以$\frac{A_i}{\sum A_i}$的概率选择$i$，然后将$X$异或$i$ 对于每一个$0\leq i\leq 2^N-1$，你需要求出$X$变成$i$的期望时刻 $N\leq 18$ 题解我们可以将问题转化为，对于每一个$i$，求出$i$变成$0$的期望时刻 记$p_i=\frac{A_i}{\s">
-<meta name="keywords" content="题解,数学,FWT">
+<meta name="keywords" content="题解,数学,FWT,集训队作业">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AGC034F RNG and XOR">
 <meta property="og:url" content="https://0x131cc05.github.io/2019/10/25/AGC034F-RNG-and-XOR/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
 <meta property="og:description" content="题意一开始有一个为$0$的数$X$ 对于$0\leq i\leq 2^N-1$，每次你会以$\frac{A_i}{\sum A_i}$的概率选择$i$，然后将$X$异或$i$ 对于每一个$0\leq i\leq 2^N-1$，你需要求出$X$变成$i$的期望时刻 $N\leq 18$ 题解我们可以将问题转化为，对于每一个$i$，求出$i$变成$0$的期望时刻 记$p_i=\frac{A_i}{\s">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-25T07:17:08.000Z">
+<meta property="og:updated_time" content="2019-10-29T03:30:40.394Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="AGC034F RNG and XOR">
 <meta name="twitter:description" content="题意一开始有一个为$0$的数$X$ 对于$0\leq i\leq 2^N-1$，每次你会以$\frac{A_i}{\sum A_i}$的概率选择$i$，然后将$X$异或$i$ 对于每一个$0\leq i\leq 2^N-1$，你需要求出$X$变成$i$的期望时刻 $N\leq 18$ 题解我们可以将问题转化为，对于每一个$i$，求出$i$变成$0$的期望时刻 记$p_i=\frac{A_i}{\s">
@@ -429,12 +429,24 @@
                 
               
 
-              <time title="创建时间：2019-10-25 14:51:22 / 修改时间：15:17:08" itemprop="dateCreated datePublished" datetime="2019-10-25T14:51:22+08:00">2019-10-25</time>
+              <time title="创建时间：2019-10-25 14:51:22" itemprop="dateCreated datePublished" datetime="2019-10-25T14:51:22+08:00">2019-10-25</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-10-29 11:30:40" itemprop="dateModified" datetime="2019-10-29T11:30:40+08:00">2019-10-29</time>
               
             
           </span>
@@ -501,7 +513,7 @@
 <p>显然，我们知道$x_0=0$，那么此时我们求出的$x_0$应该就是这个常数</p>
 <p>所以将求出来的每一项减去$x_0$即可</p>
 <p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1</span> &lt;&lt; <span class="number">18</span>, mod = <span class="number">998244353</span>, i2 = (mod + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (; y; y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">	<span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">FWT</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> len, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> mid = <span class="number">2</span>; mid &lt;= len; mid &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i += mid)</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; i + (mid &gt;&gt; <span class="number">1</span>); j++) &#123;</span><br><span class="line">				<span class="keyword">int</span> t = a[j]; a[j] = (t + a[j + (mid &gt;&gt; <span class="number">1</span>)]) % mod, a[j + (mid &gt;&gt; <span class="number">1</span>)] = (t - a[j + (mid &gt;&gt; <span class="number">1</span>)] + mod) % mod;</span><br><span class="line">				<span class="keyword">if</span> (!type) a[j] = (LL)a[j] * i2 % mod, a[j + (mid &gt;&gt; <span class="number">1</span>)] = (LL)a[j + (mid &gt;&gt; <span class="number">1</span>)] * i2 % mod;</span><br><span class="line">			&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> A[N], B[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n, sum = <span class="number">0</span>; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), n = <span class="number">1</span> &lt;&lt; n;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;A[i]), B[i] = mod - <span class="number">1</span>, sum = (sum + A[i]) % mod;</span><br><span class="line">	sum = Pow(sum, mod - <span class="number">2</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) A[i] = (LL)A[i] * sum % mod;</span><br><span class="line">	B[<span class="number">0</span>] = n - <span class="number">1</span>, A[<span class="number">0</span>] = (A[<span class="number">0</span>] + mod - <span class="number">1</span>) % mod;</span><br><span class="line">	FWT(A, n, <span class="number">1</span>), FWT(B, n, <span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) B[i] = (LL)B[i] * Pow(A[i], mod - <span class="number">2</span>) % mod;</span><br><span class="line">	FWT(B, n, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (B[i] - B[<span class="number">0</span>] + mod) % mod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1</span> &lt;&lt; <span class="number">18</span>, mod = <span class="number">998244353</span>, i2 = (mod + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (; y; y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">FWT</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> len, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> mid = <span class="number">2</span>; mid &lt;= len; mid &lt;&lt;= <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i += mid)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt; i + (mid &gt;&gt; <span class="number">1</span>); j++) &#123;</span><br><span class="line">                <span class="keyword">int</span> t = a[j]; a[j] = (t + a[j + (mid &gt;&gt; <span class="number">1</span>)]) % mod, a[j + (mid &gt;&gt; <span class="number">1</span>)] = (t - a[j + (mid &gt;&gt; <span class="number">1</span>)] + mod) % mod;</span><br><span class="line">                <span class="keyword">if</span> (!type) a[j] = (LL)a[j] * i2 % mod, a[j + (mid &gt;&gt; <span class="number">1</span>)] = (LL)a[j + (mid &gt;&gt; <span class="number">1</span>)] * i2 % mod;</span><br><span class="line">            &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> A[N], B[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, sum = <span class="number">0</span>; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), n = <span class="number">1</span> &lt;&lt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;A[i]), B[i] = mod - <span class="number">1</span>, sum = (sum + A[i]) % mod;</span><br><span class="line">    sum = Pow(sum, mod - <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) A[i] = (LL)A[i] * sum % mod;</span><br><span class="line">    B[<span class="number">0</span>] = n - <span class="number">1</span>, A[<span class="number">0</span>] = (A[<span class="number">0</span>] + mod - <span class="number">1</span>) % mod;</span><br><span class="line">    FWT(A, n, <span class="number">1</span>), FWT(B, n, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) B[i] = (LL)B[i] * Pow(A[i], mod - <span class="number">2</span>) % mod;</span><br><span class="line">    FWT(B, n, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (B[i] - B[<span class="number">0</span>] + mod) % mod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -530,6 +542,8 @@
             <a href="/tags/数学/" rel="tag"># 数学</a>
           
             <a href="/tags/FWT/" rel="tag"># FWT</a>
+          
+            <a href="/tags/集训队作业/" rel="tag"># 集训队作业</a>
           
         </div>
       
@@ -650,7 +664,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -825,7 +839,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">80</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">82</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -977,7 +995,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共148k字</span>
+	<span class="post-count">全站共150.8k字</span>
 </div>
 
         

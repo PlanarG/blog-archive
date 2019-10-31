@@ -1,12 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[析合树]]></title>
+    <url>%2F2019%2F10%2F31%2F%E6%9E%90%E5%90%88%E6%A0%91%2F</url>
+    <content type="text"><![CDATA[连续段定义对于排列$P$，如果对于一段区间$[l,r]$，满足$P_{l\sim r}$是连续的，那么我们将区间$[l,r]$称为连续段 形式化地来讲， 如果$[l,r]$是连续段，那么不存在$x&lt;l$或$x&gt;r$，使得存在$l&lt;a&lt;r,l&lt;b&lt;r$，满足$P_a&lt;P_x&lt;P_b$ 比如对于排列1 3 2 4 5，2 4 5不是连续段，因为其值域不连续；而3 2 4 5是一个连续段 我们将排列$P$的所有连续段构成的集合记为$I_P$ 连续段的性质对于两个相交的区间$A,B$，如果$A,B$均为连续段，那么 $A\cap B$是连续段 若存在$x\not \in A\cap B$使得存在$a\in A\cap B,b\in A\cap B$使得$P_a&lt;P_x&lt;P_b$，那么无论$x$落在哪个区域都会导致$A,B$至少一个区间不再是连续段，与假设矛盾 $A\cup B$是连续段 $A$值域连续，$B$值域连续，显然$A\cup B$值域连续 $A\setminus B,B\setminus A$是连续段 $A\cap B$的值域就是$A,B$的值域相交的部分，因为$A\cap B$是连续段，故$A\setminus B,B\setminus A$也是连续段 析合树定义本原连续段对于排列$P$，如果$A\in I_P$，且不存在$B\in I_P,B\not= A$使得$A,B$不存在包含关系但是相交，那么我们称$A$是$P$的一个本原连续段 例如在排列1 2 3 4中，2 3就不是本原连续段，因为1 2与它相交但是互不包含 显然每个长度为$1$的区间都是本原连续段 根据本原连续段的定义，任意两个本原连续段间只能存在包含或相离关系，即它们形成了一棵树状的结构，我们将这个树状结构称为析合树 析点与合点析合树上的每一个点都是一个本原连续段，并且有析点和合点之分 考虑对于排列9 1 10 3 2 5 7 6 8 4建出析合树 图中蓝色代表合点，橙色代表析点 对于析合树上的一个点，我们将它的所有儿子按照在排列中的下标排好 那么对于合点，完整包含其儿子的任意一个子串都是连续段 比如，对于图中$[5,8]$这个节点，它有$3$个儿子$[5,5],[6,7],[8,8]$ 那么$[5,7],[6,8]$也是连续段 也就是它的所有儿子是按照值域排好的，要么从大到小，要么从小到大 与合点相对的是析点，它的任意一个完整包含其儿子的子串都不是连续段 比如，对于$[1,10]$这个节点，它的儿子是$[9,9],[1,1],[10,10],[2,8]$ 显然$[9,9]\cup[1,1]$不是连续段，$[10,10],[2,8]$同理 合点的性质很好证明，下面来证明析点的性质 我们考虑一个析点的所有儿子 如果存在它儿子序列的一个子区间，使得这个区间也是连续段，我们考虑满足这种条件的最大区间 由于它是最大的，因此找不到另一个与它相交，但不包含的区间 也就是说，这一段区间也是一个本原连续段，我们应该为它新建一个节点，与析合树的定义矛盾 析合树的另一个性质是：合点至少有$2$个儿子，而析点至少有$4$个儿子 构造考虑使用增量法构造析合树，即先构造出前$i-1$个点的析合森林，然后再加入第$i$个点 构造其实很简单，大致分为四步 如果最后一个点是合点，并且当前点能合并到合点中，那么就合并，并且将合并之后的点作为当前点 否则，如果上一个点与当前点能够合并，那么我们新建一个合点，将上一个点与这一个点作为它的两个儿子 否则，向前找到最后一个点，使得这个点到当前点中间的所有点能构成连续段，新建一个析点，并将这些点作为它的儿子。可以证明一定存在这样一个点 重复以上操作直到不能合并为止，即最后一个点的左端点小于$i$作为右端点的所有连续段中，最靠左的左端点 那么问题来了，如何判断一个区间是否是连续段 一个区间是连续段当且仅当这个区间的值域连续，也就是$$\max_{i=l}^ra_i-\min_{i=l}^ra_i=r-l$$因此使用RMQ即可$O(1)$判断一个区间是否是连续段 第二个问题是，如何找到所有右端点是$i$的连续段的最靠左的左端点呢 由于$P$是一个排列，因此对于$P$的任意一个区间，都有$$\max_{i=l}^ra_i-\min_{i=l}^ra_i\geq r-l\\\max_{i=l}^ra_i-\min_{i=l}^ra_i-r+l\geq 0$$故我们可以用线段树维护上式的最小值，然后找到第一个为$0$的位置即可 考虑加入$i$时会对区间造成哪些影响 首先，所有区间的$r$会$+1$，即区间减 然后我们使用单调栈维护$\min,\max$，每次弹栈的时候栈中相邻两个元素之间的区间的$\min/\max$一定是相同的，我们可以先将其减去其原来的值，最后再加上$a_i$ 代码如下（对应CF526F Pudding Monsters） 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 300010;typedef long long LL;int a[N], n;struct RMQ &#123; int lg[N], mn[19][N], mx[19][N]; inline void build() &#123; for (int i = 2; i &lt;= n; i++) lg[i] = lg[i &gt;&gt; 1] + 1; for (int i = 1; i &lt;= n; i++) mn[0][i] = mx[0][i] = a[i]; for (int i = 1; i &lt;= 18; i++) for (int j = 1; j + (1 &lt;&lt; i) - 1 &lt;= n; j++) &#123; mn[i][j] = min(mn[i - 1][j], mn[i - 1][j + (1 &lt;&lt; i - 1)]); mx[i][j] = max(mx[i - 1][j], mx[i - 1][j + (1 &lt;&lt; i - 1)]); &#125; &#125; inline int Min(int l, int r) &#123; int len = lg[r - l + 1]; return min(mn[len][l], mn[len][r - (1 &lt;&lt; len) + 1]); &#125; inline int Max(int l, int r) &#123; int len = lg[r - l + 1]; return max(mx[len][l], mx[len][r - (1 &lt;&lt; len) + 1]); &#125;&#125; D;struct SEG &#123; struct node &#123; int l, r, mn, mx, tag; &#125; T[N &lt;&lt; 2]; inline void pushup(int rt) &#123; T[rt].mn = min(T[rt &lt;&lt; 1].mn, T[rt &lt;&lt; 1 | 1].mn); T[rt].mx = max(T[rt &lt;&lt; 1].mx, T[rt &lt;&lt; 1 | 1].mx); &#125; inline void pushdown(int rt) &#123; T[rt &lt;&lt; 1].mn += T[rt].tag, T[rt &lt;&lt; 1 | 1].mn += T[rt].tag; T[rt &lt;&lt; 1].mx += T[rt].tag, T[rt &lt;&lt; 1 | 1].mx += T[rt].tag; T[rt &lt;&lt; 1].tag += T[rt].tag, T[rt &lt;&lt; 1 | 1].tag += T[rt].tag, T[rt].tag = 0; &#125; void build(int rt, int l, int r) &#123; T[rt].l = l, T[rt].r = r; if (l == r) return; int mid = (l + r) &gt;&gt; 1; build(rt &lt;&lt; 1, l, mid), build(rt &lt;&lt; 1 | 1, mid + 1, r); &#125; void update(int rt, int start, int end, int x) &#123; int l = T[rt].l, r = T[rt].r, mid = (l + r) &gt;&gt; 1; if (start &lt;= l &amp;&amp; r &lt;= end) &#123; T[rt].tag += x, T[rt].mn += x, T[rt].mx += x; return; &#125; if (T[rt].tag) pushdown(rt); if (start &lt;= mid) update(rt &lt;&lt; 1, start, end, x); if (end &gt; mid) update(rt &lt;&lt; 1 | 1, start, end, x); pushup(rt); &#125; int query(int rt) &#123; int l = T[rt].l, r = T[rt].r; if (l == r) return l; if (T[rt].tag) pushdown(rt); if (!T[rt &lt;&lt; 1].mn) return query(rt &lt;&lt; 1); return query(rt &lt;&lt; 1 | 1); &#125;&#125; T;inline bool Judge(int l, int r) &#123; return D.Max(l, r) - D.Min(l, r) == r - l;&#125;int stk1[N], stk2[N], tp1, tp2;int stk[N], tp, L[N * 2], R[N * 2], M[N * 2], ncnt, type[N * 2], ch[N * 2];/** * L, R: 该连续段在排列中对应的下标 * type: 1代表该点为合点，否则为析点 * ch: 该点的儿子数量 * stk1, stk2: 区间min, max的单调栈 * M: 合点的最后一个儿子的左端点，用于判断是否能够合并 * stk: 当前析合森林中所有的根 */inline void build() &#123; for (int i = 1; i &lt;= n; i++) &#123; while (tp1 &amp;&amp; a[i] &lt;= a[stk1[tp1]]) T.update(1, stk1[tp1 - 1] + 1, stk1[tp1], a[stk1[tp1]]), tp1--; while (tp2 &amp;&amp; a[i] &gt;= a[stk2[tp2]]) T.update(1, stk2[tp2 - 1] + 1, stk2[tp2], -a[stk2[tp2]]), tp2--; T.update(1, stk1[tp1] + 1, i, -a[i]), T.update(1, stk2[tp2] + 1, i, a[i]); stk1[++tp1] = i, stk2[++tp2] = i; int nw = ++ncnt, Li = T.query(1); L[nw] = R[nw] = i; while (tp &amp;&amp; L[stk[tp]] &gt;= Li) &#123; if (type[stk[tp]] &amp;&amp; Judge(M[stk[tp]], i)) &#123; R[stk[tp]] = i, ch[stk[tp]]++, nw = stk[tp--]; &#125; else if (Judge(L[stk[tp]], i)) &#123; ncnt++, type[ncnt] = 1, ch[ncnt] = 2; L[ncnt] = L[stk[tp]], R[ncnt] = i, M[ncnt] = L[nw], tp--, nw = ncnt; &#125; else &#123; ncnt++, ch[ncnt] = 1; do &#123; ch[ncnt]++, tp--; &#125; while (tp &amp;&amp; !Judge(L[stk[tp]], i)); L[ncnt] = L[stk[tp]], R[ncnt] = i, tp--, nw = ncnt; &#125; &#125; stk[++tp] = nw, T.update(1, 1, i, -1); &#125;&#125;int x[N], y[N], id[N];int main() &#123; scanf("%d", &amp;n); for (int i = 1; i &lt;= n; i++) scanf("%d%d", &amp;x[i], &amp;y[i]), id[i] = i; sort(id + 1, id + n + 1, [](int a, int b)&#123; return x[a] &lt; x[b]; &#125;); for (int i = 1; i &lt;= n; i++) a[i] = y[id[i]]; D.build(), T.build(1, 1, n), build(); LL res = 0; for (int i = 1; i &lt;= ncnt; i++) &#123; if (type[i]) res += (LL)ch[i] * (ch[i] - 1) / 2; else res++; &#125; printf("%lld\n", res); return 0;&#125;]]></content>
+      <tags>
+        <tag>算法</tag>
+        <tag>析合树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CF582C Superior Periodic Subarrays]]></title>
+    <url>%2F2019%2F10%2F29%2FCF582C-Superior-Periodic-Subarrays%2F</url>
+    <content type="text"><![CDATA[题意]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[CF585E Vitalik the Philatelist]]></title>
+    <url>%2F2019%2F10%2F29%2FCF585E-Vitalik-the-Philatelist%2F</url>
+    <content type="text"><![CDATA[题意给出$n$个数，统计pair$(X,S)$的数量，其中$X$是一个序列中，且不属于$S$的元素，$S$是这个序列的子集 要求$\gcd(S)\neq 1,\gcd(X,S)=1$ $n\leq 5*10^5,a_i\leq 10^7$ 题解设$F(x)$表示$S$的$\gcd$是$x$的倍数，且$X$不是$x$的倍数的pair的数量 $G(x)$表示$S$的$\gcd$恰好是$x$，且$X$不是$x$的倍数的pair的数量 那么$F,G$满足$$F(x)=\sum_{x|d}G(d)\\G(x)=\sum_{x|d}F(d)\mu(\frac{d}{x})$$假设序列中$x$的倍数有$b_x$个 那么$F(x)=(2^{b_x}-1)(n-b_x)$ 最后的答案就是$$\sum_{x\geq 2}G(x)=\sum_{x\geq 2}\sum_{x|d}F(d)\mu(\frac{d}{x})\\=\sum_{d\geq2}F(d)\sum_{x|d,x\geq 1}\mu(\frac{d}{x})\\=-\sum_{d\geq 2}F(d)\mu(d)$$代码如下 1234567891011121314151617181920212223242526272829303132333435363738#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 10000010;const int mod = 1e9 + 7;typedef long long LL;int buk[N], mu[N], flag[N], prime[N], pcnt, Pow2[500010];inline void sieve() &#123; mu[1] = 1; for (int i = 2; i &lt;= N - 10; i++) &#123; if (!flag[i]) prime[++pcnt] = i, mu[i] = -1; for (int j = 1; j &lt;= pcnt &amp;&amp; i * prime[j] &lt;= N - 10; j++) &#123; flag[i * prime[j]] = 1; if (i % prime[j] == 0) break; mu[i * prime[j]] = -mu[i]; &#125; &#125;&#125;int main() &#123; int n, mx = 0; scanf("%d", &amp;n), sieve(); for (int i = 1, a; i &lt;= n; i++) scanf("%d", &amp;a), buk[a]++, mx = max(mx, a); for (int i = 2; i &lt;= mx; i++) for (int j = i * 2; j &lt;= mx; j += i) buk[i] += buk[j]; Pow2[0] = 1; for (int i = 1; i &lt;= n; i++) Pow2[i] = Pow2[i - 1] * 2 % mod; int res = 0; for (int i = 2; i &lt;= mx; i++) &#123;// cout &lt;&lt; i &lt;&lt; ' ' &lt;&lt; buk[i] &lt;&lt; endl; int t = (LL)(Pow2[buk[i]] - 1) * (n - buk[i]) % mod; res = (res - mu[i] * t) % mod; &#125; res = (res + mod) % mod; printf("%d\n", res);&#125;]]></content>
+      <tags>
+        <tag>题解</tag>
+        <tag>数学</tag>
+        <tag>集训队作业</tag>
+        <tag>莫比乌斯反演</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CF521D Shop]]></title>
     <url>%2F2019%2F10%2F28%2FCF521D-Shop%2F</url>
     <content type="text"><![CDATA[题意给出$n$个数以及$m$个操作，有$3$种操作： 将$x_i$改为$a_i$ 将$x_i$加上$a_i$ 将$x_i$乘上$a_i$ 第$i$个操作的编号为$i$，你可以从中选出最多$k$个操作并决定操作顺序，要使得$\prod x_i$最大 输出方案$$n,k,m\leq 10^5$$ 题解假设我们已经确定好了要选哪些操作，现在要为这些操作决定顺序 那么显然操作$1$应该在操作$2$之前，操作$2$应该在操作$3$之前 同时，我们注意到，如果我们单独考虑一个操作$3$，那么这个操作无论作用于哪个数，最终的答案都是不变的 这启发我们将前两种操作也转换成操作$3$的形式 首先，$2$操作是可以被转化成$3$操作的 假设$2$操作之前这个数是$x$，操作之后变成了$x+a$，那么我们可以将它看作一次$a=\frac{x+a}{x}$的操作$3$ 显然对于同一个数，如果有两个$2$操作，我们会选择$a_i$更大的那一个执行 因此对于所有$2$操作我们将其按照加的数排序，如果有一个$2$操作在最终方案中被选了，那么所有对$x_i$进行操作，并且加的数比当前操作大的那些操作在最终方案中都会被选 因此实际上，对于每一个$2$操作，它对所有数乘积的贡献已经确定好了 具体来说，我们将所有$2$操作按照加的数从大到小排序，同时维护每个数当前经过之前的操作之后变成了多少 假如此时这个数变成了$x’$，那么选当前操作对答案的贡献就是$\frac{x’+a_i}{x’}$，同时$x’+=a_i$ 然后我们将转换后的$2$操作与$3$操作合在一起排序就可以了 现在考虑操作$1$ 如果对于同一个数，多次进行操作$1$是没用的，我们只会选$a_i$最大的那一个执行 这里先说一个结论：所有操作$2$可以看作$a_i$为$a_i-x_i$的操作$2$ 如果在最终排序中，这个操作排在所有操作$2$之前，显然没有问题 否则，可以注意到，所有选出的操作$2$的先后顺序是没有关系的。也就是说，即使我们是按照$a_i$从大到小排序，最后所有的操作$2$之间仍然是可以互换的，而答案显然不变 因此如果在最优方案中，我们选择了这个操作$1$，我们完全可以将它挪到最前面操作，就可以保证它恰好加上了$a_i-x_i$ 需要注意的一个小细节是，如果当前乘的数$&lt;1$了，那么显然不操作更优秀 代码如下 1234567891011121314151617181920212223242526272829303132333435363738394041424344#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 100010;typedef long long LL;struct node &#123; LL a, b; int type, id;&#125; q[N * 3], q2[N * 3], q3[N * 3];int type[N], x[N], y[N];LL a[N]; int b[N];int main() &#123; int k, n, m, tot = 0, tot2 = 0; scanf("%d%d%d", &amp;n, &amp;m, &amp;k); for (int i = 1; i &lt;= n; i++) scanf("%lld", &amp;a[i]); for (int i = 1; i &lt;= m; i++) &#123; scanf("%d%d%d", &amp;type[i], &amp;x[i], &amp;y[i]); if (type[i] == 1) &#123; if (y[i] &gt; y[b[x[i]]]) b[x[i]] = i; &#125; else if (type[i] == 2) &#123; q2[++tot2] = (node)&#123;y[i], x[i], 2, i&#125;; &#125; else q[++tot] = (node)&#123;y[i], 1, 3, i&#125;; &#125; for (int i = 1; i &lt;= n; i++) if (b[i]) q2[++tot2] = (node)&#123;y[b[i]] - a[i], i, 1, b[i]&#125;; sort(q2 + 1, q2 + tot2 + 1, [](node a, node b)&#123;return a.a &gt; b.a;&#125;); for (int i = 1; i &lt;= tot2; i++) &#123; q[++tot] = (node)&#123;q2[i].a + a[q2[i].b], a[q2[i].b], q2[i].type, q2[i].id&#125;; a[q2[i].b] += q2[i].a; &#125; sort(q + 1, q + tot + 1, [](node a, node b)&#123;return (long double)a.a / a.b &gt; (long double)b.a / b.b;&#125;); k = min(k, tot); for (int i = 1; i &lt;= k; i++) &#123; if (q[i].a &lt;= q[i].b) &#123; k = i - 1; break; &#125; q3[i] = q[i]; &#125; printf("%d\n", k); sort(q3 + 1, q3 + k + 1, [](node a, node b)&#123;return a.type &lt; b.type;&#125;); for (int i = 1; i &lt;= k; i++) printf("%d ", q3[i].id);&#125;]]></content>
       <tags>
         <tag>题解</tag>
         <tag>贪心</tag>
+        <tag>集训队作业</tag>
       </tags>
   </entry>
   <entry>
@@ -29,6 +55,7 @@
       <tags>
         <tag>题解</tag>
         <tag>动态规划</tag>
+        <tag>集训队作业</tag>
       </tags>
   </entry>
   <entry>
@@ -37,6 +64,7 @@
     <content type="text"><![CDATA[题意给出$n$个互不相同的$D_i$，你需要构造一棵树，使得第$i$个点到全树的距离之和等于$D_i$，每条边的边权都是$1$ $n\leq 10^5,1\leq D_i\leq 10^{12}$ 题解首先要知道一个很重要的结论：一棵树的重心到全树的距离之和最小 这个结论比较显然，因为将当前点往$size$更大的那一边挪，距离之和会变小，最后一定会挪到重心 那么我们把重心提出来作为这棵树的根，此时有另一个结论：父亲节点的$D$一定比儿子小 每次我们将$D$最大的那个点拿出来删掉，同时维护其它节点子树的大小，根据当前拿出来的点的子树大小，我们可以算出它父亲的$D$。由于每个$D$都互不相同，我们可以确定它的父亲，然后更新父亲的$size$即可 代码如下 1234567891011121314151617181920212223242526272829303132333435363738394041#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 100010;typedef long long LL;LL D[N]; int id[N], sz[N];map&lt;LL, int&gt; mp;inline void Fuck() &#123; puts("-1"), exit(0);&#125;vector&lt;int&gt; G[N];inline void adde(int from, int to) &#123; G[from].push_back(to), G[to].push_back(from);&#125;LL dfs(int u, int f) &#123; LL res = 0; for (auto v : G[u]) if (v != f) res += dfs(v, u) + sz[v]; return res;&#125;int main() &#123; int n; scanf("%d", &amp;n); for (int i = 1; i &lt;= n; i++) scanf("%lld", &amp;D[i]), mp[D[i]] = i, sz[i] = 1, id[i] = i; sort(id + 1, id + n + 1, [](int a, int b)&#123;return D[a] &gt; D[b];&#125;); for (int i = 1; i &lt; n; i++) &#123; int v = id[i]; LL tmp = D[v] - n + sz[v] * 2; if (!mp.count(tmp) || tmp &gt;= D[v]) Fuck(); adde(v, mp[tmp]), sz[mp[tmp]] += sz[v]; &#125; if (dfs(id[n], 0) != D[id[n]]) Fuck(); for (int i = 1; i &lt;= n; i++) for (auto v : G[i]) if (v &gt; i) printf("%d %d\n", i, v);&#125;]]></content>
       <tags>
         <tag>题解</tag>
+        <tag>集训队作业</tag>
         <tag>构造</tag>
       </tags>
   </entry>
@@ -48,6 +76,7 @@
         <tag>题解</tag>
         <tag>数学</tag>
         <tag>FWT</tag>
+        <tag>集训队作业</tag>
       </tags>
   </entry>
   <entry>
@@ -58,6 +87,7 @@
         <tag>题解</tag>
         <tag>数据结构</tag>
         <tag>线段树</tag>
+        <tag>集训队作业</tag>
       </tags>
   </entry>
   <entry>
@@ -90,8 +120,8 @@
         <tag>题解</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>FWT</tag>
         <tag>二分答案</tag>
+        <tag>FWT</tag>
         <tag>莫比乌斯反演</tag>
         <tag>并查集</tag>
       </tags>
@@ -105,8 +135,8 @@
         <tag>动态规划</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>线段树</tag>
         <tag>字符串</tag>
         <tag>KMP</tag>
@@ -153,11 +183,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[10.17停课集训]]></title>
-    <url>%2F2019%2F10%2F17%2F10-17%E5%81%9C%E8%AF%BE%E9%9B%86%E8%AE%AD%2F</url>
-    <content type="text"></content>
-  </entry>
-  <entry>
     <title><![CDATA[10.12停课集训]]></title>
     <url>%2F2019%2F10%2F12%2F10-12%E5%81%9C%E8%AF%BE%E9%9B%86%E8%AE%AD%2F</url>
     <content type="text"><![CDATA[T1 数值修改 一道很奇妙的题 通过观察和打表可以发现，最优的方案一定是每次减去最大的那一位 因此对于$30\%$的分数，直接模拟即可 对于$60\%$的数据，我们将这个数分成前一半和后一半，即前$6$位和后$6$位 注意到前$6$位只会被修改$\sqrt n$次，因此我们可以模拟前$6$位的修改 对于后$6$位，考虑前$6$位对它的影响，这个影响只与前$6$位的最大值有关 我们可以记$f[i][j]$表示前$6$位的最大值为$6$，后$6$位为$j$时至少需要多少步才能让后$6$位变成负数，同时记录一下此时的个位是多少 对于$100\%$的数据，我们使用同样的思路。注意到前面$f$的状态中$j$在被清空一次之后，只有最后一位需要考虑，前面的位都是$9$ 因此我们可以设$f[i][j][k]$表示只考虑后$i$位，其中前$i-1$位全部为$9$，最后一位为$j$，并且这$i$位之前的最大值为$k$时，最少需要多少步才能减成负数，同时记录一下此时最后一位变成了多少，记为$g[i][j][k]$ 转移的时候这样考虑：$$\begin{aligned}9&amp;|99\cdots9x\\8&amp;|99\cdots9x’\\7&amp;|99\cdots9x’’\\&amp;\cdots\\0&amp;|99\cdots9x’’’\Rightarrow f[i-1][x’’’][k]\end{aligned}$$怎么统计答案呢？同样是模拟这个过程，我们从低位到高位依次考虑 将当前这一位后面的所有位全部减成负数之后，当前这一位后面就变成了$x999\cdots 9y$的形式，直接使用$f$的值，并更新此时的$y$，同时模拟退位 代码如下 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 20, M = 10;typedef long long LL;LL f[N][M][M], g[N][M][M];inline void Just_DOIT() &#123; for (int i = 0; i &lt;= 9; i++) for (int j = 0; j &lt;= 9; j++) &#123; if (i &gt;= j) f[1][i][j] = 2, g[1][i][j] = 10 - j; else f[1][i][j] = 1, g[1][i][j] = 10 + i - j; &#125; for (int i = 2; i &lt; N; i++) for (int j = 0; j &lt;= 9; j++) for (int k = 0; k &lt;= 9; k++) &#123; g[i][j][k] = j; for (int fir = 9; fir &gt;= 0; fir--) &#123; f[i][j][k] += f[i - 1][g[i][j][k]][max(fir, k)]; g[i][j][k] = g[i - 1][g[i][j][k]][max(fir, k)]; &#125; &#125;&#125;char s[N]; int len, num[N];inline LL Make_YourDream_COMETRUE() &#123; LL res = 0, ls = num[1]; for (int i = 2; i &lt;= len; i++) &#123; int mx = 0; for (int j = i + 1; j &lt;= len; j++) mx = max(mx, num[j]); for (int j = num[i]; j &gt;= 0; j--) &#123; int tmp = max(mx, j); res += f[i - 1][ls][tmp], ls = g[i - 1][ls][tmp]; &#125; if (i != len) &#123; int cur = i + 1; while (cur &lt;= len &amp;&amp; num[cur] == 0) num[cur] = 9, cur++; num[cur]--; &#125; &#125; return res - 1;&#125;int main() &#123; LL n; scanf("%lld", &amp;n); sprintf(s + 1, "%lld", n), len = strlen(s + 1), reverse(s + 1, s + len + 1); for (int i = 1; i &lt;= len; i++) num[i] = s[i] - '0'; Just_DOIT(), printf("%lld\n", Make_YourDream_COMETRUE());&#125; T2 覆盖 很久以前，lyc曾经胡过这道题 比较简单 对于每条路径，考虑有多少条路径覆盖了它 我们假设这条路径的两个端点分别为$u,v$，并且$u,v$不为祖先关系 那么一条覆盖它的路径$a,b$，一定是$a$落在$u$的子树中，并且$b$落在$v$的子树中 这对应着一个矩形，因此我们只需要支持单点加，矩形查就可以了，可以扫描线或者主席树 如果$u,v$存在祖先关系，实际上还是对应矩形查询 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 100010;typedef long long LL;typedef pair&lt;int, int&gt; P;int lson[N * 80], rson[N * 80], sum[N * 80], ncnt;int build(int l, int r) &#123; ncnt++; if (l == r) return ncnt; int mid = (l + r) &gt;&gt; 1; return build(l, mid), build(mid + 1, r), ncnt;&#125;int update(int rt, int l, int r, int at) &#123; int nw = ++ncnt; lson[nw] = lson[rt], rson[nw] = rson[rt], sum[nw] = sum[rt] + 1; if (l == r) return ncnt; int mid = (l + r) &gt;&gt; 1; if (at &lt;= mid) lson[nw] = update(lson[nw], l, mid, at); else rson[nw] = update(rson[nw], mid + 1, r, at); return nw;&#125;int query(int rt1, int rt2, int l, int r, int start, int end) &#123; if (start &lt;= l &amp;&amp; r &lt;= end) return sum[rt2] - sum[rt1]; int mid = (l + r) &gt;&gt; 1, res = 0; if (start &lt;= mid) res += query(lson[rt1], lson[rt2], l, mid, start, end); if (end &gt; mid) res += query(rson[rt1], rson[rt2], mid + 1, r, start, end); return res;&#125;struct edge &#123; int to, next;&#125; e[N * 2];int head[N], ecnt;inline void adde(int from, int to) &#123; e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt; e[++ecnt] = (edge)&#123;from, head[to]&#125;, head[to] = ecnt;&#125;int dfn[N], ed[N], dfsn, fa[N][18], dep[N];void dfs(int u, int f) &#123; dfn[u] = ++dfsn, fa[u][0] = f, dep[u] = dep[f] + 1; for (int i = 1; i &lt;= 17; i++) fa[u][i] = fa[fa[u][i - 1]][i - 1]; for (int i = head[u]; i; i = e[i].next) if (e[i].to != f) dfs(e[i].to, u); ed[u] = dfsn;&#125;inline int LCA(int a, int b) &#123; if (dep[a] &lt; dep[b]) swap(a, b); for (int i = 17; i &gt;= 0; i--) if (dep[fa[a][i]] &gt;= dep[b]) a = fa[a][i]; if (a == b) return a; for (int i = 17; i &gt;= 0; i--) if (fa[a][i] != fa[b][i]) a = fa[a][i], b = fa[b][i]; return fa[a][0];&#125;int from[N], to[N], RT[N], tree[N], n; vector&lt;int&gt; hh[N];inline int jump(int a, int b) &#123; for (int i = 17; i &gt;= 0; i--) if (dep[fa[a][i]] &gt; dep[b]) a = fa[a][i]; return a;&#125;inline void upd(int x, int y) &#123; if (!x) return; for (; x &lt;= n; x += x &amp; -x) tree[x] += y;&#125;inline int que(int x) &#123; int res = 0; for (; x; x -= x &amp; -x) res += tree[x]; return res;&#125;map&lt;P, int&gt; mp;LL gcd(LL a, LL b) &#123;return b ? gcd(b, a % b) : a;&#125;int main() &#123;// freopen("painting.in", "r", stdin), freopen("painting.out", "w", stdout); int q; scanf("%d%d", &amp;n, &amp;q); for (int i = 1, a, b; i &lt; n; i++) scanf("%d%d", &amp;a, &amp;b), adde(a, b); dfs(1, 0), RT[0] = build(1, n); for (int i = 1; i &lt;= q; i++) &#123; scanf("%d%d", &amp;from[i], &amp;to[i]); if (from[i] &gt; to[i]) swap(from[i], to[i]); mp[P(from[i], to[i])]++; hh[dfn[from[i]]].push_back(dfn[to[i]]); int lca = LCA(from[i], to[i]); upd(dfn[from[i]], 1), upd(dfn[to[i]], 1), upd(dfn[lca], -1), upd(dfn[fa[lca][0]], -1); &#125; for (int i = 1; i &lt;= n; i++) &#123; RT[i] = RT[i - 1]; for (auto y : hh[i]) RT[i] = update(RT[i], 1, n, y); &#125; LL res = 0; for (int i = 1; i &lt;= q; i++) &#123; int a = from[i], b = to[i]; if (a == b) &#123; res += que(to[a]) - que(dfn[a] - 1), res--; continue; &#125; if (dep[a] &lt; dep[b]) swap(a, b); if (LCA(a, b) == b) &#123; int t = jump(a, b); res += query(RT[dfn[a] - 1], RT[ed[a]], 1, n, 1, n) - query(RT[dfn[a] - 1], RT[ed[a]], 1, n, dfn[t], ed[t]); res += query(RT[0], RT[n], 1, n, dfn[a], ed[a]) - query(RT[dfn[t] - 1], RT[ed[t]], 1, n, dfn[a], ed[a]); &#125; else &#123; res += query(RT[dfn[a] - 1], RT[ed[a]], 1, n, dfn[b], ed[b]) + query(RT[dfn[b] - 1], RT[ed[b]], 1, n, dfn[a], ed[a]); &#125; res--; &#125; for (auto v : mp) res -= (LL)v.second * (v.second - 1) / 2; LL res2 = (LL)q * (q - 1) / 2, g = gcd(res, res2); printf("%lld/%lld", res / g, res2 / g);&#125; T3 机器人 题目等价于给$n$条直线，每条直线有一个出现时间的区间，多次询问某个时刻所有直线的$y$的最大值/最小值 由于时限有$9s$，我的做法是直接对询问分块，每个块跑一遍斜率优化 听说是李超线段树板题 题解给的做法如下 分块代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293#include &lt;bits/stdc++.h&gt;using namespace std;#pragma GCC optimize(2)const int N = 600010;typedef long long LL;struct Line &#123; LL b, k; int st, ed; bool operator &lt; (const Line &amp;b) const &#123; return st &lt; b.st; &#125;&#125; l1[N * 2], q1[N * 2], hh[N * 2];LL x[N], y[N], ls[N], T[N], ans[N]; char s[20]; int tot;vector&lt;int&gt; add[N], del[N];inline bool calc(Line a, Line b, Line c) &#123; return (c.b - a.b) * (a.k - b.k) &lt;= (b.b - a.b) * (a.k - c.k);&#125;inline LL Abs(const LL &amp;x) &#123;return x &gt; 0 ? x : -x;&#125;template&lt;class T&gt; inline void read(T &amp;x) &#123; x = 0; int flg = 1; char c = getchar(); while (c &lt; '0' || c &gt; '9') &#123; if (c == '-') flg = -1; c = getchar(); &#125; while ('0' &lt;= c &amp;&amp; c &lt;= '9') x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + c - '0', c = getchar(); x *= flg;&#125;int main() &#123;// freopen("robot10.in", "r", stdin), freopen("robot.out", "w", stdout); int n, q; read(n), read(q), memset(T, -1, sizeof(T)); for (int i = 1; i &lt;= n; i++) read(x[i]); for (int i = 1; i &lt;= q; i++) &#123; int t; read(t), scanf("%s", s + 1); if (s[1] == 'c') &#123; int a, b; read(a), read(b); l1[++tot] = (Line)&#123;x[a], y[a], ls[a], i - 1&#125;; x[a] = x[a] + t * y[a], y[a] = b, x[a] -= (LL)t * b, ls[a] = i; &#125; else T[i] = t; &#125; for (int i = 1; i &lt;= n; i++) l1[++tot] = (Line)&#123;x[i], y[i], ls[i], q&#125;; sort(l1 + 1, l1 + tot + 1); for (int i = 1; i &lt;= tot; i++) add[l1[i].st].push_back(i), del[l1[i].ed + 1].push_back(i); int SZ = sqrt(q) * 9; for (int l = 1, r = l + SZ; l &lt;= q; l += SZ + 1, r += SZ + 1) &#123; int ct1 = 0; r = min(r, q); for (int i = 1; i &lt;= tot &amp;&amp; l1[i].st &lt; l; i++) if (l1[i].ed &gt;= r) q1[++ct1] = l1[i]; sort(q1 + 1, q1 + ct1 + 1, [](const Line &amp;a, const Line &amp;b)&#123; if (a.k != b.k) return a.k &lt; b.k; return a.b &gt; b.b; &#125;); int head = 1, tail = 0; for (int i = 1; i &lt;= ct1; i++) &#123; if (i != 1 &amp;&amp; q1[i].k == q1[i - 1].k) continue; while (head &lt; tail &amp;&amp; calc(hh[tail - 1], hh[tail], q1[i])) tail--; hh[++tail] = q1[i]; &#125; for (int i = l; i &lt;= r; i++) if (~T[i]) &#123; while (head &lt; tail &amp;&amp; hh[head].b + hh[head].k * T[i] &lt;= hh[head + 1].b + hh[head + 1].k * T[i]) head++; if (head &lt;= tail) ans[i] = Abs(hh[head].b + hh[head].k * T[i]); &#125; sort(q1 + 1, q1 + ct1 + 1, [](const Line &amp;a, const Line &amp;b)&#123; if (a.k != b.k) return a.k &gt; b.k; return a.b &lt; b.b; &#125;); head = 1, tail = 0; for (int i = 1; i &lt;= ct1; i++) &#123; if (i != 1 &amp;&amp; q1[i].k == q1[i - 1].k) continue; while (head &lt; tail &amp;&amp; calc(hh[tail - 1], hh[tail], q1[i])) tail--; hh[++tail] = q1[i]; &#125; for (int i = l; i &lt;= r; i++) if (~T[i]) &#123; while (head &lt; tail &amp;&amp; hh[head].b + hh[head].k * T[i] &gt;= hh[head + 1].b + hh[head + 1].k * T[i]) head++; if (head &lt;= tail) ans[i] = max(ans[i], Abs(hh[head].b + hh[head].k * T[i])); &#125; set&lt;int&gt; s; for (int i = 0; i &lt; l; i++) &#123; for (auto v : add[i]) if (l1[v].ed &lt; r) s.insert(v); for (auto v : del[i]) s.erase(v); &#125; for (int i = l; i &lt;= r; i++) &#123; if (add[i].size()) for (auto v : add[i]) s.insert(v); if (del[i].size()) for (auto v : del[i]) s.erase(v); if (~T[i]) for (auto v : s) ans[i] = max(ans[i], Abs(l1[v].b + l1[v].k * T[i])); &#125; &#125; for (int i = 1; i &lt;= q; i++) if (~T[i]) printf("%lld\n", ans[i]);&#125;]]></content>
@@ -166,9 +191,9 @@
         <tag>动态规划</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>斜率优化</tag>
         <tag>线段树</tag>
         <tag>分块</tag>
+        <tag>斜率优化</tag>
       </tags>
   </entry>
   <entry>
@@ -236,11 +261,6 @@
         <tag>字符串</tag>
         <tag>算法</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[6.6NOI模拟]]></title>
-    <url>%2F2019%2F06%2F16%2F6-6NOI%E6%A8%A1%E6%8B%9F%2F</url>
-    <content type="text"><![CDATA[T1 a]]></content>
   </entry>
   <entry>
     <title><![CDATA[6.5NOI模拟]]></title>
@@ -336,9 +356,9 @@
       <tags>
         <tag>题解</tag>
         <tag>总结</tag>
+        <tag>多项式</tag>
         <tag>LCT</tag>
         <tag>数据结构</tag>
-        <tag>多项式</tag>
         <tag>线段树</tag>
         <tag>平衡树</tag>
         <tag>FFT</tag>
@@ -517,9 +537,9 @@
         <tag>动态规划</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>最短路</tag>
         <tag>分治</tag>
         <tag>期望</tag>
+        <tag>最短路</tag>
         <tag>线段树</tag>
         <tag>贪心</tag>
         <tag>分块</tag>
@@ -535,9 +555,9 @@
         <tag>动态规划</tag>
         <tag>数学</tag>
         <tag>总结</tag>
+        <tag>最短路</tag>
         <tag>斜率优化</tag>
         <tag>gcd</tag>
-        <tag>最短路</tag>
         <tag>FWT</tag>
       </tags>
   </entry>
@@ -578,8 +598,8 @@
         <tag>动态规划</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>线段树</tag>
         <tag>FFT</tag>
         <tag>BM</tag>
@@ -609,8 +629,8 @@
         <tag>题解</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>平衡树</tag>
         <tag>置换</tag>
         <tag>NTT</tag>
@@ -640,9 +660,9 @@
       <tags>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式求逆</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>分块</tag>
         <tag>构造</tag>
         <tag>NTT</tag>
@@ -685,8 +705,8 @@
         <tag>动态规划</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>分块</tag>
         <tag>平衡树</tag>
         <tag>概率</tag>

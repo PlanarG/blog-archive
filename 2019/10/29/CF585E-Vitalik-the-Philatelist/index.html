@@ -133,26 +133,25 @@
 
 
 
-  <meta name="description" content="T1 a">
+  <meta name="description" content="题意给出$n$个数，统计pair$(X,S)$的数量，其中$X$是一个序列中，且不属于$S$的元素，$S$是这个序列的子集 要求$\gcd(S)\neq 1,\gcd(X,S)=1$ $n\leq 5*10^5,a_i\leq 10^7$ 题解设$F(x)$表示$S$的$\gcd$是$x$的倍数，且$X$不是$x$的倍数的pair的数量 $G(x)$表示$S$的$\gcd$恰好是$x$，且$X$不">
+<meta name="keywords" content="题解,数学,集训队作业,莫比乌斯反演">
 <meta property="og:type" content="article">
-<meta property="og:title" content="6.6NOI模拟">
-<meta property="og:url" content="https://0x131cc05.github.io/2019/06/16/6-6NOI模拟/index.html">
+<meta property="og:title" content="CF585E Vitalik the Philatelist">
+<meta property="og:url" content="https://0x131cc05.github.io/2019/10/29/CF585E-Vitalik-the-Philatelist/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
-<meta property="og:description" content="T1 a">
+<meta property="og:description" content="题意给出$n$个数，统计pair$(X,S)$的数量，其中$X$是一个序列中，且不属于$S$的元素，$S$是这个序列的子集 要求$\gcd(S)\neq 1,\gcd(X,S)=1$ $n\leq 5*10^5,a_i\leq 10^7$ 题解设$F(x)$表示$S$的$\gcd$是$x$的倍数，且$X$不是$x$的倍数的pair的数量 $G(x)$表示$S$的$\gcd$恰好是$x$，且$X$不">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="c:/Users/jie/AppData/Roaming/Typora/typora-user-images/1560681613355.png">
-<meta property="og:updated_time" content="2019-06-16T10:40:17.671Z">
+<meta property="og:updated_time" content="2019-10-29T03:30:37.703Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="6.6NOI模拟">
-<meta name="twitter:description" content="T1 a">
-<meta name="twitter:image" content="c:/Users/jie/AppData/Roaming/Typora/typora-user-images/1560681613355.png">
+<meta name="twitter:title" content="CF585E Vitalik the Philatelist">
+<meta name="twitter:description" content="题意给出$n$个数，统计pair$(X,S)$的数量，其中$X$是一个序列中，且不属于$S$的元素，$S$是这个序列的子集 要求$\gcd(S)\neq 1,\gcd(X,S)=1$ $n\leq 5*10^5,a_i\leq 10^7$ 题解设$F(x)$表示$S$的$\gcd$是$x$的倍数，且$X$不是$x$的倍数的pair的数量 $G(x)$表示$S$的$\gcd$恰好是$x$，且$X$不">
 
 
 
 
 
 
-  <link rel="canonical" href="https://0x131cc05.github.io/2019/06/16/6-6NOI模拟/">
+  <link rel="canonical" href="https://0x131cc05.github.io/2019/10/29/CF585E-Vitalik-the-Philatelist/">
 
 
 
@@ -162,7 +161,7 @@
   };
 </script>
 
-  <title>6.6NOI模拟 | An_Account's Blog</title>
+  <title>CF585E Vitalik the Philatelist | An_Account's Blog</title>
   
 
 
@@ -387,7 +386,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/06/16/6-6NOI模拟/">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/10/29/CF585E-Vitalik-the-Philatelist/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="An_Account">
@@ -404,7 +403,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">6.6NOI模拟
+          <h1 class="post-title" itemprop="name headline">CF585E Vitalik the Philatelist
 
               
             
@@ -430,7 +429,7 @@
                 
               
 
-              <time title="创建时间：2019-06-16 18:38:53 / 修改时间：18:40:17" itemprop="dateCreated datePublished" datetime="2019-06-16T18:38:53+08:00">2019-06-16</time>
+              <time title="创建时间：2019-10-29 11:20:20 / 修改时间：11:30:37" itemprop="dateCreated datePublished" datetime="2019-10-29T11:20:20+08:00">2019-10-29</time>
             
 
             
@@ -449,8 +448,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/06/16/6-6NOI模拟/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/06/16/6-6NOI模拟/" itemprop="commentCount"></span>
+                <a href="/2019/10/29/CF585E-Vitalik-the-Philatelist/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/10/29/CF585E-Vitalik-the-Philatelist/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -485,7 +484,15 @@
       
 
       
-        <h1 id="T1-a"><a href="#T1-a" class="headerlink" title="T1 a"></a>T1 a</h1><p><img src="C:\Users\jie\AppData\Roaming\Typora\typora-user-images\1560681613355.png" alt="1560681613355"></p>
+        <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>给出$n$个数，统计<code>pair</code>$(X,S)$的数量，其中$X$是一个序列中，且不属于$S$的元素，$S$是这个序列的子集</p>
+<p>要求$\gcd(S)\neq 1,\gcd(X,S)=1$</p>
+<p>$n\leq 5*10^5,a_i\leq 10^7$</p>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>设$F(x)$表示$S$的$\gcd$是$x$的倍数，且$X$不是$x$的倍数的<code>pair</code>的数量</p>
+<p>$G(x)$表示$S$的$\gcd$恰好是$x$，且$X$不是$x$的倍数的<code>pair</code>的数量</p>
+<p>那么$F,G$满足<br>$$<br>F(x)=\sum_{x|d}G(d)\\<br>G(x)=\sum_{x|d}F(d)\mu(\frac{d}{x})<br>$$<br>假设序列中$x$的倍数有$b_x$个</p>
+<p>那么$F(x)=(2^{b_x}-1)(n-b_x)$</p>
+<p>最后的答案就是<br>$$<br>\sum_{x\geq 2}G(x)=\sum_{x\geq 2}\sum_{x|d}F(d)\mu(\frac{d}{x})\\<br>=\sum_{d\geq2}F(d)\sum_{x|d,x\geq 1}\mu(\frac{d}{x})\\<br>=-\sum_{d\geq 2}F(d)\mu(d)<br>$$<br>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">10000010</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> buk[N], mu[N], flag[N], prime[N], pcnt, Pow2[<span class="number">500010</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= N - <span class="number">10</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) prime[++pcnt] = i, mu[i] = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= pcnt &amp;&amp; i * prime[j] &lt;= N - <span class="number">10</span>; j++) &#123;</span><br><span class="line">            flag[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            mu[i * prime[j]] = -mu[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, mx = <span class="number">0</span>; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), sieve();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a), buk[a]++, mx = max(mx, a);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= mx; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i * <span class="number">2</span>; j &lt;= mx; j += i) buk[i] += buk[j];</span><br><span class="line">    Pow2[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) Pow2[i] = Pow2[i - <span class="number">1</span>] * <span class="number">2</span> % mod;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= mx; i++) &#123;</span><br><span class="line"><span class="comment">//        cout &lt;&lt; i &lt;&lt; ' ' &lt;&lt; buk[i] &lt;&lt; endl;</span></span><br><span class="line">        <span class="keyword">int</span> t = (LL)(Pow2[buk[i]] - <span class="number">1</span>) * (n - buk[i]) % mod;</span><br><span class="line">        res = (res - mu[i] * t) % mod;</span><br><span class="line">    &#125;  </span><br><span class="line">    res = (res + mod) % mod;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -506,6 +513,18 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/题解/" rel="tag"># 题解</a>
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+            <a href="/tags/集训队作业/" rel="tag"># 集训队作业</a>
+          
+            <a href="/tags/莫比乌斯反演/" rel="tag"># 莫比乌斯反演</a>
+          
+        </div>
       
 
       
@@ -536,8 +555,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/06/11/6-5NOI模拟/" rel="next" title="6.5NOI模拟">
-                <i class="fa fa-chevron-left"></i> 6.5NOI模拟
+              <a href="/2019/10/28/CF521D-Shop/" rel="next" title="CF521D Shop">
+                <i class="fa fa-chevron-left"></i> CF521D Shop
               </a>
             
           </div>
@@ -546,8 +565,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/08/10/Minimum-Palindromic-Factorization/" rel="prev" title="Minimum Palindromic Factorization">
-                Minimum Palindromic Factorization <i class="fa fa-chevron-right"></i>
+              <a href="/2019/10/29/CF582C-Superior-Periodic-Subarrays/" rel="prev" title="CF582C Superior Periodic Subarrays">
+                CF582C Superior Periodic Subarrays <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -624,7 +643,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">82</span>
+                    <span class="site-state-item-count">83</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -799,7 +818,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">80</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">82</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -897,7 +920,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#T1-a"><span class="nav-number">1.</span> <span class="nav-text">T1 a</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题意"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题解"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li></ol></div>
             
 
           </div>
@@ -951,7 +974,7 @@
 
 <div class="theme-info">
 	<div class="powered-by"></div>
-	<span class="post-count">全站共148k字</span>
+	<span class="post-count">全站共150.8k字</span>
 </div>
 
         
