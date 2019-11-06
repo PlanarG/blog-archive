@@ -133,20 +133,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="An_Account&#39;s Blog">
-<meta property="og:url" content="https://0x131cc05.github.io/archives/page/2/index.html">
+  <meta name="description" content="题面  	      	    T1 游戏一个比较容易得出的结论是小Y一定不会将棋子向父亲移动，因为在树上绕路显然不优秀，会使得小Y浪费了一些步数 设$dp[i]$表示只考虑以$i$为根的子树，如果小D想要赢，那么最少需要先染黑多少个叶子 显然叶子节点的$dp$值是$1$，因为小D必须提前将这个叶子染成黑色 考虑怎么转移，假如现在棋子在节点$u$，那么小D必须保证小Y无论向哪个儿子移动都不能赢，因">
+<meta name="keywords" content="题解,动态规划,数学,总结,数据结构,线段树,博弈论,计算几何">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSP赛前集训day14">
+<meta property="og:url" content="https://0x131cc05.github.io/2019/11/06/CSP赛前集训day14/index.html">
 <meta property="og:site_name" content="An_Account&#39;s Blog">
+<meta property="og:description" content="题面  	      	    T1 游戏一个比较容易得出的结论是小Y一定不会将棋子向父亲移动，因为在树上绕路显然不优秀，会使得小Y浪费了一些步数 设$dp[i]$表示只考虑以$i$为根的子树，如果小D想要赢，那么最少需要先染黑多少个叶子 显然叶子节点的$dp$值是$1$，因为小D必须提前将这个叶子染成黑色 考虑怎么转移，假如现在棋子在节点$u$，那么小D必须保证小Y无论向哪个儿子移动都不能赢，因">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-11-06T11:09:21.515Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="An_Account&#39;s Blog">
+<meta name="twitter:title" content="CSP赛前集训day14">
+<meta name="twitter:description" content="题面  	      	    T1 游戏一个比较容易得出的结论是小Y一定不会将棋子向父亲移动，因为在树上绕路显然不优秀，会使得小Y浪费了一些步数 设$dp[i]$表示只考虑以$i$为根的子树，如果小D想要赢，那么最少需要先染黑多少个叶子 显然叶子节点的$dp$值是$1$，因为小D必须提前将这个叶子染成黑色 考虑怎么转移，假如现在棋子在节点$u$，那么小D必须保证小Y无论向哪个儿子移动都不能赢，因">
 
 
 
 
 
 
-  <link rel="canonical" href="https://0x131cc05.github.io/archives/page/2/">
+  <link rel="canonical" href="https://0x131cc05.github.io/2019/11/06/CSP赛前集训day14/">
 
 
 
@@ -156,7 +161,7 @@
   };
 </script>
 
-  <title>归档 | An_Account's Blog</title>
+  <title>CSP赛前集训day14 | An_Account's Blog</title>
   
 
 
@@ -218,7 +223,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -290,7 +295,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -361,416 +366,271 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://0x131cc05.github.io/2019/11/06/CSP赛前集训day14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="An_Account">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/hh.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="An_Account's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
-         
+          <h1 class="post-title" itemprop="name headline">CSP赛前集训day14
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-06 18:42:56 / 修改时间：19:09:21" itemprop="dateCreated datePublished" datetime="2019-11-06T18:42:56+08:00">2019-11-06</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
           
-        很好! 目前共计 84 篇日志。 继续努力。
-      </span>
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/11/06/CSP赛前集训day14/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2019/11/06/CSP赛前集训day14/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
       
+        <h1 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h1>
 
+	<div class="row">
+    <embed src="problem.pdf" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+<h1 id="T1-游戏"><a href="#T1-游戏" class="headerlink" title="T1 游戏"></a>T1 游戏</h1><p>一个比较容易得出的结论是小Y一定不会将棋子向父亲移动，因为在树上绕路显然不优秀，会使得小Y浪费了一些步数</p>
+<p>设$dp[i]$表示只考虑以$i$为根的子树，如果小D想要赢，那么最少需要先染黑多少个叶子</p>
+<p>显然叶子节点的$dp$值是$1$，因为小D必须提前将这个叶子染成黑色</p>
+<p>考虑怎么转移，假如现在棋子在节点$u$，那么小D必须保证小Y无论向哪个儿子移动都不能赢，因此它必须保证在每一棵子树都能赢，那么$u$的$dp$值显然就是所有儿子的$dp$值之和</p>
+<p>然后由于小Y需要移动一步到$u$的一个儿子，因此小D获得了一次操作机会，因此$dp[u]–$</p>
+<p>最后只需要判断根节点的$dp$值是否不为$0$即可</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dp[N], p[N], vis[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;p[i]), vis[p[i]] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= <span class="number">1</span>; dp[p[i]] += dp[i], i--) </span><br><span class="line">        <span class="keyword">if</span> (!vis[i]) dp[i] = <span class="number">1</span>; <span class="keyword">else</span> dp[i] = max(dp[i] - <span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">puts</span>(dp[<span class="number">1</span>] ? <span class="string">"Y"</span> : <span class="string">"D"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T2-面积"><a href="#T2-面积" class="headerlink" title="T2 面积"></a>T2 面积</h1><p>先将一个凸多边形的面积转化为总面积减去每个未包含的边界的面积之和</p>
+<p>枚举这个边界的两个端点，现在需要统计的就是有多少种凸多边形没有包含这个边界</p>
+<p>我们假设这两个端点以及中间一共有$m$个节点</p>
+<p>那么方案数就是<br>$$<br>\frac{n-m\choose k-2}{n\choose k}<br>$$<br>即，这两个端点必须选，不在两个端点之间的点要选出$k-2$个的方案数</p>
+<p>由于各种奇妙的原因，直接用<code>long double</code>存组合数不会炸精度。但是如果担心炸精度的话可以倒推这个式子</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">2510</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> x[N], y[N]; <span class="keyword">long</span> <span class="keyword">double</span> f[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">long</span> <span class="keyword">double</span> <span class="title">Abs</span><span class="params">(<span class="keyword">long</span> <span class="keyword">double</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x &gt; <span class="number">0</span> ? x : -x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, k; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;k); <span class="keyword">long</span> <span class="keyword">double</span> all = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">"%lf%lf"</span>, &amp;x[i], &amp;y[i]); x[n + <span class="number">1</span>] = x[<span class="number">1</span>], y[n + <span class="number">1</span>] = y[<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) all += x[i] * y[i + <span class="number">1</span>] - y[i] * x[i + <span class="number">1</span>];</span><br><span class="line">    all = Abs(all) / <span class="number">2</span>;</span><br><span class="line">    f[n - <span class="number">3</span>] = (<span class="keyword">long</span> <span class="keyword">double</span>)(k - <span class="number">1</span>) / n * k / (n - <span class="number">1</span>) * (n - k) / (n - <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">4</span>; i &gt;= k - <span class="number">2</span>; i--) f[i] = f[i + <span class="number">1</span>] / (i + <span class="number">1</span>) * (i - k + <span class="number">3</span>);</span><br><span class="line">    <span class="keyword">long</span> <span class="keyword">double</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="keyword">long</span> <span class="keyword">double</span> s = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">2</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            s += Abs((x[j - <span class="number">1</span>] - x[i]) * (y[j] - y[i]) - (y[j - <span class="number">1</span>] - y[i]) * (x[j] - x[i])) / <span class="number">2</span>;</span><br><span class="line">            ans += s * f[n - (j - i + <span class="number">1</span>)] + (all - s) * f[j - i - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%.7Lf\n"</span>, all - ans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T3-删除"><a href="#T3-删除" class="headerlink" title="T3 删除"></a>T3 删除</h1><p>很奇妙的一道题</p>
+<p>首先我们考虑暴力$dp$</p>
+<p>我们将一个端点从小到大排序</p>
+<p>$dp[i]$表示最后删除的边是$i$连出的，并且前$i$个点的边都被删除了的最小花费</p>
+<p>可以做到$O(n^2)$，即枚举上一次删除的边是哪一条，假设是由$j$连出的</p>
+<p>这要求$i$到$j$中，所有$p&lt;p_i$的哪些节点，都满足$p&lt;p_j$</p>
+<p>这个转移怎么优化呢</p>
+<p>我们将前$i-1$个点都拿出来，按照$p$排序，然后从大到小考虑</p>
+<p>那么一个点$x$能够转移的条件就是，它的编号比所有$p&gt;p_x$的点的编号都要大</p>
+<p>很像一个单调栈，我们考虑用线段树维护这个单调栈</p>
+<p>我们用$x_i$表示$p_{x_i}=i$的点，在线段树上维护按照下标从小到大的顺序维护$x_i$</p>
+<p>那么一个点$j&lt;i$能对$i$产生贡献，当且仅当$x_j$比下标为区间$[j+1,p_i)$中的$x$都要大</p>
+<p>在单调栈线段树上维护每个点只考虑当且节点代表的区间时整棵子树能产生贡献的最小$dp$值，以及左子树能产生贡献的最小$dp$值</p>
+<p>在<code>pushup</code>的时候用<code>query</code>更新，即用右子树的最大值去查左子树</p>
+<p>由于根到叶子的路径上每个点都会分裂一次，因此总时间复杂度是$O(n\log^2n)$</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">200010</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> l, r, mx, dp, dp2;</span><br><span class="line">&#125; T[N &lt;&lt; <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> rt, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    T[rt].l = l, T[rt].r = r, T[rt].mx = <span class="number">-1e9</span>, T[rt].dp = T[rt].dp2 = <span class="number">1e9</span>;</span><br><span class="line">    <span class="keyword">if</span> (l == r) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>; build(rt &lt;&lt; <span class="number">1</span>, l, mid), build(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, mid + <span class="number">1</span>, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> rt, <span class="keyword">int</span> mx)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = T[rt].l, r = T[rt].r;</span><br><span class="line">    <span class="keyword">if</span> (mx &gt;= T[rt].mx) <span class="keyword">return</span> <span class="number">1e9</span>;</span><br><span class="line">    <span class="keyword">if</span> (l == r) <span class="keyword">return</span> T[rt].dp;</span><br><span class="line">    <span class="keyword">if</span> (T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].mx &gt; mx) <span class="keyword">return</span> min(T[rt &lt;&lt; <span class="number">1</span>].dp2, query(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, mx));</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">return</span> query(rt &lt;&lt; <span class="number">1</span>, mx);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">pushup</span><span class="params">(<span class="keyword">int</span> rt)</span> </span>&#123;</span><br><span class="line">    T[rt].mx = max(T[rt &lt;&lt; <span class="number">1</span>].mx, T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].mx);</span><br><span class="line">    <span class="keyword">if</span> (T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].mx &gt; T[rt &lt;&lt; <span class="number">1</span>].mx) T[rt].dp = T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].dp, T[rt &lt;&lt; <span class="number">1</span>].dp2 = <span class="number">1e9</span>;</span><br><span class="line">    <span class="keyword">else</span> T[rt].dp = min(T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].dp, T[rt &lt;&lt; <span class="number">1</span>].dp2 = query(rt &lt;&lt; <span class="number">1</span>, T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].mx));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> rt, <span class="keyword">int</span> x, <span class="keyword">int</span> i, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = T[rt].l, r = T[rt].r;</span><br><span class="line">    <span class="keyword">if</span> (l == r) <span class="keyword">return</span> T[rt].dp = val, T[rt].mx = i, <span class="keyword">void</span>();</span><br><span class="line">    <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (x &lt;= mid) update(rt &lt;&lt; <span class="number">1</span>, x, i, val);</span><br><span class="line">    <span class="keyword">else</span> update(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, x, i, val);</span><br><span class="line">    pushup(rt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> mx;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query1</span><span class="params">(<span class="keyword">int</span> rt, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (T[rt].mx &lt;= mx) <span class="keyword">return</span> <span class="number">1e9</span>;</span><br><span class="line">    <span class="keyword">int</span> l = T[rt].l, r = T[rt].r, mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (r &lt;= end) &#123;</span><br><span class="line">        <span class="keyword">int</span> t = query(rt, mx); mx = max(mx, T[rt].mx);</span><br><span class="line">        <span class="keyword">return</span> t;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (end &lt;= mid) <span class="keyword">return</span> query1(rt &lt;&lt; <span class="number">1</span>, end);</span><br><span class="line">    <span class="keyword">int</span> res = query1(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, end);</span><br><span class="line">    res = min(res, query(rt &lt;&lt; <span class="number">1</span>, mx));</span><br><span class="line">    mx = max(mx, T[rt &lt;&lt; <span class="number">1</span>].mx);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> p[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;p[i]);</span><br><span class="line">    build(<span class="number">1</span>, <span class="number">0</span>, n), update(<span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> v; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;v), mx = <span class="number">-2e9</span>, v += query1(<span class="number">1</span>, p[i]);</span><br><span class="line">        update(<span class="number">1</span>, p[i], i, v);</span><br><span class="line">    &#125;</span><br><span class="line">    mx = <span class="number">-2e9</span>, <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, query1(<span class="number">1</span>, n));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/题解/" rel="tag"># 题解</a>
+          
+            <a href="/tags/动态规划/" rel="tag"># 动态规划</a>
+          
+            <a href="/tags/数学/" rel="tag"># 数学</a>
+          
+            <a href="/tags/总结/" rel="tag"># 总结</a>
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/线段树/" rel="tag"># 线段树</a>
+          
+            <a href="/tags/博弈论/" rel="tag"># 博弈论</a>
+          
+            <a href="/tags/计算几何/" rel="tag"># 计算几何</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
         
-        
+
         
 
         
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
+          <div class="social_share">
+            
+            
+               <div id="needsharebutton-postbottom">
+                 <span class="btn">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                 </span>
+               </div>
+            
           </div>
         
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/23/CSP赛前集训day6/" itemprop="url">
-            
-              <span itemprop="name">CSP赛前集训day6</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-23T21:01:24+08:00" content="2019-10-23">
-          10-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+        </div>
+      
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/23/斯坦纳树/" itemprop="url">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span itemprop="name">斯坦纳树</span>
+              <a href="/2019/11/02/CSP赛前集训day13/" rel="next" title="CSP赛前集训day13">
+                <i class="fa fa-chevron-left"></i> CSP赛前集训day13
+              </a>
             
-          </a>
-        
-      </h2>
+          </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-23T20:34:27+08:00" content="2019-10-23">
-          10-23
-        </time>
-      </div>
+          <span class="post-nav-divider"></span>
 
-    </header>
-  </article>
-
-
-
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/23/CSP赛前集训day5/" itemprop="url">
-            
-              <span itemprop="name">CSP赛前集训day5</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-23T19:53:24+08:00" content="2019-10-23">
-          10-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/21/CSP赛前集训day4/" itemprop="url">
-            
-              <span itemprop="name">CSP赛前集训day4</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-21T19:33:20+08:00" content="2019-10-21">
-          10-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/17/CSP赛前集训day3/" itemprop="url">
-            
-              <span itemprop="name">CSP赛前集训day3</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-17T20:33:39+08:00" content="2019-10-17">
-          10-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/17/CSP赛前集训day2/" itemprop="url">
-            
-              <span itemprop="name">CSP赛前集训day2</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-17T20:33:27+08:00" content="2019-10-17">
-          10-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/17/CSP赛前集训day1/" itemprop="url">
-            
-              <span itemprop="name">CSP赛前集训day1</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-17T20:33:16+08:00" content="2019-10-17">
-          10-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/12/10-12停课集训/" itemprop="url">
-            
-              <span itemprop="name">10.12停课集训</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-12T21:03:49+08:00" content="2019-10-12">
-          10-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/05/2018集训队作业1/" itemprop="url">
-            
-              <span itemprop="name">2018集训队作业1</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-05T11:21:03+08:00" content="2019-10-05">
-          10-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-          <a class="post-title-link" href="/2019/10/02/10-1三地联考/" itemprop="url">
-            
-              <span itemprop="name">10.1三地联考</span>
-            
-          </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2019-10-02T09:18:58+08:00" content="2019-10-02">
-          10-02
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-    </div>
+    </footer>
   </div>
   
   
   
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/9/">9</a><a class="extend next" rel="next" href="/archives/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+  </article>
 
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+
+  
+
+
 
         </div>
         
@@ -791,8 +651,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1076,6 +945,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题面"><span class="nav-number">1.</span> <span class="nav-text">题面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T1-游戏"><span class="nav-number">2.</span> <span class="nav-text">T1 游戏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T2-面积"><span class="nav-number">3.</span> <span class="nav-text">T2 面积</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T3-删除"><span class="nav-number">4.</span> <span class="nav-text">T3 删除</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -1241,6 +1127,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
