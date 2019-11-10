@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[CSP赛前集训day18]]></title>
+    <url>%2F2019%2F11%2F10%2FCSP%E8%B5%9B%E5%89%8D%E9%9B%86%E8%AE%ADday18%2F</url>
+    <content type="text"><![CDATA[题面 T1 视频码量题掠过 T2 图论假如现在要合并$u,v$两个点 我们找到$u,v$两个点当前所在的连通块，然后尝试将大小较小的那个连通块合并到大小较大的那个连通块中 也就是说，我们需要枚举小连通块中的所有出边，这些边的数量与小连通块的大小相等 如果小连通块的出边中包含大连通块，显然这次合并会失败 否则我们将所有连向小连通块的边全部挪到指向大连通块，然后再将这两个连通块合并即可 代码咕掉了 T3 排队如果一段区间中所有人都在同一个班，假如现在这个人要插入到这个区间中，那么显然这个人可以选择这一段区间中的任意一个位置插入 那么我们可以将这个区间缩成一个点，即每个极长的连续段都只用一个点来表示，同时在这个点中，我们维护两个信息：这个点所代表的所有人和人数，以及这个点是第几个极长连续段 然后对于当前这个人，首先我们可以二分出它必须在哪一个连续段之后加入，这个可以在线段树上查询得到 然后我们需要找到在这个连续段之后，第一个与这个人的班级相同的连续段，然后将这个人插入到这个连续段中即可 这样我们不可能在点与点之间插入点，我们只会在最后追加点 代码如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 500010;typedef pair&lt;int, int&gt; P;int sz[N &lt;&lt; 2], ncnt;// 若新加入的人后面至多有w个人，则他应属于哪个块// w最后的值为当前块在这个人之后的人数int query(int rt, int l, int r, int &amp;w) &#123; if (l == r) return l; int t = sz[rt &lt;&lt; 1 | 1], mid = (l + r) &gt;&gt; 1; if (t &lt;= w) return w -= t, query(rt &lt;&lt; 1, l, mid, w); return query(rt &lt;&lt; 1 | 1, mid + 1, r, w);&#125;// 更新某一个块内的人数void update(int rt, int l, int r, int at) &#123; sz[rt]++; if (l == r) return; int mid = (l + r) &gt;&gt; 1; if (at &lt;= mid) update(rt &lt;&lt; 1, l, mid, at); else update(rt &lt;&lt; 1 | 1, mid + 1, r, at);&#125;// 对于每个班级在每个极大连续段的第一个位置计算人数// first表示当前段是第几段，second表示这一段的人数vector&lt;P&gt; data[N];// 每一段中有哪些人vector&lt;int&gt; peo[N];int main() &#123; int n; scanf("%d", &amp;n); for (int i = 1; i &lt;= n; i++) &#123; int c, a; scanf("%d%d", &amp;c, &amp;a); int block = query(1, 0, n, a); // 二分出这个人应该插入到这个班级的哪个位置 int l = 0, r = data[c].size() - 1, ans = -1; while (l &lt;= r) &#123; int mid = (l + r) &gt;&gt; 1; if (data[c][mid].first &gt;= block) ans = mid, r = mid - 1; else l = mid + 1; &#125; // 找不到一个合法的位置，即在队伍最后插入 if (!~ans) &#123; ncnt++, update(1, 0, n, ncnt); data[c].push_back(P(ncnt, 1)), peo[ncnt].push_back(i); &#125; else if (block == data[c][ans].first) &#123; // 当前段即合法 update(1, 0, n, data[c][ans].first), data[c][ans].second++; peo[data[c][ans].first].insert(peo[data[c][ans].first].begin() + data[c][ans].second - a - 1, i); &#125; else &#123; // 插入到后面第一个当前班级的段的段头 update(1, 0, n, data[c][ans].first), data[c][ans].second++; peo[data[c][ans].first].insert(peo[data[c][ans].first].begin(), i); &#125; &#125; for (int i = 1; i &lt;= ncnt; i++) for (auto v : peo[i]) printf("%d ", v); return 0;&#125;]]></content>
+      <tags>
+        <tag>题解</tag>
+        <tag>总结</tag>
+        <tag>数据结构</tag>
+        <tag>线段树</tag>
+        <tag>启发式合并</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CSP赛前集训day17]]></title>
     <url>%2F2019%2F11%2F08%2FCSP%E8%B5%9B%E5%89%8D%E9%9B%86%E8%AE%ADday17%2F</url>
     <content type="text"><![CDATA[day16因为太过毒瘤，因此被咕掉了 题面 T1 红黑树这道题中的红黑树与普通红黑树的唯一区别是：这道题中的树的根节点可以是红色，也可以是黑色 显然不会影响红黑树的性质：黑高为$\log$级别 那么我们可以用$dp$的方式去构造，$dp[i][j][1/0]$表示是否能构造$i$的子树，满足黑高为$j$，并且$i$是否为黑色节点 转移比较显然 输出方案的时候找到根节点的一种合法情况，然后暴力往下倒推就可以了 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 5010;bool dp[2][30][N]; int L[N], R[N], col[N];void dfs(int u) &#123; if (!L[u] &amp;&amp; !R[u]) return dp[1][1][u] = dp[0][0][u] = 1, void(); if (!L[u] || !R[u]) &#123; int v = L[u] + R[u]; dfs(v); if (dp[0][0][v]) dp[1][1][u] = 1; return; &#125; dfs(L[u]), dfs(R[u]); for (int a = 0; a &lt;= 1; a++) for (int b = 0; b &lt;= 1; b++) for (int i = 0; i &lt;= 20; i++) &#123; if (a + b == 2) dp[0][i][u] |= dp[a][i][L[u]] &amp; dp[b][i][R[u]]; dp[1][i + 1][u] |= dp[a][i][L[u]] &amp; dp[b][i][R[u]]; &#125;&#125;void dfs2(int u, int bh, int c) &#123; col[u] = c; if (c) bh--; if (!L[u] &amp;&amp; !R[u]) return; if (!L[u] || !R[u]) &#123; assert(!bh); dfs2(L[u] + R[u], 0, 0); return; &#125; for (int a = 0; a &lt;= 1; a++) for (int b = 0; b &lt;= 1; b++) &#123; if (c == 0 &amp;&amp; a + b != 2) continue; if (dp[a][bh][L[u]] &amp;&amp; dp[b][bh][R[u]]) &#123; dfs2(L[u], bh, a), dfs2(R[u], bh, b); return; &#125; &#125;&#125;int main() &#123; int n, rt = 0; scanf("%d", &amp;n); for (int i = 1; i &lt;= n; i++) &#123; int f; scanf("%d", &amp;f); if (!f) rt = i; if (!L[f]) L[f] = i; else R[f] = i; &#125; dfs(rt); int res = 0, pos = -1, c = -1; for (int i = 0; i &lt;= 20 &amp;&amp; !res; i++) &#123; if (dp[0][i][rt]) res = 1, pos = i, c = 0; if (dp[1][i][rt]) res = 1, pos = i, c = 1; &#125; if (!res) puts("Impossible"); else &#123; dfs2(rt, pos, c); for (int i = 1; i &lt;= n; i++) putchar(col[i] ? 'B' : 'R'); &#125;&#125; T2 旅行一道好好的期望题在数据加强之后变成了一道特判题 对于每个航线我们可以算出它挂掉以及不挂掉的概率 显然对于一条航线最优的方案一定是将所有航班按照挂掉的概率从大到小排序，然后依次问下去 因此我们可以算出在这条航线挂掉的情况下，期望要问多少次才能确定 以及在这条航线不挂掉的情况下，期望要问多少次才能确定（就是全部问完） 如果将所有航线按照活下来的概率从大到小/从小到大排序，那么你会获得0分的好成绩 正确方法是，按照国王游戏的方法贪心 我们考虑在当前的“最优”方案中，相邻的两条航线 显然交换这两条航线之后对前面的航线以及后面的航线不会有任何影响，也就是说我们只需要单独考虑这两条航线 那么有3种情况 第一条航线没有挂掉，那么我们只需要问这条航线即可，代价为活下来的概率乘以这条航线的航班数 第一条航线挂掉了，第二条航线没有挂掉 第一条和第二条航线都挂掉了 将这三种情况的期望加起来再判断大小就可以了 注意：要特判以下三种情况 有一条航班必定挂掉，那么这条航线都不用再问了 有一条航线必定不挂掉，那么答案就是0 有一条航班必定不挂掉，那么这个航班不用再问 代码如下 1234567891011121314151617181920212223242526272829303132333435363738394041#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 510;long double p[N], A[N], B[N]; double tmp[N]; int id[N];int main() &#123; int n; scanf("%d", &amp;n); for (int i = 1; i &lt;= n; i++) &#123; int k; scanf("%d", &amp;k); p[i] = 1; for (int j = 1; j &lt;= k; j++) &#123; scanf("%lf", &amp;tmp[j]); if (tmp[j] &lt; 1e-8) j--, k--; &#125; if (!k) return puts("0"), 0; sort(tmp + 1, tmp + k + 1, [](double a, double b) &#123; return a &gt; b; &#125;); if (tmp[1] &gt; 1 - 1e-8) &#123; i--, n--; continue; &#125; for (int j = 1; j &lt;= k; j++) &#123; A[i] += p[i] * tmp[j] * j; p[i] *= 1 - tmp[j]; &#125; A[i] /= 1 - p[i], B[i] = k, id[i] = i; &#125; sort(id + 1, id + n + 1, [](int a, int b)&#123; long double t1 = p[a] * B[a] + (1 - p[a]) * p[b] * (A[a] + B[b]) + (1 - p[a]) * (1 - p[b]) * (B[a] + B[b]); long double t2 = p[b] * B[b] + (1 - p[b]) * p[a] * (A[b] + B[a]) + (1 - p[b]) * (1 - p[a]) * (B[b] + B[a]); return t1 &lt; t2; &#125;); long double tp = 1, res = 0; for (int i = 1; i &lt;= n; i++) &#123; int at = id[i]; res += tp * (1 - p[at]) * A[at] + tp * p[at] * B[at]; tp *= 1 - p[at]; &#125; printf("%.10Lf\n", res);&#125; T3 数字将规则转换以下：小D一开始就将这个数字循环位移1，然后小Y可以任意选择一个前缀（可以为空），然后将这个前缀中的数都循环位移1 我们可以处理出每一个前缀循环位移1之后异或的值，那么问题等价于，给你一堆数，现在你要选择一个数，使得这个数与这一堆数的异或最小值最大 将trie树建出来，然后在上面dfs 记录以下每个节点能够获得的最大的最小异或值，以及方案数 如果当前节点只有一棵子树，那么显然这一位的异或最小值最大可以为1，即选择与所有数不同的那一位，而方案数就是这棵子树的方案数 否则这一位必然是0，答案为左右子树的最大值，因为小Y可以选择进入哪棵子树 这样做会T一些点，因此不必将trie树建出来，直接将所有数按照最高位分治即可 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 1000010;typedef pair&lt;int, int&gt; P;int n, a[N], tmp[N];P dfs(int dep, int l, int r) &#123; if (dep == -1) return P(0, 1); int tl = l - 1, tr = r + 1; for (int i = l; i &lt;= r; i++) &#123; int t = a[i] &gt;&gt; dep &amp; 1; if (!t) tmp[++tl] = a[i]; else tmp[--tr] = a[i]; &#125; for (int i = l; i &lt;= tl; i++) a[i] = tmp[i]; for (int i = r; i &gt;= tr; i--) a[i] = tmp[i]; if (tl &lt; l || tr &gt; r) &#123; P res = dfs(dep - 1, l, r); return P(res.first | (1 &lt;&lt; dep), res.second); &#125; P res1 = dfs(dep - 1, l, tl), res2 = dfs(dep - 1, tr, r), res = P(0, 0); res.first = max(res1.first, res2.first); if (res1.first == res.first) res.second += res1.second; if (res2.first == res.first) res.second += res2.second; return res;&#125;int num[N];inline void read(int &amp;x) &#123; x = 0; char c = getchar(); while (!isdigit(c)) c = getchar(); while (isdigit(c)) x = (x &lt;&lt; 1) + (x &lt;&lt; 3) + c - '0', c = getchar();&#125;int main() &#123; int m, T, tot = 0; read(n), read(m), read(T); for (int i = 1; i &lt;= m; i++) read(num[i]), num[i] ^= num[i - 1]; for (int i = 0; i &lt;= m; i++) &#123; int t = (num[i] &lt;&lt; 1) | (num[i] &gt;&gt; (n - 1) &amp; 1); t = t &amp; ((1 &lt;&lt; n) - 1); a[++tot] = t ^ num[m] ^ num[i]; &#125; P res = dfs(n - 1, 1, tot); printf("%d\n", res.first); if (T) printf("%d\n", res.second);&#125;]]></content>
@@ -99,8 +111,8 @@
     <content type="text"><![CDATA[题意给出$n$个互不相同的$D_i$，你需要构造一棵树，使得第$i$个点到全树的距离之和等于$D_i$，每条边的边权都是$1$ $n\leq 10^5,1\leq D_i\leq 10^{12}$ 题解首先要知道一个很重要的结论：一棵树的重心到全树的距离之和最小 这个结论比较显然，因为将当前点往$size$更大的那一边挪，距离之和会变小，最后一定会挪到重心 那么我们把重心提出来作为这棵树的根，此时有另一个结论：父亲节点的$D$一定比儿子小 每次我们将$D$最大的那个点拿出来删掉，同时维护其它节点子树的大小，根据当前拿出来的点的子树大小，我们可以算出它父亲的$D$。由于每个$D$都互不相同，我们可以确定它的父亲，然后更新父亲的$size$即可 代码如下 1234567891011121314151617181920212223242526272829303132333435363738394041#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 100010;typedef long long LL;LL D[N]; int id[N], sz[N];map&lt;LL, int&gt; mp;inline void Fuck() &#123; puts("-1"), exit(0);&#125;vector&lt;int&gt; G[N];inline void adde(int from, int to) &#123; G[from].push_back(to), G[to].push_back(from);&#125;LL dfs(int u, int f) &#123; LL res = 0; for (auto v : G[u]) if (v != f) res += dfs(v, u) + sz[v]; return res;&#125;int main() &#123; int n; scanf("%d", &amp;n); for (int i = 1; i &lt;= n; i++) scanf("%lld", &amp;D[i]), mp[D[i]] = i, sz[i] = 1, id[i] = i; sort(id + 1, id + n + 1, [](int a, int b)&#123;return D[a] &gt; D[b];&#125;); for (int i = 1; i &lt; n; i++) &#123; int v = id[i]; LL tmp = D[v] - n + sz[v] * 2; if (!mp.count(tmp) || tmp &gt;= D[v]) Fuck(); adde(v, mp[tmp]), sz[mp[tmp]] += sz[v]; &#125; if (dfs(id[n], 0) != D[id[n]]) Fuck(); for (int i = 1; i &lt;= n; i++) for (auto v : G[i]) if (v &gt; i) printf("%d %d\n", i, v);&#125;]]></content>
       <tags>
         <tag>题解</tag>
-        <tag>构造</tag>
         <tag>集训队作业</tag>
+        <tag>构造</tag>
       </tags>
   </entry>
   <entry>
@@ -170,8 +182,8 @@
         <tag>动态规划</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>线段树</tag>
         <tag>字符串</tag>
         <tag>KMP</tag>
@@ -391,9 +403,9 @@
       <tags>
         <tag>题解</tag>
         <tag>总结</tag>
+        <tag>多项式</tag>
         <tag>LCT</tag>
         <tag>数据结构</tag>
-        <tag>多项式</tag>
         <tag>线段树</tag>
         <tag>平衡树</tag>
         <tag>FFT</tag>
@@ -440,12 +452,12 @@
         <tag>网络流</tag>
         <tag>总结</tag>
         <tag>多项式</tag>
-        <tag>扫描线</tag>
         <tag>分治</tag>
         <tag>二分答案</tag>
+        <tag>扫描线</tag>
         <tag>计算几何</tag>
-        <tag>置换</tag>
         <tag>NTT</tag>
+        <tag>置换</tag>
         <tag>Trie</tag>
         <tag>最小生成树</tag>
       </tags>
@@ -572,10 +584,10 @@
         <tag>动态规划</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>最短路</tag>
         <tag>期望</tag>
-        <tag>线段树</tag>
+        <tag>最短路</tag>
         <tag>分治</tag>
+        <tag>线段树</tag>
         <tag>贪心</tag>
         <tag>分块</tag>
         <tag>二分答案</tag>
@@ -633,8 +645,8 @@
         <tag>动态规划</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>线段树</tag>
         <tag>FFT</tag>
         <tag>BM</tag>
@@ -664,11 +676,11 @@
         <tag>题解</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>平衡树</tag>
-        <tag>置换</tag>
         <tag>NTT</tag>
+        <tag>置换</tag>
       </tags>
   </entry>
   <entry>
@@ -695,9 +707,9 @@
       <tags>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式求逆</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>分块</tag>
         <tag>构造</tag>
         <tag>NTT</tag>
@@ -740,8 +752,8 @@
         <tag>动态规划</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>数据结构</tag>
         <tag>多项式</tag>
+        <tag>数据结构</tag>
         <tag>分块</tag>
         <tag>平衡树</tag>
         <tag>概率</tag>
