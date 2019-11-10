@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[CF582D Number of Binominal Coefficients]]></title>
+    <url>%2F2019%2F11%2F10%2FCF582D-Number-of-Binominal-Coefficients%2F</url>
+    <content type="text"><![CDATA[题意统计有序对$(k,n)$的数量，满足$0\leq k\leq n\leq A$，且$n\choose k$能被$p^a$整除 $1\leq p,a\leq 10^9,0\leq A\leq 10^{1000}$ 题解库默尔定理： 组合数$n+m\choose m$所含$p$的次数为$n,m$在$p$进制下相加的进位次数 证明：显然次数为$$\sum_{i\geq 1}\lfloor\frac{n+m}{p_i}\rfloor-\sum_{i\geq 1}\lfloor\frac{n}{p_i}\rfloor-\sum_{i\geq 1}\lfloor\frac{m}{p_i}\rfloor\\=\sum_{i\geq 1}\lfloor\frac{n+m}{p_i}\rfloor-\lfloor\frac{n}{p_i}\rfloor-\lfloor\frac{m}{p_i}\rfloor$$$\lfloor\frac{n}{p_i}\rfloor$表示$n$在$p$进制下去掉最后$i$位，如果$n+m$在第$i+1$位收到了来自第$i$位的进位，那么就意味着 $\lfloor\frac{n+m}{p_i}\rfloor-\lfloor\frac{n}{p_i}\rfloor-\lfloor\frac{m}{p_i}\rfloor=1$ 因此上面的式子等价于$m+n$在$p$进制下的进位次数 有用的$a$只有$3500$左右 因此我们可以数位dp dp[i][j][1/0][1/0]代表当前到了第$i$位，进位次数为$j$，当前$n+m$是否与$A$相等，下一位是否必须进位到这一位 这个题的转移非常恶心 代码如下 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071#include &lt;bits/stdc++.h&gt;using namespace std;const int mod = 1e9 + 7, N = 3510;typedef long long LL;int dp[2][2][N][N], a[N], p, n, lim;inline int get(int r) &#123; if (r &lt; 0) return 0; if (r &gt;= 2 * p - 2) return (LL)p * p % mod; if (r &lt; p) return (LL)(r + 2) * (r + 1) / 2 % mod; return ((LL)(r - p + 1) * p + (LL)(p - r + p - 1) * (r + 2) / 2) % mod;&#125;inline int get(int l, int r) &#123; if (l &gt; r) return 0; return get(r) - get(l - 1);&#125;inline int get2(int x) &#123; return x &gt; 0 ? x : 0;&#125;int DP(int cur, int cnt, int t1, int t2) &#123; if (cur == n + 1) return t2 == 0 &amp;&amp; cnt &gt;= lim; if (~dp[t1][t2][cur][cnt]) return dp[t1][t2][cur][cnt]; int &amp;sum = dp[t1][t2][cur][cnt]; sum = 0; if (t1) &#123; if (t2) &#123; sum = (sum + (LL)DP(cur + 1, cnt, 1, 0) * (p - 1 - a[cur]) % mod + (LL)DP(cur + 1, cnt + 1, 1, 1) * (p - a[cur])) % mod; sum = (sum + (LL)DP(cur + 1, cnt, 0, 0) * get(p, p + a[cur] - 1) % mod + (LL)DP(cur + 1, cnt + 1, 0, 1) * get(p - 1, p + a[cur] - 2)) % mod; &#125; else &#123; sum = (sum + (LL)DP(cur + 1, cnt, 1, 0) * (a[cur] + 1) % mod + (LL)DP(cur + 1, cnt + 1, 1, 1) * a[cur]) % mod; sum = (sum + (LL)DP(cur + 1, cnt, 0, 0) * get(a[cur] - 1) % mod + (LL)DP(cur + 1, cnt + 1, 0, 1) * get(a[cur] - 2)) % mod; &#125; &#125; else &#123; if (t2) sum = (sum + (LL)DP(cur + 1, cnt, 0, 0) * get(p, 2 * p - 2) % mod + (LL)DP(cur + 1, cnt + 1, 0, 1) * get(p - 1, 2 * p - 2)) % mod; else sum = (sum + (LL)DP(cur + 1, cnt, 0, 0) * get(p - 1) % mod + (LL)DP(cur + 1, cnt + 1, 0, 1) * get(p - 2)) % mod; &#125; sum = (sum + mod) % mod; return sum;&#125;char s[N]; int t[N], tmp[N];int main() &#123; scanf("%d%d%s", &amp;p, &amp;lim, s + 1); int len = strlen(s + 1); if (lim &gt;= 3500) return puts("0"), 0; for (int i = 1; i &lt;= len; i++) t[i] = s[i] - '0'; while (233) &#123; bool flag = false; for (int i = 1; i &lt;= len; i++) if (t[i]) &#123; flag = true; break; &#125; if (!flag) break; LL nw = 0; int l = 0; for (int i = 1; i &lt;= len; i++) &#123; nw = nw * 10 + t[i]; if (!l &amp;&amp; nw &gt;= p) tmp[++l] = nw / p; else if (l) tmp[++l] = nw / p; nw %= p; &#125; a[++n] = nw; len = l, memcpy(t, tmp, sizeof(int) * (l + 1)); &#125; reverse(a + 1, a + n + 1); memset(dp, -1, sizeof(dp)); printf("%d\n", DP(1, 0, 1, 0));&#125;]]></content>
+      <tags>
+        <tag>题解</tag>
+        <tag>数学</tag>
+        <tag>集训队作业</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CF521E Cycling City]]></title>
+    <url>%2F2019%2F11%2F10%2FCF521E-Cycling-City%2F</url>
+    <content type="text"><![CDATA[题意给出一张$n$个点$m$条边的无向图，求图中是否存在两个点，满足这两个点之间至少有三条除起点、终点外不共点的简单路径 如果不存在，输出NO，否则需要输出任意一种方案 $n\leq 2*10^5$ 题解首先建出原图的任意一棵生成树，考虑以下三种情况 我们可以发现，如果存在一条树边被至少两条非树边覆盖，那么就一定是YES 可以用树上差分找到两条相交的路径，然后这两条路径的交一定满足条件 只需要dfs出这三条路径即可，注意只能走树边以及选出的两条边 代码如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 200010;struct edge &#123;int from, to, next;&#125; e[N * 20], e2[N * 10];typedef pair&lt;int, int&gt; P;int head[N], ecnt, vis[N], fa[N][18], dep[N], ok[N * 10], ecnt2; map&lt;P, int&gt; mp;inline void adde(int from, int to) &#123; e[++ecnt] = (edge)&#123;from, to, head[from]&#125;, head[from] = ecnt; e[++ecnt] = (edge)&#123;to, from, head[to]&#125;, head[to] = ecnt;&#125;int fir, sec; vector&lt;int&gt; G[N];void dfs(int u, int f) &#123; fa[u][0] = f, dep[u] = dep[f] + 1, vis[u] = 1; for (int i = 1; i &lt;= 17; i++) fa[u][i] = fa[fa[u][i - 1]][i - 1]; for (auto v : G[u]) if (!vis[v]) &#123; adde(v, u); int a = v, b = u; if (a &gt; b) swap(a, b); ok[mp[P(a, b)]] = 1, dfs(v, u); &#125;&#125;inline int LCA(int a, int b) &#123; if (dep[a] &lt; dep[b]) swap(a, b); for (int i = 17; i &gt;= 0; i--) if (dep[fa[a][i]] &gt;= dep[b]) a = fa[a][i]; if (a == b) return a; for (int i = 17; i &gt;= 0; i--) if (fa[a][i] != fa[b][i]) a = fa[a][i], b = fa[b][i]; return fa[a][0];&#125;set&lt;int&gt; add[N], del[N], fuck[N]; bool flg;inline void mark(int a, int b, int id) &#123; int lca = LCA(a, b); add[a].insert(id), add[b].insert(id), del[lca].insert(id);&#125;void dfs2(int u, int f) &#123; for (int i = head[u]; i &amp;&amp; !flg; i = e[i].next) if (e[i].to != f) dfs2(e[i].to, u); if (flg) return; for (auto v : add[u]) fuck[u].insert(v); for (int i = head[u]; i; i = e[i].next) if (e[i].to != f &amp;&amp; fuck[e[i].to].size()) fuck[u].insert(*fuck[e[i].to].begin()); for (auto v : del[u]) fuck[u].erase(v); if (fuck[u].size() &gt;= 2) &#123; fir = *fuck[u].begin(), fuck[u].erase(fuck[u].begin()), sec = *fuck[u].begin(); flg = true; &#125; &#125;int tmp[N], to, stk[N], top, hh, tmp2[N * 10];void dfs3(int u) &#123; if (u == to) &#123; hh = 1, printf("%d ", top); for (int i = 1; i &lt;= top; i++) printf("%d ", stk[i]); puts(""); return; &#125; tmp[u] = 1; for (auto v : G[u]) if (!tmp[v]) &#123; int a = u, b = v; if (a &gt; b) swap(a, b); int t = mp[P(a, b)]; if (tmp2[t]) continue; if (!ok[t] &amp;&amp; t != fir &amp;&amp; t != sec) continue; tmp2[t] = 1, stk[++top] = v, dfs3(v), top--; if (hh) return; &#125;&#125;inline void work(int a1, int a2, int b1, int b2) &#123; static int p[5]; p[1] = LCA(a1, b1), p[2] = LCA(a1, b2), p[3] = LCA(a2, b1), p[4] = LCA(a2, b2); sort(p + 1, p + 5, [](int a, int b)&#123;return dep[a] &gt; dep[b];&#125;); int A = p[1], B = p[2]; hh = 0, to = B, stk[top = 1] = A, dfs3(A), hh = 0, top = 1, dfs3(A), hh = 0, top = 1, dfs3(A);&#125;int main() &#123; int n, m; scanf("%d%d", &amp;n, &amp;m); for (int i = 1, a, b; i &lt;= m; i++) &#123; scanf("%d%d", &amp;a, &amp;b); if (a &gt; b) swap(a, b); G[a].push_back(b), G[b].push_back(a), e2[++ecnt2] = (edge)&#123;a, b, 0&#125;, mp[P(a, b)] = ecnt2; &#125; for (int i = 1; i &lt;= n; i++) if (!vis[i]) dfs(i, 0); for (int i = 1; i &lt;= ecnt2; i++) if (!ok[i]) mark(e2[i].from, e2[i].to, i); for (int i = 1; i &lt;= n; i++) if (!fa[i][0]) &#123; dfs2(i, 0); if (flg) &#123; puts("YES"), work(e2[fir].from, e2[fir].to, e2[sec].from, e2[sec].to); return 0; &#125; &#125; puts("NO"); return 0;&#125;]]></content>
+      <tags>
+        <tag>题解</tag>
+        <tag>集训队作业</tag>
+        <tag>LCA</tag>
+        <tag>树上差分</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CF582C Superior Periodic Subarrays]]></title>
+    <url>%2F2019%2F11%2F10%2FCF582C-Superior-Periodic-Subarrays%2F</url>
+    <content type="text"><![CDATA[题意给出一个无限长的循环序列$a_0,a_1,\cdots,a_{n-1},\cdots$，循环节是$n$，即$a_i= a_{i\mod n}$ 现在你要统计数对$(l,s)$的数量，满足$0\leq l&lt;n,1\leq s&lt;n$，且以$l$开头，循环节为$s$的无限序列的每一个元素都比原序列中它对应位置的那个数要大 题解假如我们已经确定好了$l,s$，那么如何判断构造好的序列是否满足题意中的条件呢 取$s,n$的$\gcd=g$，显然$a_l$会与$a_{l},a_{l+g},a_{l+2g},\cdots$比较，即$a_l$必须是这些数中最大的哪个数 我们将$a_0\cdots a_n$按照下标$\mod g$的情况分类，那么选出的数必须要是它所在的那一类中最大的数 这启发我们枚举$g$，然后将原序列复制一份并且拼在其后面，将所有满足这个位置上的数是它所在类中的最大数的位置标成$1$，其余位置标成$0$，那么一个序列$l,s$需要满足$l$到$l+s-1$这些位置全部为$1$ 然后就很简单了，我们从后向前枚举，同时处理出当前位置出发的极长$1$序列的长度，$s$的方案数只与$g$以及这个长度有关，可以预处理出来 代码如下 12345678910111213141516171819202122232425262728#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 200010;int num[N], g[N], t[N], mx[N], len[N * 2];int gcd(int a, int b) &#123; return b ? gcd(b, a % b) : a;&#125;int main() &#123; int n; scanf("%d", &amp;n); long long res = 0; for (int i = 0; i &lt; n; i++) scanf("%d", &amp;num[i]); for (int i = 1; i &lt; n; i++) g[i] = gcd(i, n); for (int i = 1; i &lt; n; i++) if (n % i == 0) &#123; for (int j = 1; j &lt; n; j++) t[j] = t[j - 1] + (g[j] == i); for (int j = 0; j &lt; i; j++) mx[j] = 0; for (int j = 0; j &lt; n; j++) mx[j % i] = max(mx[j % i], num[j]); for (int j = 2 * n - 1; j &gt;= 0; j--) &#123; if (num[j % n] == mx[j % i]) len[j] = len[j + 1] + 1; else len[j] = 0; &#125; for (int j = 0; j &lt; n; j++) res += t[min(n - 1, len[j])]; &#125; printf("%lld\n", res);&#125;]]></content>
+      <tags>
+        <tag>题解</tag>
+        <tag>数学</tag>
+        <tag>集训队作业</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CF568C New Language]]></title>
+    <url>%2F2019%2F11%2F10%2FCF568C-New-Language%2F</url>
+    <content type="text"><![CDATA[题意现在有一个长度为$n$单词，每个字母均是元音或者辅音。有$m$条规则，每条规则为“如果$a$的字母类型为$t1$，则$b$的字母类型为$t2$” 你需要找到满足这个条件的一个长度为$n$的单词，并且字典序最小且不小于给定的串$s$的字典序 题解在2SAT中，如果$u$向$v$连了一条边，那么就意味着，如果$u$成立，那么$v$也成立 我们将每个字母拆成两个点，第一个点代表这个字母为元音，第二个点代表这个字母为辅音。我们将这两个点称为“对立点” 然后，对于题面中的每一条规则，假设这条规则是“如果$a$是元音，则$b$是辅音” 那么我们这样连边：从$a$的元音节点向$b$的辅音节点连边，从$b$的元音节点向$a$的辅音节点连边 前者的原因显然，后者成立的原因是如果原命题成立，那么它的逆否命题也成立 然后我们在建出的图上跑强连通分量，如果最后存在一个点，使得它与它的对立点在同一个强连通分量中，那么这个2SAT就无解。因为原命题和它的反命题不可能同时成立 回到这道题，我们从后到前枚举答案与$s$的$lcp$，然后判断后面的字母能否满足条件，遇到第一个满足条件的位置就break 然后我们再从前到后依次贪心地确定每一位即可 由于这个题中规则的数量巨大，因此每一次暴力跑会T飞，在一开始的时候就将所有规则构成的强连通分量预处理出来，然后每次在这个强连通分量的基础上加边即可 代码如下 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 410;struct edge &#123; int to, next;&#125; e[N * N * 2], e2[N * N * 2];int head[N], ecnt, vis[N], stk[N], top, dfn[N], low[N], dfsn, head2[N], ecnt2;int scc, belong[N], Belong[N];inline void adde(int from, int to) &#123; from = Belong[from], to = Belong[to]; e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt;&#125;inline void adde2(int from, int to) &#123; e2[++ecnt2] = (edge)&#123;to, head2[from]&#125;, head2[from] = ecnt2;&#125;inline void Tarjan(int u, int ls) &#123; stk[++top] = u, vis[u] = 1; dfn[u] = low[u] = ++dfsn; for (int i = head[u]; i; i = e[i].next) if (i != ls) &#123; if (!dfn[e[i].to]) Tarjan(e[i].to, i), low[u] = min(low[u], low[e[i].to]); else if (vis[e[i].to]) low[u] = min(low[u], dfn[e[i].to]); &#125; if (low[u] == dfn[u]) &#123; scc++; int v = -1; while (v != u) &#123; v = stk[top--]; belong[v] = scc, vis[v] = 0; &#125; &#125;&#125;inline void Clear(int n) &#123; fill(head + 1, head + n + 1, 0), fill(dfn + 1, dfn + n + 1, 0), scc = ecnt = 0;&#125;inline bool Just_DOIT(int n) &#123; assert((n &amp; 1) ^ 1); for (int i = 1; i &lt;= n; i++) if (!dfn[Belong[i]]) Tarjan(Belong[i], 0); for (int i = 1; i &lt;= n / 2; i++) if (belong[Belong[i]] == belong[Belong[i + n / 2]]) return false; return true;&#125;int n;inline int ID(int t, int x) &#123; return t * n + x;&#125;inline void mark(int t, int x) &#123; adde(ID(t ^ 1, x), ID(t, x));&#125;inline void mark(int t1, int t2, int x, int y) &#123; adde(ID(t1, x), ID(t2, y)), adde(ID(t2 ^ 1, y), ID(t1 ^ 1, x));&#125;int nxt[30][2], vowel[30]; char s[N], t[N];int T1[N * N], T2[N * N], from[N * N], to[N * N], m;inline bool check(int cur) &#123; Clear(n * 2); ecnt = ecnt2, memcpy(e, e2, sizeof(edge) * (ecnt2 + 1)); for (int i = 1; i &lt;= n * 2; i++) head[i] = head2[i]; for (int i = 1; i &lt;= cur; i++) mark(vowel[t[i] - 'a'], i); return Just_DOIT(n * 2);&#125;char str[30];int main() &#123; scanf("%s", str + 1); int len = strlen(str + 1); int cur[2] = &#123;-1, -1&#125;; for (int i = len; i &gt;= 0; i--) &#123; nxt[i][0] = cur[0], nxt[i][1] = cur[1]; if (i) cur[str[i] == 'V'] = i - 1, vowel[i - 1] = str[i] == 'V'; &#125; scanf("%d%d", &amp;n, &amp;m); for (int i = 1; i &lt;= n * 2; i++) Belong[i] = i; for (int i = 1; i &lt;= m; i++) &#123; char c1, c2; scanf("%d %c %d %c", &amp;from[i], &amp;c1, &amp;to[i], &amp;c2); T1[i] = c1 == 'V', T2[i] = c2 == 'V'; &#125; for (int i = 1; i &lt;= m; i++) mark(T1[i], T2[i], from[i], to[i]); if (!Just_DOIT(n * 2)) return puts("-1"), 0; for (int i = 1; i &lt;= n * 2; i++) Belong[i] = belong[i]; for (int i = 1; i &lt;= n * 2; i++) for (int j = head[i]; j; j = e[j].next) &#123; int a = belong[i], b = belong[e[j].to]; if (a != b) adde2(a, b); &#125; scanf("%s", s + 1); // cout &lt;&lt; nxt[0][0] &lt;&lt; endl; int pos = -1; for (int i = n; i &gt;= 0; i--) &#123; for (int j = 1; j &lt;= i; j++) t[j] = s[j]; if (i != n) t[i + 1] = nxt[s[i + 1] - 'a' + 1][0] + 'a'; if (t[i + 1] != 'a' - 1 &amp;&amp; check(min(n, i + 1))) &#123; pos = i; break; &#125; if (i != n) t[i + 1] = nxt[s[i + 1] - 'a' + 1][1] + 'a'; if (i != n &amp;&amp; t[i + 1] != 'a' - 1 &amp;&amp; check(min(n, i + 1))) &#123; pos = i; break; &#125; &#125; if (!~pos) return puts("-1"), 0; for (int i = 1; i &lt;= pos; i++) t[i] = s[i]; for (int i = pos + 1; i &lt;= n; i++) &#123; char a = i == pos + 1 ? nxt[s[i] - 'a' + 1][0] : nxt[0][0], b = i == pos + 1 ? nxt[s[i] - 'a' + 1][1] : nxt[0][1]; a += 'a', b += 'a'; if (a == 'a' - 1) a = 'z' + 1; if (b == 'a' - 1) b = 'z' + 1; if (a &gt; b) swap(a, b); t[i] = a; if (t[i] != 'z' + 1 &amp;&amp; check(i)) continue; t[i] = b; if (t[i] &lt; 'a' || t[i] &gt; 'z') return puts("-1"), 0; &#125; for (int i = 1; i &lt;= n; i++) putchar(t[i]);&#125;]]></content>
+      <tags>
+        <tag>题解</tag>
+        <tag>集训队作业</tag>
+        <tag>2SAT</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CSP赛前集训day18]]></title>
     <url>%2F2019%2F11%2F10%2FCSP%E8%B5%9B%E5%89%8D%E9%9B%86%E8%AE%ADday18%2F</url>
     <content type="text"><![CDATA[题面 T1 视频码量题掠过 T2 图论假如现在要合并$u,v$两个点 我们找到$u,v$两个点当前所在的连通块，然后尝试将大小较小的那个连通块合并到大小较大的那个连通块中 也就是说，我们需要枚举小连通块中的所有出边，这些边的数量与小连通块的大小相等 如果小连通块的出边中包含大连通块，显然这次合并会失败 否则我们将所有连向小连通块的边全部挪到指向大连通块，然后再将这两个连通块合并即可 代码咕掉了 T3 排队如果一段区间中所有人都在同一个班，假如现在这个人要插入到这个区间中，那么显然这个人可以选择这一段区间中的任意一个位置插入 那么我们可以将这个区间缩成一个点，即每个极长的连续段都只用一个点来表示，同时在这个点中，我们维护两个信息：这个点所代表的所有人和人数，以及这个点是第几个极长连续段 然后对于当前这个人，首先我们可以二分出它必须在哪一个连续段之后加入，这个可以在线段树上查询得到 然后我们需要找到在这个连续段之后，第一个与这个人的班级相同的连续段，然后将这个人插入到这个连续段中即可 这样我们不可能在点与点之间插入点，我们只会在最后追加点 代码如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364#include &lt;bits/stdc++.h&gt;using namespace std;const int N = 500010;typedef pair&lt;int, int&gt; P;int sz[N &lt;&lt; 2], ncnt;// 若新加入的人后面至多有w个人，则他应属于哪个块// w最后的值为当前块在这个人之后的人数int query(int rt, int l, int r, int &amp;w) &#123; if (l == r) return l; int t = sz[rt &lt;&lt; 1 | 1], mid = (l + r) &gt;&gt; 1; if (t &lt;= w) return w -= t, query(rt &lt;&lt; 1, l, mid, w); return query(rt &lt;&lt; 1 | 1, mid + 1, r, w);&#125;// 更新某一个块内的人数void update(int rt, int l, int r, int at) &#123; sz[rt]++; if (l == r) return; int mid = (l + r) &gt;&gt; 1; if (at &lt;= mid) update(rt &lt;&lt; 1, l, mid, at); else update(rt &lt;&lt; 1 | 1, mid + 1, r, at);&#125;// 对于每个班级在每个极大连续段的第一个位置计算人数// first表示当前段是第几段，second表示这一段的人数vector&lt;P&gt; data[N];// 每一段中有哪些人vector&lt;int&gt; peo[N];int main() &#123; int n; scanf("%d", &amp;n); for (int i = 1; i &lt;= n; i++) &#123; int c, a; scanf("%d%d", &amp;c, &amp;a); int block = query(1, 0, n, a); // 二分出这个人应该插入到这个班级的哪个位置 int l = 0, r = data[c].size() - 1, ans = -1; while (l &lt;= r) &#123; int mid = (l + r) &gt;&gt; 1; if (data[c][mid].first &gt;= block) ans = mid, r = mid - 1; else l = mid + 1; &#125; // 找不到一个合法的位置，即在队伍最后插入 if (!~ans) &#123; ncnt++, update(1, 0, n, ncnt); data[c].push_back(P(ncnt, 1)), peo[ncnt].push_back(i); &#125; else if (block == data[c][ans].first) &#123; // 当前段即合法 update(1, 0, n, data[c][ans].first), data[c][ans].second++; peo[data[c][ans].first].insert(peo[data[c][ans].first].begin() + data[c][ans].second - a - 1, i); &#125; else &#123; // 插入到后面第一个当前班级的段的段头 update(1, 0, n, data[c][ans].first), data[c][ans].second++; peo[data[c][ans].first].insert(peo[data[c][ans].first].begin(), i); &#125; &#125; for (int i = 1; i &lt;= ncnt; i++) for (auto v : peo[i]) printf("%d ", v); return 0;&#125;]]></content>
@@ -48,8 +89,8 @@
         <tag>题解</tag>
         <tag>动态规划</tag>
         <tag>总结</tag>
-        <tag>矩阵乘法</tag>
         <tag>贪心</tag>
+        <tag>矩阵乘法</tag>
       </tags>
   </entry>
   <entry>
@@ -182,8 +223,8 @@
         <tag>动态规划</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>多项式</tag>
         <tag>数据结构</tag>
+        <tag>多项式</tag>
         <tag>线段树</tag>
         <tag>字符串</tag>
         <tag>KMP</tag>
@@ -403,9 +444,9 @@
       <tags>
         <tag>题解</tag>
         <tag>总结</tag>
-        <tag>多项式</tag>
         <tag>LCT</tag>
         <tag>数据结构</tag>
+        <tag>多项式</tag>
         <tag>线段树</tag>
         <tag>平衡树</tag>
         <tag>FFT</tag>
@@ -456,8 +497,8 @@
         <tag>二分答案</tag>
         <tag>扫描线</tag>
         <tag>计算几何</tag>
-        <tag>NTT</tag>
         <tag>置换</tag>
+        <tag>NTT</tag>
         <tag>Trie</tag>
         <tag>最小生成树</tag>
       </tags>
@@ -544,8 +585,8 @@
       <tags>
         <tag>题解</tag>
         <tag>数据结构</tag>
-        <tag>二进制</tag>
         <tag>线段树</tag>
+        <tag>二进制</tag>
       </tags>
   </entry>
   <entry>
@@ -570,8 +611,8 @@
         <tag>数学</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>二进制</tag>
         <tag>期望</tag>
+        <tag>二进制</tag>
         <tag>矩阵乘法</tag>
       </tags>
   </entry>
@@ -584,9 +625,9 @@
         <tag>动态规划</tag>
         <tag>总结</tag>
         <tag>数据结构</tag>
-        <tag>期望</tag>
         <tag>最短路</tag>
         <tag>分治</tag>
+        <tag>期望</tag>
         <tag>线段树</tag>
         <tag>贪心</tag>
         <tag>分块</tag>
@@ -645,8 +686,8 @@
         <tag>动态规划</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>多项式</tag>
         <tag>数据结构</tag>
+        <tag>多项式</tag>
         <tag>线段树</tag>
         <tag>FFT</tag>
         <tag>BM</tag>
@@ -676,11 +717,11 @@
         <tag>题解</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>多项式</tag>
         <tag>数据结构</tag>
+        <tag>多项式</tag>
         <tag>平衡树</tag>
-        <tag>NTT</tag>
         <tag>置换</tag>
+        <tag>NTT</tag>
       </tags>
   </entry>
   <entry>
@@ -707,9 +748,9 @@
       <tags>
         <tag>题解</tag>
         <tag>总结</tag>
+        <tag>数据结构</tag>
         <tag>多项式求逆</tag>
         <tag>多项式</tag>
-        <tag>数据结构</tag>
         <tag>分块</tag>
         <tag>构造</tag>
         <tag>NTT</tag>
@@ -752,8 +793,8 @@
         <tag>动态规划</tag>
         <tag>数学</tag>
         <tag>总结</tag>
-        <tag>多项式</tag>
         <tag>数据结构</tag>
+        <tag>多项式</tag>
         <tag>分块</tag>
         <tag>平衡树</tag>
         <tag>概率</tag>
@@ -824,8 +865,8 @@
         <tag>总结</tag>
         <tag>多项式</tag>
         <tag>分治</tag>
-        <tag>FFT</tag>
         <tag>树上差分</tag>
+        <tag>FFT</tag>
       </tags>
   </entry>
   <entry>
