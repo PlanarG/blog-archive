@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="有$n$只神奇的变色龙，每只变色龙是红色或者蓝色，一开始所有变色龙都是蓝色的 如果一只红色的变色龙吃下的蓝球数严格大于其吃下的红球数，那么它会变成蓝色，蓝色变色龙同理 有$k$个红蓝球，定义一种颜色序列是合法的当且仅当存在一种给变色龙喂球的方式，使得最后所有的变色龙都是红色 给定$n,k$，求方案数，对$998244353$取模 n,k\leq 5\times 10^5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AGC021E Ball Eat Chameleons">
+<meta property="og:url" content="http://yoursite.com/2020/03/05/agc021e-ball-eat-chameleons/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="有$n$只神奇的变色龙，每只变色龙是红色或者蓝色，一开始所有变色龙都是蓝色的 如果一只红色的变色龙吃下的蓝球数严格大于其吃下的红球数，那么它会变成蓝色，蓝色变色龙同理 有$k$个红蓝球，定义一种颜色序列是合法的当且仅当存在一种给变色龙喂球的方式，使得最后所有的变色龙都是红色 给定$n,k$，求方案数，对$998244353$取模 n,k\leq 5\times 10^5">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-05T08:55:57.000Z">
+<meta property="article:modified_time" content="2020-04-09T07:28:21.372Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="集训队作业">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/05/agc021e-ball-eat-chameleons/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>AGC021E Ball Eat Chameleons | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/05/agc021e-ball-eat-chameleons/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AGC021E Ball Eat Chameleons
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-05 16:55:57" itemprop="dateCreated datePublished" datetime="2020-03-05T16:55:57+08:00">2020-03-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-09 15:28:21" itemprop="dateModified" datetime="2020-04-09T15:28:21+08:00">2020-04-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>有$n$只神奇的变色龙，每只变色龙是红色或者蓝色，一开始所有变色龙都是蓝色的</p>
+<p>如果一只红色的变色龙吃下的蓝球数严格大于其吃下的红球数，那么它会变成蓝色，蓝色变色龙同理</p>
+<p>有$k$个红蓝球，定义一种颜色序列是合法的当且仅当存在一种给变色龙喂球的方式，使得最后所有的变色龙都是红色</p>
+<p>给定$n,k$，求方案数，对$998244353$取模</p>
+<script type="math/tex; mode=display">n,k\leq 5\times 10^5</script><a id="more"></a>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>对于一只变色龙来说，我们考虑它什么时候会是红色</p>
+<ul>
+<li>吃下的红球数大于其吃下的蓝球数</li>
+<li>吃下的红球数等于其吃下的蓝球数，并且最后一个吃下的是蓝球</li>
+</ul>
+<p>第一种变色龙需要的红球数量比蓝球数量多$1$，而第二种变色龙需要的红球数量和蓝球数量相等</p>
+<p>同时，我们知道这样一个结论：如果某个序列能使得所有变色龙都变成红色，那么将这个序列中的蓝球变为红球仍然能够满足条件</p>
+<p>因此我们需要构造一种贪心策略，使得所有变色龙需要的红球数量更少</p>
+<p>记$R,B$分别代表红球数量和蓝球数量，我们分几种情况讨论</p>
+<ul>
+<li>$R&lt;B$</li>
+</ul>
+<p>无论怎么分配，总会有一只变色龙吃到的红球比蓝球少，那么这只变色龙就无法变为红色，因此方案数为$0$</p>
+<ul>
+<li>$R=B$</li>
+</ul>
+<p>所有的变色龙都只能是第二种变色龙，因为没有红球可以拿来浪费</p>
+<p>最后一个球肯定是某一只变色龙吃下的最后一个球，因此这个球只能是蓝色</p>
+<p>我们构造这样一种贪心策略：找到$n$对匹配的$RB$，这里的匹配指的是$B$在$R$后面并且每个$B,R$只能用一次，然后喂给所有变色龙（用前$n$个$R$匹配最后$n$个$B$，可以保证最后一个$B$此时一定被一只变色龙吃掉）</p>
+<p>接着，将所有剩下的球都塞给吃掉最后那个$B$的变色龙</p>
+<p>接下来，我们证明上面贪心的正确性</p>
+<p><strong>1.如果一只变色龙能够变为红色，那么它需要的红球数越少越好</strong></p>
+<p>本来这只变色龙占用的第二个红球是有可能使得一只蓝色变色龙变为红色的，但是现在被浪费了，因此一定不优秀</p>
+<p>因此我们要尽可能使得有尽量多的变色龙最后吃到球的序列是$RB$</p>
+<p><strong>2.一种合法方案必须存在$n$个匹配</strong></p>
+<p>如果匹配数小于$n$，我们消去所有匹配的位置之后剩下的是一串$BBB\cdots RRR\cdots$的序列，并且$RB$数量相等</p>
+<p>但是此时，仍然有变色龙是蓝色的</p>
+<p>此时如果我们要将一只蓝色的变色龙变成红色，必然会使得红球的数量比蓝球的数量多减少一个，然后剩下的红球数量就小于蓝球数量了</p>
+<p>所以，我们可以得出当$R=B$时的充分必要条件</p>
+<p>1.最后一个球是蓝色<br>2.存在至少$n$对匹配的$RB$</p>
+<p>那么如何计数呢？考虑到卡特兰数实际上就是$R,B$存在完美匹配的方案数，那么我们可以考虑将序列变为折线</p>
+<p>我们考虑这样一条折线：</p>
+<p>一开始在原点，依次考虑序列中的每一个位置，如果某一个位置是红球，那么往右上走一步；如果某一个位置是蓝球，那么往右下走一步</p>
+<p>当我们从第一象限走到了第四象限，这就意味着一个蓝球没能与之前的红球匹配，换句话说，这个蓝球被浪费掉了，等价于浪费一个红球（少了一组匹配）</p>
+<p>因此，我们需要保证的条件是：没有被浪费的红球仍然大于等于$n$个，即被浪费的蓝球小于等于$B−n$个。这等价于折线不能跨越$y=−(B−n)$这条直线，并且最后走到了$(k−1,1)$这个点，最后再走一步到达$(k,0)$</p>
+<p>那么有</p>
+<script type="math/tex; mode=display">\begin{cases}R+B=k-1\\ R-B=2(-(B-n)-1)-1\end{cases}\Rightarrow R=2n-2</script><p>方案数为${k-1\choose R}-{k-1\choose 2n-2}={k-1\choose R}-{k-1\choose 2R-n+1}$</p>
+<ul>
+<li>$R&gt;B$</li>
+</ul>
+<p>稍微更改一下贪心策略</p>
+<p>我们知道最多有$R−B$个红球可以被浪费掉，因此$RB$匹配的数量至少要是$n−(R−B)$个</p>
+<p>因此策略为：选出$n−(R−B)$只变色龙吃$RB$，剩下的变色龙随便分配，只需要满足每只变色龙吃到的红球数大于蓝球数即可</p>
+<p>如果$RB$对的数量少于这个数，那么剩下的每一只变色龙必然会浪费一个红球，不可能出现“红蓝相等，且最后一个是蓝球”的情况，因为这样的话必然会产生新的$RB$对，与尽量匹配这个条件矛盾</p>
+<p>与$R=B$的情况类似，这等价与一条从$(0,0)$到$(k,0)$的折线，没有浪费的蓝球仍然大于等于$n−(R−B)$个，即浪费的蓝球小于等于$B−(n−(R−B))=R−n$个，不能跨越$y=−(R−n)$这条折线</p>
+<p>计算与上面类似，可以算出方案数为${k\choose R}-{k\choose 2R-n+1}$</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">500010</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (; y; y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> frac[N], inv[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">C</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (r &gt; n || r &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> (LL)frac[n] * inv[r] % mod * inv[n - r] % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, k, res = <span class="number">0</span>; <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; k; </span><br><span class="line">    frac[<span class="number">0</span>] = inv[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= k; i++) frac[i] = (LL)frac[i - <span class="number">1</span>] * i % mod, inv[i] = Pow(frac[i], mod - <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> R = n; R &lt;= k; R++) <span class="keyword">if</span> (R &gt;= k - R) &#123;</span><br><span class="line">        <span class="keyword">if</span> (R == k - R) res = (res + C(k - <span class="number">1</span>, R) - C(k - <span class="number">1</span>, R * <span class="number">2</span> - n + <span class="number">1</span>)) % mod;</span><br><span class="line">        <span class="keyword">else</span> res = (res + C(k, R) - C(k, R * <span class="number">2</span> - n + <span class="number">1</span>)) % mod;</span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (res + mod) % mod);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/03/05/agc021e-ball-eat-chameleons/" title="AGC021E Ball Eat Chameleons">http://yoursite.com/2020/03/05/agc021e-ball-eat-chameleons/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9B%86%E8%AE%AD%E9%98%9F%E4%BD%9C%E4%B8%9A/" rel="tag"># 集训队作业</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/05/agc029c-lexicographic-constraints/" rel="prev" title="AGC029C Lexicographic constraints">
+      <i class="fa fa-chevron-left"></i> AGC029C Lexicographic constraints
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/05/agc024f-simple-subsequence-problem/" rel="next" title="AGC024F Simple Subsequence Problem">
+      AGC024F Simple Subsequence Problem <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题解"><span class="nav-number">1.</span> <span class="nav-text">题解</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

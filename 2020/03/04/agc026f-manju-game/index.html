@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="有一个长度为$N$的序列$a$，两个人轮流取数，遵循以下规则  每个数只能取一次 在第一轮先手可以随意取，但之后的每一轮每个人只能取与前一个人取的位置相邻的位置。如果这样的位置不存在，那么可以随便选一个位置  先手和后手都希望自己取出的数之和尽量大，问两人在都采取最优策略的情况下取出的数之和分别为多少 N\leq 3\times 10^5,a_i\leq 1000">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AGC026F Manju Game">
+<meta property="og:url" content="http://yoursite.com/2020/03/04/agc026f-manju-game/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="有一个长度为$N$的序列$a$，两个人轮流取数，遵循以下规则  每个数只能取一次 在第一轮先手可以随意取，但之后的每一轮每个人只能取与前一个人取的位置相邻的位置。如果这样的位置不存在，那么可以随便选一个位置  先手和后手都希望自己取出的数之和尽量大，问两人在都采取最优策略的情况下取出的数之和分别为多少 N\leq 3\times 10^5,a_i\leq 1000">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-04T10:14:38.000Z">
+<meta property="article:modified_time" content="2020-04-09T07:29:14.178Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="集训队作业">
+<meta property="article:tag" content="博弈">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/04/agc026f-manju-game/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>AGC026F Manju Game | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/agc026f-manju-game/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AGC026F Manju Game
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-04 18:14:38" itemprop="dateCreated datePublished" datetime="2020-03-04T18:14:38+08:00">2020-03-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-09 15:29:14" itemprop="dateModified" datetime="2020-04-09T15:29:14+08:00">2020-04-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>有一个长度为$N$的序列$a$，两个人轮流取数，遵循以下规则</p>
+<ul>
+<li>每个数只能取一次</li>
+<li>在第一轮先手可以随意取，但之后的每一轮每个人只能取与前一个人取的位置相邻的位置。如果这样的位置不存在，那么可以随便选一个位置</li>
+</ul>
+<p>先手和后手都希望自己取出的数之和尽量大，问两人在都采取最优策略的情况下取出的数之和分别为多少</p>
+<script type="math/tex; mode=display">N\leq 3\times 10^5,a_i\leq 1000</script><a id="more"></a>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>首先先手可以直接选择这个序列的第一个或者最后一个元素，这样后手的方案就是唯一的</p>
+<p>当$N$为偶数的时候，先手可以取到所有奇数位置或者所有偶数位置</p>
+<p>当$N$为奇数的时候，先手第一次可以取第二个数，此时如果后手取第一个数一定对后手不利，因此后手只能跟着先手取，此时先手也能取到所有偶数位置的数</p>
+<p>先手除了这两种选择还可以选择这个序列中的任意一个元素，然后后手选择这个元素左边/右边与其相邻的元素，之后先手就只能跟着后手轮流选</p>
+<p>如果后手选的那一侧有偶数个数（包括后手选的那一个），那么这一侧的最后一个元素一定是先手取走的。这就意味着接下来后手可以在另一侧随便选择一个数取走，对于先手来说还不如将所有奇数位置或者将所有偶数位置的数取走优秀</p>
+<p>因此我们可以得到一个结论：如果先手选择了从中间开始取数，那么这个位置左边和右边都必定有奇数个数</p>
+<p>显然当$N$为偶数的时候这样的位置是不存在的，因此此时答案就是奇数位置的和与偶数位置的和的最大值，接下来我们讨论当$N$为奇数的情况</p>
+<p>可以发现此时实际上先手和后手不停地在干这样一件事：先手选择当前区间中的一个数-&gt;后手选择左/右的子区间-&gt;后手取走这个区间所有下标为奇数的数，先手取走这个区间所有下标为偶数的数-&gt;递归到另一边的子区间-&gt;…-&gt;先手取走当前区间所有奇数位置/偶数位置的数</p>
+<p>这个过程等价于：初始时先手的分数为所有偶数位置的数之和，每次先手可以：</p>
+<ul>
+<li>将自己的分数加上当前区间奇数位置的数减去偶数位置的数之和，并结束游戏</li>
+<li>取一个偶数位置的数，将区间划分为两个子区间，随后后手选择一个区间继续游戏</li>
+</ul>
+<p>我们可以将这个过程看做一棵二叉树：叶子节点的权值为这个区间奇数位置的数之和减去偶数位置的数之和，后手每次可以选择当前点的一个儿子走过去</p>
+<p>显然后手可以走到这棵二叉树权值最小的那个叶子</p>
+<p>问题等价于：先手要取走若干个偶数位置的数，使得剩下的每一段的奇数位置的数之和减去偶数位置的数之和的最小值尽可能大</p>
+<p>记$sum$表示奇数位置减去偶数位置的前缀和</p>
+<p>二分这个最小值，设其为$mid$</p>
+<p>记$dp[i]$表示最后一段的结尾是否有可能是$i$，转移非常显然：</p>
+<ul>
+<li>$dp[-1]=1$</li>
+<li>$dp[2i+1]|=dp<a href="sum[2i+1]-sum[2j+2]\geq mid">2j+1</a>$</li>
+</ul>
+<p>显然这里我们只需要记录当前为$1$的$dp$状态中，$sum[2i+2]$最小的状态就行了</p>
+<p>时间复杂度$O(N\log N)$，代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">300010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> num[N], sum[N], n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n); <span class="keyword">int</span> A = <span class="number">0</span>, B = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;num[i]), sum[i] = sum[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span> (i &amp; <span class="number">1</span>) sum[i] += num[i], A += num[i];</span><br><span class="line">        <span class="keyword">else</span> sum[i] -= num[i], B += num[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (n % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, max(A, B), min(A, B));</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">auto</span> check = [&amp;](<span class="keyword">int</span> mid) -&gt; <span class="keyword">bool</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> mn = <span class="number">0</span>; <span class="keyword">static</span> <span class="keyword">int</span> dp[N];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i += <span class="number">2</span>) </span><br><span class="line">            <span class="keyword">if</span> (sum[i] - mn &gt;= mid) &#123;</span><br><span class="line">                mn = min(mn, sum[i + <span class="number">1</span>]), dp[i] = <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> dp[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">int</span> l = <span class="number">1</span>, r = A + B, mid, res = B;</span><br><span class="line">    <span class="keyword">while</span> (l &lt;= r) &#123;</span><br><span class="line">        <span class="keyword">if</span> (check(mid = (l + r) &gt;&gt; <span class="number">1</span>)) res = B + mid, l = mid + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">else</span> r = mid - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, res, A + B - res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/03/04/agc026f-manju-game/" title="AGC026F Manju Game">http://yoursite.com/2020/03/04/agc026f-manju-game/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9B%86%E8%AE%AD%E9%98%9F%E4%BD%9C%E4%B8%9A/" rel="tag"># 集训队作业</a>
+              <a href="/tags/%E5%8D%9A%E5%BC%88/" rel="tag"># 博弈</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/04/agc030d-inversion-sum/" rel="prev" title="AGC030D Inversion Sum">
+      <i class="fa fa-chevron-left"></i> AGC030D Inversion Sum
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/04/arc093-bichrome-spanning-tree/" rel="next" title="ARC093 Bichrome Spanning Tree">
+      ARC093 Bichrome Spanning Tree <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题解"><span class="nav-number">1.</span> <span class="nav-text">题解</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="有一棵$N$个点的树，第$i$个点的父亲是$p_i$，权值为$m_i$ 给定两个整数$X,D$ 你要为每个点分配$c_i$，使得  $c_{p_i}\leq c_i\leq c_{p_i}+D$ $\sum m_ic_i\leq X$ $\sum c_i$尽可能大  N\leq 50, X,D,m_i\leq 10^9">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARC096F Sweet Alchemy">
+<meta property="og:url" content="http://yoursite.com/2020/03/03/arc096f-sweet-alchemy/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="有一棵$N$个点的树，第$i$个点的父亲是$p_i$，权值为$m_i$ 给定两个整数$X,D$ 你要为每个点分配$c_i$，使得  $c_{p_i}\leq c_i\leq c_{p_i}+D$ $\sum m_ic_i\leq X$ $\sum c_i$尽可能大  N\leq 50, X,D,m_i\leq 10^9">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-03T13:55:26.000Z">
+<meta property="article:modified_time" content="2020-04-09T07:30:07.747Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="集训队作业">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="贪心">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/03/arc096f-sweet-alchemy/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ARC096F Sweet Alchemy | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/03/arc096f-sweet-alchemy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ARC096F Sweet Alchemy
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-03 21:55:26" itemprop="dateCreated datePublished" datetime="2020-03-03T21:55:26+08:00">2020-03-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-09 15:30:07" itemprop="dateModified" datetime="2020-04-09T15:30:07+08:00">2020-04-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>有一棵$N$个点的树，第$i$个点的父亲是$p_i$，权值为$m_i$</p>
+<p>给定两个整数$X,D$</p>
+<p>你要为每个点分配$c_i$，使得</p>
+<ul>
+<li>$c_{p_i}\leq c_i\leq c_{p_i}+D$</li>
+<li>$\sum m_ic_i\leq X$</li>
+<li>$\sum c_i$尽可能大</li>
+</ul>
+<script type="math/tex; mode=display">N\leq 50, X,D,m_i\leq 10^9</script><a id="more"></a>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>第一个限制看起来很奇怪，每个点都必须比它的父亲大</p>
+<p>我们将问题转换一下，将给每个点分配$c_i$看做对这棵树进行若干次子树加，这样就可以保证每个点的权值一定比其父亲权值大，且每个点作为根进行的加操作次数不能超过$D$</p>
+<p>其实就是将原来的$c_i$差分了一下，记$a_i$为差分之后每个点的权值</p>
+<p>接着，对于第$i$个点，我们将这个点的$m_i$变为其子树的$m_i$之和，含义是对这个点的子树进行一次加操作需要的代价</p>
+<p>那么问题就变为了要给每个点分配$a_i$，使得</p>
+<ul>
+<li>对于$i\in [2,n]$，满足$a_i\leq D$</li>
+<li>$\sum m_ia_i\leq X$</li>
+<li>$\sum sz_ia_i$尽可能大，其中$sz_i$表示节点$i$的子树大小</li>
+</ul>
+<p>可以看出这就是普通的背包问题。但是与一般背包问题不同的是，这里每个物品的体积、背包总容量都特别大，物品总数和每个物品的价值都很小</p>
+<p>有一种贪心是将所有物品按照价值/体积排序，但是显然直接这样贪心是错的，因为有可能一个物品的体积太大导致剩余的空间没有被很好地利用</p>
+<p>注意到一件事情：如果这些物品价值的最大值为$k$，那么在最终方案中，如果两个物品$a,b$满足$a$的价值/体积大于$b$的价值/体积，那么$b$取的次数一定$k$</p>
+<p>因为，$b$取$k$次耗费的代价和体积一定大于$a$再取一次需要耗费的代价和体积</p>
+<p>所以我们可以将每个物品拿$k$个出来跑普通的背包，对于剩下的物品沿用那个错误的贪心就行了</p>
+<p>在本问题中，$k=n$，背包中物品价值总和不会超过$n^3$</p>
+<p>记$dp[i][j]$表示考虑了前$i$个物品，价值总和为$j$时最少需要多少空间，时间复杂度$O(n^5)$，但是跑不满，可以优化到$O(n^4\log n)$</p>
+<p>注意爆<code>long long</code></p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">51</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line">LL dp[N][N * N * N], sum[N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> p[N], w[N], id[N]; LL pre[N], pre1[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, d; <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m &gt;&gt; d;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; sum[i], w[i] = <span class="number">1</span>, id[i] = i;</span><br><span class="line">        <span class="keyword">if</span> (i != <span class="number">1</span>) <span class="built_in">cin</span> &gt;&gt; p[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= <span class="number">1</span>; i--) </span><br><span class="line">        sum[p[i]] += sum[i], w[p[i]] += w[i];</span><br><span class="line">    <span class="keyword">int</span> lim = min(d, n);</span><br><span class="line">    <span class="built_in">memset</span>(dp, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(dp)), dp[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= (i - <span class="number">1</span>) * lim * n; j++) <span class="keyword">if</span> (dp[i - <span class="number">1</span>][j] &lt;= m) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt;= lim; k++) &#123;</span><br><span class="line">                dp[i][j + k * w[i]] = min(dp[i][j + k * w[i]], dp[i - <span class="number">1</span>][j] + k * sum[i]);</span><br><span class="line">                <span class="keyword">if</span> (dp[i][j + k * w[i]] &gt; m) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(id + <span class="number">1</span>, id + n + <span class="number">1</span>, [](<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123;</span><br><span class="line">        <span class="keyword">return</span> w[a] * sum[b] &gt; w[b] * sum[a];</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (pre[i - <span class="number">1</span>] &gt;= m) &#123;</span><br><span class="line">            pre[i] = pre[i - <span class="number">1</span>] + <span class="number">1</span>; <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> at = id[i], tmp = at == <span class="number">1</span> ? <span class="number">1e9</span> : d - lim;</span><br><span class="line">        <span class="keyword">if</span> (sum[at] &gt;= m &amp;&amp; tmp) pre[i] = m;</span><br><span class="line">        <span class="keyword">else</span> pre[i] = pre[i - <span class="number">1</span>] + tmp * sum[at], pre1[i] = pre1[i - <span class="number">1</span>] + (LL)tmp * w[at];</span><br><span class="line">    &#125;   </span><br><span class="line">    LL res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= n * n * lim; i++) <span class="keyword">if</span> (dp[n][i] &lt;= m) &#123;</span><br><span class="line">        LL remain = m - dp[n][i];</span><br><span class="line">        <span class="keyword">int</span> pos = upper_bound(pre + <span class="number">1</span>, pre + n + <span class="number">1</span>, remain) - pre - <span class="number">1</span>;</span><br><span class="line">        res = max(res, i + pre1[pos] + w[id[pos + <span class="number">1</span>]] * ((remain - pre[pos]) / sum[id[pos + <span class="number">1</span>]]));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/03/03/arc096f-sweet-alchemy/" title="ARC096F Sweet Alchemy">http://yoursite.com/2020/03/03/arc096f-sweet-alchemy/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9B%86%E8%AE%AD%E9%98%9F%E4%BD%9C%E4%B8%9A/" rel="tag"># 集训队作业</a>
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+              <a href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag"># 贪心</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/03/agc027d-modulo-matrix/" rel="prev" title="AGC027D Modulo Matrix">
+      <i class="fa fa-chevron-left"></i> AGC027D Modulo Matrix
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/04/agc020f-arcs-on-a-circle/" rel="next" title="AGC020F Arcs on a Circle">
+      AGC020F Arcs on a Circle <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题解"><span class="nav-number">1.</span> <span class="nav-text">题解</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

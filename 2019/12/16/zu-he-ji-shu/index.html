@@ -30,12 +30,12 @@
 <meta property="article:published_time" content="2019-12-16T03:41:28.000Z">
 <meta property="article:modified_time" content="2020-04-09T04:52:34.547Z">
 <meta property="article:author" content="PlanarG">
-<meta property="article:tag" content="FFT">
-<meta property="article:tag" content="生成函数">
 <meta property="article:tag" content="集训队作业">
 <meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="FFT">
 <meta property="article:tag" content="状态压缩">
 <meta property="article:tag" content="容斥">
+<meta property="article:tag" content="生成函数">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://yoursite.com/2019/12/16/zu-he-ji-shu/">
@@ -331,14 +331,14 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">5010</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> to, next;</span><br><span class="line">&#125; e[N * <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> head[N], ecnt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">adde</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to)</span> </span>&#123;</span><br><span class="line">    e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt;</span><br><span class="line">    e[++ecnt] = (edge)&#123;from, head[to]&#125;, head[to] = ecnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> f[N][N], g[N], sz[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> fa)</span> </span>&#123;</span><br><span class="line">    sz[u] = <span class="number">1</span>, f[u][<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = head[u]; i; i = e[i].next)</span><br><span class="line">        <span class="keyword">if</span> (e[i].to != fa) &#123;</span><br><span class="line">            dfs(e[i].to, u);</span><br><span class="line">            <span class="keyword">static</span> <span class="keyword">int</span> tmp[N];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= sz[e[i].to] + sz[u]; j++) tmp[j] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= sz[e[i].to]; j++)</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= sz[u]; k++)</span><br><span class="line">                    tmp[j + k] = (tmp[j + k] + (LL)f[e[i].to][j] * f[u][k]) % mod;</span><br><span class="line">            sz[u] += sz[e[i].to];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= sz[u]; j++) f[u][j] = tmp[j];</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= sz[u]; j++)    </span><br><span class="line">        f[u][<span class="number">0</span>] = (f[u][<span class="number">0</span>] - (LL)f[u][j] * g[j] % mod + mod) % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a, b; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b), adde(a, b);</span><br><span class="line">    g[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i += <span class="number">2</span>) g[i] = (LL)g[i - <span class="number">2</span>] * (i - <span class="number">1</span>) % mod;</span><br><span class="line">    dfs(<span class="number">1</span>, <span class="number">0</span>), <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, mod - f[<span class="number">1</span>][<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="ARC096E-Everything-on-it"><a href="#ARC096E-Everything-on-it" class="headerlink" title="ARC096E Everything on it"></a>ARC096E Everything on it</h3><p>求有多少个子集的集合，满足</p>
 <ul>
-<li>其中任意一个子集都是${1,2,\cdots n}$的子集</li>
+<li>其中任意一个子集都是$\{1,2,\cdots n\}$的子集</li>
 <li>任意两个子集不能相同</li>
 <li>$1,2,\cdots n$每个数都至少出现了两次</li>
 </ul>
 <p>答案对质数$M$取模</p>
 <script type="math/tex; mode=display">2\leq n\leq 3000,10^8\leq M\leq 10^9+9</script><p>考虑枚举有多少个数至多出现了一次，假设有$i$个</p>
 <p>再假设这些数分到了$j$个集合中，由于每个数可能出现，也可能没有出现，因此我们可以添加一个数$0$，然后再将这些数划分为$j+1$个集合，与$0$在同一个集合的那些数表示没有出现</p>
-<p>因此这一步的方案数为$\begin{Bmatrix}i+1\ j+1\end{Bmatrix}$</p>
+<p>因此这一步的方案数为$\begin{Bmatrix}i+1\\ j+1\end{Bmatrix}$</p>
 <p>其余的数可以出现，也可以不出现。受影响的集合一共有$j$个，方案数为$(2^{n-i})^j$</p>
 <p>对于其余的集合，当前选出的i个数一定没有出现过，对应出来的每一种集合也可以选择出现或者不出现，因此方案数为$2^{2^{n-i}}$</p>
 <p>因此答案为</p>
@@ -348,7 +348,7 @@
 <h3 id="ARC093F-Dark-Horse"><a href="#ARC093F-Dark-Horse" class="headerlink" title="ARC093F Dark Horse"></a>ARC093F Dark Horse</h3><p>有$2^n$名选手，编号为$1$至$2^n$，现在这$2^n$名选手将进行$n$轮淘汰赛，决出胜者。若$x&lt;y$，则当$x$与$y$对决时，$x$能获胜。但是有$m$个例外，$1$号选手在与这$m$个人对决的时候会输。问有多少种排列方式使得最终$1$号选手能取得胜利，答案对$10^9+7$取模</p>
 <p>对决的方式是每轮选择排列中的第$2i−1$与第$2i$名选手对决</p>
 <script type="math/tex; mode=display">1\leq n\leq 16, 0\leq m\leq 16</script><p>首先我们钦定$1$在排列的第一个位置，由于对决是一棵二叉树的形式，因此$1$实际上放哪里都无所谓</p>
-<p>接下来，$1$会分别与$p_2,\min{p_3,p_4},\min{p_5,p_6,p_7,p_8},\cdots$对决，那么限制就等价于：$p_2,\min{p_3,p_4},\min{p_5,p_6,p_7,p_8},\cdots$中都不能出现给定的$m$个数</p>
+<p>接下来，$1$会分别与$p_2,\min\{p_3,p_4\},\min\{p_5,p_6,p_7,p_8\},\cdots$对决，那么限制就等价于：$p_2,\min\{p_3,p_4\},\min\{p_5,p_6,p_7,p_8\},\cdots$中都不能出现给定的$m$个数</p>
 <p>考虑容斥，枚举有哪些集合的最小值是给出的$m$个数之一</p>
 <p>将给定的$m$个数排序，记$dp[i][S]$表示以及考虑了$m$个数中的前$i$个数，这$i$个数占据了$S$集合的方案数</p>
 <p>注意这里我们只给确定的集合分配其它数，即只有$S$集合内的数在此时的$dp$中是被考虑了的</p>
@@ -457,18 +457,25 @@ A_i(x)&=T'(x)=\left[e^{a_ix}\left(\sum_{j=0}^{2m}\begin{Bmatrix}2m\\ j\end{Bmatr
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/FFT/" rel="tag"># FFT</a>
-              <a href="/tags/%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/" rel="tag"># 生成函数</a>
               <a href="/tags/%E9%9B%86%E8%AE%AD%E9%98%9F%E4%BD%9C%E4%B8%9A/" rel="tag"># 集训队作业</a>
               <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+              <a href="/tags/FFT/" rel="tag"># FFT</a>
               <a href="/tags/%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9/" rel="tag"># 状态压缩</a>
               <a href="/tags/%E5%AE%B9%E6%96%A5/" rel="tag"># 容斥</a>
+              <a href="/tags/%E7%94%9F%E6%88%90%E5%87%BD%E6%95%B0/" rel="tag"># 生成函数</a>
           </div>
 
         
 
 
         
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/03/agc100d-colorful-sequences/" rel="next" title="AGC100D Colorful Sequences">
+      AGC100D Colorful Sequences <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
     
   </article>
@@ -542,14 +549,20 @@ A_i(x)&=T'(x)=\left[e^{a_ix}\left(\sum_{j=0}^{2m}\begin{Bmatrix}2m\\ j\end{Bmatr
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
