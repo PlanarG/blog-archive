@@ -20,28 +20,36 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="PlanarG&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="ZZH                                                               yijan">
+<meta property="og:type" content="website">
+<meta property="og:title" content="友链">
+<meta property="og:url" content="http://yoursite.com/friends/index.html">
 <meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="ZZH                                                               yijan">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://orzzh.icu/images/avatar.png?v=1583208005336">
+<meta property="og:image" content="https://www.yijan.co/images/avatar.png?v=1583218628851">
+<meta property="article:published_time" content="2020-04-09T04:11:35.000Z">
+<meta property="article:modified_time" content="2020-04-09T04:13:30.833Z">
 <meta property="article:author" content="PlanarG">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://orzzh.icu/images/avatar.png?v=1583208005336">
 
-<link rel="canonical" href="http://yoursite.com/">
+<link rel="canonical" href="http://yoursite.com/friends/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
+    isHome : false,
     isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>PlanarG's blog</title>
+  <title>友链 | PlanarG's blog
+</title>
   
 
 
@@ -181,96 +189,58 @@
       <div class="main-inner">
         <div class="content-wrap">
           
+  
+  
 
-          <div class="content index posts-expand">
+          <div class="content page posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/16/zu-he-ji-shu/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
-      <meta itemprop="name" content="PlanarG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="PlanarG's blog">
-    </span>
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/12/16/zu-he-ji-shu/" class="post-title-link" itemprop="url">组合计数</a>
-        </h2>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+<h1 class="post-title" itemprop="name headline">友链
+</h1>
 
-              <time title="创建时间：2019-12-16 11:41:28" itemprop="dateCreated datePublished" datetime="2019-12-16T11:41:28+08:00">2019-12-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-09 12:52:34" itemprop="dateModified" datetime="2020-04-09T12:52:34+08:00">2020-04-09</time>
-              </span>
+<div class="post-meta">
+  
 
-          
+</div>
 
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+</header>
 
       
-          <h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h1><h2 id="非常基础的东西"><a href="#非常基础的东西" class="headerlink" title="非常基础的东西"></a>非常基础的东西</h2><ul>
-<li>组合数</li>
-</ul>
-<script type="math/tex; mode=display">{n\choose m}=\frac{n !}{m ! \times(n-m) !}</script><ul>
-<li><code>Pascal</code>公式</li>
-</ul>
-<script type="math/tex; mode=display">{n\choose m}={n-1\choose m}+{n-1\choose m-1}</script><ul>
-<li>二项式定理</li>
-</ul>
-<script type="math/tex; mode=display">(x+y)^n=\sum_{i=0}^n{n\choose i}x^iy^{n-i}</script><ul>
-<li><code>Lucas</code>定理</li>
-</ul>
-<script type="math/tex; mode=display">{n\choose m}\mod p=\prod {n_i\choose m_i}\mod p</script><p>这里$n_i,m_i$分别表示$n,m$在$p$进制下的第$i$位</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/12/16/zu-he-ji-shu/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+      
+      
+      <div class="post-body">
+          <div class="friends">
+    <a class="a-friend" target="_blank" style="background-color:white;color:black" href="http://orzzh.icu/">
+        <img class="blog-avatar" src="https://orzzh.icu/images/avatar.png?v=1583208005336">
+        <div class="text-container">
+            <div class="name">ZZH</div>
+            <div class="description"></div>
+        </div>
+    </a>
+    <a class="a-friend" target="_blank" style="background-color:white;color:black" href="https://yijan.co/">
+        <img class="blog-avatar" src="https://www.yijan.co/images/avatar.png?v=1583218628851">
+        <div class="text-container">
+            <div class="name">yijan</div>
+            <div class="description"></div>
+        </div>
+    </a>
+</div>
+      </div>
+      
+      
       
     </div>
+    
 
     
     
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-
 
 
           </div>
