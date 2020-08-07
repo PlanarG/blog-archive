@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="7.22动态规划">
+<meta property="og:url" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722185043836.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722190504065.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722191609528.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722192114999.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722192845416.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722193238202.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722193555239.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722193951596.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722194433033.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722194634134.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722194837706.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722194926083.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722195523408.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722195704599.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722195742115.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722195911527.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722195944446.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722200006898.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722200051600.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722200109938.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722201939299.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722202240191.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722202348807.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722203717914.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722203833302.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722203848813.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722204429603.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722204507897.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722204824777.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722205552235.png">
+<meta property="article:published_time" content="2020-07-22T10:48:27.000Z">
+<meta property="article:modified_time" content="2020-08-06T12:30:18.007Z">
+<meta property="article:author" content="PlanarG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/image-20200722185043836.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>7.22动态规划 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7.22动态规划
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-22 18:48:27" itemprop="dateCreated datePublished" datetime="2020-07-22T18:48:27+08:00">2020-07-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-06 20:30:18" itemprop="dateModified" datetime="2020-08-06T20:30:18+08:00">2020-08-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div class="pdfobject-container" data-target="slide.pdf" data-height="500px"></div>
+<a id="more"></a>
+<h1 id="All-Kill"><a href="#All-Kill" class="headerlink" title="All Kill"></a>All Kill</h1><p><img src="image-20200722185043836.png" alt="image-20200722185043836"></p>
+<p>不妨设$t’=t-\sum b_i$，表示做完这$n$道题之后剩下的空余时间。我们将$t$分钟分为$n+t’$个时间段，接着按照编号从小到大考虑每道题目。</p>
+<p>对于第一道题来说，它可以选择这$n+t’$个时间段中的任意一个，然后将其撑到$a_1$分钟，因此方案数为$n+t’$。对于第二道题，它有两种选择：要么选择一个新的时间段，要么在做第一道题的时候就被想出来，然后在第一道题做完之后立刻做第二道题。两种选择都会占去一个新的时间段，方案数为$n+t’-1+a_1$。</p>
+<p>也就是说，对于第$i$道题来说，它会有两种选择：要么占去一个新的时间段，要么在做之前任意一道题的时候被想出来，然后一直等待直到有一个可用的时间段。当我们将这$n$道题都插入完毕的时候，剩下的那些时间段就是空闲时间，每段持续一分钟。</p>
+<p>直接在序列上做会有一个问题：假设任务$j$在做任务$i$的时候被想出来了，但是任务$i$之后的每个时间段都被占满了，那么$j$就无法“顺延”到下一个没有用过的时间段。因此我们将序列当作一个环，同时在最后加入一个空闲时间段（为了方便计算答案）。可以看出，环上的任意一种方案都可以选择一个空闲位置作为最后添加的那个段断开。为了避免重复计数，我们约定在环上距离第一个位置最近的空闲段断开即可。因此，答案为</p>
+<script type="math/tex; mode=display">
+\prod_{i=1}^n (n+t'+1-(i-1)+\sum_{j<i}a_j)</script><h1 id="Amidakuji"><a href="#Amidakuji" class="headerlink" title="Amidakuji"></a>Amidakuji</h1><p><img src="image-20200722190504065.png" alt="image-20200722190504065"></p>
+<p>考虑如下构造：</p>
+<p>当$n$是奇数的时候，令$p_{i,j}=j+2^i\bmod n$。可以看作每次要么不动，要么往左走$2^{i+1}$步。如果终点到起点距离为偶数那么可以直接走过去，否则这个距离加上$n$之后是偶数。</p>
+<p>如果$n\bmod 4=0$，构造$p_0=(2,3,1,0,6,7,5,4,\cdots)$，接着套用奇数的构造。在第一步中，你可以选择将当前的下标变为奇数还是偶数，从而使得接下来到终点的距离一定是偶数。</p>
+<p>如果$n\bmod 4=2$，构造$p_0=(2,3,1,0,\cdots, n-2, n-1),p_1=(0,1,2,\cdots, n-6, n-5,n-2,n-1,n-3,n-4)$，原理与$n\bmod 4=0$类似。</p>
+<h1 id="Arcs-on-a-Circle"><a href="#Arcs-on-a-Circle" class="headerlink" title="Arcs on a Circle"></a>Arcs on a Circle</h1><p><a href="https://planarg.top/2020/03/04/agc020f-arcs-on-a-circle/" target="_blank" rel="noopener">这里</a></p>
+<h1 id="Classic-Towers"><a href="#Classic-Towers" class="headerlink" title="Classic Towers"></a>Classic Towers</h1><p><img src="image-20200722191609528.png" alt="image-20200722191609528"></p>
+<p>将这个过程倒过来，从终止状态推到初始状态。设$f(a,b,c,p)$表示最大的$a+b+c$个盘子已经放好了，并且此时剩下的所有盘子都堆在第$p$根柱子上是否可行。转移的时候考虑$k$在二进制下的这一位，如果此时剩下的盘子中最大的盘子已经归位，那么这个最大的盘子不需要移动，否则需要花费$2^t$步移动这个盘子。根据$k$的这一位来决定是否归位。</p>
+<h1 id="Clique"><a href="#Clique" class="headerlink" title="Clique"></a>Clique</h1><p><img src="image-20200722192114999.png" alt="image-20200722192114999"></p>
+<p>选中的圆弧中最短的圆弧是哪个，那么剩下可能被选的圆弧只有以下几种</p>
+<p><img src="image-20200722192845416.png" alt="image-20200722192845416"></p>
+<p>黑色的圆弧代表被选中的圆弧，由于这段圆弧是最短的，因此不存在被它完全包含的圆弧。</p>
+<p>显然$D$这种圆弧一定满足条件，因此所有的$B$都会被选。</p>
+<p>$C$同时与所有的$A$有交，也与所有的$B$有交，因此$C$也一定会被选。</p>
+<p>因此，我们只需要考虑$A,B$这两种圆弧的选择情况。</p>
+<p>我们给$A,B$圆弧的左右端点分别分配一个坐标$x_i,y_i$，那么问题转化为选择尽可能多的$A$类和$B$类圆弧，使得不存在一个$A$类圆弧$i$，一个$B$类圆弧$j$，使得$x_j&lt;x_i$，同时$y_j&lt;y_i$。</p>
+<p>将所有圆弧按照$x$坐标排序之后线段树就可以了。</p>
+<h1 id="DFS-Count"><a href="#DFS-Count" class="headerlink" title="DFS Count"></a>DFS Count</h1><p><img src="image-20200722193238202.png" alt="image-20200722193238202"></p>
+<p>记$f(S,i)$表示$S$集合中的点已经访问过了，现在在$i$号点，仅考虑剩下能走到的点的DFS序个数。</p>
+<p>记$g(S,i)$表示$S$集合中的点已经访问过了，现在在$i$号点，还能走到的点集。</p>
+<p>倒着转移$f$，枚举与$i$相连的点$j$，有$f(S,i)=f(S,i)+f(S|j,j)\times f(S|g(S|j,j),j)$。</p>
+<h1 id="Evacuation"><a href="#Evacuation" class="headerlink" title="Evacuation"></a>Evacuation</h1><p><img src="image-20200722193555239.png" alt="image-20200722193555239"></p>
+<p>比较容易读错题，需要注意的是求的是$f$的最大值，以及$f$是对$1$到$n$的所有$b$求和而不是$l$到$r$。</p>
+<p>当$x$在区间中点右侧时，可以发现$l$是没有用的，我们不妨设新的函数为$g(r,x)$。</p>
+<p>将所有询问离线下来，对于一组询问，它要求的东西形如$\max\limits_{L\leq x\leq R}g(r,x)$，我们进行线段树分治。观察到$g$满足四边形不等式，我们对于线段树上的每个节点，将挂到这个节点上的所有$r$拿来做决策单调性就好了。</p>
+<h1 id="Games-on-DAG"><a href="#Games-on-DAG" class="headerlink" title="Games on DAG"></a>Games on DAG</h1><p><img src="image-20200722193951596.png" alt="image-20200722193951596"></p>
+<p>若两个点相连，那么它们的SG值一定不同，因此$1$和$2$之间一定没有边。</p>
+<p>一种暴力的方法是枚举$n$的集合划分，$SG$相同的点被划分到同一个集合中，每个集合必须往每个比它SG值小的集合至少连一条边。</p>
+<p>不妨考虑分层$dp$。记$f(S)$表示只考虑$S$集合时，$SG(1)=SG(2)$的方案数。枚举$U$，满足$U$中没有任何边，显然此时$U$中的所有点的$SG$都为$0$。接着我们将$S$集合中的点的$SG$值整体抬高$1$，即每个点会向$U$集合中至少一个点有连边。</p>
+<h1 id="Giant-Penguin"><a href="#Giant-Penguin" class="headerlink" title="Giant Penguin"></a>Giant Penguin</h1><p><img src="image-20200722194433033.png" alt="image-20200722194433033"></p>
+<p><a href="http://zhengruioi.com/contest/557/problem/1287" target="_blank" rel="noopener">正睿10联测day10</a></p>
+<h1 id="Graph-Coloring"><a href="#Graph-Coloring" class="headerlink" title="Graph Coloring"></a>Graph Coloring</h1><p><img src="image-20200722194634134.png" alt="image-20200722194634134"></p>
+<p>注意到${14\choose 7}&gt;3000$，我们给每个点都分配一个不同的$14$位的二进制编号，满足恰有$7$个位置为$1$。对于两个点$i,j$，我们在$i$的编号中随便找到一位使得$i$这一位为$1$，但$j$这一位为$0$，将$i\rightarrow j$边染上此颜色即可。</p>
+<h1 id="Horrible-Cycles"><a href="#Horrible-Cycles" class="headerlink" title="Horrible Cycles"></a>Horrible Cycles</h1><p><img src="image-20200722194837706.png" alt="image-20200722194837706"></p>
+<p><a href="http://zhengruioi.com/contest/552/problem/1278" target="_blank" rel="noopener">正睿10联测day9</a></p>
+<h1 id="Inversions"><a href="#Inversions" class="headerlink" title="Inversions"></a>Inversions</h1><p><img src="image-20200722194926083.png" alt="image-20200722194926083"></p>
+<p>容易发现实际上要求的是，有$n$个数，第$i$个数不能大于$i-1$，求它们的和为$n$的方案数。</p>
+<p>此时有两种方法，第一种是考虑生成函数，答案的生成函数为</p>
+<script type="math/tex; mode=display">
+\prod_{i=1}^n\frac{x^i-1}{x-1}</script><p>$x-1$的$\ln$是调和级数，将这个式子$\ln$后再$\exp$回去即可。</p>
+<p>另一种方法是考虑容斥，枚举哪些数不满足条件，问题转化为选出$i$个不同的数，使得它们的和为$j$的方案数，剩下的贡献是一个组合数。可以发现$i$不能大于$\sqrt j$。</p>
+<p>将这个过程想象为一个序列，一开始为空，每次操作会将序列整体加上$1$，并选择是否要在序列的最后接上一个$1$，由于$i$不会超过$\sqrt n$，因此复杂度为$n\sqrt n$，实际上比$\exp$跑得快。</p>
+<h1 id="Jealous-Split"><a href="#Jealous-Split" class="headerlink" title="Jealous Split"></a>Jealous Split</h1><p><img src="image-20200722195523408.png" alt="image-20200722195523408"></p>
+<p>考虑任意一种不合法方案，我们通过移动划分点来使得它变得合法，可以发现调整之后每段的和的平方之和一定变小了。问题转化为将序列划分为$k$段，使得每段的和的平方之和尽量小。wqs二分即可。</p>
+<h1 id="LIS-vs-LDS"><a href="#LIS-vs-LDS" class="headerlink" title="LIS vs. LDS"></a>LIS vs. LDS</h1><p><img src="image-20200722195704599.png" alt="image-20200722195704599"></p>
+<p><img src="image-20200722195742115.png" alt="image-20200722195742115"></p>
+<p>维护一棵线段树，下标为所选择的最后一个数的值。维护区间内最大的LIS以及其对应的两种$f$之和。</p>
+<h1 id="Match"><a href="#Match" class="headerlink" title="Match"></a>Match</h1><p><img src="image-20200722195911527.png" alt="image-20200722195911527"></p>
+<p><img src="image-20200722195944446.png" alt="image-20200722195944446"></p>
+<h1 id="Policeman-and-a-Tree"><a href="#Policeman-and-a-Tree" class="headerlink" title="Policeman and a Tree"></a>Policeman and a Tree</h1><p><img src="image-20200722200006898.png" alt="image-20200722200006898"></p>
+<p>可以发现当前的状态只与警察上一步走的边、子树内的小偷个数、子树外的小偷个数有关。</p>
+<p><img src="image-20200722200051600.png" alt="image-20200722200051600"></p>
+<h1 id="RPS-Robots"><a href="#RPS-Robots" class="headerlink" title="RPS Robots"></a>RPS Robots</h1><p><img src="image-20200722200109938.png" alt="image-20200722200109938"></p>
+<p>考虑对于两个人，如何判断这两个人之间是否有边。</p>
+<p>我们将这两个人的序列看作一个多项式，$x^i$系数表示在第$i$轮这个人会出什么。</p>
+<p>对于第一个人，我们记$R=1,S=\omega,P=\omega^2$，这里$\omega$表示三次单位根。</p>
+<p>对于第二个人，我们记$R=1,S=\omega^2,T=\omega$。当两种状态相乘为$1$时代表平局，相乘为$\omega$时表示第一个人赢了，相乘为$\omega^2$时表示第二个人赢了。</p>
+<p>因此本质上我们是将这两个多项式进行循环差卷积，即卷积之后第$i$项表示第一个人轮换$i$步之后的结果。</p>
+<p>因此，两个人之间有边当且仅当$A(x)$与$B(x)^R$的循环卷积处处相等。这里$A(x)$表示第一个人的多项式，$B(x)$表示第二个人的多项式，$R$表示翻转，因为我们要做差卷积。</p>
+<p>考虑IDFT的本质，实际上它是将$n$个点值代入了原多项式。由于最终求出来的多项式要处处相等，这意味着代入$n$个点值之后求出来的值也相等，满足条件的多项式必然为一个常数多项式，即只有常数项有值，其它项都为$0$。</p>
+<p>设$B(x)=\sum\frac{1}{b_i}x^i$，即$b_i$表示第$i$项的系数的共轭，注意到</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+B(\omega_k^j)^R&=\sum\frac{1}{b_{k-i-1}}\omega_{k}^{ij}\\
+&=\mathrm{conj}\,\sum b_{k-i-1}\omega_{k}^{j(k-i)}\\
+&=\mathrm{conj}\,\omega_{k}^j\sum b_i\omega_{k}^{ij} 
+\end{aligned}</script><p>由于我们只需要判断此多项式DFT后每一项是否为$0$，因此可以忽略最开始的$\omega_k^j$，可以发现我们可以直接将第二个人的多项式使用第一个人的系数，即$R=1,S=\omega,P=\omega^2$，同时也不用进行翻转。</p>
+<p>对于每个人我们都代入此系数，然后做一遍DFT，将除开常数项以外的每一位都看作二进制下的$1$或$0$，$1$表示这个数不为$0$，$0$表示这个数为$0$。此时两个人有边当且仅当这两个人的二进制数与起来之后是$0$。</p>
+<p>问题转化为选择尽可能多的数，使得它们与起来之后为$0$。记$f(S)$表示所选数或起来为$S$时能选的最多的数的数量，转移时枚举下一个数$T$使得$S$和$T$与起来为$0$即可。</p>
+<h1 id="Search-Engine"><a href="#Search-Engine" class="headerlink" title="Search Engine"></a>Search Engine</h1><p><img src="image-20200722201939299.png" alt="image-20200722201939299"></p>
+<p>如果是往前添加字符，要么是在后缀树上不动（当前串的$len$小于当前节点的$maxlen$），要么是走向某个儿子。如果是往后添加字符，就是走DAG上的边。</p>
+<p>如果我们能在当前节点待下去，那么一定会一直待着，因为这样出现次数一定不会更劣，可以发现没走一步都必然会导致$len$的增加，因此它是无环的，直接$dp$即可。</p>
+<h1 id="Simple-Counting-Problem"><a href="#Simple-Counting-Problem" class="headerlink" title="Simple Counting Problem"></a>Simple Counting Problem</h1><p><img src="image-20200722202240191.png" alt="image-20200722202240191"></p>
+<p><img src="image-20200722202348807.png" alt="image-20200722202348807"></p>
+<p>本质上我们需要计算的是$n-\sum_{j\in S}(b^j-c+1)+m-1$的$0$到$m$次方之和，由于$c$是常数，因此枚举$|S|$之和就可以将$-c+1$从$\sum$里面提出来。问题转化为求$\sum_S(\sum_{j\in S}b^j)^k$。只需要满足$b^j$的和小于$n+|S|(c-1)$即可。这个可以通过数位$dp$求出来。</p>
+<p><del>瞎胡的</del></p>
+<h1 id="The-Karting"><a href="#The-Karting" class="headerlink" title="The Karting"></a>The Karting</h1><p><img src="image-20200722203717914.png" alt="image-20200722203717914"></p>
+<p>线头dp，设$f(i,j,k)$表示前$i$个点中选择了$j$个点，此时还有$k$条路径未匹配时的最大收益。</p>
+<p><img src="image-20200722203833302.png" alt="image-20200722203833302"></p>
+<h1 id="Tree-Nesting"><a href="#Tree-Nesting" class="headerlink" title="Tree Nesting"></a>Tree Nesting</h1><p><img src="image-20200722203848813.png" alt="image-20200722203848813"></p>
+<p>设$f(i,j,s)$表示考虑了$S$中$i$号点的子树，其中$i$对应$T$的$j$号点，$i$的子树对应$T$的$s$集合中的点的方案数。转移的时候需要子集卷积。注意答案需要除掉$T$自同构的方案数，因为我们默认$T$有根，并且子树有顺序。</p>
+<h1 id="Unicyclic-Graph-Counting"><a href="#Unicyclic-Graph-Counting" class="headerlink" title="Unicyclic Graph Counting"></a>Unicyclic Graph Counting</h1><p><img src="image-20200722204429603.png" alt="image-20200722204429603"></p>
+<p><img src="image-20200722204507897.png" alt="image-20200722204507897"></p>
+<p>如果$a$点在环上，并且是最后一个填过的数，那么它对答案的贡献为</p>
+<script type="math/tex; mode=display">
+\frac{(len-1)!}{2}\times \frac{(n-len)!}{\prod_b (d_b-1)!\times \prod_c(d_c-2)!\times(d_a-3)!}</script><p>这里环长为$len$，注意环可以翻转。$b$代表所有环外的点，$c$表示所有环上的点。分治NTT即可。</p>
+<h1 id="Wise-Man"><a href="#Wise-Man" class="headerlink" title="Wise Man"></a>Wise Man</h1><p><img src="image-20200722204824777.png" alt="image-20200722204824777"></p>
+<p>记$g(k,t,x)$表示当前数为$x(&lt;10)$，每一次会给$x$加上$\max(k,f(x))$，超过$10^t$时进行的操作次数以及个位数是多少。</p>
+<p>从低位到高位一步步地将$x$变为$\cdots00\cdots0x$的形式，最后再从最高位到最低位依次确定答案即可。</p>
+<h1 id="Yet-Another-Minimization-Problem"><a href="#Yet-Another-Minimization-Problem" class="headerlink" title="Yet Another Minimization Problem"></a>Yet Another Minimization Problem</h1><p><img src="image-20200722205552235.png" alt="image-20200722205552235"></p>
+<p>决策单调性，难点在于如何计算一段区间的答案。</p>
+<p>可以使用类似莫队的方法，维护两个全局指针$l,r$，需要计算$[l,r]$的时候直接将上一次计算之后的$l,r$暴力用类似莫队的方法移过来即可，复杂度可以证明是对的。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="7.22动态规划">http://yoursite.com/2020/07/22/7-22动态规划/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/09/AGC035E-Develop/" rel="prev" title="AGC035E Develop">
+      <i class="fa fa-chevron-left"></i> AGC035E Develop
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="next" title="7.24数据结构">
+      7.24数据结构 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#All-Kill"><span class="nav-number">1.</span> <span class="nav-text">All Kill</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Amidakuji"><span class="nav-number">2.</span> <span class="nav-text">Amidakuji</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Arcs-on-a-Circle"><span class="nav-number">3.</span> <span class="nav-text">Arcs on a Circle</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Classic-Towers"><span class="nav-number">4.</span> <span class="nav-text">Classic Towers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Clique"><span class="nav-number">5.</span> <span class="nav-text">Clique</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DFS-Count"><span class="nav-number">6.</span> <span class="nav-text">DFS Count</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Evacuation"><span class="nav-number">7.</span> <span class="nav-text">Evacuation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Games-on-DAG"><span class="nav-number">8.</span> <span class="nav-text">Games on DAG</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Giant-Penguin"><span class="nav-number">9.</span> <span class="nav-text">Giant Penguin</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Graph-Coloring"><span class="nav-number">10.</span> <span class="nav-text">Graph Coloring</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Horrible-Cycles"><span class="nav-number">11.</span> <span class="nav-text">Horrible Cycles</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Inversions"><span class="nav-number">12.</span> <span class="nav-text">Inversions</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Jealous-Split"><span class="nav-number">13.</span> <span class="nav-text">Jealous Split</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LIS-vs-LDS"><span class="nav-number">14.</span> <span class="nav-text">LIS vs. LDS</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Match"><span class="nav-number">15.</span> <span class="nav-text">Match</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Policeman-and-a-Tree"><span class="nav-number">16.</span> <span class="nav-text">Policeman and a Tree</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RPS-Robots"><span class="nav-number">17.</span> <span class="nav-text">RPS Robots</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Search-Engine"><span class="nav-number">18.</span> <span class="nav-text">Search Engine</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Simple-Counting-Problem"><span class="nav-number">19.</span> <span class="nav-text">Simple Counting Problem</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-Karting"><span class="nav-number">20.</span> <span class="nav-text">The Karting</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Tree-Nesting"><span class="nav-number">21.</span> <span class="nav-text">Tree Nesting</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicyclic-Graph-Counting"><span class="nav-number">22.</span> <span class="nav-text">Unicyclic Graph Counting</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Wise-Man"><span class="nav-number">23.</span> <span class="nav-text">Wise Man</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Yet-Another-Minimization-Problem"><span class="nav-number">24.</span> <span class="nav-text">Yet Another Minimization Problem</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

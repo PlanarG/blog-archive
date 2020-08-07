@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="T1 Mas的仙人掌  考虑每一条非树边的贡献 首先它不能掉落$(1-p_i)$，而且所有与它有交的边都必须掉落$(p_i)$ 那么显然有  E_i&#x3D;(1-p_i)\prod_{j与i有交}p_j所以关键在于如何求所有与它有交的边的$\prod p_j$ 首先我们考虑一个比较基础的问题：如何判断两条路径是否有交 假设这两条路径分别是$(a,b),(c,d)$ 如果是判断点相交，那么我们有结论： 如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.12省选模拟">
+<meta property="og:url" content="http://yoursite.com/2019/03/12/3-12%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="T1 Mas的仙人掌  考虑每一条非树边的贡献 首先它不能掉落$(1-p_i)$，而且所有与它有交的边都必须掉落$(p_i)$ 那么显然有  E_i&#x3D;(1-p_i)\prod_{j与i有交}p_j所以关键在于如何求所有与它有交的边的$\prod p_j$ 首先我们考虑一个比较基础的问题：如何判断两条路径是否有交 假设这两条路径分别是$(a,b),(c,d)$ 如果是判断点相交，那么我们有结论： 如">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2019/03/12/5c875640e1010.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/12/5c8756409986a.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/12/5c875be982e11.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/12/5c8760952348b.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/12/5c8760b9ee9d8.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/12/5c87961c9fa26.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/12/5c8796429f0bd.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/12/5c879699907ef.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/12/5c8796bb7707a.png">
+<meta property="og:image" content="https://i.loli.net/2019/03/12/5c8796e99a5f9.png">
+<meta property="article:published_time" content="2019-03-12T06:45:33.000Z">
+<meta property="article:modified_time" content="2020-04-23T01:32:28.228Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="多项式">
+<meta property="article:tag" content="分治">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/03/12/5c875640e1010.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/12/3-12%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>3.12省选模拟 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/3-12%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          3.12省选模拟
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-12 14:45:33" itemprop="dateCreated datePublished" datetime="2019-03-12T14:45:33+08:00">2019-03-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:32:28" itemprop="dateModified" datetime="2020-04-23T09:32:28+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">考试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="T1-Mas的仙人掌"><a href="#T1-Mas的仙人掌" class="headerlink" title="T1 Mas的仙人掌"></a>T1 Mas的仙人掌</h1><p><img src="https://i.loli.net/2019/03/12/5c875640e1010.png" alt="1552373303468"></p>
+<p><img src="https://i.loli.net/2019/03/12/5c8756409986a.png" alt="1552373270208"></p>
+<p>考虑每一条非树边的贡献</p>
+<p>首先它不能掉落$(1-p_i)$，而且所有与它有交的边都必须掉落$(p_i)$</p>
+<p>那么显然有</p>
+<script type="math/tex; mode=display">
+E_i=(1-p_i)\prod_{j与i有交}p_j</script><p>所以关键在于如何求所有与它有交的边的$\prod p_j$</p>
+<p>首先我们考虑一个比较基础的问题：如何判断两条路径是否有交</p>
+<p>假设这两条路径分别是$(a,b),(c,d)$</p>
+<p>如果是判断点相交，那么我们有结论：</p>
+<p><strong>如果两条路径有公共点，那么其中一条路径的$lca$一定在另一条路径上</strong></p>
+<p>如果是判断边相交，我们可以将这个结论推广</p>
+<p><strong>如果两条路径有公共边，那么其中一条路径的$lca$的左右两条边一定至少有一条也在另一条路径上</strong></p>
+<p><img src="https://i.loli.net/2019/03/12/5c875be982e11.png" alt="1552374756301"></p>
+<p>我们分两种情况讨论（假设当前需要求的路径是$u,v$）：</p>
+<ol>
+<li>$u,v$的$lca$的左右两边中至少有一条是在另一条路径上</li>
+</ol>
+<p>那么此时有三种可能：只有$l,lca$是公共边、只有$r,lca$是公共边、$(l,lca),(r,lca)$都是公共边</p>
+<p>对于前两种可能，我们需要求出覆盖了$l,lca$或者$r,lca$的路径的$\prod p_i$，这个可以直接用树上差分维护</p>
+<p>对于第三种可能，我们发现前两种可能都包含了这种情况，也就是说我们多乘了一个$p_i$。好在此时两条路径的$lca$一定是相同的，那么我们维护一个<code>map</code>，<code>map[l][r]</code>表示所有$u$所对应的儿子是$l$，$v$所对应的儿子是$r$的路径的$p$的乘积，把$(u,v)$的答案除以这个值</p>
+<p>所以此时$W_{u,v}=\frac{V_{l,lca}*V_{r,lca}}{map[l][r]},V$即是边的权值</p>
+<ol>
+<li>另一条路径的$lca$的左右两边中至少有一条在$u,v$上，且不是$(l,lca),(r,lca) $</li>
+</ol>
+<p>那么我们知道此时这两条边不可能同时出现在$u,v$上</p>
+<p>我们并不需要具体地知道究竟是那条边成为了公共点，我们只需要让这条公共边满足在$u,l$上，或者在$v,r$上</p>
+<p>我们另外维护一个标记，每次加入一条路径$u,v$时，就把$(l,lca),(r,lca)$这两条路径的这个标记乘上$p_i$，最后再做一个前缀积，即我们只在这两条边上维护这条路径的贡献</p>
+<p>查询的时候直接就查$u,l$路径上所有边这个标记的乘积，以及$v,r$路径上所有乘积就可以了</p>
+<p>所以此时$W_{u,v}=\frac{V_{u,l}}{V_{v,r}}$，这里的$V$是树上前缀积的形式</p>
+<p>把这两种情况的答案加起来即可</p>
+<p>最后说一下如何更新</p>
+<p>之前使用了两个标记，假设分别为<code>tag1, tag2</code></p>
+<p>首先要将$u,v$这条路径上所有的边的<code>tag1</code>乘上$p_i$，这是覆盖了某条边的路径的概率乘积</p>
+<p>然后求出$l,r$，将$(l,lca),(r,lca)$这两条边的<code>tag2</code>乘上$p_i$，即在这条边上处理情况2的乘积</p>
+<p>最后再一遍<code>dfs</code>，求出<code>tag1</code>，同时将<code>tag2</code>处理成前缀积的形式</p>
+<p>然后就可以了</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (;y;y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 1000010</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Data</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> zero, mul;</span><br><span class="line">    Data() &#123;&#125;</span><br><span class="line">    Data(<span class="keyword">int</span> x) &#123;<span class="keyword">if</span> (x) zero = <span class="number">0</span>, mul = x; <span class="keyword">else</span> zero = mul = <span class="number">1</span>;&#125;</span><br><span class="line">    Data(<span class="keyword">int</span> x, <span class="keyword">int</span> y) : zero(x), mul(y) &#123;&#125;</span><br><span class="line">    Data <span class="keyword">operator</span> * (<span class="keyword">const</span> Data &amp;b) &#123;<span class="keyword">return</span> Data(zero + b.zero, (LL)mul * b.mul % mod);&#125;</span><br><span class="line">    Data <span class="keyword">operator</span> / (<span class="keyword">const</span> Data &amp;b) &#123;<span class="keyword">return</span> Data(zero - b.zero, (LL)mul * Pow(b.mul, mod - <span class="number">2</span>) % mod);&#125;</span><br><span class="line">    <span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">()</span> </span>&#123;<span class="keyword">return</span> zero ? <span class="number">0</span> : mul;&#125;</span><br><span class="line">&#125; tag1[N], tag2[N];</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> to, next;</span><br><span class="line">&#125; e[N * <span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> head[N], ecnt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">adde</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to)</span> </span>&#123;</span><br><span class="line">    e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt;</span><br><span class="line">    e[++ecnt] = (edge)&#123;from, head[to]&#125;, head[to] = ecnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> fa[N][<span class="number">21</span>], dep[N]; </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> f)</span> </span>&#123;</span><br><span class="line">    dep[u] = dep[f] + <span class="number">1</span>, fa[u][<span class="number">0</span>] = f, tag1[u] = tag2[u] = Data(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">20</span>;i++) fa[u][i] = fa[fa[u][i - <span class="number">1</span>]][i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = head[u];i;i = e[i].next)</span><br><span class="line">        <span class="keyword">if</span> (e[i].to != f) dfs(e[i].to, u);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">LCA</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (dep[a] &lt; dep[b]) swap(a, b);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">20</span>;i &gt;= <span class="number">0</span>;i--) <span class="keyword">if</span> (dep[fa[a][i]] &gt;= dep[b]) a = fa[a][i];</span><br><span class="line">    <span class="keyword">if</span> (a == b) <span class="keyword">return</span> a;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">20</span>;i &gt;= <span class="number">0</span>;i--) <span class="keyword">if</span> (fa[a][i] != fa[b][i]) a = fa[a][i], b = fa[b][i];</span><br><span class="line">    <span class="keyword">return</span> fa[a][<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Jump</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">20</span>;i &gt;= <span class="number">0</span>;i--) <span class="keyword">if</span> (x &amp; (<span class="number">1</span> &lt;&lt; i))</span><br><span class="line">        a = fa[a][i];</span><br><span class="line">    <span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Get</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> &amp;lca, <span class="keyword">int</span> &amp;g1, <span class="keyword">int</span> &amp;g2)</span> </span>&#123;</span><br><span class="line">    lca = LCA(a, b), g1 = g2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (a != lca) g1 = Jump(a, dep[a] - dep[lca] - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">if</span> (b != lca) g2 = Jump(b, dep[b] - dep[lca] - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs2</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> f)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = head[u];i;i = e[i].next)</span><br><span class="line">        <span class="keyword">if</span> (e[i].to != f) &#123;</span><br><span class="line">            tag2[e[i].to] = tag2[e[i].to] * tag2[u];</span><br><span class="line">            dfs2(e[i].to, u);</span><br><span class="line">            tag1[u] = tag1[u] * tag1[e[i].to];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, Data&gt; G[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, Data x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lca, g1, g2; Get(a, b, lca, g1, g2);</span><br><span class="line">    tag1[a] = tag1[a] * x, tag1[b] = tag1[b] * x, tag1[lca] = tag1[lca] / (x * x);</span><br><span class="line">    <span class="keyword">if</span> (g1) tag2[g1] = tag2[g1] * x; <span class="keyword">if</span> (g2) tag2[g2] = tag2[g2] * x;</span><br><span class="line">    <span class="keyword">if</span> (g1 &amp;&amp; g2) &#123;</span><br><span class="line">        <span class="keyword">if</span> (g1 &gt; g2) swap(g1, g2);</span><br><span class="line">        <span class="keyword">if</span> (G[g1].count(g2)) G[g1][g2] = G[g1][g2] * x;</span><br><span class="line">        <span class="keyword">else</span> G[g1][g2] = x;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">inline</span> Data <span class="title">query</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lca, g1, g2; Get(a, b, lca, g1, g2); <span class="function">Data <span class="title">res</span><span class="params">(<span class="number">1</span>)</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (g1) res = res * tag1[g1] * tag2[a] / tag2[g1]; </span><br><span class="line">    <span class="keyword">if</span> (g2) res = res * tag1[g2] * tag2[b] / tag2[g2];</span><br><span class="line">    <span class="keyword">if</span> (g1 &amp;&amp; g2) &#123;</span><br><span class="line">        <span class="keyword">if</span> (g1 &gt; g2) swap(g1, g2);</span><br><span class="line">        <span class="keyword">if</span> (G[g1].count(g2)) res = res / G[g1][g2];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> A[N], B[N], C[N], __rd;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(<span class="keyword">int</span> &amp;x)</span> </span>&#123;</span><br><span class="line">    x = <span class="number">0</span>; <span class="keyword">char</span> c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (c &lt; <span class="string">'0'</span> || c &gt; <span class="string">'9'</span>) c = getchar();</span><br><span class="line">    <span class="keyword">while</span> (<span class="string">'0'</span> &lt;= c &amp;&amp; c &lt;= <span class="string">'9'</span>) x = (x &lt;&lt; <span class="number">1</span>) + (x &lt;&lt; <span class="number">3</span>) + c - <span class="string">'0'</span>, c = getchar();</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RD (read(__rd), __rd)</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    freopen(<span class="string">"cactus1.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>), freopen(<span class="string">"cactus.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="keyword">int</span> n = RD, m = RD;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a, b;i &lt; n;i++) a = RD, b = RD, adde(a, b);</span><br><span class="line">    dfs(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) A[i] = RD, B[i] = RD, C[i] = RD, update(A[i], B[i], C[i]);</span><br><span class="line">    dfs2(<span class="number">1</span>, <span class="number">0</span>); <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) &#123;</span><br><span class="line">        Data res = query(A[i], B[i]);</span><br><span class="line">        res = res / Data(C[i]) * Data((mod + <span class="number">1</span> - C[i]) % mod);</span><br><span class="line">        ans = (ans + res.get()) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T2-Z的礼物"><a href="#T2-Z的礼物" class="headerlink" title="T2 Z的礼物"></a>T2 Z的礼物</h1><p><img src="https://i.loli.net/2019/03/12/5c8760952348b.png" alt="1552375939793"></p>
+<p><img src="https://i.loli.net/2019/03/12/5c8760b9ee9d8.png" alt="1552375985762"></p>
+<p>首先将所有的$a$前缀和</p>
+<p>那么根据题意，我们可以推出这样的式子</p>
+<script type="math/tex; mode=display">
+b_n=\sum_{i=1}^n\begin{Bmatrix}n\\\ i\end{Bmatrix}a_i</script><p>现在已知$b$，求$a$，那么我们可以斯特林反演一下</p>
+<script type="math/tex; mode=display">
+a_n=\sum_{i=1}^n(-1)^{n-i}\begin{bmatrix}n\\\ i\end{bmatrix}b_i</script><p>对于第一类斯特林数，它的生成函数是</p>
+<script type="math/tex; mode=display">
+\sum_{i=0}^n\begin{bmatrix}n\\\ i\end{bmatrix}x^i=\prod_{i=0}^{n-1}(x+i)</script><p>联系它的递推式$\begin{bmatrix}n\\\ i\end{bmatrix}=\begin{bmatrix}n - 1\\\  i - 1\end{bmatrix}+(n-1)\begin{bmatrix}n - 1\\\ i\end{bmatrix}​$可以得到</p>
+<p>对于$\prod\limits_{i=1}^{n-1}(x+i)$，可以使用倍增<code>FFT</code></p>
+<p>计算出$l-1$的那一行斯特林数，然后暴力推下去即可</p>
+<p>时间复杂度$T(n)=2T(\frac n2)+n\log n=n\log^2n$</p>
+<p>没有代码</p>
+<h1 id="T3-Mas和Z玩游戏"><a href="#T3-Mas和Z玩游戏" class="headerlink" title="T3 Mas和Z玩游戏"></a>T3 Mas和Z玩游戏</h1><p><img src="https://i.loli.net/2019/03/12/5c87961c9fa26.png" alt="1552389643490"></p>
+<p><img src="https://i.loli.net/2019/03/12/5c8796429f0bd.png" alt="1552389686561"></p>
+<p>这题我是真不会</p>
+<p>还是先贴一下题解，之后再补吧</p>
+<p><img src="https://i.loli.net/2019/03/12/5c879699907ef.png" alt="1552389777322"></p>
+<p><img src="https://i.loli.net/2019/03/12/5c8796bb7707a.png" alt="1552389813455"></p>
+<p><img src="https://i.loli.net/2019/03/12/5c8796e99a5f9.png" alt="1552389856504"></p>
+<p>就这样吧</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次比赛一般，第一题没有写炸，但是第二题该拿的45分只拿了5分，是一个细节错误</p>
+<p>本来第二题还是有希望想出正解的，但是我在想到那个生成函数之后以为计算它是$n^2$的，就没写</p>
+<p>还是需要深入思考</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/03/12/3-12%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/" title="3.12省选模拟">http://yoursite.com/2019/03/12/3-12省选模拟/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%9A%E9%A1%B9%E5%BC%8F/" rel="tag"># 多项式</a>
+              <a href="/tags/%E5%88%86%E6%B2%BB/" rel="tag"># 分治</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/11/BJOI2018-%E6%B2%BB%E7%96%97%E4%B9%8B%E9%9B%A8/" rel="prev" title="BJOI2018 治疗之雨">
+      <i class="fa fa-chevron-left"></i> BJOI2018 治疗之雨
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/13/3-13%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/" rel="next" title="3.13省选模拟">
+      3.13省选模拟 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#T1-Mas的仙人掌"><span class="nav-number">1.</span> <span class="nav-text">T1 Mas的仙人掌</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T2-Z的礼物"><span class="nav-number">2.</span> <span class="nav-text">T2 Z的礼物</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T3-Mas和Z玩游戏"><span class="nav-number">3.</span> <span class="nav-text">T3 Mas和Z玩游戏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

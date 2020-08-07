@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="题意有$n$个男生和$m$个女生，编号分别为$0\sim n-1$和$0\sim m-1$。 有$b$个男生和$g$个女生是快乐的，在第$i$天，编号为$i\bmod n$的男生和编号为$i\bmod m$的女生会一起玩。如果这两个人之中至少有一个人快乐，那么另一个人也会跟着变快乐。 求至少需要多少天才能使得所有人都变快乐，或者判断不可能。 n, m\leq 10^9, b,g\leq 10^5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CF516E Drazil and His Happy Friends">
+<meta property="og:url" content="http://yoursite.com/2020/07/06/CF516E-Drazil-and-His-Happy-Friends/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="题意有$n$个男生和$m$个女生，编号分别为$0\sim n-1$和$0\sim m-1$。 有$b$个男生和$g$个女生是快乐的，在第$i$天，编号为$i\bmod n$的男生和编号为$i\bmod m$的女生会一起玩。如果这两个人之中至少有一个人快乐，那么另一个人也会跟着变快乐。 求至少需要多少天才能使得所有人都变快乐，或者判断不可能。 n, m\leq 10^9, b,g\leq 10^5">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-06T12:28:31.000Z">
+<meta property="article:modified_time" content="2020-07-06T13:17:24.946Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="集训队作业">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/06/CF516E-Drazil-and-His-Happy-Friends/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>CF516E Drazil and His Happy Friends | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/06/CF516E-Drazil-and-His-Happy-Friends/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CF516E Drazil and His Happy Friends
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-06 20:28:31 / 修改时间：21:17:24" itemprop="dateCreated datePublished" datetime="2020-07-06T20:28:31+08:00">2020-07-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>有$n$个男生和$m$个女生，编号分别为$0\sim n-1$和$0\sim m-1$。</p>
+<p>有$b$个男生和$g$个女生是快乐的，在第$i$天，编号为$i\bmod n$的男生和编号为$i\bmod m$的女生会一起玩。如果这两个人之中至少有一个人快乐，那么另一个人也会跟着变快乐。</p>
+<p>求至少需要多少天才能使得所有人都变快乐，或者判断不可能。</p>
+<script type="math/tex; mode=display">n, m\leq 10^9, b,g\leq 10^5</script><a id="more"></a>
+<h1 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h1><p>记$g=\gcd(n,m)$，可以发现，每天只有编号模$g$同余的人才有可能一起玩。因此，我们可以将这$n+m$个人分为$g$个环，每个环上有$\frac ng$个男生，$\frac mg$个女生。</p>
+<p>由于$\frac ng\bot\frac mg$，我们不妨令$n=\frac ng,m=\frac mg$，那么此时$n\bot m$。</p>
+<p>接下来我们只讨论$n\bot m$的情况。</p>
+<p>如果第$k$名男生在第$i$天让第$j$名女生变快乐了，那么我们可以知道，第$(j+n)\bmod m$名女生变快乐的时间一定是$i+n$。</p>
+<p>假设最后一个变快乐的女生$i$是由第$k$名男生变快乐的，那么我们可以断言，第$(i-n)\bmod m$名女生一定也是由第$k$名男生变快乐的，否则最后一个变快乐的女生变快乐的时间可以提前。</p>
+<p>换句话来说，如果第$j$名女生在第$i$天变快乐了，那么第$(j+n)\bmod m$名女生变快乐的时间一定是$i+n$。</p>
+<p>因此，我们可以将男生和女生分开考虑。对于每个人来说，有三种情况：（以女生为例）</p>
+<ul>
+<li>这个人一开始就是快乐的</li>
+<li>这个人一开始不快乐，但是同编号的男生快乐</li>
+<li>这个人一开始不快乐，且同编号的男生一开始也不快乐。</li>
+</ul>
+<p>建立源点$s$，从$s$向第一类和第二类人连边，权值为这个人的编号。同时，对于任意的$i$，从$i$向$(i+n)\bmod m$连边，边权为$n$。</p>
+<p>对于第一类女生来说，她变快乐的时刻为$0$。对于第二类和第三类女生来说，她变快乐的时刻为从$s$到对应点的最短路长度。</p>
+<p>但是这样建图会产生$O(n)$个点，而$n$是$10^9$级别的数，考虑优化。</p>
+<p>考虑$i,(i+n)\bmod m$这两个人。如果这两个人都是第三类人，那么当$(i+n)\bmod m$变快乐时，$i$一定也变快乐了，因为$(i+n)\bmod m$这个人的快乐是由$i$传递过来的。</p>
+<p>我们只关心最长的最短路长度，那么第$i$个人的答案一定不会对最终答案产生贡献，我们可以考虑删去$i$号点。</p>
+<p>那么接下来这张图中只剩下了三类点：</p>
+<ul>
+<li>这个人一开始就是快乐的</li>
+<li>这个人一开始不快乐，但是同编号的男生快乐</li>
+<li>这个人一开始不快乐，且同编号的男生也不快乐，但是编号为$(i+n)\bmod m$的人是前两类人。</li>
+</ul>
+<p>可以发现，此时的点数已经降到了$O(n)$级别。</p>
+<p>我们分别记这三类人为$A, B,C$，那么此时有三类边。</p>
+<ul>
+<li>$s$往$A,B$连的边，边权为这个人的编号</li>
+<li>$C$连向对应的$A$或$B$，边权为$n$。</li>
+<li>$A$或$B$连向她下一个传递到的$C$，边权为$x\times n$，这里的$x$是变量，需要靠解同余方程解出来。</li>
+</ul>
+<p>前两种边很好处理，关键是第三类边。</p>
+<p>记编号最小的$A$或$B$类人的编号为$a$，那么对于一个$C$类人$b$，我们可以列出方程</p>
+<script type="math/tex; mode=display">
+a+xn\equiv b\pmod m</script><p>解出的最小正整数解$x$再乘上$x$就是$a$传递到$b$时需要经过的时刻。</p>
+<p>对于每个$C$类点我们都解出对应的$x$，接着将所有点按照$x$从小到大排序。如果$i,j$两个点在排序之后相邻，那么$j$一定是由$i$传递过来的，我们从$i$向$j$连一条边权为$(x_j-x_i)\times n$的边。注意这里的减是在模$n$下进行的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">400010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; P;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> fir first</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> sec second</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> to, next; LL w;</span><br><span class="line">&#125; e[N * <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> head[N], ecnt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">adde</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to, LL w)</span> </span>&#123;</span><br><span class="line">    e[++ecnt] = (edge)&#123; to, head[from], w &#125;, head[from] = ecnt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> tot, vis[N]; LL dis[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Dijkstra</span><span class="params">(<span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= tot; i++) dis[i] = <span class="number">2e18</span>, vis[i] = <span class="number">0</span>; dis[s] = <span class="number">0</span>;</span><br><span class="line">    priority_queue&lt;P&gt; q; q.push(P(<span class="number">0</span>, s));</span><br><span class="line">    <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">        <span class="keyword">int</span> u = q.top().second; q.pop();</span><br><span class="line">        <span class="keyword">if</span> (vis[u]) <span class="keyword">continue</span>; vis[u] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = head[u]; i; i = e[i].next)</span><br><span class="line">            <span class="keyword">if</span> (dis[e[i].to] &gt; dis[u] + e[i].w)</span><br><span class="line">                dis[e[i].to] = dis[u] + e[i].w, q.push(P(-dis[e[i].to], e[i].to));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> x, y;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123; <span class="keyword">return</span> b ? gcd(b, a % b) : a; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">exgcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!b) <span class="keyword">return</span> x = <span class="number">1</span>, y = <span class="number">0</span>, a;</span><br><span class="line">    <span class="keyword">int</span> d = exgcd(b, a % b), t = x; x = y, y = t - a / b * y;</span><br><span class="line">    <span class="keyword">return</span> d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">solve</span><span class="params">(<span class="built_in">vector</span>&lt;P&gt; A, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!A.size()) <span class="keyword">return</span> <span class="number">2e18</span>;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; s; <span class="built_in">vector</span>&lt;P&gt; p = A;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> t : A) s.insert(t.fir);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> t : A) &#123;</span><br><span class="line">        <span class="keyword">int</span> tp = ((t.fir - m) % n + n) % n;</span><br><span class="line">        <span class="keyword">if</span> (!s.count(tp)) s.insert(tp), p.push_back(P(tp, <span class="number">2</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    sort(p.begin(), p.end()), exgcd(m, n), ecnt = <span class="number">0</span>; </span><br><span class="line"><span class="comment">//    for (auto t : p) cout &lt;&lt; "(" &lt;&lt; t.fir &lt;&lt; ", " &lt;&lt; t.sec &lt;&lt; ") ";</span></span><br><span class="line"><span class="comment">//    cout &lt;&lt; endl;</span></span><br><span class="line">    <span class="keyword">int</span> st = p.size() + <span class="number">1</span>, all = p.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= st; i++) head[i] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= all; i++) <span class="keyword">if</span> (p[i - <span class="number">1</span>].sec &lt;= <span class="number">1</span>) adde(st, i, p[i - <span class="number">1</span>].fir);</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> id[N], tmp[N]; </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= all; id[i] = i, i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> tx = (LL)x * (p[i - <span class="number">1</span>].fir - p[<span class="number">0</span>].fir) % n;</span><br><span class="line">        <span class="keyword">if</span> (tx &lt; <span class="number">0</span>) tx += n;</span><br><span class="line">        tmp[i] = tx;</span><br><span class="line">    &#125;</span><br><span class="line">    sort(id + <span class="number">1</span>, id + all + <span class="number">1</span>, [](<span class="keyword">int</span> a, <span class="keyword">int</span> b) &#123; <span class="keyword">return</span> tmp[a] &lt; tmp[b]; &#125;);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= all; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> t = tmp[id[i &lt; all ? i + <span class="number">1</span> : <span class="number">1</span>]] - tmp[id[i]];</span><br><span class="line">        <span class="keyword">if</span> (t &lt; <span class="number">0</span>) t += n;</span><br><span class="line">        adde(id[i], id[i &lt; all ? i + <span class="number">1</span> : <span class="number">1</span>], (LL)t * m);</span><br><span class="line">    &#125;</span><br><span class="line">    ::tot = st, Dijkstra(st); LL res = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= all; i++) <span class="keyword">if</span> (p[i - <span class="number">1</span>].sec == <span class="number">0</span> || p[i - <span class="number">1</span>].sec == <span class="number">2</span>) </span><br><span class="line">        res = max(res, dis[i]);</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">solve</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; B, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; s; <span class="built_in">vector</span>&lt;P&gt; L, R;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> t : A) L.push_back(P(t, <span class="number">1</span>)), s.insert(t);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> t : B) <span class="keyword">if</span> (!s.count(t % n)) s.insert(t % n), L.push_back(P(t % n, <span class="number">0</span>));</span><br><span class="line">    s.clear();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> t : B) R.push_back(P(t, <span class="number">1</span>)), s.insert(t);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> t : A) <span class="keyword">if</span> (!s.count(t % m)) s.insert(t % m), R.push_back(P(t % m, <span class="number">0</span>));</span><br><span class="line">    <span class="keyword">return</span> max(solve(L, n, m), solve(R, m, n));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; zjk[N], wkr[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, t1, t2; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A, B; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t1);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a; i &lt;= t1; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a), A.push_back(a);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;t2);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a; i &lt;= t2; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a), B.push_back(a);</span><br><span class="line">    <span class="keyword">int</span> g = gcd(n, m);</span><br><span class="line">    <span class="keyword">if</span> (g &gt; t1 + t2) <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"-1"</span>), <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> t : A) zjk[t % g].push_back(t / g);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> t : B) wkr[t % g].push_back(t / g);</span><br><span class="line">    LL res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; g; i++) &#123;</span><br><span class="line">        LL tmp = solve(zjk[i], wkr[i], n / g, m / g);</span><br><span class="line">        <span class="keyword">if</span> (tmp &lt; <span class="number">0</span>) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span> (tmp &gt; <span class="number">1e18</span>) <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"-1"</span>), <span class="number">0</span>;</span><br><span class="line">        res = max(res, tmp * g + i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, res); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/07/06/CF516E-Drazil-and-His-Happy-Friends/" title="CF516E Drazil and His Happy Friends">http://yoursite.com/2020/07/06/CF516E-Drazil-and-His-Happy-Friends/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9B%86%E8%AE%AD%E9%98%9F%E4%BD%9C%E4%B8%9A/" rel="tag"># 集训队作业</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/06/CF704C-Black-Widow/" rel="prev" title="CF704C Black Widow">
+      <i class="fa fa-chevron-left"></i> CF704C Black Widow
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/07/CF639E-Bear-and-Paradox/" rel="next" title="CF639E Bear and Paradox">
+      CF639E Bear and Paradox <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#题意"><span class="nav-number">1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题解"><span class="nav-number">2.</span> <span class="nav-text">题解</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

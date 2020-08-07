@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="T1 Diyiti  我们先考虑这样一个问题：给出$x,y$，如何计算$f(x,y)$ 分析一下第一个操作的本质，就是将$x$末尾连续的0都变成1，将第一处1变成0 考虑一种特殊情况：$y$是$x$的子集 也就是说，我们可以只通过操作2将$x$变成$y$ 如果我们使用了操作1，可以将最后一个1变成0 但是这样有一个副作用，就是后面所有的数都变成了1 根据之前的限制：$y$是$x$的子集，而$x$在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.3省选模拟">
+<meta property="og:url" content="http://yoursite.com/2019/04/06/4-3%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="T1 Diyiti  我们先考虑这样一个问题：给出$x,y$，如何计算$f(x,y)$ 分析一下第一个操作的本质，就是将$x$末尾连续的0都变成1，将第一处1变成0 考虑一种特殊情况：$y$是$x$的子集 也就是说，我们可以只通过操作2将$x$变成$y$ 如果我们使用了操作1，可以将最后一个1变成0 但是这样有一个副作用，就是后面所有的数都变成了1 根据之前的限制：$y$是$x$的子集，而$x$在">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2019/04/06/5ca8652f32552.png">
+<meta property="og:image" content="https://i.loli.net/2019/04/06/5ca8654c9255c.png">
+<meta property="og:image" content="https://i.loli.net/2019/04/06/5ca89802d6f00.png">
+<meta property="og:image" content="https://i.loli.net/2019/04/06/5ca8981514ccf.png">
+<meta property="og:image" content="https://i.loli.net/2019/04/07/5ca9b44761e6a.png">
+<meta property="og:image" content="https://i.loli.net/2019/04/07/5ca9b465f25d6.png">
+<meta property="article:published_time" content="2019-04-06T08:12:46.000Z">
+<meta property="article:modified_time" content="2020-04-23T01:27:50.602Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="动态规划">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/04/06/5ca8652f32552.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/04/06/4-3%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>4.3省选模拟 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/06/4-3%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          4.3省选模拟
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-06 16:12:46" itemprop="dateCreated datePublished" datetime="2019-04-06T16:12:46+08:00">2019-04-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:27:50" itemprop="dateModified" datetime="2020-04-23T09:27:50+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">考试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="T1-Diyiti"><a href="#T1-Diyiti" class="headerlink" title="T1 Diyiti"></a>T1 Diyiti</h1><p><img src="https://i.loli.net/2019/04/06/5ca8652f32552.png" alt="1554539772376"></p>
+<p><img src="https://i.loli.net/2019/04/06/5ca8654c9255c.png" alt="1554539844233"></p>
+<p>我们先考虑这样一个问题：给出$x,y$，如何计算$f(x,y)$</p>
+<p>分析一下第一个操作的本质，就是将$x$末尾连续的0都变成1，将第一处1变成0</p>
+<p>考虑一种特殊情况：$y$是$x$的子集</p>
+<p>也就是说，我们可以只通过操作2将$x$变成$y$</p>
+<p>如果我们使用了操作1，可以将最后一个1变成0</p>
+<p>但是这样有一个副作用，就是后面所有的数都变成了1</p>
+<p>根据之前的限制：$y$是$x$的子集，而$x$在这一位之后都是0</p>
+<p>也就是说，$y$在这一位之后也全部是0</p>
+<p>在这次操作之后，后面的数都变成了1</p>
+<p>如果这次操作在第$i$位，那么我们至少还需要$i-1$次操作2才能将后面的位变得与$y$相同</p>
+<p>只有在$i=1$即操作第一位的时候，$-1$操作才与操作2等价</p>
+<p>否则$-1$操作一定没有操作2优秀</p>
+<p>也就是说，如果我们能用操作2，就尽量用操作2</p>
+<p>那么什么情况不能用操作2呢</p>
+<p>就是$x$在某一位上为0，而$y$在这一位上为1</p>
+<p>这个时候我们只能用$-1$操作</p>
+<p>如果第$i$位是这样的情况，就意味着，我们必须将这一位之后的第一个$1-0$对前面的所有位都变成0，然后在这个$1-0$对位置使用一次$-1$操作</p>
+<p>比如$x=(10010)_2,y=(00101)_2$</p>
+<p>注意“第$k$位”指的是从右边开始的第$k$位</p>
+<p>对于第一位来说，我们至少需要将第一位变成0</p>
+<p>对于第三位来说，我们至少需要将第四位到第一位变成0</p>
+<p>为了让操作数尽量小，我们选择将第一位至第四位都变成0</p>
+<p>之后就变成了第一种情况，即$y$是$x$的子集</p>
+<hr>
+<p>总结一下流程：</p>
+<ul>
+<li>我们找到最高的满足$x_i=0,y_i=1$的位置</li>
+<li>找到第一个比这一位高的，满足$x_i=1,y_i=0$的位置$j$</li>
+<li>通过操作2，将位置$1-(j-1)$全部变成0</li>
+<li>在$j$位置使用一次$-1$操作</li>
+<li>对于每一处$x_i=1,y_i=0$的位置使用操作2</li>
+</ul>
+<p>所以，我们可以得出</p>
+<script type="math/tex; mode=display">
+f(x,y)=\begin{cases}\sum_{k>j}[x_k\not=y_k]+1+\sum_{k<j}[x_k=1]+\sum_{k<j}[y_k=0]&y\not\in x\\\ \sum_k[x_k\not=y_k]&y\in x\end{cases}</script><p>那么我们现在将它扩展到$x&lt;N$</p>
+<p>显然，我们可以使用数位<code>dp</code></p>
+<p>根据我们之前的计算过程，我们从高位向低位<code>dp</code>，将$x$分为3个状态</p>
+<ul>
+<li>还没有遇到$x_i=0,y_i=1$，即此时$y\in x$，这个状态可以作为终止状态</li>
+<li><p>钦定此时会有一个$-1$操作，这个状态的起点必须是$x_i=1,y_i=0$且在这个状态中不能再出现其它的$x_i=1,y_i=0$以及$x_i=0,y_i=1$，这个状态<strong>不能</strong>作为终止状态 </p>
+</li>
+<li><p>遇到了第一个$x_i=0,y_i=1$，然后就可以随便转移了，这个状态可以作为终止状态</p>
+</li>
+</ul>
+<p>第二个状态之所以不能成为终止状态，是因为必须至少有一个$x_i=0,y_i-1$，否则就不应该进入2状态</p>
+<p>那么我们可以设<code>f[2][2][3][N], g[2][2][3][N]</code>表示当前在第$i$位，此时$x$是否等于$N$，$y$是否等于$x$，当前在第几个状态时的答案以及转移到结尾的方案数</p>
+<p>为了偷懒，我们也可以只用一个<code>dp</code></p>
+<p><code>dp[2][2][3][N][N]</code>表示当前到了第$i$位，之前已经用了$j$次操作，此时$x$是否等于$N$，$y$是否等于$x$，当前在第几个状态时的答案</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 510</span></span><br><span class="line"><span class="keyword">int</span> num[N], dp[<span class="number">2</span>][<span class="number">2</span>][<span class="number">3</span>][N][N * <span class="number">2</span>], len; <span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Inc</span><span class="params">(<span class="keyword">int</span> &amp;x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    x += y, x -= x &gt;= mod ? mod : <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">DP</span><span class="params">(<span class="keyword">int</span> cur, <span class="keyword">bool</span> flag1, <span class="keyword">bool</span> flag2, <span class="keyword">int</span> state, <span class="keyword">int</span> cnt)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (cur == len + <span class="number">1</span>) <span class="keyword">return</span> state == <span class="number">1</span> ? <span class="number">0</span> : cnt;</span><br><span class="line">    <span class="keyword">int</span> &amp;sum = dp[flag1][flag2][state][cur][cnt];</span><br><span class="line">    <span class="keyword">if</span> (~sum) <span class="keyword">return</span> sum;</span><br><span class="line">    sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> x = <span class="number">0</span>;x &lt; <span class="number">4</span>;x++) &#123;</span><br><span class="line">        <span class="keyword">int</span> i = x &amp; <span class="number">1</span>, j = x &gt;&gt; <span class="number">1</span> &amp; <span class="number">1</span>, tflag1 = flag1 &amp;&amp; (i == num[cur]), tflag2 = flag2 &amp;&amp; (j == i);</span><br><span class="line">        <span class="keyword">if</span> (flag1 &amp;&amp; i &gt; num[cur]) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span> (flag2 &amp;&amp; j &gt; i) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">if</span> (state == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &lt; j) <span class="keyword">continue</span>;</span><br><span class="line">            Inc(sum, DP(cur + <span class="number">1</span>, tflag1, tflag2, <span class="number">0</span>, cnt + (i &gt; j)));</span><br><span class="line">            <span class="keyword">if</span> (i &gt; j) Inc(sum, DP(cur + <span class="number">1</span>, tflag1, tflag2, <span class="number">1</span>, cnt + <span class="number">1</span>));</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (state == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; j) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span> (i == j) Inc(sum, DP(cur + <span class="number">1</span>, tflag1, tflag2, <span class="number">1</span>, cnt + (i == <span class="number">1</span>) + (j == <span class="number">0</span>)));</span><br><span class="line">            <span class="keyword">else</span> Inc(sum, DP(cur + <span class="number">1</span>, tflag1, tflag2, <span class="number">2</span>, cnt)); </span><br><span class="line">        &#125; <span class="keyword">else</span> Inc(sum, DP(cur + <span class="number">1</span>, tflag1, tflag2, <span class="number">2</span>, cnt + (i == <span class="number">1</span>) + (j == <span class="number">0</span>)));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">char</span> input[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    freopen(<span class="string">"diyiti.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>), freopen(<span class="string">"diyiti.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%s"</span>, input + <span class="number">1</span>), len = <span class="built_in">strlen</span>(input + <span class="number">1</span>), <span class="built_in">memset</span>(dp, <span class="number">-1</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= len;i++) num[i] = input[i] - <span class="string">'0'</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, DP(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T2-Dierti"><a href="#T2-Dierti" class="headerlink" title="T2 Dierti"></a>T2 Dierti</h1><p><img src="https://i.loli.net/2019/04/06/5ca89802d6f00.png" alt="1554552801425"></p>
+<p><img src="https://i.loli.net/2019/04/06/5ca8981514ccf.png" alt="1554552819955"></p>
+<p>看起来是一道好题，可惜没有题解</p>
+<p>这里讲一下部分分做法（只会部分分）</p>
+<p>首先我们可以枚举最后选到的是哪个$n$以及哪个$m$，求这个东西的$k$阶中心矩，最后再求期望</p>
+<p>这里的$x$就是实际选的袋子中球的数量</p>
+<p>考虑</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+E((x-E(x))^k)&=E(\sum_{i=0}^k{k\choose i}x^k(-1)^{k-i}E(x)^{k-i})\\\
+&=\sum_{i=0}^k{k\choose i}(-1)^{k}E(x)^{k}E(x^{k-i})
+\end{aligned}</script><p>显然$E(x)=\frac{m}{n}$，所以关键是要求出$E(x^k)$</p>
+<p>这等价于有一个数，现在要对这个数进行$m$次操作，每次操作都有$\frac{1}{n}$的概率会加1，否则不变</p>
+<p>很像一道题<a href="https://www.luogu.org/problemnew/show/P1654" target="_blank" rel="noopener">osu</a></p>
+<p>我们分别维护$E(x),E(x^2),\cdots,E(x^k)$，转移的时候再次使用二项式展开</p>
+<p>这样一次转移是$k^3$的，可以使用矩阵乘法优化</p>
+<p>可以拿到60分</p>
+<h1 id="T3-Disanti"><a href="#T3-Disanti" class="headerlink" title="T3 Disanti"></a>T3 Disanti</h1><p><img src="https://i.loli.net/2019/04/07/5ca9b44761e6a.png" alt="1554625591423"></p>
+<p><img src="https://i.loli.net/2019/04/07/5ca9b465f25d6.png" alt="1554625629573"></p>
+<p>我不会啊，而且没有题解</p>
+<p>先咕在这里吧</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/04/06/4-3%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/" title="4.3省选模拟">http://yoursite.com/2019/04/06/4-3省选模拟/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/06/4-2%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/" rel="prev" title="4.2省选模拟">
+      <i class="fa fa-chevron-left"></i> 4.2省选模拟
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/07/FFT%E4%B8%8ENTT%E4%B8%93%E9%A2%98/" rel="next" title="FFT与NTT专题">
+      FFT与NTT专题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#T1-Diyiti"><span class="nav-number">1.</span> <span class="nav-text">T1 Diyiti</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T2-Dierti"><span class="nav-number">2.</span> <span class="nav-text">T2 Dierti</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T3-Disanti"><span class="nav-number">3.</span> <span class="nav-text">T3 Disanti</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

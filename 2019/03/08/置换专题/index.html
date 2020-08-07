@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="A – Necklace of BeadsBurnside定理模板 假设有n个条件$S$，每个条件都是形如“$A$与$B$等价”的形式，要求集合$X$在这些条件下的方案数 将条件分解成循环的形式，那么方案数  &#x3D;\frac{1}{n}\sum_{g\in S}|X^g|其中，$X^g$是置换$g$作用于集合$X$之后的不动点个数，即不变的元素的个数 那么对于这道题，我们考虑两类置换  1.旋转">
+<meta property="og:type" content="article">
+<meta property="og:title" content="置换专题">
+<meta property="og:url" content="http://yoursite.com/2019/03/08/%E7%BD%AE%E6%8D%A2%E4%B8%93%E9%A2%98/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="A – Necklace of BeadsBurnside定理模板 假设有n个条件$S$，每个条件都是形如“$A$与$B$等价”的形式，要求集合$X$在这些条件下的方案数 将条件分解成循环的形式，那么方案数  &#x3D;\frac{1}{n}\sum_{g\in S}|X^g|其中，$X^g$是置换$g$作用于集合$X$之后的不动点个数，即不变的元素的个数 那么对于这道题，我们考虑两类置换  1.旋转">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-9.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-10.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-12.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-13.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-15.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-16.png?w=700">
+<meta property="article:published_time" content="2019-03-08T11:38:47.000Z">
+<meta property="article:modified_time" content="2020-04-23T01:33:46.319Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="polya">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-9.png?w=700">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/08/%E7%BD%AE%E6%8D%A2%E4%B8%93%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>置换专题 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/%E7%BD%AE%E6%8D%A2%E4%B8%93%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          置换专题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-08 19:38:47" itemprop="dateCreated datePublished" datetime="2019-03-08T19:38:47+08:00">2019-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:33:46" itemprop="dateModified" datetime="2020-04-23T09:33:46+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="A-–-Necklace-of-Beads"><a href="#A-–-Necklace-of-Beads" class="headerlink" title="A – Necklace of Beads"></a>A – Necklace of Beads</h1><p><a href="https://en.wikipedia.org/wiki/Burnside%27s_lemma" target="_blank" rel="noopener">Burnside</a>定理模板</p>
+<p>假设有n个条件$S$，每个条件都是形如“$A$与$B$等价”的形式，要求集合$X$在这些条件下的方案数</p>
+<p>将条件分解成循环的形式，那么方案数</p>
+<script type="math/tex; mode=display">
+=\frac{1}{n}\sum_{g\in S}|X^g|</script><p>其中，$X^g$是置换$g$作用于集合$X$之后的<strong>不动点个数</strong>，即不变的元素的个数</p>
+<p>那么对于这道题，我们考虑两类置换</p>
+<ul>
+<li>1.旋转</li>
+</ul>
+<p>假设有一条长度为n的项链，旋转之后相同被视为相同方案，那么显然地，我们有n种对应的置换</p>
+<p>即不旋转，旋转1次，旋转2次，…，旋转n-1次</p>
+<p>考虑计算不动点个数</p>
+<p>假设现在旋转了2次</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-9.png?w=700" alt="img"></p>
+<p>如果要求旋转之后不变（不动点），那么1号点、3号点、5号点的颜色必须相同</p>
+<p>因为1号点转一次可以转到3号点，而3号点转一次可以转到5号点</p>
+<p>如果这三个点的颜色不相同，那么旋转之后就变了，不能再称之为不动点</p>
+<p>同理，2号点、4号点、6号点的颜色必须相同</p>
+<p>总结一下：</p>
+<blockquote>
+<p>对于长度为n的项链，旋转i次之后得到的不动点个数为$gcd(i,n)$</p>
+<p>不动点之间互不影响，假设有m种颜色，那么此时的染色方案为$m^{gcd(i,n)}$</p>
+</blockquote>
+<ul>
+<li>2.翻转</li>
+</ul>
+<p>分奇偶考虑</p>
+<p>先考虑奇数</p>
+<p>一条对称轴必定穿过一个顶点，也就是说，一个顶点对应一条对称轴</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-10.png?w=700" alt="img"></p>
+<p>如果要满足变换之后不变，显然2、5号点必须相等，3、4号点必须相等，1号点随意</p>
+<blockquote>
+<p>如果有n个点，m种颜色，且n为奇数，那么这种置换一共有n个，每种置换有$m^{\frac{n+1}{2}}$种方案</p>
+</blockquote>
+<p>考虑偶数的情况</p>
+<p>稍微麻烦一点</p>
+<p>1.对称轴穿过一条边的中点，不穿过点</p>
+<p>显然，此时有$m^{\frac{n}{2}}$种方案，共$\frac{n}{2}$种置换</p>
+<p>2.对称轴穿过两个点</p>
+<p>其它点两两配对，这两个点随便染色</p>
+<p>共$m^{\frac{n-2}{2}+2}$种方案，共$\frac{n}{2}$种置换</p>
+<p>最后除以置换总数2n即可</p>
+<h1 id="B-–-Let-it-Bead"><a href="#B-–-Let-it-Bead" class="headerlink" title="B – Let it Bead"></a>B – Let it Bead</h1><p>和A题相同，将颜色数从3改为m即可</p>
+<h1 id="C-–-Color"><a href="#C-–-Color" class="headerlink" title="C – Color"></a>C – Color</h1><p>N颗珠子，N种颜色，而且$N\leq 10^9$</p>
+<p>显然枚举旋转方案i不行</p>
+<p>考虑枚举gcd</p>
+<p>假设gcd=x，那么实际上就是要计算有多少个i满足$i\leq n$且$gcd(i,n)=x$</p>
+<p>首先，x必须是n的因数，而且是i的因数</p>
+<p>假设$n=x*a,i=x*b$，那么a与b互质</p>
+<p>所以，i的个数为$\varphi(\frac{n}{x})$</p>
+<p>x只有$\sqrt n$种取值</p>
+<p>筛一下2e5之内的质数即可</p>
+<h1 id="D-–-Magic-Bracelet"><a href="#D-–-Magic-Bracelet" class="headerlink" title="D – Magic Bracelet"></a>D – Magic Bracelet</h1><p>n颗珠子，m种颜色，k种限制，每种限制形如“颜色a与颜色b不能放在一起”</p>
+<p>先不管限制</p>
+<p>考虑旋转i步之后的状态</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-12.png?w=700" alt="img"></p>
+<p>假设虚线中是一个循环节，显然，1号点和5号点的颜色应当相同，而与2、3、4、5号点的颜色无关</p>
+<p>如果要求满足限制，那么在上图中的含义等价为“放5颗珠子，第1颗珠子与第5颗珠子颜色相同并且满足限制的方案数”</p>
+<p>循环节长度为i，那么珠子数就为i+1</p>
+<p>将这个过程想象成一张图</p>
+<p>如果a与b不能相邻，那么点a到点b之间没有边，否则有一条双向边</p>
+<p>最开始的图是一张完全图，每个条件会删去一条双向边</p>
+<p>答案就等于<strong>在这张图上走i+1步，且起点与终点相同的方案数</strong></p>
+<p>这张图的邻接矩阵是一个01矩阵，那么走i+1步就是取这个矩阵的i次方</p>
+<p>答案为对角线上的数之和</p>
+<p>由于又是$n\leq 10^9$，所以需要矩阵乘法</p>
+<p>剩下的和上一道题一样，先筛质数然后求$\varphi$即可</p>
+<h1 id="E-–-Who’s-Aunt-Zhang"><a href="#E-–-Who’s-Aunt-Zhang" class="headerlink" title="E – Who’s Aunt Zhang"></a>E – Who’s Aunt Zhang</h1><p>一个三阶魔方，给每个面、每个角、每条棱上色，共n中颜色，将魔方整体旋转之后相同的视为等价情况，问方案数</p>
+<p>首先面数+棱数+角数=54+12+8=74</p>
+<p>有4类置换</p>
+<h4 id="1-不动"><a href="#1-不动" class="headerlink" title="1.不动"></a>1.不动</h4><p>方案数$n^{74}$</p>
+<p>有1种置换</p>
+<h4 id="2-以某个面的中心为轴旋转"><a href="#2-以某个面的中心为轴旋转" class="headerlink" title="2.以某个面的中心为轴旋转"></a>2.以某个面的中心为轴旋转</h4><p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-13.png?w=700" alt="img"></p>
+<p>有3种方案：转90度、转180度、转270度</p>
+<p>注意到第一种方案和第三种方案要求轴所在的那一面的四条棱都相等，而第二种方案仅要求两条棱相等</p>
+<p>对于第一种和第三种方案，答案为$n^{20}$</p>
+<p>正对着的两个面共有$3*2$)种方案</p>
+<p>中心有1种，棱上的面有1种，角上的面有1种，这样的面有2个，所以有6种</p>
+<p>剩下的四个面染色方案必须一样，但每个面中的颜色独立，共9种</p>
+<p>正对着的两个面每个面上的棱只有1种方案，共2种</p>
+<p>剩下的四条棱有1种</p>
+<p>角分为两组，坐标一组，右边一组，每组颜色必须相同，共2种</p>
+<p>所以共$6+9+3+2=20$种方案</p>
+<p>置换个数为$2*3=6$种（以某两个面为轴，转90度或270度）</p>
+<p>对于第二种方案，答案为$n^{38}​$</p>
+<p>正对着的两个面上，将面两两分组，每组颜色必须相同</p>
+<p>共$(2+2+1)*2=10​$种（角上的面两种，棱上的面两种，中心一种，共两个这样的面）</p>
+<p>其余的四个面两两配对，每个面上颜色独立，共$9*2=18$种</p>
+<p>将棱两两配对，每对的颜色必须相同，共6种</p>
+<p>将角两两配对，每对的颜色必须相同，共4种</p>
+<p>总方案数为$10+18+6+4=32$种</p>
+<p>置换有3种（将面两两配对，每一对只有1种置换）</p>
+<h4 id="以相对的两个角为中心旋转"><a href="#以相对的两个角为中心旋转" class="headerlink" title="以相对的两个角为中心旋转"></a>以相对的两个角为中心旋转</h4><p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-15.png?w=700" alt="img"></p>
+<p>在这种情况下，旋转120度和旋转240度是等价的</p>
+<p>都有$n^{26}$种方案</p>
+<p>对着的两个角特殊考虑，其余的角、边、棱三个为一组，每组颜色互不影响，共$2+\frac{74-2}{3}=26$种</p>
+<p>共$2*4=8​$种置换</p>
+<h4 id="以相对的两条棱的中心为轴旋转"><a href="#以相对的两条棱的中心为轴旋转" class="headerlink" title="以相对的两条棱的中心为轴旋转"></a>以相对的两条棱的中心为轴旋转</h4><p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-16.png?w=700" alt="img"></p>
+<p>选中的两条棱特殊考虑，其余元素两两配对</p>
+<p>共$2+\frac{74-2}{2}=38$种方案</p>
+<p>有$\frac{12}{2}=6$种置换</p>
+<hr>
+<p>所以总置换数为24，最后除以24即可</p>
+<h1 id="F-–-Toy"><a href="#F-–-Toy" class="headerlink" title="F – Toy"></a>F – Toy</h1><p>前置题目<a href="https://www.luogu.org/problemnew/show/P2144" target="_blank" rel="noopener">轮状病毒</a></p>
+<p>首先不考虑等价的情况</p>
+<p>有两种方法</p>
+<ol>
+<li>矩阵树定理+打表(oeis)</li>
+</ol>
+<p>矩阵是度数矩阵-邻接矩阵，再随便去掉某一行和某一列</p>
+<p>然后打表</p>
+<ol>
+<li>递推</li>
+</ol>
+<p>先不考虑连成环的情况</p>
+<p>设$f(n)$表示除了中心点，还有n个点的生成树个数</p>
+<p>那么有</p>
+<script type="math/tex; mode=display">
+f(n)=\sum_{i=1}^{n}f(n-i)\*i</script><p>含义是，假设这次选取的连通块有i个节点，剩下的点共有$f(n-i)$种方案，这个连通块可以选择任意一个点连向中心点，共i种方案</p>
+<p>化简这个式子</p>
+<script type="math/tex; mode=display">
+f(n)=\sum_{i=0}^{n-1}f(i)\*(n-i)</script><script type="math/tex; mode=display">
+f(n-1)=\sum_{i=0}^{n-2}f(i)\*(n-i-1)</script><script type="math/tex; mode=display">
+f(n)=f(n-1)+\sum_{i=0}^{n-1}f(i)</script><script type="math/tex; mode=display">
+f(n-1)=f(n-2)+\sum_{i=0}^{n-2}f(i)</script><script type="math/tex; mode=display">
+f(n)-f(n-1)=f(n-1)-f(n-2)+f(n-1)</script><script type="math/tex; mode=display">
+f(n)=3f(n-1)-f(n-2)</script><p>注意这个式子仅当$n\geq 3$时成立</p>
+<p>考虑连成环的情况</p>
+<p>就是1号点和n号点连了起来</p>
+<p>假设这个连通块有i个点</p>
+<p>那么有i-1种连通块可以选择（包含1-n这条边的连通块数），随便选一个点连向中心点</p>
+<p>设方案数为$g(n)$</p>
+<p>那么</p>
+<script type="math/tex; mode=display">
+g(n)=\sum_{i=2}^{n}i\*(i-1)\*f(n-i)</script><script type="math/tex; mode=display">
+=\sum_{i=1}^{n}i\*(i-1)\*f(n-i)</script><p>总方案数</p>
+<script type="math/tex; mode=display">
+F(n)=f(n)+g(n)</script><script type="math/tex; mode=display">
+=\sum_{i=1}^{n}f(n-i)\*i^2</script><p>我们有$f(0)=1,f(1)=1,f(2)=3$</p>
+<script type="math/tex; mode=display">
+\because \sum_{i=n-2}^nf(n-i)\*i^2=3\*(n-2)^2+(n-1)^2+n^2</script><script type="math/tex; mode=display">
+=3\*(n-1)^2+2\*(n-2)^2+2</script><script type="math/tex; mode=display">
+\therefore F(n)=\sum_{i=1}^{n-3}f(n-i)\*i^2+3\*(n-1)^2+2\*(n-2)^2+2</script><script type="math/tex; mode=display">
+\because n-i\geq 3</script><script type="math/tex; mode=display">
+\therefore F(n)=\sum_{i=1}^{n-3}[3\*f(n-i-1)-f(n-i-2)]\*i^2+3\*(n-1)^2\*f(0)+(n-2)^2\*[3\*f(1)-f(0)]+2</script><script type="math/tex; mode=display">
+=\sum_{i=1}^{n-2}[3\*f(n-i-1)-f(n-i-2)]\*i^2+3\*(n-1)^2\*f(0)+2</script><script type="math/tex; mode=display">
+=3\*\sum_{i=1}^{n-1}f(n-i-1)\*i^2-\sum_{i=1}^{n-2}f(n-i-2)+2</script><script type="math/tex; mode=display">
+=3\*F(n-1)-F(n-2)+2</script><p>写成矩阵的形式就是</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}3&-1&2\\\1&0&0\\\0&0&1\end{bmatrix}^{n-2}\*\begin{bmatrix}F(2)\\\F(1)\\\1\end{bmatrix}</script><p>然后再求欧拉函数，枚举gcd即可</p>
+<h1 id="G-–-Birthday-Toy"><a href="#G-–-Birthday-Toy" class="headerlink" title="G – Birthday Toy"></a>G – Birthday Toy</h1><p>考虑n个位置，m种颜色，要求相邻颜色不同，并且首位颜色一样的方案数（$n,m\leq 10^9$）</p>
+<p>先考虑朴素的dp:<code>dp[i][j][k]</code>表示到了第i个位置，这一位颜色为j，最开始的颜色为k的方案数</p>
+<p>转移很好转移</p>
+<p>考虑优化：我们并不关心当前位置的颜色是什么，我们只关心它与首位颜色相不相同，所以可以简化状态</p>
+<p><code>dp[i][0/1]</code>表示到了第i位，与当前首位颜色相同/不相同的方案数</p>
+<p>那么有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dp[i][0]&#x3D;dp[i-1][1]</span><br><span class="line">dp[i][1]&#x3D;dp[i-1][0]*(m-1)+dp[i-2][1]*(m-2)</span><br></pre></td></tr></table></figure>
+<p>矩阵乘法加速即可</p>
+<h1 id="I-–-Leonardo’s-Notebook"><a href="#I-–-Leonardo’s-Notebook" class="headerlink" title="I – Leonardo’s Notebook"></a>I – Leonardo’s Notebook</h1><p>结论：</p>
+<blockquote>
+<p>两个长度为n的相同循环相乘，当n为奇数是结果是一个长为n的循环，否则是两个长度为$\frac{n}{2}$的循环的乘积</p>
+</blockquote>
+<p>所以长度为奇数的循环一定可以被拆成两个相同循环的乘积，长度为偶数的循环需要两两配对，如果能配对上就可以</p>
+<h1 id="K-–-Find-the-Permutations"><a href="#K-–-Find-the-Permutations" class="headerlink" title="K – Find the Permutations"></a>K – Find the Permutations</h1><p>下标与序列构成了一个置换</p>
+<p>将置换分解，注意到每个循环所需要的交换次数是循环长度-1</p>
+<p>加起来就是n-循环节个数</p>
+<p>所以dp，<code>dp[i][j]</code>表示到第i个位置，一共有j个循环的方案数</p>
+<p>i这个数可以新开一个循环，也可以插入到前面任意一个数的后面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j]&#x3D;dp[i-1][j-1]+dp[i-1][j]*(i-1)</span><br></pre></td></tr></table></figure>
+<h1 id="L-–-Necklace"><a href="#L-–-Necklace" class="headerlink" title="L – Necklace"></a>L – Necklace</h1><p>每种颜色的珠子有限制个数</p>
+<p>还是枚举gcd，但是要求$\frac{n}{gcd}$必须是每种珠子个数的因数</p>
+<p>然后可重排列</p>
+<p>翻转有点毒瘤，考虑两种情况：n为奇数或是偶数</p>
+<p>奇数比较简单，偶数又要分两种情况</p>
+<p>注意细节，还是比较模板的</p>
+<h1 id="M-–-Cubes"><a href="#M-–-Cubes" class="headerlink" title="M – Cubes"></a>M – Cubes</h1><p>L + E</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/03/08/%E7%BD%AE%E6%8D%A2%E4%B8%93%E9%A2%98/" title="置换专题">http://yoursite.com/2019/03/08/置换专题/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+              <a href="/tags/polya/" rel="tag"># polya</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/08/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94%E4%B8%8E%E6%9D%9C%E6%95%99%E7%AD%9B%E4%B8%93%E9%A2%98/" rel="prev" title="莫比乌斯反演与杜教筛专题">
+      <i class="fa fa-chevron-left"></i> 莫比乌斯反演与杜教筛专题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/08/CodeChef-Adi-and-the-Matrix/" rel="next" title="[CodeChef] Adi and the Matrix">
+      [CodeChef] Adi and the Matrix <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-–-Necklace-of-Beads"><span class="nav-number">1.</span> <span class="nav-text">A – Necklace of Beads</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-–-Let-it-Bead"><span class="nav-number">2.</span> <span class="nav-text">B – Let it Bead</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-–-Color"><span class="nav-number">3.</span> <span class="nav-text">C – Color</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D-–-Magic-Bracelet"><span class="nav-number">4.</span> <span class="nav-text">D – Magic Bracelet</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-–-Who’s-Aunt-Zhang"><span class="nav-number">5.</span> <span class="nav-text">E – Who’s Aunt Zhang</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-不动"><span class="nav-number">5.0.0.1.</span> <span class="nav-text">1.不动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-以某个面的中心为轴旋转"><span class="nav-number">5.0.0.2.</span> <span class="nav-text">2.以某个面的中心为轴旋转</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以相对的两个角为中心旋转"><span class="nav-number">5.0.0.3.</span> <span class="nav-text">以相对的两个角为中心旋转</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#以相对的两条棱的中心为轴旋转"><span class="nav-number">5.0.0.4.</span> <span class="nav-text">以相对的两条棱的中心为轴旋转</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#F-–-Toy"><span class="nav-number">6.</span> <span class="nav-text">F – Toy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#G-–-Birthday-Toy"><span class="nav-number">7.</span> <span class="nav-text">G – Birthday Toy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I-–-Leonardo’s-Notebook"><span class="nav-number">8.</span> <span class="nav-text">I – Leonardo’s Notebook</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-–-Find-the-Permutations"><span class="nav-number">9.</span> <span class="nav-text">K – Find the Permutations</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#L-–-Necklace"><span class="nav-number">10.</span> <span class="nav-text">L – Necklace</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#M-–-Cubes"><span class="nav-number">11.</span> <span class="nav-text">M – Cubes</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

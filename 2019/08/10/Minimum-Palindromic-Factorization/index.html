@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Minimum Palindromic Factorization定义：  $S$：将要被分割的字符串，其中$S[i]$表示$S$第$i$个位置的字符，$S[l\cdots r]$表示$S$从$l$开始，到$r$结束的子串 $PL(S)$表示将$S$划分成回文串的最小数量，比如$PL(abaab)&#x3D;3$ $P_j$表示所有以位置$j$结尾的回文串的起始位置的集合  一个简单的算法我们先尝试在$O(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Minimum Palindromic Factorization">
+<meta property="og:url" content="http://yoursite.com/2019/08/10/Minimum-Palindromic-Factorization/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="Minimum Palindromic Factorization定义：  $S$：将要被分割的字符串，其中$S[i]$表示$S$第$i$个位置的字符，$S[l\cdots r]$表示$S$从$l$开始，到$r$结束的子串 $PL(S)$表示将$S$划分成回文串的最小数量，比如$PL(abaab)&#x3D;3$ $P_j$表示所有以位置$j$结尾的回文串的起始位置的集合  一个简单的算法我们先尝试在$O(">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2019/08/10/dePGkKgiTH8IRwV.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/10/hA8YVoKgqumtcSw.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/10/WOnfGmRlDtUVKsc.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/10/hIdClEXD9So8Bqy.png">
+<meta property="og:image" content="https://i.loli.net/2019/08/10/IkzS8O4lF3oLANG.png">
+<meta property="article:published_time" content="2019-08-10T11:14:35.000Z">
+<meta property="article:modified_time" content="2020-04-23T01:15:39.753Z">
+<meta property="article:author" content="PlanarG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2019/08/10/dePGkKgiTH8IRwV.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/08/10/Minimum-Palindromic-Factorization/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Minimum Palindromic Factorization | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/10/Minimum-Palindromic-Factorization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Minimum Palindromic Factorization
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-10 19:14:35" itemprop="dateCreated datePublished" datetime="2019-08-10T19:14:35+08:00">2019-08-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:15:39" itemprop="dateModified" datetime="2020-04-23T09:15:39+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Minimum-Palindromic-Factorization"><a href="#Minimum-Palindromic-Factorization" class="headerlink" title="Minimum Palindromic Factorization"></a>Minimum Palindromic Factorization</h1><p><strong>定义</strong>：</p>
+<ol>
+<li>$S$：将要被分割的字符串，其中$S[i]$表示$S$第$i$个位置的字符，$S[l\cdots r]$表示$S$从$l$开始，到$r$结束的子串</li>
+<li>$PL(S)$表示将$S$划分成回文串的最小数量，比如$PL(abaab)=3$</li>
+<li>$P_j$表示所有以位置$j$结尾的回文串的起始位置的集合</li>
+</ol>
+<h1 id="一个简单的算法"><a href="#一个简单的算法" class="headerlink" title="一个简单的算法"></a>一个简单的算法</h1><p>我们先尝试在$O(n^2)$的时间内解决这个问题，对于$PL$，显然有</p>
+<script type="math/tex; mode=display">
+PL(S[1\cdots j])=\min_{i\in P_j}\{PL(S[1\cdots i-1])+1\}</script><p>定义$PL[i]=PL(S[1\cdots i])$，我们可以依次计算并保存下$PL$的值，显然当$S=a^n$的时候这个算法的时间复杂度为$O(n^2)$</p>
+<h1 id="更快地计算回文串"><a href="#更快地计算回文串" class="headerlink" title="更快地计算回文串"></a>更快地计算回文串</h1><p>在这一节中，我们将尝试用一个大小为$O(\log j)$的集合$G_j$来代替$P_j$，并且$G_j$可以在$O(\log j)$的时间内由$G_{j-1}$递推而来</p>
+<p><strong>定义：</strong>字符串$y$是字符串$x$的<code>border</code>当且仅当$y$同时是$x$的前缀和后缀，如果$y\not=x$，我们称$y$是<strong>非平凡</strong>的。下面的定理建立了<code>border</code>与回文串的联系</p>
+<h2 id="定理1"><a href="#定理1" class="headerlink" title="定理1"></a>定理1</h2><blockquote>
+<p>令$y$是回文串$x$的一个后缀，$y$是$x$的<code>border</code>当且仅当$y$是一个回文串</p>
+</blockquote>
+<p>证明显然</p>
+<h2 id="定理2"><a href="#定理2" class="headerlink" title="定理2"></a>定理2</h2><blockquote>
+<p>假设$y$是$x$的一个<code>border</code>，并且$|x|\leq 2|y|$，那么$x$是一个回文串当且仅当$y$是一个回文串</p>
+</blockquote>
+<p>证明也很显然</p>
+<p><strong>定义：</strong>当正整数$p$满足$p\leq |x|$且存在一个长度为$p$的字符串$w$，使得$x$是$w^\infty$的子串时，我们称$p$是$x$的一个<strong>周期</strong></p>
+<p>一个众所周知的事实是当$y$是$x$的一个非平凡<code>border</code>时，$|x|-|y|$是$x$的一个周期</p>
+<p>根据以上的两个定理，我们可以得出定理3</p>
+<h2 id="定理3"><a href="#定理3" class="headerlink" title="定理3"></a>定理3</h2><blockquote>
+<p>令$y$是回文串$x$的一个非平凡<code>border</code>，那么$|x|-|y|$是$x$的一个周期当且仅当$y$是回文的。</p>
+<p>特别地，$|x|-|y|$是$x$的最小周期当且仅当$y$是$x$的最长非平凡<code>border</code></p>
+</blockquote>
+<h2 id="定理4"><a href="#定理4" class="headerlink" title="定理4"></a>定理4</h2><blockquote>
+<p>$x$是一个回文串，$y$是$x$的最长非平凡<code>border</code>，$z$是$y$的最长非平凡<code>border</code>，令$u,v$是满足$x=uy,y=vz$的两个字符串，那么有</p>
+<ol>
+<li>$|u|\geq|v|$</li>
+<li>如果$|u|&gt;|v|$，则$|u|&gt;|z|$</li>
+<li>如果$|u|=|v|$，则$u=v$</li>
+</ol>
+</blockquote>
+<p><img src="https://i.loli.net/2019/08/10/dePGkKgiTH8IRwV.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/08/10/hA8YVoKgqumtcSw.png" alt="1565428566073.png"></p>
+<p><strong>证明：</strong></p>
+<ol>
+<li><p>根据<strong>定理3</strong>，$|u|=|x|-|y|$是$x$的最小周期，$|v|=|y|-|z|$是$y$的最小周期。由于$y$是$x$的子串，因此，要么$|u|&gt;|y|&gt;|v|$，要么$|u|$也是$|y|$的一个周期，并且$|u|\geq|v|$</p>
+<p> 由于$y$是$x$的<code>border</code>，因此当$|y|\geq|u|$时可以得出$u$是$y$的<code>border</code>，由于$z$是$y$的最长非平凡<code>border</code>，根据<strong>定理3</strong>，$v$是$y$的最小周期，故此时$|u|\geq|v|$</p>
+</li>
+<li><p>显然$v$是$x$的前缀，我们设$x=vw$，那么$|z|$是$w$的周期，并且$|w|=|z|+|u|$。假设$|z|\geq|u|$，那么有$|w|\leq 2|z|$，根据<strong>定理2</strong>，可以得出$w$是回文串，这与$y$是$x$的最长回文后缀矛盾。因此$|u|&gt;|z|$</p>
+</li>
+<li><p>根据2可以得到$v$是$x$的前缀，如果$|u|=|v|$，显然有$u=v$</p>
+</li>
+</ol>
+<p><strong>定义：</strong>令$P_j=\{p_1,p_2,\cdots,p_m\}$，其中$p_1&lt;p_2&lt;\cdots&lt;p_m$。我们定义$p_i-p_{i-1}$为一个<strong>间隔</strong>，注意这里是向前差分</p>
+<h2 id="定理5"><a href="#定理5" class="headerlink" title="定理5"></a>定理5</h2><blockquote>
+<p>$P_j$的间隔序列是递减的，并且最多只有严格$O(\log j)$个不同的间隔</p>
+</blockquote>
+<p><strong>证明：</strong>对于任意的$i\in[2\cdots m-1]$，我们令$x=S[p_{i-1}\cdots j],y=S[p_j\cdots j],z=S[p_{j+1}\cdots j]$，这三个串的间隔为$|u|,|v|$。根据<strong>定理4</strong>，如果在这里间隔改变了，那么一定有$|u|&gt;|v|$，则$|x|&gt;|u|+|z|&gt;2|z|$，回文后缀的长度至少会减少一半，因此这样的情形最多发生$O(\log j)$次</p>
+<p>我们会根据$P_j$的间隔将其划分成$O(\log j)$个连续的子集。对于正整数$\Delta$，我们<strong>定义</strong>$P_{j,\Delta}=\{p_i:1&lt;i\leq m,p_i-p_{i-1}=\Delta\}$，且$P_{j,\infty}=\{p_1\}$。每个非空的$P_{j,\Delta}$都可以被三元组$(\min P_{j,\Delta},\Delta,|P_{j,\Delta}|)$表示。我们<strong>定义</strong>$G_j$表示这些三元组按照$\Delta$构成的递减序列。</p>
+<p>列表$G_j$仅用$O(\log j)$的空间就完全代表了$P_j$，我们会证明$G_j$可以在$O(|G_{j-1}|)$的时间内由$G_{j-1}$递推而来。在这个算法中，对于$P_{j-1}$中的每一个元素$i$，在$P_j$中要么被淘汰，要么被$i-1$替换。下面的定理说明了如何同时决定$P_{j-1,\Delta}$中的所有元素哪些应该被淘汰，哪些应该被替换。</p>
+<h2 id="定理6"><a href="#定理6" class="headerlink" title="定理6"></a>定理6</h2><blockquote>
+<p>$p_i,p_{i+1}$是$P_{j-1,\Delta}$中的两个连续的元素，那么$p_i-1\in P_j$当且仅当$p_{i+1}-1\in P_j$</p>
+</blockquote>
+<p><strong>证明：</strong>根据定义，$p_{i+1}-p_i=\Delta$，$p_i$的前驱是$p_{i-1}=p_i-\Delta$。根据<strong>定理4</strong>，这意味着$S[p_i-1]=S[p_{i+1}-1]=c$，从而$p_i-1\in P_j$当且仅当$S[j]=c$，即$p_{i+1}-1\in P_j$ </p>
+<p>因此，当我们计算$G_j$时，每一个三元组$(i,\Delta,k)\in G_{j-1}$要么被淘汰，要么被替换成$(i-1,\Delta,k)$，最终得到的序列为</p>
+<script type="math/tex; mode=display">
+G'_j=\{(i-1,\Delta,k):(i,\Delta,k)\in G_{j-1},i>1且S[i-1]=S[j]\}</script><p>这表示了在$P_j$中所有长度大于$2$的回文串</p>
+<p>但是，这些$G’_j$中的三元组不一定完美地与最终的$P_{j,\Delta}$对应，因为有些间隔可能改变了。特别地，如果在$P_{j-1,\Delta}$中最小的元素$p_i$被替换成了$p_i-1$，但是它的前驱$p_{i-1}=p_i-\Delta$被淘汰了，那么$p_i-1$就不应该出现在$P_{j,\Delta}$中，因为间距变化了。注意只有每个组中最小的元素可能被影响，因此我们将第一个元素分裂出来。即，将$(p_i-1,\Delta,k)$分裂成$(p_i-1,\Delta’,1)$和$(p_i-1+\Delta,\Delta,k-1)$，这里的$\Delta’$表示$p_i-1$在$P_j$中的新的间隔。我们还会添加单独的三元组来表示长度为$1,2$的回文串</p>
+<p>我们令$G’’_j$表示经过上述操作之后的$G’_j$，它恰好代表了每一个在$P_j$中的回文串，并且此时$\Delta$的值是正确的，但是$G’’_j$中可能有一些三元组的$\Delta$相同。因此我们将$G’’_j$中$\Delta$相同的三元组合并来得到最终的$G_j$</p>
+<p><img src="https://i.loli.net/2019/08/10/WOnfGmRlDtUVKsc.png" alt="1565432215207"></p>
+<h2 id="定理7"><a href="#定理7" class="headerlink" title="定理7"></a>定理7</h2><blockquote>
+<p>$G_j$可以在$O(|G_{j-1}|)$的时间内由$G_{j-1}$转移而来</p>
+</blockquote>
+<h1 id="更快地求解"><a href="#更快地求解" class="headerlink" title="更快地求解"></a>更快地求解</h1><p>在这一节中，我们会展示如何在$O(|G_{j}|)$的时间内根据$PL[0\cdots j-1]$计算$PL[j]$。快速计算$G_j$的关键是利用$P_{j,\Delta}$与$P_{j-1,\Delta}$之间的密切关系，现在我们会依赖于由以下结论所揭示的$P_j,\Delta$与$P_{j-\Delta,\Delta}$之间的关系</p>
+<h2 id="定理8"><a href="#定理8" class="headerlink" title="定理8"></a>定理8</h2><blockquote>
+<p>如果$(i,\Delta,k)\in G_j$，且$k\geq 2$，则$(i,\Delta,k-1)\in G_{j-\Delta}$</p>
+</blockquote>
+<p><strong>证明：</strong>根据定义，$(i,\Delta,k)\in G_j$等价于$P_{j,\Delta}=\{i,i+\Delta,\cdots,i+(k-1)\Delta\}$，我们需要证明$P_{j-\Delta,\Delta}=\{i,i+\Delta,\cdots,i+(k-2)\Delta\}$。我们会先证明$P_{j-\Delta,\Delta}\cap|i-\Delta+1\cdots j-\Delta|=\{i,i+\Delta,\cdots,i+(k-2)\Delta\}$，接着我们会证明$P_{j-\Delta,\Delta}\cap|1\cdots i-\Delta|=\emptyset$</p>
+<p><img src="https://i.loli.net/2019/08/10/hIdClEXD9So8Bqy.png" alt="1565433244361"></p>
+<p>我们知道$y=S[i\cdots j]$与$x=S[i-\Delta\cdots j]$都是回文的，并且$y$是$x$的最长非平凡<code>border</code>，$S[i-\Delta\cdots j-\Delta]=y=S[i\cdots j]$。因此对于任意的$l\in[i\cdots j]$，$i\in P_j$当且仅当$l-\Delta\in P_{j-\Delta,\Delta}$。所以我们可以得出$P_{j-\Delta,\Delta}\cap|i-\Delta+1\cdots j-\Delta|=\{i,i+\Delta,\cdots,i+(k-2)\Delta\}$</p>
+<p>我们还需要证明$P_{j-\Delta,\Delta}\cap|1\cdots i-\Delta|=\emptyset$，当且仅当$i-2\Delta\not\in P_{j-\Delta}$时成立。我们使用反证法，假设$i-2\Delta\in P_{j-\Delta}$，那么$S[i-2\Delta\cdots j-\Delta]$是回文串。我们令$w=S[i-2\Delta\cdots i-\Delta-1]$，那么$S[j-2\Delta+1\cdots j-\Delta]=w^R$，即$w$的反串。令$z=S[i-\Delta\cdots j-\Delta]$，而$S[i-\Delta\cdots j]$也是一个回文串，因此有$S[i-\Delta\cdots i-1]=w$以及$S[j-\Delta+1\cdots j]=w^R$。最后，$z$也是一个回文串，$S[i-2\Delta\cdots j]=wzw^R$是回文串，这意味着$i-\Delta\in P_j$，与$(i,\Delta,k)\in G_j$矛盾</p>
+<p>根据以上的定理，$P_{j,\Delta}=P_{j-\Delta,\Delta}\cup\{\max P_{j,\Delta}\}$在$|P_{j,\Delta}|\geq2$时成立。那么我们可以在常数时间内计算$PL_{j,\Delta}=\min\{PL[i-1]+1:i\in P_{j,\Delta}\}$，让其由$PL_{j-\Delta,\Delta}$转移而来。我们会将$PL_{j,\Delta}$的值保存在数组$GPL[1\cdots n]$的第$m=\min P_{j,\Delta}-\Delta$项中。注意到$m$是$\min P_{j,\Delta}$在$P_j$中的前驱，并且当$|P_{j,\Delta}|\geq 2$时，$PL_{j-\Delta,\Delta}$也是保存在这个位置。接下来的定理说明了这个位置在第$j-\Delta$轮至第$j$轮中，不会被其他数覆写。</p>
+<h2 id="定理9"><a href="#定理9" class="headerlink" title="定理9"></a>定理9</h2><blockquote>
+<p>令$m=\min P_{j,\Delta}-\Delta$，那么对于任意的$l\in[j-\Delta+1\cdots j-1],m\not\in P_l$</p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/08/10/IkzS8O4lF3oLANG.png" alt="1565441130156"></p>
+<p><strong>证明：</strong>使用反证法，假设存在$l\in[j-\Delta+1\cdots j-1]$使得$m\in P_l$，即$S[m\cdots l]$是回文的。令$h=l-j+\Delta$，那么$S[m+h\cdots l-h]$是回文的，而$m&lt;m+h&lt;m+\Delta=\min P_{j-\Delta,\Delta}$，这意味着$m+h$是$\min P_{j-\Delta,\Delta}$的前驱，而非$m$，且$\min P_{j-\Delta,\Delta}\not\in P_{j-\Delta,\Delta}$，矛盾</p>
+<h2 id="定理10"><a href="#定理10" class="headerlink" title="定理10"></a>定理10</h2><blockquote>
+<p>可以在$O(n\log n)$的时间，以及$O(n)$的空间内得出一个串的最小回文划分数</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/08/10/Minimum-Palindromic-Factorization/" title="Minimum Palindromic Factorization">http://yoursite.com/2019/08/10/Minimum-Palindromic-Factorization/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/06/11/6-5NOI%E6%A8%A1%E6%8B%9F/" rel="prev" title="6.5NOI模拟">
+      <i class="fa fa-chevron-left"></i> 6.5NOI模拟
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/08/17/NOI%E8%B5%9B%E5%89%8D%E9%9B%86%E8%AE%ADday1/" rel="next" title="NOI赛前集训day1">
+      NOI赛前集训day1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Minimum-Palindromic-Factorization"><span class="nav-number">1.</span> <span class="nav-text">Minimum Palindromic Factorization</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个简单的算法"><span class="nav-number">2.</span> <span class="nav-text">一个简单的算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更快地计算回文串"><span class="nav-number">3.</span> <span class="nav-text">更快地计算回文串</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定理1"><span class="nav-number">3.1.</span> <span class="nav-text">定理1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理2"><span class="nav-number">3.2.</span> <span class="nav-text">定理2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理3"><span class="nav-number">3.3.</span> <span class="nav-text">定理3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理4"><span class="nav-number">3.4.</span> <span class="nav-text">定理4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理5"><span class="nav-number">3.5.</span> <span class="nav-text">定理5</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理6"><span class="nav-number">3.6.</span> <span class="nav-text">定理6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理7"><span class="nav-number">3.7.</span> <span class="nav-text">定理7</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更快地求解"><span class="nav-number">4.</span> <span class="nav-text">更快地求解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定理8"><span class="nav-number">4.1.</span> <span class="nav-text">定理8</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理9"><span class="nav-number">4.2.</span> <span class="nav-text">定理9</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定理10"><span class="nav-number">4.3.</span> <span class="nav-text">定理10</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

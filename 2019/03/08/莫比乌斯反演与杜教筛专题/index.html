@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="A – GCD莫比乌斯反演模板，注意去重 当$i\leq min(n,m)$时，每个gcd都被计算了两遍，除以2即可 B – CA Loves GCD见莫比乌斯反演 CA Loves GCD C – Hillan and the girl首先转化成总数-gcd是完全平方数的个数  \sum_{i&#x3D;1}^{n}\sum_{j&#x3D;1}^{n}[gcd(i,j)\in sqrt\ number]按照套路，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="莫比乌斯反演与杜教筛专题">
+<meta property="og:url" content="http://yoursite.com/2019/03/08/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94%E4%B8%8E%E6%9D%9C%E6%95%99%E7%AD%9B%E4%B8%93%E9%A2%98/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="A – GCD莫比乌斯反演模板，注意去重 当$i\leq min(n,m)$时，每个gcd都被计算了两遍，除以2即可 B – CA Loves GCD见莫比乌斯反演 CA Loves GCD C – Hillan and the girl首先转化成总数-gcd是完全平方数的个数  \sum_{i&#x3D;1}^{n}\sum_{j&#x3D;1}^{n}[gcd(i,j)\in sqrt\ number]按照套路，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-3.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-4.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-5.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-6.png?w=700">
+<meta property="article:published_time" content="2019-03-08T11:21:50.000Z">
+<meta property="article:modified_time" content="2020-04-23T01:34:20.809Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="莫比乌斯反演">
+<meta property="article:tag" content="杜教筛">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-3.png?w=700">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/08/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94%E4%B8%8E%E6%9D%9C%E6%95%99%E7%AD%9B%E4%B8%93%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>莫比乌斯反演与杜教筛专题 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/08/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94%E4%B8%8E%E6%9D%9C%E6%95%99%E7%AD%9B%E4%B8%93%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          莫比乌斯反演与杜教筛专题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-08 19:21:50" itemprop="dateCreated datePublished" datetime="2019-03-08T19:21:50+08:00">2019-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:34:20" itemprop="dateModified" datetime="2020-04-23T09:34:20+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="A-–-GCD"><a href="#A-–-GCD" class="headerlink" title="A – GCD"></a>A – GCD</h1><p>莫比乌斯反演模板，注意去重</p>
+<p>当$i\leq min(n,m)$时，每个gcd都被计算了两遍，除以2即可</p>
+<h1 id="B-–-CA-Loves-GCD"><a href="#B-–-CA-Loves-GCD" class="headerlink" title="B – CA Loves GCD"></a>B – CA Loves GCD</h1><p>见<a href="/2019/03/07/莫比乌斯反演">莫比乌斯反演</a> CA Loves GCD</p>
+<h1 id="C-–-Hillan-and-the-girl"><a href="#C-–-Hillan-and-the-girl" class="headerlink" title="C – Hillan and the girl"></a>C – Hillan and the girl</h1><p>首先转化成总数-gcd是完全平方数的个数</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{n}[gcd(i,j)\in sqrt\ number]</script><p>按照套路，先枚举gcd，此处是gcd的平方根</p>
+<script type="math/tex; mode=display">
+=\sum_{d=1}^{\sqrt n}\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j)=d^2]</script><p>莫比乌斯反演</p>
+<script type="math/tex; mode=display">
+=\sum_{d=1}^{\sqrt n}\sum_{l=1}^{\lfloor\frac{n}{d^2}\rfloor}\mu(l)\lfloor\frac{n}{d^2l}\rfloor\lfloor\frac{m}{d^2l}\rfloor</script><p>然后换T</p>
+<script type="math/tex; mode=display">
+T=d^2l</script><p>改写式子</p>
+<script type="math/tex; mode=display">
+=\sum_{T=1}^{n}\lfloor\frac{n}{T}\rfloor\lfloor\frac{m}{T}\rfloor\sum_{l|T}\mu(l)</script><p>最后那个可以预处理</p>
+<p>对于每一个$\mu$，枚举一个完全平方数更新，最后算一下前缀和即可</p>
+<h1 id="D-–-Trick-GCD"><a href="#D-–-Trick-GCD" class="headerlink" title="D – Trick GCD"></a>D – Trick GCD</h1><p>很经典的一道题</p>
+<p>题目要求$gcd\geq 2$，转化成求$gcd=1$的方案数，再用总数去减</p>
+<p>设$f(x)$为gcd恰好为x的方案数，$g(x)$为gcd为x的倍数的方案数</p>
+<p>显然有</p>
+<script type="math/tex; mode=display">
+g(x)=\sum_{x|d}f(d)</script><script type="math/tex; mode=display">
+f(x)=\sum_{x|d}g(d)\mu(\frac{d}{x})</script><p>此时f中的x是1</p>
+<p>现在关键是要求出g</p>
+<p>假设当前是$g(x)$</p>
+<p>对于每一个$A_i$，有$\lfloor\frac{A_i}{x}\rfloor$的贡献，注意到一段区间内的$A_i$贡献相同，所以对A整体分块计算贡献，然后乘起来就好了</p>
+<p>一部分代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a;i &lt;= n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a), buk[a]++, mn = min(mn, a), mx = max(mx, a);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= mx * <span class="number">2</span>;i++) buk[i] += buk[i - <span class="number">1</span>]; </span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= mn;i++) &#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = -mu[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = i;j &lt;= mx;j += i) </span><br><span class="line">        tmp = (LL)tmp * Pow(j / i, buk[j + i - <span class="number">1</span>] - buk[j - <span class="number">1</span>]) % mod;</span><br><span class="line">        ans = (ans + tmp) % mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="E-F-G-–-GCD-Extreme-x"><a href="#E-F-G-–-GCD-Extreme-x" class="headerlink" title="E,F,G – GCD Extreme(x)"></a>E,F,G – GCD Extreme(x)</h1><p>直接用$\varphi$替换gcd即可</p>
+<p>经典题目</p>
+<h1 id="H-–-Zap"><a href="#H-–-Zap" class="headerlink" title="H – Zap"></a>H – Zap</h1><p>莫比乌斯反演模板</p>
+<p>上界同时除以d即可</p>
+<h1 id="I-–-数表"><a href="#I-–-数表" class="headerlink" title="I – 数表"></a>I – 数表</h1><p>求</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{m}\sigma(gcd(i,j))[\sigma(gcd(i,j))\leq a]</script><p>先莫比乌斯反演一波</p>
+<script type="math/tex; mode=display">
+=\sum_{i=1}^{n}\sum_{j=1}^{m}\sigma(gcd(i,j))[\sigma(gcd(i,j))\leq a]</script><script type="math/tex; mode=display">
+=\sum_{d=1}^{n}\sigma(d)[\sigma(d)\leq a]\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j)=d]</script><script type="math/tex; mode=display">
+=\sum_{d=1}^{n}\sigma(d)[\sigma(d)\leq a]\sum_{l=1}^{\lfloor\frac{n}{d}\rfloor}\mu(l)\lfloor\frac{n}{dl}\rfloor\lfloor\frac{m}{dl}\rfloor</script><p>设</p>
+<script type="math/tex; mode=display">
+T=dl</script><p>改写式子</p>
+<script type="math/tex; mode=display">
+=\sum_{T=1}^{n}\lfloor\frac{n}{T}\rfloor\lfloor\frac{m}{T}\rfloor\sum_{d|T}\sigma(d)\mu(\frac{T}{d})[\sigma(d)\leq a]</script><p>约数和这个函数是可以直接求的</p>
+<p>考虑将询问按照限制大小从小到大排序</p>
+<p>将约数和也从小到大排序</p>
+<p>当一个约数和达到限制以下后，枚举它的倍数更新</p>
+<p>由于计算要用到前缀和，使用树状数组维护即可</p>
+<h1 id="J-–-Crash的数字表格"><a href="#J-–-Crash的数字表格" class="headerlink" title="J – Crash的数字表格"></a>J – Crash的数字表格</h1><p>见<a href="/2019/03/07/莫比乌斯反演">莫比乌斯反演</a></p>
+<h1 id="K-–-DZY-Loves-Math"><a href="#K-–-DZY-Loves-Math" class="headerlink" title="K – DZY Loves Math"></a>K – DZY Loves Math</h1><p>神仙题</p>
+<p>先来反演一波</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{m}f(gcd(i,j))</script><script type="math/tex; mode=display">
+=\sum_{d=1}^{n}f(d)\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j)=d]</script><script type="math/tex; mode=display">
+=\sum_{d=1}^{n}f(d)\sum_{l=1}^{\lfloor\frac{n}{d}\rfloor}\mu(l)\lfloor\frac{n}{dl}\rfloor\lfloor\frac{m}{dl}\rfloor</script><p>设</p>
+<script type="math/tex; mode=display">
+T=dl</script><p>则有</p>
+<script type="math/tex; mode=display">
+=\sum_{T=1}^{n}\lfloor\frac{n}{T}\rfloor\lfloor\frac{m}{T}\rfloor\sum_{d|T}f(d)\mu(\frac{T}{d})</script><p>关键就是要求最后的那个东西</p>
+<p>假设有$T=\prod p_i^{k_i}$，要想最后的那个$\mu$不为0，d的每一个质数的次数最少不会少于T中所对应的次数-1</p>
+<p>也就是说，假如$f(T)=x$，那么$x-1\leq f(d)\leq x$</p>
+<p>进一步考虑，最后可能影响答案的只有那些次数最高的项。如果T中质数的次数不全相等，那么对于$f(d)=x$的每一种方案，其它的项可以乱选，方案数是2的这些项的个数次方（要么次数不减，要么次数减1）</p>
+<p>注意到$\mu(\frac{T}{d})$的值在上述的这两种情况中取值互为相反数，仅当T中质数的次数全部相等时，剩余项的方案数是$2^0$，在这一步中不能被抵消，其余情况均可两两抵消，这个$\sum$的值永远是0</p>
+<p>考虑所有次数相等的情况</p>
+<p>假设T的质因子个数为k</p>
+<p>每个数仍然可以选或不选，$\mu$的和为0</p>
+<p>但是对于所有质数都不选的情况，$f(d)$的值并不是x，而是x-1，所以答案要减去$-1*(-1)^k$，那个$(-1)^l$是$\mu(\frac{T}{d})$</p>
+<p>所以此时的答案为</p>
+<script type="math/tex; mode=display">
+(-1)^{k+1}</script><p>假设当前要求的是</p>
+<script type="math/tex; mode=display">
+\sum_{d|T}f(d)\mu(\frac{T}{d})</script><p>那么：</p>
+<p>假设存在x，使得$\mu(x)\not=0$，且T是x的k次方，那么$\sum_{d|T}f(d)\mu(\frac{T}{d})=-\mu(x)]$</p>
+<p>否则这个值为0</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 10000010</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">int</span> prime[N], ncnt, mu[N], sum[N], flag[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!flag[i]) prime[++ncnt] = i, mu[i] = <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= N - <span class="number">10</span>;j++) &#123;</span><br><span class="line">			flag[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">			mu[i * prime[j]] = -mu[i];</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++)</span><br><span class="line">		<span class="keyword">if</span> (mu[i] != <span class="number">0</span>) <span class="keyword">for</span> (LL j = i;j &lt;= N - <span class="number">10</span>;j *= i) </span><br><span class="line">			sum[j] = -mu[i];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) sum[i] += sum[i - <span class="number">1</span>]; </span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">solve</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &gt; m) swap(n, m);</span><br><span class="line">	LL ans = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">1</span>, r;l &lt;= n;l = r + <span class="number">1</span>) &#123;</span><br><span class="line">		r = min(n / (n / l), m / (m / l));</span><br><span class="line">		ans += (LL)(n / l) * (m / l) * (sum[r] - sum[l - <span class="number">1</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> T; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T), sieve();</span><br><span class="line">	<span class="keyword">while</span> (T--) &#123;</span><br><span class="line">		<span class="keyword">int</span> a, b; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, solve(a, b));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="L-–-Sum"><a href="#L-–-Sum" class="headerlink" title="L – Sum"></a>L – Sum</h1><p>杜教筛模板</p>
+<p>见<a href="/2019/03/08/杜教筛">杜教筛</a></p>
+<h1 id="M-–-能量采集"><a href="#M-–-能量采集" class="headerlink" title="M – 能量采集"></a>M – 能量采集</h1><p>讲一讲求</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{m}gcd(i,j)</script><p>的两种求法</p>
+<p>以前已经写过了，直接贴上来</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-3.png?w=700" alt="img"></p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-4.png?w=700" alt="img"></p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-5.png?w=700" alt="img"></p>
+<p>第二种方法</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-6.png?w=700" alt="img"></p>
+<p>可以看出选择合适的解法的重要性</p>
+<h1 id="N-–-DZY-Loves-Math-VI"><a href="#N-–-DZY-Loves-Math-VI" class="headerlink" title="N – DZY Loves Math VI"></a>N – DZY Loves Math VI</h1><p>还是套路，先设出gcd，然后反演，最后换T</p>
+<p>精雕细琢即可</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/03/08/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94%E4%B8%8E%E6%9D%9C%E6%95%99%E7%AD%9B%E4%B8%93%E9%A2%98/" title="莫比乌斯反演与杜教筛专题">http://yoursite.com/2019/03/08/莫比乌斯反演与杜教筛专题/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" rel="tag"># 莫比乌斯反演</a>
+              <a href="/tags/%E6%9D%9C%E6%95%99%E7%AD%9B/" rel="tag"># 杜教筛</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/08/%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E5%AD%A6%E9%A2%98/" rel="prev" title="简单的数学题">
+      <i class="fa fa-chevron-left"></i> 简单的数学题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/08/%E7%BD%AE%E6%8D%A2%E4%B8%93%E9%A2%98/" rel="next" title="置换专题">
+      置换专题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-–-GCD"><span class="nav-number">1.</span> <span class="nav-text">A – GCD</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-–-CA-Loves-GCD"><span class="nav-number">2.</span> <span class="nav-text">B – CA Loves GCD</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-–-Hillan-and-the-girl"><span class="nav-number">3.</span> <span class="nav-text">C – Hillan and the girl</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D-–-Trick-GCD"><span class="nav-number">4.</span> <span class="nav-text">D – Trick GCD</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-F-G-–-GCD-Extreme-x"><span class="nav-number">5.</span> <span class="nav-text">E,F,G – GCD Extreme(x)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#H-–-Zap"><span class="nav-number">6.</span> <span class="nav-text">H – Zap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I-–-数表"><span class="nav-number">7.</span> <span class="nav-text">I – 数表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#J-–-Crash的数字表格"><span class="nav-number">8.</span> <span class="nav-text">J – Crash的数字表格</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-–-DZY-Loves-Math"><span class="nav-number">9.</span> <span class="nav-text">K – DZY Loves Math</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#L-–-Sum"><span class="nav-number">10.</span> <span class="nav-text">L – Sum</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#M-–-能量采集"><span class="nav-number">11.</span> <span class="nav-text">M – 能量采集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#N-–-DZY-Loves-Math-VI"><span class="nav-number">12.</span> <span class="nav-text">N – DZY Loves Math VI</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="题目链接 先考虑哪些二进制在重新排列之后可以是3的倍数 我们分3种情况讨论：  0 ：模3的余数是0 10 ：就是1出现在下标为偶数的地方，模3余2 01 ：1出现在下标为奇数的地方，模3余1  那么，我们就可以用这三种余数来进行组合 考虑以下情况：  有偶数个1 ：显然，通过情况2与3组合可以成为3的倍数 有奇数个1 ：注意到3个情况2或者情况3的叠加仍然可以成为3的倍数，而这样至少需要2个0和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BJOI2018 二进制">
+<meta property="og:url" content="http://yoursite.com/2019/04/07/BJOI2018-%E4%BA%8C%E8%BF%9B%E5%88%B6/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="题目链接 先考虑哪些二进制在重新排列之后可以是3的倍数 我们分3种情况讨论：  0 ：模3的余数是0 10 ：就是1出现在下标为偶数的地方，模3余2 01 ：1出现在下标为奇数的地方，模3余1  那么，我们就可以用这三种余数来进行组合 考虑以下情况：  有偶数个1 ：显然，通过情况2与3组合可以成为3的倍数 有奇数个1 ：注意到3个情况2或者情况3的叠加仍然可以成为3的倍数，而这样至少需要2个0和">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-04-07T03:50:09.000Z">
+<meta property="article:modified_time" content="2020-04-23T01:21:57.356Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="线段树">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/04/07/BJOI2018-%E4%BA%8C%E8%BF%9B%E5%88%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>BJOI2018 二进制 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/07/BJOI2018-%E4%BA%8C%E8%BF%9B%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          BJOI2018 二进制
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-07 11:50:09" itemprop="dateCreated datePublished" datetime="2019-04-07T11:50:09+08:00">2019-04-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:21:57" itemprop="dateModified" datetime="2020-04-23T09:21:57+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="https://www.luogu.org/problemnew/show/P4428" target="_blank" rel="noopener">题目链接</a></p>
+<p>先考虑哪些二进制在重新排列之后可以是3的倍数</p>
+<p>我们分3种情况讨论：</p>
+<ol>
+<li>0 ：模3的余数是0</li>
+<li>10 ：就是1出现在下标为偶数的地方，模3余2</li>
+<li>01 ：1出现在下标为奇数的地方，模3余1</li>
+</ol>
+<p>那么，我们就可以用这三种余数来进行组合</p>
+<p>考虑以下情况：</p>
+<ol>
+<li>有偶数个1 ：显然，通过情况2与3组合可以成为3的倍数</li>
+<li>有奇数个1 ：注意到3个情况2或者情况3的叠加仍然可以成为3的倍数，而这样至少需要2个0和3个1（10101）</li>
+</ol>
+<p>那么综合上面两种情况，我们可以得出结论，一段区间为不合法的区间当且仅当：</p>
+<ol>
+<li>区间内只有1个1</li>
+<li>区间中有奇数个1且没有0</li>
+<li>区间中有奇数个1且有1个0</li>
+</ol>
+<p>这道题是带修改的，所以需要将<code>dp</code>放到线段树上统计</p>
+<p>那么我们考虑一段区间应该维护什么</p>
+<p>首先将第一种情况分开，先不管</p>
+<p>那么对于一段区间，我们可以用<code>dp[i][j(0/1)][k(0/1)]</code>表示</p>
+<p>即状态为$i$，1的个数是奇数还是偶数，出现了0个0还是1个0的区间总数</p>
+<p>线段树<code>pushup</code>的时候子区间也是可以跨<code>mid</code>合并的</p>
+<p>具体来说，就是一个左子树的以<code>mid</code>为右端点的区间和一个右子树的以<code>mid + 1</code>为左端点的区间合并</p>
+<p>所以，对于状态i，我们这样设计</p>
+<p><code>i = 0</code> 表示不取左端点和右端点</p>
+<p><code>i = 1</code> 表示必须取左端点，不能取右端点</p>
+<p><code>i = 2</code> 表示必须取右端点，不能取左端点</p>
+<p><code>i = 3</code> 表示必须左右端点都取</p>
+<p>合并的时候枚举一下有几个0以及1的奇偶性就可以了</p>
+<p>我们另外开一个数组，单独统计情况1，也就是只有1个1的区间的数量</p>
+<p>转移与上面的类似</p>
+<p><code>g[i][j(0/1)]</code>表示状态为$i$，出没出现1的区间的总数</p>
+<p>但是统计的时候不能直接将两个加起来</p>
+<p>注意到这两个统计是有重复的，当我们进行第一次统计时也顺便统计了区间内有1个1，只有0/1个0的数量，需要去重</p>
+<p>对于有1个1，0个0的区间数量，显然也就是区间内1的数量</p>
+<p>对于有1个1，1个0的区间数量，我们用一个树状数组维护，在这个01区间的第一位维护即可</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 100010</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Data</span> &#123;</span></span><br><span class="line">    LL f[<span class="number">4</span>][<span class="number">2</span>][<span class="number">2</span>], g[<span class="number">4</span>][<span class="number">2</span>];</span><br><span class="line">    Data() &#123;<span class="built_in">memset</span>(f, <span class="number">0</span>, <span class="keyword">sizeof</span>(f)), <span class="built_in">memset</span>(g, <span class="number">0</span>, <span class="keyword">sizeof</span>(g));&#125;</span><br><span class="line">&#125; T[N &lt;&lt; <span class="number">2</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> Data <span class="title">UN</span><span class="params">(Data a, Data b)</span> </span>&#123;</span><br><span class="line">    Data c;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= <span class="number">1</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>;j &lt;= <span class="number">1</span>;j++) &#123;</span><br><span class="line">            c.f[<span class="number">0</span>][i][j] += a.f[<span class="number">0</span>][i][j] + b.f[<span class="number">0</span>][i][j] + a.f[<span class="number">2</span>][i][j] + b.f[<span class="number">1</span>][i][j];</span><br><span class="line">            c.f[<span class="number">1</span>][i][j] += a.f[<span class="number">1</span>][i][j] + a.f[<span class="number">3</span>][i][j], c.f[<span class="number">2</span>][i][j] += b.f[<span class="number">2</span>][i][j] + b.f[<span class="number">3</span>][i][j];</span><br><span class="line">        &#125;</span><br><span class="line">        c.g[<span class="number">0</span>][i] += a.g[<span class="number">0</span>][i] + b.g[<span class="number">0</span>][i] + a.g[<span class="number">2</span>][i] + b.g[<span class="number">1</span>][i];</span><br><span class="line">        c.g[<span class="number">1</span>][i] += a.g[<span class="number">1</span>][i] + a.g[<span class="number">3</span>][i], c.g[<span class="number">2</span>][i] += b.g[<span class="number">2</span>][i] + b.g[<span class="number">3</span>][i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= <span class="number">1</span>;i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>;j &lt;= <span class="number">1</span>;j++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i + j &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">                c.g[<span class="number">0</span>][i + j] += a.g[<span class="number">2</span>][i] * b.g[<span class="number">1</span>][j], c.g[<span class="number">1</span>][i + j] += a.g[<span class="number">3</span>][i] * b.g[<span class="number">1</span>][j];</span><br><span class="line">                c.g[<span class="number">2</span>][i + j] += a.g[<span class="number">2</span>][i] * b.g[<span class="number">3</span>][j], c.g[<span class="number">3</span>][i + j] += a.g[<span class="number">3</span>][i] * b.g[<span class="number">3</span>][j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>;k &lt;= <span class="number">1</span>;k++)</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">0</span>;k + l &lt;= <span class="number">1</span>;l++) &#123;</span><br><span class="line">                    <span class="keyword">int</span> ti = (i + j) &amp; <span class="number">1</span>, tj = k + l;</span><br><span class="line">                    c.f[<span class="number">0</span>][ti][tj] += a.f[<span class="number">2</span>][i][k] * b.f[<span class="number">1</span>][j][l], c.f[<span class="number">1</span>][ti][tj] += a.f[<span class="number">3</span>][i][k] * b.f[<span class="number">1</span>][j][l];</span><br><span class="line">                    c.f[<span class="number">2</span>][ti][tj] += a.f[<span class="number">2</span>][i][k] * b.f[<span class="number">3</span>][j][l], c.f[<span class="number">3</span>][ti][tj] += a.f[<span class="number">3</span>][i][k] * b.f[<span class="number">3</span>][j][l];</span><br><span class="line">                &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> val[N];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> rt, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l == r) <span class="keyword">return</span> <span class="keyword">void</span>(T[rt].f[<span class="number">3</span>][val[l]][val[l] ^ <span class="number">1</span>] = T[rt].g[<span class="number">3</span>][val[l]] = <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>; build(rt &lt;&lt; <span class="number">1</span>, l, mid), build(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, mid + <span class="number">1</span>, r);</span><br><span class="line">    T[rt] = UN(T[rt &lt;&lt; <span class="number">1</span>], T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> rt, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> at)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (l == r) &#123;</span><br><span class="line">        val[l] ^= <span class="number">1</span>, T[rt] = Data();</span><br><span class="line">        T[rt].f[<span class="number">3</span>][val[l]][val[l] ^ <span class="number">1</span>] = T[rt].g[<span class="number">3</span>][val[l]] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (at &lt;= mid) update(rt &lt;&lt; <span class="number">1</span>, l, mid, at); <span class="keyword">else</span> update(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, mid + <span class="number">1</span>, r, at);</span><br><span class="line">    T[rt] = UN(T[rt &lt;&lt; <span class="number">1</span>], T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">Data <span class="title">query</span><span class="params">(<span class="keyword">int</span> rt, <span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (start &lt;= l &amp;&amp; r &lt;= end) <span class="keyword">return</span> T[rt];</span><br><span class="line">    <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (end &lt;= mid) <span class="keyword">return</span> query(rt &lt;&lt; <span class="number">1</span>, l, mid, start, end);</span><br><span class="line">    <span class="keyword">if</span> (start &gt; mid) <span class="keyword">return</span> query(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, mid + <span class="number">1</span>, r, start, end);</span><br><span class="line">    <span class="keyword">return</span> UN(query(rt &lt;&lt; <span class="number">1</span>, l, mid, start, mid), query(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, mid + <span class="number">1</span>, r, mid + <span class="number">1</span>, end));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> tree[<span class="number">2</span>][N], n;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> id, <span class="keyword">int</span> at, <span class="keyword">int</span> x)</span> </span>&#123;<span class="keyword">for</span> (;at &lt;= n;at += at &amp; -at) tree[id][at] += x;&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> id, <span class="keyword">int</span> at)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (;at;at -= at &amp; -at) res += tree[id][at];</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;val[i]), update(<span class="number">0</span>, i, val[i]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; n;i++) <span class="keyword">if</span> (val[i] != val[i + <span class="number">1</span>]) update(<span class="number">1</span>, i, <span class="number">1</span>);</span><br><span class="line">    build(<span class="number">1</span>, <span class="number">1</span>, n); <span class="keyword">int</span> q; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;q);</span><br><span class="line">    <span class="keyword">while</span> (q--) &#123;</span><br><span class="line">        <span class="keyword">int</span> a, b, c; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">        <span class="keyword">if</span> (a == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (b != n) update(<span class="number">1</span>, b, <span class="number">-2</span> * (val[b] != val[b + <span class="number">1</span>]) + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (b != <span class="number">1</span>) update(<span class="number">1</span>, b - <span class="number">1</span>, <span class="number">-2</span> * (val[b - <span class="number">1</span>] != val[b]) + <span class="number">1</span>);</span><br><span class="line">            update(<span class="number">0</span>, b, <span class="number">-2</span> * val[b] + <span class="number">1</span>), update(<span class="number">1</span>, <span class="number">1</span>, n, b);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;c); Data tmp = query(<span class="number">1</span>, <span class="number">1</span>, n, b, c); LL res = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= <span class="number">3</span>;i++) res += tmp.f[i][<span class="number">1</span>][<span class="number">0</span>] + tmp.f[i][<span class="number">1</span>][<span class="number">1</span>] + tmp.g[i][<span class="number">1</span>];</span><br><span class="line">            res -= query(<span class="number">0</span>, c) - query(<span class="number">0</span>, b - <span class="number">1</span>) + query(<span class="number">1</span>, c - <span class="number">1</span>) - query(<span class="number">1</span>, b - <span class="number">1</span>);</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, (LL)(c - b + <span class="number">1</span>) * (c - b + <span class="number">2</span>) / <span class="number">2</span> - res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/04/07/BJOI2018-%E4%BA%8C%E8%BF%9B%E5%88%B6/" title="BJOI2018 二进制">http://yoursite.com/2019/04/07/BJOI2018-二进制/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag"># 线段树</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/07/FFT%E4%B8%8ENTT%E4%B8%93%E9%A2%98/" rel="prev" title="FFT与NTT专题">
+      <i class="fa fa-chevron-left"></i> FFT与NTT专题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/07/BJOI2018-%E5%8F%8C%E4%BA%BA%E7%8C%9C%E6%95%B0%E6%B8%B8%E6%88%8F/" rel="next" title="BJOI2018 双人猜数游戏">
+      BJOI2018 双人猜数游戏 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

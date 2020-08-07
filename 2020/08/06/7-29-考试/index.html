@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="T1 Stars">
+<meta property="og:type" content="article">
+<meta property="og:title" content="7.29 考试">
+<meta property="og:url" content="http://yoursite.com/2020/08/06/7-29-%E8%80%83%E8%AF%95/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="T1 Stars">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/08/06/7-29-%E8%80%83%E8%AF%95/image-20200806205659331.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/06/7-29-%E8%80%83%E8%AF%95/image-20200806205707539.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/06/7-29-%E8%80%83%E8%AF%95/image-20200806210901238.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/06/7-29-%E8%80%83%E8%AF%95/image-20200806210909255.png">
+<meta property="og:image" content="http://yoursite.com/2020/08/06/7-29-%E8%80%83%E8%AF%95/image-20200806212023148.png">
+<meta property="article:published_time" content="2020-08-06T12:55:51.000Z">
+<meta property="article:modified_time" content="2020-08-07T12:26:40.329Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="哈希">
+<meta property="article:tag" content="分治">
+<meta property="article:tag" content="提交答案">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/08/06/7-29-%E8%80%83%E8%AF%95/image-20200806205659331.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/06/7-29-%E8%80%83%E8%AF%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>7.29 考试 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/06/7-29-%E8%80%83%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7.29 考试
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 20:55:51" itemprop="dateCreated datePublished" datetime="2020-08-06T20:55:51+08:00">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-07 20:26:40" itemprop="dateModified" datetime="2020-08-07T20:26:40+08:00">2020-08-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">考试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="T1-Stars"><a href="#T1-Stars" class="headerlink" title="T1 Stars"></a>T1 Stars</h1><p><img src="image-20200806205659331.png" alt="image-20200806205659331"></p>
+<p><img src="image-20200806205707539.png" alt="image-20200806205707539"></p>
+<a id="more"></a>
+<p>先考虑对于对于一个给定的区间，如何求出它是否是奇妙的。</p>
+<p>如果我们从左往右地遍历这个区间，同时维护$P$的坐标，一开始$P$的每一维都是空的。当我们遇到一个点时，如果这个点已经有一维坐标与$P$相同了，那么我们就跳过这个点。否则，我们必须从这个点的$K$维坐标中，选出一维填入$P$中。</p>
+<p>我们可以$K!$地枚举这$K$维被填入$P$的顺序，每次填的时候填上对应的那一维即可。</p>
+<p>我们无法快速地找到下一个需要填的位置，考虑分治，即考虑右区间对左区间的贡献。对于一个跨过中点的区间，我们考虑这样一种判断其是否合法的方式：类似与上面从左往右遍历的过程，这里我们先从中点开始遍历，遍历到左端点后再接着从中点之后开始遍历。</p>
+<p>先$K!$枚举顺序，接着左区间根据$P$有几维被确定了可以被分为$K$段，显然每一段的最靠右的右端点是相同的。我们拿出这$K$段，每一段都放到右半边的区间暴力跑出最靠右的右端点即可。</p>
+<p>时间复杂度$O(k^2\times k!n\log n)$</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> p[<span class="number">5</span>][N], pos[N], k, nw[<span class="number">5</span>], id[<span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">process</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r, <span class="keyword">int</span> ct)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">int</span> tp[<span class="number">5</span>]; <span class="built_in">memcpy</span>(tp, nw, <span class="keyword">sizeof</span>(nw));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = l; i &lt;= r; i++) &#123;</span><br><span class="line">        <span class="keyword">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; k; j++) <span class="keyword">if</span> (p[j][i] == tp[j]) &#123;</span><br><span class="line">            flag = <span class="literal">true</span>; <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">            <span class="keyword">if</span> (ct &gt;= k) <span class="keyword">return</span> i - <span class="number">1</span>;</span><br><span class="line">            tp[id[ct]] = p[id[ct]][i], ct++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (pos[l] &gt;= r) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (r - l + <span class="number">1</span> &lt;= k) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = l; i &lt;= r; i++) pos[i] = max(pos[i], r);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; k; i++) id[i] = i;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="built_in">memset</span>(nw, <span class="number">-1</span>, <span class="keyword">sizeof</span>(nw)); <span class="keyword">int</span> ct = <span class="number">0</span>, ls = mid; <span class="keyword">bool</span> fg = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = mid, ls = mid; i &gt;= l; i--) &#123;</span><br><span class="line">            <span class="keyword">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; k; j++) <span class="keyword">if</span> (p[j][i] == nw[j]) &#123;</span><br><span class="line">                flag = <span class="literal">true</span>; <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!flag) &#123;</span><br><span class="line">                <span class="keyword">int</span> wkr = process(mid + <span class="number">1</span>, r, ct);</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt;= ls; j++) pos[j] = max(pos[j], wkr);</span><br><span class="line">                <span class="keyword">if</span> (ct &gt;= k) &#123; fg = <span class="literal">true</span>; <span class="keyword">break</span>; &#125;</span><br><span class="line">                nw[id[ct]] = p[id[ct]][i], ct++, ls = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!fg) &#123;</span><br><span class="line">            <span class="keyword">int</span> wkr = process(mid + <span class="number">1</span>, r, ct);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = l; i &lt;= ls; i++) pos[i] = max(pos[i], wkr);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">while</span> (next_permutation(id, id + k));</span><br><span class="line">    solve(l, mid), solve(mid + <span class="number">1</span>, r);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// freopen("ex_stars1.in", "r", stdin);</span></span><br><span class="line">    <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;k);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; k; j++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;p[j][i]);</span><br><span class="line">    solve(<span class="number">1</span>, n); LL res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) </span><br><span class="line">        res += (LL)(pos[i] - i + <span class="number">2</span>) * (pos[i] - i + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T2-Decode"><a href="#T2-Decode" class="headerlink" title="T2 Decode"></a>T2 Decode</h1><p><img src="image-20200806210901238.png" alt="image-20200806210901238"></p>
+<p><img src="image-20200806210909255.png" alt="image-20200806210909255"></p>
+<p>对于一个给定的区间，我们可以随机找出一些模数，求出这个区间代表的数模过这些模数之后的值。如果模出来的每个数都是对应模数的二次剩余，那么这个区间有极大概率是完全平方数。</p>
+<p>显然，如果$[i,j]$是最终答案，那么$j+1,j+2$这两个位置都不能是$0$，否则$[i,j+2]$也是完全平方串，并且比$[i,j]$长。</p>
+<p>首先我们判掉那些长度不超过$10$的区间，接着我们求出有哪些位置满足可能存在以此位置结尾，并且长度大于$10$的完全平方串，条件就是以这个位置结尾、长度为$10$的二进制串是模$1024$下的二次剩余。</p>
+<p>将这些结尾拎出来，从小到大排好序，对于每个为$1$的位置，对于每个模数我们求出有哪些结尾满足这个位置到结尾的串是模这个模数的二次剩余，用<code>bitset</code>存下来，那么最终我们求出若干个<code>bitset</code>的交就可以得到一个起点开始的所有可能的合法结尾。</p>
+<p>这里推荐的实现方法是，筛出除$2$以外的前$39$个质数，然后我们三个三个地配对：第一个、第$14$个、第$27$个配成一对，剩下的以此类推，使用$13$个模数来检查一个区间是否合法，即每一对质数的乘积构成一个模数。</p>
+<p>对于一个区间$[l,r]$，考虑从右往左<code>hash</code>，此时这个区间的权值为$\frac{h_l-h_{r+1}}{2^{n-r}}$。如果$n-r$是偶数，这个区间是二次剩余等价于$h_l-h_{r+1}$是二次剩余；否则等价于$h_l-h_{r+1}$是某个二次剩余的两倍。</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">500010</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> LIM = <span class="number">13</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> TAIL = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> LL = <span class="keyword">long</span> <span class="keyword">long</span>;</span><br><span class="line"><span class="keyword">using</span> uLL = <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; pri, mod, r;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; pri.size() &lt; LIM * <span class="number">3</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">bool</span> flag = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; j * j &lt;= i &amp;&amp; flag; j++)</span><br><span class="line">            <span class="keyword">if</span> (!(i % j)) flag = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (flag) pri.push_back(i);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">AiAe</span> &#123;</span></span><br><span class="line"></span><br><span class="line">uLL v[(N &gt;&gt; <span class="number">6</span>) + <span class="number">10</span>];</span><br><span class="line"></span><br><span class="line">AiAe() &#123; <span class="built_in">memset</span>(v, <span class="number">0</span>, <span class="keyword">sizeof</span>(v)); &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; v[x &gt;&gt; <span class="number">6</span>] |= <span class="number">1u</span>ll &lt;&lt; (x &amp; <span class="number">63</span>); &#125;</span><br><span class="line"></span><br><span class="line">uLL&amp; <span class="keyword">operator</span> [] (<span class="keyword">int</span> x) &#123; <span class="keyword">return</span> v[x]; &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tester</span> &#123;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> mod;</span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; t0, t1;</span><br><span class="line"><span class="built_in">vector</span>&lt;AiAe&gt; ok;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">bool</span> t = <span class="literal">false</span>)</span> </span>&#123;</span><br><span class="line">    mod = x, t0.resize(mod), t1.resize(mod);</span><br><span class="line">    <span class="keyword">if</span> (t) ok.resize(mod);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mod; i++)</span><br><span class="line">        t0[(LL)i * i % mod] = <span class="number">1</span>, t1[(LL)i * i * <span class="number">2</span> % mod] = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">chk1</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">return</span> t0[x]; &#125;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">chk2</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123; <span class="keyword">return</span> t1[x]; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">WelcomeToOSU</span><span class="params">(<span class="keyword">int</span> h[])</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; zenith;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mod; i++) <span class="keyword">if</span> (t0[i]) zenith.push_back(i);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; r.size(); i++) <span class="keyword">for</span> (<span class="keyword">auto</span> v : zenith) </span><br><span class="line">        ok[(v * (<span class="number">1</span> + ((n - r[i]) &amp; <span class="number">1</span>)) + h[r[i] + <span class="number">1</span>]) % mod].<span class="built_in">set</span>(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125; wkr[LIM + <span class="number">1</span>], hh[LIM + <span class="number">1</span>], base;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> s[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pre</span><span class="params">(<span class="keyword">int</span> h[], <span class="keyword">int</span> mod)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n, w = <span class="number">1</span>; i &gt;= <span class="number">1</span>; i--) </span><br><span class="line">        h[i] = (h[i + <span class="number">1</span>] + w * (s[i] &amp; <span class="number">1</span>)) % mod, w = w * <span class="number">2</span> % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> hsh[LIM + <span class="number">1</span>][N], h2[LIM + <span class="number">1</span>][N], res;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= LIM; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> mod = ::mod[i - <span class="number">1</span>], w = (hsh[i][l] - hsh[i][r + <span class="number">1</span>] + mod) % mod;</span><br><span class="line">        <span class="keyword">if</span> ((n - r) &amp; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!wkr[i].chk2(w)) <span class="keyword">return</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (!wkr[i].chk1(w)) <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    res = max(res, r - l + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">//    freopen("ex_decode2.in", "r", stdin);</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%s"</span>, &amp;n, s + <span class="number">1</span>), sieve();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; LIM; i++) mod.push_back(pri[i] * pri[i + LIM] * pri[i + LIM * <span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= LIM; i++) </span><br><span class="line">        wkr[i].init(mod[i - <span class="number">1</span>]), pre(hsh[i], mod[i - <span class="number">1</span>]);</span><br><span class="line">    base.init(<span class="number">1</span> &lt;&lt; TAIL);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = TAIL; i &lt;= n; i++) <span class="keyword">if</span> (s[i + <span class="number">1</span>] != <span class="string">'0'</span> || s[i + <span class="number">2</span>] != <span class="string">'0'</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> w = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i - TAIL + <span class="number">1</span>; j &lt;= i; j++)</span><br><span class="line">            w = w * <span class="number">2</span> + (s[j] == <span class="string">'1'</span>);</span><br><span class="line">        <span class="keyword">if</span> (base.chk1(w)) r.push_back(i);</span><br><span class="line">    &#125;</span><br><span class="line">    reverse(r.begin(), r.end()); <span class="keyword">int</span> all = r.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= LIM; i++) &#123;</span><br><span class="line">        hh[i].init(pri[i - <span class="number">1</span>], <span class="literal">true</span>);</span><br><span class="line">        pre(h2[i], pri[i - <span class="number">1</span>]);</span><br><span class="line">        hh[i].WelcomeToOSU(h2[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="keyword">if</span> (s[i] == <span class="string">'1'</span>)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + res; j &lt; i + TAIL &amp;&amp; j &lt;= n; j++) judge(i, j);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="keyword">if</span> (s[i] == <span class="string">'1'</span>) &#123;</span><br><span class="line">        <span class="keyword">while</span> (r.size() &amp;&amp; r.back() &lt; i + TAIL - <span class="number">1</span>) r.pop_back();</span><br><span class="line">        <span class="keyword">if</span> (!r.size()) <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">int</span> top = (r.size() &gt;&gt; <span class="number">6</span>) + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= top; j++) &#123;</span><br><span class="line">            uLL tmp = hh[<span class="number">1</span>].ok[h2[<span class="number">1</span>][i]][j];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">2</span>; k &lt;= LIM &amp;&amp; tmp; k++) tmp &amp;= hh[k].ok[h2[k][i]][j];</span><br><span class="line">            <span class="keyword">for</span> (; tmp; tmp -= tmp &amp; (-tmp)) &#123;</span><br><span class="line">                <span class="keyword">int</span> id = (j &lt;&lt; <span class="number">6</span>) + __builtin_ctzll(tmp);</span><br><span class="line">                <span class="keyword">if</span> (id &gt; r.size()) <span class="keyword">break</span>;</span><br><span class="line">                judge(i, r[id]); </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T3-03colors"><a href="#T3-03colors" class="headerlink" title="T3 03colors"></a>T3 03colors</h1><p><img src="image-20200806212023148.png" alt="image-20200806212023148"></p>
+<p>首先我们给每个点随机一个颜色，比如全部设成$0$，接着定义一种状态的代价为同色边的数量，我们的目的是要让同色边的数量减少到$0$。</p>
+<p>然后。。。开始模拟退火</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">100010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> col[N]; <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; G[N];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> fin = <span class="number">1e-14</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">upd</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ct = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> v : G[u]) <span class="keyword">if</span> (col[u] == col[v]) ct--;</span><br><span class="line">    col[u] = c;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> v : G[u]) <span class="keyword">if</span> (col[u] == col[v]) ct++;</span><br><span class="line">    <span class="keyword">return</span> ct;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">//    freopen("03colors7.in", "r", stdin); freopen("03colors7.out", "w", stdout);</span></span><br><span class="line">    <span class="keyword">int</span> n, m, ct = <span class="number">0</span>; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m), srand(clock() + (<span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span>)(<span class="keyword">new</span> <span class="keyword">char</span>));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> u, v; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;u, &amp;v), col[i] = <span class="number">1</span>, ct++;</span><br><span class="line">        G[u].push_back(v), G[v].push_back(u);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">double</span> T = <span class="number">1</span>, step = <span class="number">0.999999</span>;</span><br><span class="line">    <span class="keyword">while</span> (T &gt; fin) &#123;</span><br><span class="line">        T *= step;</span><br><span class="line">        <span class="keyword">int</span> u = rand() % n + <span class="number">1</span>, tmp = col[u], nw = rand() % <span class="number">3</span> + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (tmp == nw) nw = rand() % <span class="number">3</span> + <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> wkr = ct + upd(u, nw);</span><br><span class="line">        <span class="keyword">if</span> (wkr &lt;= ct) ct = wkr;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">exp</span>((ct - wkr) / T) &gt; <span class="built_in">fabs</span>((<span class="keyword">double</span>)(rand() % <span class="number">1000</span>) / <span class="number">1000.</span>)) ct = wkr;</span><br><span class="line">        <span class="keyword">else</span> col[u] = tmp;</span><br><span class="line">        <span class="keyword">if</span> (!ct) <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    assert(!ct);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">printf</span>(<span class="string">"%d "</span>, col[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/08/06/7-29-%E8%80%83%E8%AF%95/" title="7.29 考试">http://yoursite.com/2020/08/06/7-29-考试/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%93%88%E5%B8%8C/" rel="tag"># 哈希</a>
+              <a href="/tags/%E5%88%86%E6%B2%BB/" rel="tag"># 分治</a>
+              <a href="/tags/%E6%8F%90%E4%BA%A4%E7%AD%94%E6%A1%88/" rel="tag"># 提交答案</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/06/7-28-%E8%80%83%E8%AF%95/" rel="prev" title="7.28 考试">
+      <i class="fa fa-chevron-left"></i> 7.28 考试
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/07/7-30-%E8%80%83%E8%AF%95/" rel="next" title="7.30 考试">
+      7.30 考试 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#T1-Stars"><span class="nav-number">1.</span> <span class="nav-text">T1 Stars</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T2-Decode"><span class="nav-number">2.</span> <span class="nav-text">T2 Decode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T3-03colors"><span class="nav-number">3.</span> <span class="nav-text">T3 03colors</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

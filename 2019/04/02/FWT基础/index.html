@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="FWT有啥用啊我们知道，FFT可以解决多项式的卷积，即  C_k&#x3D;\sum_{i+j&#x3D;k}A_i\*B_j如果将操作符换一下，换成集合运算符 比如  C_k&#x3D;\sum_{i|j&#x3D;k}A_i\*B_j\\\ C_k&#x3D;\sum_{i\&amp;j&#x3D;k}A_i\*B_j\\\ C_k&#x3D;\sum_{i\oplus j&#x3D;k}A_i\*B_j这时就不能使用FFT了 但是FFT使我们产生了一种想法 我们能不能用一种类似">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FWT基础">
+<meta property="og:url" content="http://yoursite.com/2019/04/02/FWT%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="FWT有啥用啊我们知道，FFT可以解决多项式的卷积，即  C_k&#x3D;\sum_{i+j&#x3D;k}A_i\*B_j如果将操作符换一下，换成集合运算符 比如  C_k&#x3D;\sum_{i|j&#x3D;k}A_i\*B_j\\\ C_k&#x3D;\sum_{i\&amp;j&#x3D;k}A_i\*B_j\\\ C_k&#x3D;\sum_{i\oplus j&#x3D;k}A_i\*B_j这时就不能使用FFT了 但是FFT使我们产生了一种想法 我们能不能用一种类似">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-04-02T13:10:02.000Z">
+<meta property="article:modified_time" content="2020-04-23T01:16:26.937Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="FWT">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/04/02/FWT%E5%9F%BA%E7%A1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>FWT基础 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/02/FWT%E5%9F%BA%E7%A1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          FWT基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-02 21:10:02" itemprop="dateCreated datePublished" datetime="2019-04-02T21:10:02+08:00">2019-04-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:16:26" itemprop="dateModified" datetime="2020-04-23T09:16:26+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="FWT有啥用啊"><a href="#FWT有啥用啊" class="headerlink" title="FWT有啥用啊"></a>FWT有啥用啊</h1><p>我们知道，<code>FFT</code>可以解决多项式的卷积，即</p>
+<script type="math/tex; mode=display">
+C_k=\sum_{i+j=k}A_i\*B_j</script><p>如果将操作符换一下，换成集合运算符</p>
+<p>比如</p>
+<script type="math/tex; mode=display">
+C_k=\sum_{i|j=k}A_i\*B_j\\\
+C_k=\sum_{i\&j=k}A_i\*B_j\\\
+C_k=\sum_{i\oplus j=k}A_i\*B_j</script><p>这时就不能使用<code>FFT</code>了</p>
+<p>但是<code>FFT</code>使我们产生了一种想法</p>
+<p>我们能不能用一种类似<code>FFT</code>的方法，用另一个多项式来表示$A,B$，然后再对应相乘，最后再变换回来呢</p>
+<p>答案是可以的，这就是<code>FWT</code>，即快速沃尔什变换</p>
+<h1 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h1><p>令$A,B$为两个向量，且维数为$n$，$n$是$2$的整数次幂</p>
+<p>定义记号</p>
+<ul>
+<li><p>$A\pm B=(A_0\pm B_0,A_1\pm B_1,A_2\pm B_2,\cdots,A_{n-1}\pm B_{n-1})$</p>
+</li>
+<li><p>$A\oplus B=(\sum\limits_{i\oplus j=0}A_i*B_j,\sum\limits_{i\oplus j=1}A_i*B_j,\sum\limits_{i\oplus j=3}A_i*B_j,\cdots,\sum\limits_{i\oplus j=n-1}A_i*B_j)​$</p>
+</li>
+</ul>
+<p>这里的$\oplus$代表集合运算</p>
+<h1 id="或卷积及其逆运算"><a href="#或卷积及其逆运算" class="headerlink" title="或卷积及其逆运算"></a>或卷积及其逆运算</h1><p>我们定义$FWT$变换，有</p>
+<script type="math/tex; mode=display">
+FWT(A)[i]=\sum_{j|i=i}A_j</script><blockquote>
+<p>性质1：$FWT(A\pm B)=FWT(A)\pm FWT(B)$</p>
+</blockquote>
+<p>根据此时$FWT​$变换的定义我们知道这是一个$A​$数组的线性组合，故加减法满足分配律</p>
+<p>我们断言，此时的$FWT$满足</p>
+<script type="math/tex; mode=display">
+FWT(A)=\begin{cases}(FWT(A_0),FWT(A_0)+FWT(A_1))& n>1\\\ A & n=0\end{cases}</script><p>$A_0,A_1$分别代表$A$数组的前半部分、后半部分</p>
+<p>证明如下：</p>
+<p>实际上此时$A_0,A_1$的下标只有最高位是不同的</p>
+<p>根据$FWT$的定义，合并之后左半部分的最高位仍然是0，右半部分的最高位仍然是1</p>
+<p>由于$FWT(A_1)$的最高位一定为1，而此时$j|i$的最高位不可能为0，所以右半部分对于合并之后是没有贡献的</p>
+<p>而对于右半边，如果左半边的数满足$j|i=i​$，那么在$i​$加上最高位1之和，这个式子仍然成立</p>
+<p>而此时右半边原来的$FWT$本来就对右半边的数有贡献</p>
+<p>所以这个式子成立</p>
+<blockquote>
+<p>性质2：$FWT(A|B)=FWT(A)*FWT(B)\ \ (对应相乘)$</p>
+</blockquote>
+<p>我们采用归纳法证明</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+FWT(A|B)&=FWT((A|B)_0,(A|B)_1)\\\
+&=FWT(A_0|B_0,A_1|B_0+A_0|B_1+A_1|B_1)\\\
+&=(FWT(A_0|B_0),FWT(A_0|B_0+A_1|B_0+A_0|B_1+A_1|B_1))\\\
+&=(FWT(A_0)\*FWT(B_0),FWT(A_0)\*FWT(B_0)+FWT(A_1)\*FWT(B_0)\\\
+&+FWT(A_0)\*FWT(B_1)+FWT(A_1)\*FWT(B_1))\\\
+&=(FWT(A_0)\*FWT(B_0),(FWT(A_0)+FWT(A_1)\*(FWT(B_0)+FWT(B_1))))\\\
+&=(FWT(A_0),FWT(A_0)+FWT(A_1))\*(FWT(B_0),FWT(B_0)+FWT(B_1))\\\
+&=FWT(A)\*FWT(B)
+\end{aligned}</script><p>定义$IFWT$变换为$FWT$变换的逆变换</p>
+<p>我们断言，$IFWT$满足</p>
+<script type="math/tex; mode=display">
+IFWT(A)=\begin{cases}(IFWT(A_0),IFWT(A_1)-IFWT(A_0))&n>1\\\ A&n=0\end{cases}</script><p>证明如下：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+IFWT(FWT(A))&=IFWT(FWT(A_0),FWT(A_0)+FWT(A_1))\\\
+&=(IFWT(FWT(A_0)),IFWT(FWT(A_1)))\\\
+&=(A_0,A_1)\\\
+&=A
+\end{aligned}</script><h1 id="与卷积及其逆运算"><a href="#与卷积及其逆运算" class="headerlink" title="与卷积及其逆运算"></a>与卷积及其逆运算</h1><p>定义$FWT$变换为</p>
+<script type="math/tex; mode=display">
+FWT(A)[i]=\sum_{i\&j=j}A_i</script><p>类似或卷积，我们可以得出此时$FWT$的递推式</p>
+<script type="math/tex; mode=display">
+FWT(A)=\begin{cases}(FWT(A_0)+FWT(A_1),FWT(A_1))&n>1\\\ A &n=0\end{cases}</script><p>证明很简单，$A$数组的右半部分与上一个首位为0的数，得到的结果一定在$A$的左半部分</p>
+<p>显然，它们仍然对自己所在的部分有贡献</p>
+<p>$FWT(A\&amp;B)=FWT(A)*FWT(B)$在此时成立</p>
+<p>证明如下：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+FWT(A\&B)&=FWT((A\&B)_0,(A\&B)_1)\\\
+&=FWT(A_0\&B_0+A_0\&B_1+A_1\&B_0,A_1\&B_1)\\\
+&=(FWT(A_0\&B_0+A_0\&B_1+A_1\&B_0+A_1\&B_1),FWT(A_1\&B_1))\\\
+&=((FWT(A_0)+FWT(A_1))\*(FWT(B_0)+FWT(B_1)),FWT(A_1)\*FWT(B_1))\\\
+&=(FWT(A_0)+FWT(A_1),FWT(A_1))\*(FWT(B_0)+FWT(B_1),FWT(B_1))\\\
+&=FWT(A)\*FWT(B)
+\end{aligned}</script><p>定义$IFWT$变换为</p>
+<script type="math/tex; mode=display">
+IFWT(A)=\begin{cases}(IFWT(A_0)-IFWT(A_1),IFWT(A_1))&n>1\\\ A&n=0\end{cases}</script><p>证明如下：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+IFWT(FWT(A))&=IFWT(FWT(A_0)+FWT(A_1),FWT(A_1))\\\
+&=(IFWT(FWT(A_0)),IFWT(FWT(A_1))\\\
+&=(A_0,A_1)\\\
+&=A
+\end{aligned}</script><h1 id="异或卷积及其逆运算"><a href="#异或卷积及其逆运算" class="headerlink" title="异或卷积及其逆运算"></a>异或卷积及其逆运算</h1><p>异或卷积的$FWT$稍微麻烦一点</p>
+<p>我们定义函数$d(x)$表示$x$<strong>在二进制下</strong>1的数量</p>
+<p>定义$FWT$变换为</p>
+<script type="math/tex; mode=display">
+FWT(A)[i]=\sum_{d(j\&i)\equiv0\mod 2}A_j-\sum_{d(k\&i)\equiv1\mod 2}A_k</script><p>那么此时，它的递推式为</p>
+<script type="math/tex; mode=display">
+FWT(A)=\begin{cases}(FWT(A_0)+FWT(A_1),FWT(A_0)-FWT(A_1))&n>0\\\ A&n=0\end{cases}</script><p>我们考虑这个式子是怎么来的</p>
+<p>先看这个式子左边的$FWT(A_0)+FWT(A_1)$</p>
+<p>$A_0$的下标没有变化，所以要加上$FWT(A_0)$，而现在$A_1$的下标的最高位变成了1，但是与上一个最高位为0的数之后是不变的</p>
+<p>所以这个式子是正确的</p>
+<p>我们看右边的$FWT(A_0)-FWT(A_1)$</p>
+<p>$A_0$的最高位不变，与上一个最高位为1的数之后结果仍然不变</p>
+<p>$A_1$的下标的最高位多了一个1，与上一个最高位为1的数之后奇偶性就变了，所以要取反</p>
+<p>所以这个也是成立的</p>
+<p>$FWT(A\oplus B)=FWT(A)*FWT(B)$在此时成立</p>
+<p>证明如下</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+FWT(A\oplus B)&=FWT((A\oplus B)_0,(A\oplus B)_1)\\\
+&=FWT(A_0\oplus B_0+A_1\oplus B_1,A_0\oplus B_1+A_1\oplus B_0)\\\
+&=(FWT(A_0\oplus B_0+A_1\oplus B_1+A_0\oplus B_1+A_1\oplus B_0),\\\
+&FWT(A_0\oplus B_0+A_1\oplus B_1-A_0\oplus B_1-A_1\oplus B_0))\\\
+&=((FWT(A_0)+FWT(A_1))\*(FWT(B_0)+FWT(B_1)),\\\
+&(FWT(A_0)-FWT(A_1))\*(FWT(B_0)-FWT(B_1)))\\\
+&=(FWT(A_0+A_1),FWT(A_0-A_1))\*(FWT(B_0+B_1),FWT(B_0-B_1))\\\
+&=FWT(A)\*FWT(B)
+\end{aligned}</script><p>定义$IFWT$为</p>
+<script type="math/tex; mode=display">
+IFWT(A)=\begin{cases}(\frac{IFWT(A_0+A_1)}{2},\frac{IFWT(A_0-A_1)}{2})&n>1\\\ A&n=0\end{cases}</script><p>证明如下：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+IFWT(FWT(A))&=IFWT(FWT(A_0)+FWT(A_1),FWT(A_0)-FWT(A_1))\\\
+&=(IFWT(FWT(A_0)),IFWT(FWT(A_1)))\\\
+&=(A_0,A_1)\\\
+&=A
+\end{aligned}</script>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/04/02/FWT%E5%9F%BA%E7%A1%80/" title="FWT基础">http://yoursite.com/2019/04/02/FWT基础/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/FWT/" rel="tag"># FWT</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/04/01/3-30%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/" rel="prev" title="3.30省选模拟">
+      <i class="fa fa-chevron-left"></i> 3.30省选模拟
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/03/4-1%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/" rel="next" title="4.1省选模拟">
+      4.1省选模拟 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FWT有啥用啊"><span class="nav-number">1.</span> <span class="nav-text">FWT有啥用啊</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些定义"><span class="nav-number">2.</span> <span class="nav-text">一些定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#或卷积及其逆运算"><span class="nav-number">3.</span> <span class="nav-text">或卷积及其逆运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#与卷积及其逆运算"><span class="nav-number">4.</span> <span class="nav-text">与卷积及其逆运算</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异或卷积及其逆运算"><span class="nav-number">5.</span> <span class="nav-text">异或卷积及其逆运算</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

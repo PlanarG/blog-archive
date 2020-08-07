@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="7.24数据结构">
+<meta property="og:url" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724190408590.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724192338509.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724194021159.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724194546350.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724194719934.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724200620552.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724201135444.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724202907552.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724203822470.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724204331714.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724205358986.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724205904875.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724210410253.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724211450210.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724211600654.png">
+<meta property="article:published_time" content="2020-07-24T11:01:44.000Z">
+<meta property="article:modified_time" content="2020-08-06T12:29:58.332Z">
+<meta property="article:author" content="PlanarG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/image-20200724190408590.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>7.24数据结构 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          7.24数据结构
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-24 19:01:44" itemprop="dateCreated datePublished" datetime="2020-07-24T19:01:44+08:00">2020-07-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-06 20:29:58" itemprop="dateModified" datetime="2020-08-06T20:29:58+08:00">2020-08-06</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <div class="pdfobject-container" data-target="wkr.pdf" data-height="500px"></div>
+<a id="more"></a>
+<h1 id="热身小练习"><a href="#热身小练习" class="headerlink" title="热身小练习"></a>热身小练习</h1><p><img src="image-20200724190408590.png" alt="image-20200724190408590"></p>
+<p>首先枚举$L$，根据平方串的套路，将序列每$L$个位置设置一个关键点，求出相邻两个关键点开始的最长公共前后缀，那么我们可以得到$n\log n$条形如$[l_1,r_1]$到$[l_2,r_2]$对应点有一条权值为$w_L$的边的信息。</p>
+<p>此时有两种做法。第一种是考虑用Kruskal求最小生成树，首先将所有信息按照边权从小到大排序，此时我们只需要求出此次合并会合并多少个连通块。接着类似萌萌哒的做法，维护$\log n$个并查集，第$i$层的第$j$个点代表$[j, j+2^i-1]$这整个区间的点。每次合并的时候如果当前合并的两个点已经连起来了，那么就<code>return</code>，否则递归向下合并。可以发现每次递归到最后一层并查集时必然会合并两个原来没有连通的并查集，而一共只有$n\log n$个点，因此复杂度为$O(n\log^2 n)$。</p>
+<p>第二种是温爷的做法，我们同样建出$\log$排点，但是此时我们并不用在线地求出此次连接了多少个连通块，而是将当前的边存入每一层中。也就是说，如果第$i$层第$a$个点与第$b$个点有连边，那么它等价于$[a,a+2^i-1]$到$[b,b+2^i-1]$的对应点均有连边。</p>
+<p>对于每一层我们将这一层的所有边拿出来跑一遍最小生成树，只留下那些在最小生成树上的边，接着下放到下一层并查集。如果$a$与$b$的连边得以保留，那么我们会在下一层添加两条边：$a,b$与$a+2^{i-1},b+2^{i-1}$。合并到最后一层时就是答案。</p>
+<h1 id="LOJ-2092-「ZJOI2016」大森林"><a href="#LOJ-2092-「ZJOI2016」大森林" class="headerlink" title="LOJ 2092 「ZJOI2016」大森林"></a>LOJ 2092 「ZJOI2016」大森林</h1><p><img src="image-20200724192338509.png" alt="image-20200724192338509"></p>
+<p>可以发现实际上第一种操作的$[l,r]$并没有什么用，我们完全可以将第二个操作的$[l,r]$与对应的一操作的区间求交，然后就可以将一操作当成每棵树的生长节点都会长一个叶子。接下来我们默认二操作的$l,r$是求交之后的$l,r$。</p>
+<p>接着，由于生长是往原来的节点上挂节点，因此所有的询问都可以放到二操作之后。</p>
+<p>将所有询问离线，将二操作的所有区间按照$r$从小到大排序，接着扫描线。</p>
+<p>可以发现的是，如果一段连续的区间中都只有一操作，考虑这些操作加入的点，显然无论之前的二操作怎么改，在某一棵树中，这些节点的父亲一定是相同的。也就是说，对于某一棵树，它们是从同一个生长节点长出来的。</p>
+<p>因此，我们可以将每一段连续的一操作加入的点看作一个单元，接着我们考虑这样一件事：一开始有一个二操作$[l,r]$，在这个二操作之前编号为$l$的树的生长节点为$x$，然后被改为了$y$。考虑$l$这棵树相对于$l-1$这棵树的变化：$l-1$没有受到这个二操作的影响，因此这个二操作之前的单元被挂在了$x$点下方。$l$受到了二操作的影响，因此这个单元的点被挂在了$y$点下方。因此，我们只需要将$x$点的这个单元$cut$掉，再$link$到$y$点下方即可。对于$r,r+1$这两棵树的变化类似，将这棵子树挂回去就行了。</p>
+<h1 id="BZOJ-2959-长跑"><a href="#BZOJ-2959-长跑" class="headerlink" title="BZOJ 2959 长跑"></a>BZOJ 2959 长跑</h1><p><img src="image-20200724194021159.png" alt="image-20200724194021159"></p>
+<p>通过观察可以发现，对于一个边双连通分量，从它内部的任意点出发一定可以遍历内部的所有点，最终停在任意的终点（注意每个点可以被经过多次），原理是边双连通分量一定可以通过给边定向得到一个强连通分量。</p>
+<p>因此我们只需要动态地将每个边双缩起来，这样会形成一个森林，缩起来之后的点为其代表的边双的所有点权之后，最后我们只需要查询路径和就好了。</p>
+<p>关于缩点的实现方式，可以整一个并查集，维护每个点现在变成了啥，然后$lct$中只要涉及$fa$就丢进并查集查一下。</p>
+<h1 id="一道例题"><a href="#一道例题" class="headerlink" title="一道例题"></a>一道例题</h1><p><img src="image-20200724194546350.png" alt="image-20200724194546350"></p>
+<p>结论：$w$的祖先为，将当前BST中的所有点按照权值从小到大排序之后，从$w$开始向左向右关于插入时间的单调栈。</p>
+<p>线段树维护单调栈。</p>
+<h1 id="LOJ-2472-「九省联考-2018」IIIDX"><a href="#LOJ-2472-「九省联考-2018」IIIDX" class="headerlink" title="LOJ 2472 「九省联考 2018」IIIDX"></a>LOJ 2472 「九省联考 2018」IIIDX</h1><p><img src="image-20200724194719934.png" alt="image-20200724194719934"></p>
+<p>序列可以看作是一棵树，我们希望第一层中的所有点、第二层中的所有点……它们构成序列的字典序尽量大。</p>
+<p>一种错误的贪心是将所有数从大到小排序之后给每个子树塞$sz$个，当存在相同的$d$时这样是错的。</p>
+<p>将所有数去重之后从小到大排序（注意也要记录下出现次数），我们关心的是每个数以及它右边权值不小于它的所有数中，还没有被用的数有多少个。只要这个没有被用的数$f_i$不小于$sz_u$，我们就能让$u$的权值等于$i$，接着在不小于$i$的数中选$sz_u$个塞入子树中。</p>
+<p>我们是一层一层考虑的，因此考虑到当前层的$u$时我们要帮它的子树中的点占好位置。如果我们确定了$u$最终的权值为$i$，那么线段树上$i$以及$i$左边所有比$i$小的数的$f$值都应当减去$sz_u$，表示它右边有$sz_u$个位置被占了，对于$i$右边的数则不需要修改它们的$f$。</p>
+<p>需要保证的是如果当前点的权值要取$i$，那么$i$以及小于$i$的所有点的$f$都不能小于$sz_u$。否则代表那个点右边的数被用完了，显然不合法。这同时也意味着$u$的子树一定存在一种方案使得能放下那些比$i$大的还没有被占过的数。</p>
+<p>另外，如果$u$的父亲$v$权值为$p$，我们应当在处理$v$的所有儿子时，给$1,\cdots, p$这些位置的$f$加上$sz_v-1$，否则父亲占的那$sz_v$个位置就白占了。</p>
+<p>我好像写得很不清楚。</p>
+<h1 id="另一道例题"><a href="#另一道例题" class="headerlink" title="另一道例题"></a>另一道例题</h1><p>在想上一道题，结果没听到……</p>
+<h1 id="又一道例题"><a href="#又一道例题" class="headerlink" title="又一道例题"></a>又一道例题</h1><p><img src="image-20200724200620552.png" alt="image-20200724200620552"></p>
+<p>很有意思的一道题。</p>
+<p>先差分一下，求出最小值小于等于$R$的答案减去最小值小于$L$的答案。问题转化为统计存在同色点对的距离小于$r$的染色方案的数量。再转化一下可以变成，任意距离不超过$r$的点都是不同色的。</p>
+<p>考虑这棵树的BFS序（注意不是DFS），现在我们加入一个点$u$。BFS有一个很优秀的性质：如果$u$到$x$的距离不超过$r$，$u$到$y$的距离也不超过$r$，那么$x,y$的距离同样不超过$r$。这里$x,y$都是当前已遍历到的点。</p>
+<p>这意味着当前考虑的所有与$u$距离不超过$r$的点，它们的颜色一定两两不同。如果这样的点有$k$个，那么$u$的染色方案就有$m-k$种。这个数量可以通过点分治简单统计。</p>
+<h1 id="HDU-6368-Variance-MST"><a href="#HDU-6368-Variance-MST" class="headerlink" title="HDU 6368 Variance-MST"></a>HDU 6368 Variance-MST</h1><p><img src="image-20200724201135444.png" alt="image-20200724201135444"></p>
+<p>我们要求的东西可以写成：找到一棵生成树$T$，同时找到一个实数$A$，使得</p>
+<script type="math/tex; mode=display">
+\sum_{e\in T} (w_e-A)^2</script><p>尽量小。</p>
+<p>注意这里是任意一个实数$A$而不是所有边权的平均数，因为当$A$取到平均数时在固定$T$的条件下一定最优，$A$随便取得到的答案一定不会优于取平均数得到的答案。</p>
+<p>如果$A$确定了，我们就能求出每条边真正的边权，求一遍普通的最小生成树就可以得到答案。</p>
+<p>可以发现最小生成树上会有哪些边只与边按照权值从小到大排序之后的顺序有关，而与$A$无关。考虑两条边$a,b$，它们的权值分别为$w_a,w_b$。如果$A&lt;\frac{w_a+w_b}{2}$，那么$a$会排在$b$的前面，否则$b$会排在$a$的前面。</p>
+<p>这样的$(a,b)$对共有$m^2$对，它们的平均数也构成了$m^2$个关键点。如果我们将所有的关键点从小到大排序，那么对于相邻的两个关键点之间的$A$，最小生成树上的边是不会变的，由于知道边的大小顺序，因此我们也知道最小生成树上有哪些边，此时我们只需要令$A$等于这些边的平均数就好了。</p>
+<p>我们现在得到了一个$m^2\log n$的做法，使用$lct$维护当前的生成树，每次我们会交换排序后<strong>相邻</strong>的两条边$a,b$的位置。如果$a,b$都在或都不在最小生成树上，那么答案不会收到影响，否则如果加上$b$后生成树形成的环中包含$a$，我们就$cut$掉$a$，$link$上$b$。维护生成树上所有边边权的一次方和二次方和即可。</p>
+<p>可以发现上面的做法有大量的情况都是$a,b$同时在或者同时不在最小生成树上，考虑优化。</p>
+<p>一开始我们直接求出所有边的最小生成树，接着我们从小到大考虑不在生成树上的一条边$a$。找到$a$形成的环中，权值最小的边$b$，那么在$\frac{w_a+w_b}{2}$之后$a$就会替换$b$。同时$b$也是$a$能替换的边中权值最小的一条，接着我们断开$b$，连上$a$。因为这是当前会发生的所有替换中替换时刻最小的。</p>
+<p>现在事件总数由$m^2$变为了$m$，再沿用之前的方法即可。</p>
+<h1 id="双一道例题"><a href="#双一道例题" class="headerlink" title="双一道例题"></a>双一道例题</h1><p><img src="image-20200724202907552.png" alt="image-20200724202907552"></p>
+<p>首先我们通过扫描线和线段树求出每个人最终（而非操作之后）拥有的部分中有多少个正方形。</p>
+<p>具体来说，我们需要求出每个人往下走到哪里会被挡住。将所有人按照$x$从大到小排序之后扫描线</p>
+<p><img src="image-20200724203822470.png" alt="image-20200724203822470"></p>
+<p>维护有哪些边界伸到了当前的$x$坐标，考虑加入一个人$(x,y)$，我们挨个考虑他可能会撞到的那些边界。如果这个人的加入时刻小于那个边界的加入时刻，那么这个人就会将此边界顶掉，我们就删除掉这个边界，因为它不可能再往左延伸了，直到最后这个人遇到了一个出现时刻小于这个人的加入时刻的边界。</p>
+<p>接着我们从左往右扫描线，用线段树维护当前每个$y$坐标还剩多少个正方形，只需要支持区间清零、区间求和即可。</p>
+<p>如何从最终的答案推到操作之后的答案呢，考虑如下情况：</p>
+<p><img src="image-20200724204331714.png" alt="image-20200724204331714"></p>
+<p>此时$a$在$b$的内部，$b$最终的答案不会包含$a$。但是如果$a$比$b$后出现，那么$b$操作时的答案就应当累加上$a$的答案。扫描线的同时记录下最终框住每个人的是谁（最内一层），记为$next_i$。</p>
+<p>将所有人按照时刻从大到小排序，我们维护一个并查集，一开始每个人的$fa$是自己。每次我们查询$next_i$的祖先，将此祖先的答案加上$i$这个人的答案，接着将$i$与$next_i$合并为一个集合。这样并查集查出来的结果就是在$i$操作时最内一层框住$i$的人。注意$next_i$为$0$时我们将父亲设为$0$即可。可以理解为在求子树和。</p>
+<h1 id="叒一道例题"><a href="#叒一道例题" class="headerlink" title="叒一道例题"></a>叒一道例题</h1><p><img src="image-20200724205358986.png" alt="image-20200724205358986"></p>
+<p>将每个小区间看作一条二维平面上平行于$y$轴的一条线段，$x$坐标为下标$i$，$y$坐标分别为$l_i$和$r_i$。</p>
+<p><img src="image-20200724205904875.png" alt="image-20200724205904875"></p>
+<p>我们从左往右考虑每条线段，对于某条线段来说，我们只考虑当前那些“露出来”的每一条小线段，将当前的线段划分为若干条小线段，接着用当前线段覆盖掉这些小线段。</p>
+<p>对于划分出的每一条小线段，对于所有包含$i$的区间来说，小线段中每个点在这个区间中的出现情况都是相同的。故我们可以分别考虑每一条小线段的贡献。</p>
+<p>如果对于一条小线段，它是区间$j$在区间$i$上某个部分的投影，即来自$j$的一条小线段，那么我们将所有左端点在$(j,i]$，右端点在$[i,n]$的区间全部加上这条小线段的长度。</p>
+<p>问题转化为矩形加、矩形查，可以通过CDQ分治解决。</p>
+<h1 id="UOJ-418-【集训队作业-2018】三角形"><a href="#UOJ-418-【集训队作业-2018】三角形" class="headerlink" title="UOJ 418 【集训队作业 2018】三角形"></a>UOJ 418 【集训队作业 2018】三角形</h1><p><img src="image-20200724210410253.png" alt="image-20200724210410253"></p>
+<p>问题等价于：一开始$i$号节点有$w_i$个石子，每次你可以选择一个有石子的点，将它的儿子全部放上石子，再移除这个节点的石子，直到树上没有剩下的石子。整个过程中树上石子个数和的最大值的最小值就是答案。</p>
+<p>可以看作每个点有两个值$a_i,b_i$，一个点被选的前提是它的父亲被选了，你有一个一开始为$0$的变量，每次你会给这个变量先减去$b_i$，再加上$a_i$，要求整个过程中变量的最大值尽可能小。</p>
+<p>如果我们只需要求出$1$号点为根时的答案，这就是一个经典问题，类似于集训队作业<a href="https://planarg.top/2020/03/12/agc023f-01-on-tree/" target="_blank" rel="noopener">01 on tree</a>。</p>
+<p>具体来说，我们优先选择$a_i&lt;b_i$的点，将这些点按照$b_i$从小到大选。接着选择$a_i\geq b_i$的点，按照$a_i-b_i$从小到大选。</p>
+<p>如果根不固定的话可以线段树合并。我们求出以最浅点为根时整棵树的答案，接着对于任意一棵子树，只考虑这棵子树时的答案一定是整棵树的答案的子序列，我们只需要记录最终每个点是第几个被选的，就可以直接线段树维护答案。</p>
+<h1 id="CREC-2017-I-Intrinsic-Interval"><a href="#CREC-2017-I-Intrinsic-Interval" class="headerlink" title="CREC 2017 I Intrinsic Interval"></a>CREC 2017 I Intrinsic Interval</h1><p><img src="image-20200724211450210.png" alt="image-20200724211450210"></p>
+<p>建出析合树，看一下$l,r$的$lca$是啥，如果是合点就是$l,r$所在的那两个儿子构成的连续段，否则就是$lca$所代表的连续段。</p>
+<h1 id="UOJ-451-【集训队作业-2018】世界是个动物园"><a href="#UOJ-451-【集训队作业-2018】世界是个动物园" class="headerlink" title="UOJ 451 【集训队作业 2018】世界是个动物园"></a>UOJ 451 【集训队作业 2018】世界是个动物园</h1><p><img src="image-20200724211600654.png" alt="image-20200724211600654"></p>
+<p>竞赛图的一个很好的性质是，按照强连通分量缩点之后得到的是一条链，链上的每个点往它之后的所有点均有连边。另外，最终的联盟就是强连通分量。</p>
+<p>因此，我们只需要知道当前点连出的所有边中最靠前的一条，以及连向当前点的所有边中最靠后的一条。这两条边中间夹的所有点都会被缩为一个强连通分量，接着将当前点插入连出的所有边中最靠前的一条之前。</p>
+<p>我们给每个点分配一个实数的坐标，插入时当前点的坐标等于它坐标和右边两个坐标的平均值。如果误差小于$10^{-9}$则重构一段区间，线段树上按照编号维护每个点的坐标即可，只需要支持单点修改，区间查询最大值。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2020/07/24/7-24%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="7.24数据结构">http://yoursite.com/2020/07/24/7-24数据结构/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/22/7-22%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="prev" title="7.22动态规划">
+      <i class="fa fa-chevron-left"></i> 7.22动态规划
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/25/7-25%E5%9B%BE%E8%AE%BA/" rel="next" title="7.25图论">
+      7.25图论 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#热身小练习"><span class="nav-number">1.</span> <span class="nav-text">热身小练习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LOJ-2092-「ZJOI2016」大森林"><span class="nav-number">2.</span> <span class="nav-text">LOJ 2092 「ZJOI2016」大森林</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BZOJ-2959-长跑"><span class="nav-number">3.</span> <span class="nav-text">BZOJ 2959 长跑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一道例题"><span class="nav-number">4.</span> <span class="nav-text">一道例题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LOJ-2472-「九省联考-2018」IIIDX"><span class="nav-number">5.</span> <span class="nav-text">LOJ 2472 「九省联考 2018」IIIDX</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#另一道例题"><span class="nav-number">6.</span> <span class="nav-text">另一道例题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#又一道例题"><span class="nav-number">7.</span> <span class="nav-text">又一道例题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDU-6368-Variance-MST"><span class="nav-number">8.</span> <span class="nav-text">HDU 6368 Variance-MST</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#双一道例题"><span class="nav-number">9.</span> <span class="nav-text">双一道例题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#叒一道例题"><span class="nav-number">10.</span> <span class="nav-text">叒一道例题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UOJ-418-【集训队作业-2018】三角形"><span class="nav-number">11.</span> <span class="nav-text">UOJ 418 【集训队作业 2018】三角形</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CREC-2017-I-Intrinsic-Interval"><span class="nav-number">12.</span> <span class="nav-text">CREC 2017 I Intrinsic Interval</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UOJ-451-【集训队作业-2018】世界是个动物园"><span class="nav-number">13.</span> <span class="nav-text">UOJ 451 【集训队作业 2018】世界是个动物园</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

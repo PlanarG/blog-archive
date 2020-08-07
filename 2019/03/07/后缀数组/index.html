@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一些约定 sa[i] 排名为i的后缀在原串中的编号 rk[i] 原串中第i个后缀所对应的排名 height[i] 排名为i的后缀与排名为i – 1的后缀的最长公共前缀  一些例子字符串S &#x3D; bacaab 中，sa，rk，height分别为  一些解释在S中，所有的后缀分别为bacaab, acaab, caab, aab, ab, b 将这些串按照字典序排序，可以得到aab, ab, acaab">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后缀数组">
+<meta property="og:url" content="http://yoursite.com/2019/03/07/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="一些约定 sa[i] 排名为i的后缀在原串中的编号 rk[i] 原串中第i个后缀所对应的排名 height[i] 排名为i的后缀与排名为i – 1的后缀的最长公共前缀  一些例子字符串S &#x3D; bacaab 中，sa，rk，height分别为  一些解释在S中，所有的后缀分别为bacaab, acaab, caab, aab, ab, b 将这些串按照字典序排序，可以得到aab, ab, acaab">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-1.png?w=700">
+<meta property="og:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-2.png?w=700">
+<meta property="article:published_time" content="2019-03-07T12:44:37.000Z">
+<meta property="article:modified_time" content="2020-04-23T01:34:37.778Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="后缀数组">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7.png?w=700">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/07/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>后缀数组 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/07/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          后缀数组
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-07 20:44:37" itemprop="dateCreated datePublished" datetime="2019-03-07T20:44:37+08:00">2019-03-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:34:37" itemprop="dateModified" datetime="2020-04-23T09:34:37+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="一些约定"><a href="#一些约定" class="headerlink" title="一些约定"></a>一些约定</h2><ul>
+<li><em>sa[i]</em> 排名为<em>i</em>的后缀在原串中的编号</li>
+<li><em>rk[i]</em> 原串中第<em>i</em>个后缀所对应的排名</li>
+<li><em>height[i]</em> <strong>排名</strong>为<em>i</em>的后缀与<strong>排名</strong>为<em>i – 1</em>的后缀的最长公共前缀</li>
+</ul>
+<h2 id="一些例子"><a href="#一些例子" class="headerlink" title="一些例子"></a>一些例子</h2><p>字符串<em>S = bacaab</em> 中，<em>sa，rk，height</em>分别为</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7.png?w=700" alt="捕获"></p>
+<h2 id="一些解释"><a href="#一些解释" class="headerlink" title="一些解释"></a>一些解释</h2><p>在<em>S</em>中，所有的后缀分别为<em>bacaab, acaab, caab, aab, ab, b</em></p>
+<p>将这些串按照字典序排序，可以得到<em>aab, ab, acaab, b, bacaab, caab</em></p>
+<p>对应出来的<em>rk</em>值就是5, 3, 6, 1, 2, 4</p>
+<p>根据上面的定义可以得出<em>sa[rk[i]] = i, rk[sa[i]] = i</em></p>
+<p><em>sa[1] = 4</em> 对应后缀<em>aab</em>，<em>sa[2] = 5</em> 对应后缀<em>ab</em></p>
+<p>因此<em>height[2]</em> = <em>lcp(sa[1],  sa[2]) = lcp(aab, ab) = 1</em></p>
+<p>注：<em>height[1]</em> 没有意义，约定其等于0</p>
+<h2 id="倍增"><a href="#倍增" class="headerlink" title="倍增"></a>倍增</h2><p>直接暴力求<em>sa</em>显然不行，由于涉及到后缀排序，所以考虑倍增</p>
+<p>假设对于<strong>每个后缀的前k个字符</strong>，我们已经排好了序，考虑进一步的转移</p>
+<p>如果直接比较每个后缀的第<em>k + 1</em>个字符，忽视了太多已经求出的信息</p>
+<p>对于两个后缀<em>s1 = S[i, …], s2 = S[j,</em> …]，如果它们的前<em>k</em>个字母不全相同，那么我们在之前的比较中就已经确定好了这两个后缀的顺序</p>
+<p>如果这两个后缀的前<em>k</em>个字母都相同，我们这次就比较<em>s1[k + 1, 2k], s2[k + 1, 2k]</em>的大小</p>
+<p>显然，这两个串的长度都是<em>k</em>，这意味着我们已经比较过这两个串</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-1.png?w=700" alt="捕获"></p>
+<p>图中括号中的数字表示当前层中此串的排名，注意相同串的排名相同。</p>
+<p>第一次比较将串<em>s1</em>与<em>s2</em>拼在一起，将串<em>s2</em>与<em>s3</em>拼在一起…</p>
+<p>第二次比较将串<em>s1</em>与<em>s3</em>拼在一起，将串<em>s2</em>与<em>s4</em>拼在一起…</p>
+<p>第三次比较将串<em>s1</em>与<em>s5</em>拼在一起，将串<em>s2</em>与<em>s6</em>拼在一起…</p>
+<p>直到不同的串的个数为原串长度</p>
+<p>那么问题来了，如何高效地比较？</p>
+<p>首先利用好已得出的信息，将这次比较前各个串的排名作为<strong>第一关键字</strong></p>
+<p>在这次比较中，每个字符串都将添加<em>k</em>个字符，对于串<em>s[i, …]</em>来说，将串<em>s[i + k, …]</em>的排名作为<strong>第二关键字</strong></p>
+<p>注意空串的字典序最小，假设原串长度为<em>n</em>，注意到在<em>n – k + 1</em>到<em>n</em>位置的第二关键字都是空串，我们约定此时<em>n</em>位置的第二关键字最小，其次是<em>n – 1</em>，然后以此类推</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= n - k + <span class="number">1</span>;i--) y[++num] = i; </span><br><span class="line"><span class="comment">// 添加的串为空</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) <span class="keyword">if</span> (sa[i] &gt; k) y[++num] = sa[i] - k; </span><br><span class="line"><span class="comment">// 此时的i就是串sa[i] - k的第二关键字，注意枚举的i代表排名</span></span><br><span class="line"><span class="comment">// sa[i] &lt;= k时没有串会在后面添加串sa[i]，所以无视</span></span><br><span class="line"><span class="comment">// y[i] 表示排名为i的第二关键字对应的是哪个串</span></span><br></pre></td></tr></table></figure>
+<p>对此时的所有串重新排序，第一关键字小的排前面，如果第一关键字相同，则第二关键字小的排前面</p>
+<p>不能直接$n \log n$排序，这样的总时间复杂度与直接用哈希构造无异，因此选择桶排序</p>
+<p>我们开一个桶<em>c</em>，将所有的第一关键字放进去，然后做一遍前缀和，可以得出每个元素的最大排名</p>
+<p>由于第一关键字相同时，第二关键字较小的排名较前，因此我们从大到小枚举第二关键字，更新每个桶此时的最大排名和当前的<em>sa</em>数组</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) c[i] = <span class="number">0</span>; </span><br><span class="line"><span class="comment">// 先清空， m是当前第一关键字大小</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) c[x[i]]++; </span><br><span class="line"><span class="comment">// 将每个第一关键字加入桶</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) c[i] += c[i - <span class="number">1</span>]; </span><br><span class="line"><span class="comment">// 获得每个值的最大排名</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= <span class="number">1</span>;i--) sa[c[x[y[i]]]--] = y[i]; </span><br><span class="line"><span class="comment">// 第一关键字相同时，第二关键字越大排名越靠后</span></span><br></pre></td></tr></table></figure>
+<p>最后，我们需要更新此时的第一关键字</p>
+<p>用一个<em>num</em>表示当前不同元素个数，仅当<em>sa[i], sa[i – 1]</em>至少有一个关键字不同时，<em>num</em>才会累加1，更新<em>x</em>数组</p>
+<p>用<em>m</em>更新<em>num</em></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">memcpy</span>(y, x, <span class="keyword">sizeof</span>(x)), num = x[sa[<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line"><span class="comment">// 这个memcpy只是临时存一下，后面那个是初值</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= n;i++)</span><br><span class="line">    x[sa[i]] = (y[sa[i - <span class="number">1</span>]] == y[sa[i]] &amp;&amp; y[sa[i - <span class="number">1</span>] + k] == y[sa[i] + k]) ? num : ++num; </span><br><span class="line"><span class="comment">// 更新此时的第一关键字</span></span><br><span class="line"><span class="keyword">if</span> (num == n) <span class="keyword">break</span>; <span class="keyword">else</span> m = num; </span><br><span class="line"><span class="comment">// 更新第一关键字的最大值</span></span><br><span class="line"><span class="comment">// 如果m等于n，则代表已经分清了所有后缀的排名，没有必要继续比较下去</span></span><br></pre></td></tr></table></figure>
+<p>最后总代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">GetSA</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> s[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) c[x[i] = s[i]]++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) c[i] += c[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= <span class="number">1</span>;i--) sa[c[x[i]]--] = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>, num = <span class="number">0</span>;k &lt;= n;k &lt;&lt;= <span class="number">1</span>, num = <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= n - k + <span class="number">1</span>;i--) y[++num] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) <span class="keyword">if</span> (sa[i] &gt; k) y[++num] = sa[i] - k;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) c[i] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) c[x[i]]++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) c[i] += c[i - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &gt;= <span class="number">1</span>;i--) sa[c[x[y[i]]]--] = y[i];</span><br><span class="line">        <span class="built_in">memcpy</span>(y, x, <span class="keyword">sizeof</span>(x)), num = x[sa[<span class="number">1</span>]] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= n;i++)</span><br><span class="line">            x[sa[i]] = (y[sa[i - <span class="number">1</span>]] == y[sa[i]] &amp;&amp; y[sa[i - <span class="number">1</span>] + k] == y[sa[i] + k]) ? num : ++num;</span><br><span class="line">        <span class="keyword">if</span> (num == n) <span class="keyword">break</span>; <span class="keyword">else</span> m = num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="关于DC3"><a href="#关于DC3" class="headerlink" title="关于DC3"></a>关于DC3</h2><p>时间复杂度$O(n)$，但是实现较为繁琐，不推荐</p>
+<p><del>其实是我不会233333</del></p>
+<h2 id="关于height"><a href="#关于height" class="headerlink" title="关于height"></a>关于<em>height</em></h2><blockquote>
+<p>$LCP$ 的几条定理</p>
+<p>定义$LCP(i, j)​$为<strong>排名</strong>为<em>i</em>的后缀与<strong>排名</strong>为<em>j</em>的后缀的最长公共前缀长度</p>
+<p>根据<em>height</em>数组的定义，$height[i] = LCP(i – 1, i)​$</p>
+<ol>
+<li>$LCP(i, j) = LCP(j, i)$ // 显然</li>
+<li>$LCP(i, i) = LCP(i, i)$ // 同上</li>
+<li>$LCP(i, j) = \min\{LCP(i, k), LCP(k, j)\}$ //  对于任意<em>i ≤</em> <em>k ≤ j</em>，即$LCP​$具有传递性</li>
+<li>设$h[i] = height[rk[i]]$，即$height[i] = h[sa[i]]$，有$h[i] ≥ h[i – 1] – 1$</li>
+</ol>
+</blockquote>
+<p>第4条定理的证明：</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-2.png?w=700" alt="捕获.PNG"></p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Getheight</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">char</span> s[])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) rk[sa[i]] = i;</span><br><span class="line"><span class="comment">// 根据定义，给rk赋值</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, k = <span class="number">0</span>;i &lt;= n;i++) &#123;</span><br><span class="line"><span class="comment">// k表示h[i - 1]，注意i是编号</span></span><br><span class="line">        <span class="keyword">if</span> (rk[i] == <span class="number">1</span>) <span class="keyword">continue</span>; <span class="keyword">if</span> (k) k--;</span><br><span class="line"><span class="comment">// height[1]没有意义，且h[i] &gt;= h[i - 1] - 1</span></span><br><span class="line">        <span class="keyword">int</span> at = sa[rk[i] - <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">while</span> (at + k &lt;= n &amp;&amp; i + k &lt;= n &amp;&amp; s[at + k] == s[i + k]) k++;</span><br><span class="line"><span class="comment">// 暴力向后匹配</span></span><br><span class="line">        height[rk[i]] = k;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="关于最长公共前缀"><a href="#关于最长公共前缀" class="headerlink" title="关于最长公共前缀"></a>关于最长公共前缀</h2><p>由$LCP$的第三条定理可以快速确定任意两个后缀的最长公共前缀，具体地</p>
+<p>$LCP(rk[i], rk[j]) = \min\{height[rk[i] + 1], height[rk[i] + 2], \cdots ,height[rk[j]]\}​$</p>
+<p>使用ST表查找区间最小值即可</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">GetST</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">memset</span>(mn, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(mn));</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= n;i++) lg[i] = lg[i &gt;&gt; <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) mn[<span class="number">0</span>][i] = height[i]; </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">20</span>;i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j + (<span class="number">1</span> &lt;&lt; i) - <span class="number">1</span> &lt;= n;j++) </span><br><span class="line">            mn[i][j] = min(mn[i - <span class="number">1</span>][j], mn[i - <span class="number">1</span>][j + (<span class="number">1</span> &lt;&lt; i - <span class="number">1</span>)]); </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">GetLCP</span><span class="params">(<span class="keyword">int</span> L, <span class="keyword">int</span> R)</span> </span>&#123; <span class="comment">// rank 为 L, R </span></span><br><span class="line">    <span class="keyword">if</span> (L &gt; R) swap(L, R);</span><br><span class="line">    L++; <span class="keyword">int</span> len = R - L + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (!len) <span class="keyword">return</span> <span class="number">1e9</span>;</span><br><span class="line">    <span class="keyword">return</span> min(mn[lg[len]][L], mn[lg[len]][R - (<span class="number">1</span> &lt;&lt; lg[len]) + <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>PlanarG
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2019/03/07/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" title="后缀数组">http://yoursite.com/2019/03/07/后缀数组/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%90%8E%E7%BC%80%E6%95%B0%E7%BB%84/" rel="tag"># 后缀数组</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/07/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" rel="next" title="莫比乌斯反演">
+      莫比乌斯反演 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一些约定"><span class="nav-number">1.</span> <span class="nav-text">一些约定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些例子"><span class="nav-number">2.</span> <span class="nav-text">一些例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些解释"><span class="nav-number">3.</span> <span class="nav-text">一些解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#倍增"><span class="nav-number">4.</span> <span class="nav-text">倍增</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于DC3"><span class="nav-number">5.</span> <span class="nav-text">关于DC3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于height"><span class="nav-number">6.</span> <span class="nav-text">关于height</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于最长公共前缀"><span class="nav-number">7.</span> <span class="nav-text">关于最长公共前缀</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>
