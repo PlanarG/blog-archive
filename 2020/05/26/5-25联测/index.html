@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,25 +13,25 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"planarg.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="T1 序列给定一个长度为$n$的序列$a$以及$m$个整数$b_1, b_2,\cdots,b_m$，你要从这$m$个数中选出$i$个数插入$a$中，不能插到头部和尾部，同时$a$中相邻两个数之间最多只能插入一个$b$。你要最大化最终序列相邻两个数之差的绝对值之和，对$1\leq i\leq m$都输出答案。  m\leq n\leq 10^5">
 <meta property="og:type" content="article">
 <meta property="og:title" content="5.25联测">
-<meta property="og:url" content="http://yoursite.com/2020/05/26/5-25%E8%81%94%E6%B5%8B/index.html">
+<meta property="og:url" content="https://planarg.top/2020/05/26/5-25%E8%81%94%E6%B5%8B/index.html">
 <meta property="og:site_name" content="PlanarG&#39;s blog">
 <meta property="og:description" content="T1 序列给定一个长度为$n$的序列$a$以及$m$个整数$b_1, b_2,\cdots,b_m$，你要从这$m$个数中选出$i$个数插入$a$中，不能插到头部和尾部，同时$a$中相邻两个数之间最多只能插入一个$b$。你要最大化最终序列相邻两个数之差的绝对值之和，对$1\leq i\leq m$都输出答案。  m\leq n\leq 10^5">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200528211533389.png">
-<meta property="og:image" content="http://yoursite.com/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200528213330957.png">
-<meta property="og:image" content="http://yoursite.com/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200528213715277.png">
-<meta property="og:image" content="http://yoursite.com/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200529103821972.png">
-<meta property="og:image" content="http://yoursite.com/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200529104128281.png">
+<meta property="og:image" content="https://planarg.top/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200528211533389.png">
+<meta property="og:image" content="https://planarg.top/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200528213330957.png">
+<meta property="og:image" content="https://planarg.top/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200528213715277.png">
+<meta property="og:image" content="https://planarg.top/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200529103821972.png">
+<meta property="og:image" content="https://planarg.top/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200529104128281.png">
 <meta property="article:published_time" content="2020-05-26T07:04:06.000Z">
 <meta property="article:modified_time" content="2020-05-29T02:42:17.188Z">
 <meta property="article:author" content="PlanarG">
@@ -39,9 +39,9 @@
 <meta property="article:tag" content="贪心">
 <meta property="article:tag" content="分块">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200528211533389.png">
+<meta name="twitter:image" content="https://planarg.top/2020/05/26/5-25%E8%81%94%E6%B5%8B/5-25%E8%81%94%E6%B5%8B/image-20200528211533389.png">
 
-<link rel="canonical" href="http://yoursite.com/2020/05/26/5-25%E8%81%94%E6%B5%8B/">
+<link rel="canonical" href="https://planarg.top/2020/05/26/5-25%E8%81%94%E6%B5%8B/">
 
 
 <script id="page-configurations">
@@ -121,34 +121,34 @@
 
 
 <nav class="site-nav">
-  <ul id="menu" class="menu">
+  <ul id="menu" class="main-menu menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+    <a href="/" rel="section">首页</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+    <a href="/tags/" rel="section">标签</a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+    <a href="/categories/" rel="section">分类</a>
 
   </li>
         <li class="menu-item menu-item-友链">
 
-    <a href="/friends/" rel="section"><i class="fa fa-fw fa-user"></i>友链</a>
+    <a href="/friends/" rel="section">友链</a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+    <a href="/archives/" rel="section">归档</a>
 
   </li>
       <li class="menu-item menu-item-search">
-        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        <a role="button" class="popup-trigger">搜索
         </a>
       </li>
   </ul>
@@ -202,7 +202,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/26/5-25%E8%81%94%E6%B5%8B/">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2020/05/26/5-25%E8%81%94%E6%B5%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
@@ -221,7 +221,7 @@
         <div class="post-meta">
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
+                <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
 
@@ -229,14 +229,14 @@
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
+                  <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
                 <time title="修改时间：2020-05-29 10:42:17" itemprop="dateModified" datetime="2020-05-29T10:42:17+08:00">2020-05-29</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
+                <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
@@ -305,23 +305,6 @@ m\leq n\leq 10^5</script><a id="more"></a>
     
     
     
-        
-
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>PlanarG
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2020/05/26/5-25%E8%81%94%E6%B5%8B/" title="5.25联测">http://yoursite.com/2020/05/26/5-25联测/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
 
       <footer class="post-footer">
           <div class="post-tags">
@@ -417,7 +400,7 @@ m\leq n\leq 10^5</script><a id="more"></a>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">179</span>
+          <span class="site-state-item-count">185</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -430,13 +413,23 @@ m\leq n\leq 10^5</script><a id="more"></a>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-count">65</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
 
 
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://planarg.top/" title="https:&#x2F;&#x2F;planarg.top&#x2F;">Title</a>
+        </li>
+    </ul>
+  </div>
 
       </div>
 
@@ -459,7 +452,7 @@ m\leq n\leq 10^5</script><a id="more"></a>
   &copy; 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">PlanarG</span>
 </div>
