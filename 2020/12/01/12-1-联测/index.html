@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"planarg.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="T1 小鸣的疑惑给出一个长度为$n$的数列，每次会随机选择一对相邻的数，然后将这对相邻的数变为左边的数减去右边的数。操作$n-1$次直到只剩下最后一个数，问这个数的期望。  n\leq 10^5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="12.1 联测">
+<meta property="og:url" content="https://planarg.top/2020/12/01/12-1-%E8%81%94%E6%B5%8B/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="T1 小鸣的疑惑给出一个长度为$n$的数列，每次会随机选择一对相邻的数，然后将这对相邻的数变为左边的数减去右边的数。操作$n-1$次直到只剩下最后一个数，问这个数的期望。  n\leq 10^5">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://planarg.top/2020/12/01/12-1-%E8%81%94%E6%B5%8B/12-1-%E8%81%94%E6%B5%8B/image-20201201203134478.png">
+<meta property="og:image" content="https://planarg.top/2020/12/01/12-1-%E8%81%94%E6%B5%8B/12-1-%E8%81%94%E6%B5%8B/image-20201201203146996.png">
+<meta property="article:published_time" content="2020-12-01T10:49:43.000Z">
+<meta property="article:modified_time" content="2020-12-01T12:41:28.740Z">
+<meta property="article:author" content="PlanarG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://planarg.top/2020/12/01/12-1-%E8%81%94%E6%B5%8B/12-1-%E8%81%94%E6%B5%8B/image-20201201203134478.png">
+
+<link rel="canonical" href="https://planarg.top/2020/12/01/12-1-%E8%81%94%E6%B5%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>12.1 联测 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section">首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section">标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section">分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section">友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section">归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2020/12/01/12-1-%E8%81%94%E6%B5%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          12.1 联测
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-12-01 18:49:43 / 修改时间：20:41:28" itemprop="dateCreated datePublished" datetime="2020-12-01T18:49:43+08:00">2020-12-01</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="T1-小鸣的疑惑"><a href="#T1-小鸣的疑惑" class="headerlink" title="T1 小鸣的疑惑"></a>T1 小鸣的疑惑</h1><p>给出一个长度为$n$的数列，每次会随机选择一对相邻的数，然后将这对相邻的数变为左边的数减去右边的数。操作$n-1$次直到只剩下最后一个数，问这个数的期望。</p>
+<script type="math/tex; mode=display">
+n\leq 10^5</script><a id="more"></a>
+<p>可以发现最终第一个数对答案的贡献必然是$1$，第二个数对答案的贡献必然是$-1$，从第三个数开始，它对答案贡献为$1$的概率与贡献为$-1$的概率相等。因此答案为$a_1-a_2$。</p>
+<p>考虑归纳证明，首先当$n=3$的时候结论成立，考虑$n&gt;3$的情况。</p>
+<p>我们将其看作在$n=3$的基础上加了一个数。当两个数合并时，我们看作删去右边那个数，让左边的数减去右边的数。如果在某一步中，第$n-1$个数与这个数合并了，且此时第$n-1$个数没有被删去，那么此时最后一个数对答案的贡献与第$n-1$个数对答案的贡献相反，即为$0$。</p>
+<p>否则，第$n-1$个数在第$n$个数合并之前就被删去了。由于合并不会改变前面的数对答案的贡献，因此我们可以直接无视第$n-1$个数，此时贡献仍然是$0$。</p>
+<h1 id="T2-红蔷薇白玫瑰"><a href="#T2-红蔷薇白玫瑰" class="headerlink" title="T2 红蔷薇白玫瑰"></a>T2 红蔷薇白玫瑰</h1><p>给出一个二叉树，记往左儿子走为$0$，往右儿子走为$1$。给出一个长度为$m$的串，问每个点按照这个串的方式向儿子走下去最终会到哪个点，如果无法走出这个串那么答案为$0$。</p>
+<script type="math/tex; mode=display">
+n,m\leq 3\times 10^5</script><p>考虑判断每个点是否能够作为某个起点的终点。</p>
+<p>大概有两种方法，第一种是直接将根到每个点的路径<code>hash</code>，然后与这个串比较。如果相等的话就说明这个点的$m$级祖先能到它。</p>
+<p>第二种是在树上跑<code>kmp</code>，预处理这个串每个位置在后面接上$0/1$会匹配到哪里。</p>
+<h1 id="T3-山遥路远"><a href="#T3-山遥路远" class="headerlink" title="T3 山遥路远"></a>T3 山遥路远</h1><p>给出一张有向图，每条边有边权，同时还有一个左括号或者右括号。多次询问，每次询问给出$s,t$，你需要求出$s$到$t$的最短合法括号路径长度，即这条路径上的括号拼起来是一个合法的括号串。</p>
+<script type="math/tex; mode=display">
+n\leq 400,m\leq 5\times 10^4,q\leq 10^5,w\leq 10^8</script><p>很有意思的一道题。</p>
+<p>考虑这样一种乱搞做法：记$F(u,v)$表示从$u$到$v$的最短路径长度，将每个点对看作一个新点，在<code>Dijkstra</code>的同时用类似<code>Floyd</code>的方式更新。</p>
+<p>对于合法括号序列$s$显然有如下事实：要么$s$去掉最外层括号之后仍然合法，要么$s$由两个合法括号串拼接而成。</p>
+<p>如果$F(u,v)$被更新过，那么此时它有两种方式可以去更新其它两点的最短路：第一种是在$u$左边接上一个左括号，在$v$右边接上一个右括号；第二种是枚举一个点$i$，尝试用$F(u,v)+F(v,i)$更新$F(u,i)$（或者$i$在$u$之前，转移类似）。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">410</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; P;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">	LL dis; <span class="keyword">int</span> u, v;</span><br><span class="line">	<span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> node &amp;b) <span class="keyword">const</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> dis &gt; b.dis;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">LL G[N][N]; <span class="keyword">int</span> vis[N][N];</span><br><span class="line"></span><br><span class="line"><span class="built_in">vector</span>&lt;P&gt; e1[N], e2[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	freopen(<span class="string">"distant.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>), freopen(<span class="string">"distant.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">	<span class="keyword">int</span> n, m, T; <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;n, &amp;m, &amp;T);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> a, b, c, d; <span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;a, &amp;b, &amp;c, &amp;d);</span><br><span class="line">		<span class="keyword">if</span> (d == <span class="number">1</span>) e1[b].push_back(P(a, c));</span><br><span class="line">		<span class="keyword">else</span> e2[a].push_back(P(b, c));</span><br><span class="line">	&#125;	</span><br><span class="line">	<span class="built_in">memset</span>(G, <span class="number">0x3f</span>, <span class="keyword">sizeof</span>(G));</span><br><span class="line">	priority_queue&lt;node&gt; q;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) G[i][i] = <span class="number">0</span>, q.push((node)&#123; <span class="number">0</span>, i, i &#125;);</span><br><span class="line">	<span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">		node t = q.top(); q.pop();</span><br><span class="line">		<span class="keyword">int</span> u = t.u, v = t.v;</span><br><span class="line">		<span class="keyword">if</span> (vis[u][v]) <span class="keyword">continue</span>;</span><br><span class="line">		vis[u][v] = <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; e1[u].size(); i++)</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; e2[v].size(); j++) &#123;</span><br><span class="line">				<span class="keyword">int</span> a = e1[u][i].first, b = e2[v][j].first; LL w = G[u][v] + e1[u][i].second + e2[v][j].second;</span><br><span class="line">				<span class="keyword">if</span> (G[a][b] &gt; w) &#123;</span><br><span class="line">					G[a][b] = w;</span><br><span class="line">					<span class="keyword">if</span> (!vis[a][b]) q.push((node)&#123; G[a][b], a, b &#125;);</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) </span><br><span class="line">			<span class="keyword">if</span> (G[i][u] + G[u][v] &lt; G[i][v]) &#123;</span><br><span class="line">				G[i][v] = G[i][u] + G[u][v];</span><br><span class="line">				<span class="keyword">if</span> (!vis[i][v]) q.push((node)&#123; G[i][v], i, v &#125;);</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) </span><br><span class="line">			<span class="keyword">if</span> (G[v][i] + G[u][v] &lt; G[u][i]) &#123;</span><br><span class="line">				G[u][i] = G[u][v] + G[v][i];</span><br><span class="line">				<span class="keyword">if</span> (!vis[u][i]) q.push((node)&#123; G[u][i], u, i &#125;);</span><br><span class="line">			&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (T--) &#123;</span><br><span class="line">		<span class="keyword">int</span> a, b; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">		<span class="keyword">if</span> (G[a][b] &gt; <span class="number">1e16</span>) <span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, G[a][b] % <span class="number">998244353</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大概证一下时间复杂度：可以看作一张有$n^2$个点的新图，每个点至多有$n^2$条边，因此总边数是$n^4$的。普通的<code>Dijkstra</code>复杂度为$O(m\log m)$，因此复杂度大概上天了。</p>
+<p>由于一些比较玄学的原因，这个奇妙的东西能获得$80$分的好成绩。</p>
+<p>考虑优化，首先每个点$n^2$的边数难以承受，我们考虑将原来的每个点拆为两个点$F(u,v),G(u,v)$，$F(u,v)$的定义不变，$G(u,v)$的定义为$u,v$之间的括号序列不合法，但是消去匹配括号之后只会剩下一个左括号的最短路径。因此$G(u,v)$可以由$F(u’,v)$添加一个左括号转移而来。</p>
+<p>现在转移就变成了，$F$可以通过添加左括号的方式转移到$G$，也可以通过第二种转移转移到$F$；$G$只能通过添加右括号转移到$F$。</p>
+<p>这样每个点的出边就降到了$O(n)$，点数仍然是$n^2$级别的。</p>
+<p>如果使用<strong>配对堆</strong>（支持$O(1)$将堆中的某个元素改小）跑<code>Dijkstra</code>，那么复杂度为$O(m+n\log n)$，就能过了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;ext/pb_ds/priority_queue.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">typedef</span> pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; P;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">410</span>;</span><br><span class="line"><span class="keyword">const</span> LL INF = <span class="number">1e18</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    LL dis; <span class="keyword">int</span> u, v, type;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &gt; (<span class="keyword">const</span> node &amp;b) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> dis &gt; b.dis;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> __gnu_pbds::priority_queue&lt;node, greater&lt;node&gt;&gt; PQ;</span><br><span class="line"></span><br><span class="line">PQ q;</span><br><span class="line"><span class="built_in">vector</span>&lt;P&gt; e1[N], e2[N];</span><br><span class="line">LL F[N][N], G[N][N]; <span class="keyword">int</span> vis[N][N];</span><br><span class="line">PQ::point_iterator f[N][N], g[N][N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, T; <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;n, &amp;m, &amp;T);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= m; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> a, b, c, d; <span class="built_in">scanf</span>(<span class="string">"%d%d%d%d"</span>, &amp;a, &amp;b, &amp;c, &amp;d);</span><br><span class="line">        <span class="keyword">if</span> (d == <span class="number">1</span>) e1[b].push_back(P(a, c));</span><br><span class="line">        <span class="keyword">else</span> e2[a].push_back(P(b, c));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">            F[i][j] = i == j ? <span class="number">0</span> : INF, G[i][j] = INF;</span><br><span class="line">            f[i][j] = q.push((node)&#123; F[i][j], i, j, <span class="number">0</span> &#125;);</span><br><span class="line">            g[i][j] = q.push((node)&#123; G[i][j], i, j, <span class="number">1</span> &#125;);</span><br><span class="line">        &#125;   </span><br><span class="line">    <span class="keyword">while</span> (!q.empty()) &#123;</span><br><span class="line">        <span class="keyword">auto</span> nw = q.top(); q.pop();</span><br><span class="line">        <span class="keyword">int</span> u = nw.u, v = nw.v;</span><br><span class="line">        <span class="keyword">if</span> (nw.type == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> [t, c] : e2[v]) </span><br><span class="line">                <span class="keyword">if</span> (G[u][v] + c &lt; F[u][t]) &#123;</span><br><span class="line">                    F[u][t] = G[u][v] + c;</span><br><span class="line">                    q.modify(f[u][t], (node)&#123; F[u][t], u, t, <span class="number">0</span> &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (F[u][v] + F[v][i] &lt; F[u][i]) &#123;</span><br><span class="line">                    F[u][i] = F[u][v] + F[v][i];</span><br><span class="line">                    q.modify(f[u][i], (node)&#123; F[u][i], u, i, <span class="number">0</span> &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (F[i][u] + F[u][v] &lt; F[i][v]) &#123;</span><br><span class="line">                    F[i][v] = F[i][u] + F[u][v];</span><br><span class="line">                    q.modify(f[i][v], (node)&#123; F[i][v], i, v, <span class="number">0</span> &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">auto</span> [t, c] : e1[u]) </span><br><span class="line">                <span class="keyword">if</span> (c + F[u][v] &lt; G[t][v]) &#123;</span><br><span class="line">                    G[t][v] = c + F[u][v];</span><br><span class="line">                    q.modify(g[t][v], (node)&#123; G[t][v], t, v, <span class="number">1</span> &#125;);</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="keyword">int</span> a, b; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">        <span class="keyword">if</span> (F[a][b] &gt; <span class="number">1e16</span>) <span class="built_in">puts</span>(<span class="string">"-1"</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, F[a][b] % <span class="number">998244353</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T4-命运歧途"><a href="#T4-命运歧途" class="headerlink" title="T4 命运歧途"></a>T4 命运歧途</h1><p>给定$n$，多次询问，每次询问给出$k$，你需要求出长度为$n$，且相邻两个位置差的绝对值不等于$k$的排列的数量。模数不一定是质数。</p>
+<script type="math/tex; mode=display">
+n\leq 2\times 10^3, q,k\leq n</script><p>先考虑一次询问怎么做。</p>
+<p>先容斥一下，将问题转化为钦定有$x$对相邻位置不合法的方案数。</p>
+<p>可以注意到钦定的位置连成了一些区间，对于每个区间它要么是$a,a+k,a+2k,\cdots$的形式，要么是$a,a-k,a-2k,\cdots$的形式。</p>
+<p>将$1\sim n$分为若干条链，每条链的长度要么是$\lfloor\frac nk\rfloor$，要么是$\lceil\frac nk\rceil$。那么我们可以将原问题看作从这些链上选择若干段互不相交的区间，然后拼到原排列上。</p>
+<p>假设我们选择的区间的长度之和为$s$，共选择了$a$个区间，那么就有$s-a$对相邻位置不合法。</p>
+<p>容易发现此时对答案的贡献的系数为</p>
+<script type="math/tex; mode=display">
+(-1)^{s-a}\times a!\times {n-s+a\choose a}\times 2^a\times (n-s)!</script><p>$(-1)^{s-a}$是容斥系数，$a!$代表可以将选出的区间任意排列，$2^a$代表每个区间都可以翻转（即可以递增填数也可以递减填数），那个组合数表示，这$k$个区间有$k+1$个间隙，剩下的$n-s$个数可以随意插入这些间隙，同时这些数可以任意排列。</p>
+<p>推一下式子可以发现它变成了</p>
+<script type="math/tex; mode=display">
+(-1)^{s-a}\times 2^a\times (n-s-a)!</script><p>因此记$dp[i][j]$表示已经处理到了所有链中编号为$i$的位置，此时选出的所有区间长度之和减去区间个数为$j$时的方案数。注意转移的时候每加入一个新的区间需要让$dp$值乘以$2$（因为有$2^a$）。</p>
+<p>直接$dp$是$n^3$的，前缀和优化一下可以做到$n^2$。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dp[N][N], g[N][N], mod, belong[N], frac[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> A = n % k, B = n / k;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, nw = <span class="number">0</span>, cur = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		nw++;</span><br><span class="line">		<span class="keyword">if</span> (A) &#123; <span class="keyword">if</span> (nw == B + <span class="number">2</span>) nw = <span class="number">1</span>, cur++, A--; &#125; </span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (nw == B + <span class="number">1</span>) nw = <span class="number">1</span>, cur++;</span><br><span class="line">		belong[i] = cur;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= n; j++) dp[i][j] = g[i][j] = <span class="number">0</span>;</span><br><span class="line">	dp[<span class="number">0</span>][<span class="number">0</span>] = g[<span class="number">0</span>][<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, lst = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (belong[i] != belong[lst]) lst = i;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; i; j++) &#123;</span><br><span class="line">			dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">			<span class="keyword">if</span> (i &gt;= lst + <span class="number">1</span>) &#123;</span><br><span class="line">				dp[i][j] = (dp[i][j] + (LL)(g[i - <span class="number">2</span>][i - j - <span class="number">1</span>] - (lst &gt; <span class="number">1</span> ? g[lst - <span class="number">2</span>][i - j - <span class="number">1</span>] : <span class="number">0</span>)) * <span class="number">2</span>) % mod;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j++) &#123;</span><br><span class="line">			g[i][j] = (g[i - <span class="number">1</span>][j] + dp[i][i - j]) % mod;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> w = (LL)dp[n][i] * frac[n - i] % mod;</span><br><span class="line">		<span class="keyword">if</span> (i &amp; <span class="number">1</span>) res = ((LL)res - w + mod) % mod;</span><br><span class="line">		<span class="keyword">else</span> res = (res + w) % mod;</span><br><span class="line">	&#125;	</span><br><span class="line">	<span class="keyword">return</span> (res + mod) % mod;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	freopen(<span class="string">"fate.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>), freopen(<span class="string">"fate.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">	<span class="keyword">int</span> n, q; <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;n, &amp;q, &amp;mod), frac[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) frac[i] = (LL)frac[i - <span class="number">1</span>] * i % mod;</span><br><span class="line">	<span class="keyword">while</span> (q--) &#123;</span><br><span class="line">		<span class="keyword">int</span> k; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;k);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, solve(n, k));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>考虑优化。可以发现这相当于做一个类似背包的东西。</p>
+<p>最终$dp$值的生成函数$H(x)$一定可以被表示为$F(x)^aG(x)^b$，因为本质不同的链只有两种。</p>
+<p>不同的$F(x),G(x)$一共只有$\sqrt n$种（长度为$\lfloor\frac ni\rfloor$）。</p>
+<p>对于这$\sqrt n$段中每一段$F(x),G(x)$的指数变化都是连续的，因此我们可以在上次计算的基础上乘或除以一个多项式。此时的总复杂度为$O(n^{2.5})$。</p>
+<p>当模数不是质数的时候不能这样做，由于我没有看懂题解在说什么，所以就咕了。</p>
+<p><img src="12-1-联测/image-20201201203134478.png" alt="image-20201201203134478"></p>
+<p><img src="12-1-联测/image-20201201203146996.png" alt="image-20201201203146996"></p>
+<h1 id="联赛组T4-可持久化仙人掌树"><a href="#联赛组T4-可持久化仙人掌树" class="headerlink" title="联赛组T4 可持久化仙人掌树"></a>联赛组T4 可持久化仙人掌树</h1><p>给出一棵树，每个点有点权$a_i$。问有多少组$(x,y)$满足：</p>
+<ul>
+<li>$x$是$y$的祖先。</li>
+<li>$a_x\bigoplus a_y=f_x-f_y$，这里$f_x$表示$x$的子树中$a_i$之和。</li>
+</ul>
+<script type="math/tex; mode=display">
+n\leq 2\times 10^5,a_i\leq 10^9</script><p>注意到$a_x\bigoplus a_y\leq a_x+a_y$，因此$f_x-f_y\leq a_x+a_y$。此时$f_x-a_x-f_y\leq a_y$。这意味着$x$的子树中，扣掉$x$自己与$y$作为根的子树，其它部分的和不能大于$a_y$。</p>
+<p>接下来我们证明：满足这个不等式的$(x,y)$对数不超过$n\log n$。</p>
+<p>如果$y_1,y_2,y_3$都与$x$满足这个不等式，不妨假设$y_3$的深度大于$y_1,y_2$。那么根据不等式成立的条件可以得出$y_3&gt;y_1+y_2$。因此每次满足条件的$y$的值都会倍增。</p>
+<p>如果$y_1,y_2$同时和$x$满足不等式，且$y_1,y_2$不在同一子树，且$x$的子树大小大于$3$，那么由于$y_2$在$y_1$的子树外，根据不等式有$y_1&gt;y_2$，而同理我们可以得出$y_1&lt;y_2$，矛盾。因此此时所有满足条件的$y$都在一条链上，而根据第一条性质这条链的长度只有$O(\log a_i)$。</p>
+<p>考虑枚举$y$，接着枚举$y$的所有父亲作为$x$，显然所有满足不等式的父亲一定是一段后缀，且根据上面的性质这条链的长度至多为$O(\log a_i)$。</p>
+<p>因此此时暴力跳父亲即可，跳的同时判断父亲与自己是否满足题目中给出的条件。</p>
+<p>总时间复杂度$O(n\log a_i)$。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/11/28/Distribution-in-Metagonia/" rel="prev" title="Distribution in Metagonia">
+      <i class="fa fa-chevron-left"></i> Distribution in Metagonia
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/02/12-2-%E8%80%83%E8%AF%95/" rel="next" title="12.2 考试">
+      12.2 考试 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#T1-小鸣的疑惑"><span class="nav-number">1.</span> <span class="nav-text">T1 小鸣的疑惑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T2-红蔷薇白玫瑰"><span class="nav-number">2.</span> <span class="nav-text">T2 红蔷薇白玫瑰</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T3-山遥路远"><span class="nav-number">3.</span> <span class="nav-text">T3 山遥路远</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T4-命运歧途"><span class="nav-number">4.</span> <span class="nav-text">T4 命运歧途</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#联赛组T4-可持久化仙人掌树"><span class="nav-number">5.</span> <span class="nav-text">联赛组T4 可持久化仙人掌树</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">191</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://planarg.top/" title="https:&#x2F;&#x2F;planarg.top&#x2F;">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

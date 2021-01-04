@@ -317,7 +317,7 @@
 <h1 id="UOJ-418-【集训队作业-2018】三角形"><a href="#UOJ-418-【集训队作业-2018】三角形" class="headerlink" title="UOJ 418 【集训队作业 2018】三角形"></a>UOJ 418 【集训队作业 2018】三角形</h1><p><img src="image-20200724210410253.png" alt="image-20200724210410253"></p>
 <p>问题等价于：一开始$i$号节点有$w_i$个石子，每次你可以选择一个有石子的点，将它的儿子全部放上石子，再移除这个节点的石子，直到树上没有剩下的石子。整个过程中树上石子个数和的最大值的最小值就是答案。</p>
 <p>可以看作每个点有两个值$a_i,b_i$，一个点被选的前提是它的父亲被选了，你有一个一开始为$0$的变量，每次你会给这个变量先减去$b_i$，再加上$a_i$，要求整个过程中变量的最大值尽可能小。</p>
-<p>如果我们只需要求出$1$号点为根时的答案，这就是一个经典问题，类似于集训队作业<a href="https://planarg.top/2020/03/12/agc023f-01-on-tree/" target="_blank" rel="noopener">01 on tree</a>。</p>
+<p>如果我们只需要求出$1$号点为根时的答案，这就是一个经典问题，类似于集训队作业<a href="https://planarg.top/2020/03/12/agc023f-01-on-tree/">01 on tree</a>。</p>
 <p>具体来说，我们优先选择$a_i&lt;b_i$的点，将这些点按照$b_i$从小到大选。接着选择$a_i\geq b_i$的点，按照$a_i-b_i$从小到大选。</p>
 <p>如果根不固定的话可以线段树合并。我们求出以最浅点为根时整棵树的答案，接着对于任意一棵子树，只考虑这棵子树时的答案一定是整棵树的答案的子序列，我们只需要记录最终每个点是第几个被选的，就可以直接线段树维护答案。</p>
 <h1 id="CREC-2017-I-Intrinsic-Interval"><a href="#CREC-2017-I-Intrinsic-Interval" class="headerlink" title="CREC 2017 I Intrinsic Interval"></a>CREC 2017 I Intrinsic Interval</h1><p><img src="image-20200724211450210.png" alt="image-20200724211450210"></p>
@@ -422,7 +422,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">189</span>
+          <span class="site-state-item-count">191</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -472,7 +472,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

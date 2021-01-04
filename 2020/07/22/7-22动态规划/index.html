@@ -279,7 +279,7 @@
 <p>当$n$是奇数的时候，令$p_{i,j}=j+2^i\bmod n$。可以看作每次要么不动，要么往左走$2^{i+1}$步。如果终点到起点距离为偶数那么可以直接走过去，否则这个距离加上$n$之后是偶数。</p>
 <p>如果$n\bmod 4=0$，构造$p_0=(2,3,1,0,6,7,5,4,\cdots)$，接着套用奇数的构造。在第一步中，你可以选择将当前的下标变为奇数还是偶数，从而使得接下来到终点的距离一定是偶数。</p>
 <p>如果$n\bmod 4=2$，构造$p_0=(2,3,1,0,\cdots, n-2, n-1),p_1=(0,1,2,\cdots, n-6, n-5,n-2,n-1,n-3,n-4)$，原理与$n\bmod 4=0$类似。</p>
-<h1 id="Arcs-on-a-Circle"><a href="#Arcs-on-a-Circle" class="headerlink" title="Arcs on a Circle"></a>Arcs on a Circle</h1><p><a href="https://planarg.top/2020/03/04/agc020f-arcs-on-a-circle/" target="_blank" rel="noopener">这里</a></p>
+<h1 id="Arcs-on-a-Circle"><a href="#Arcs-on-a-Circle" class="headerlink" title="Arcs on a Circle"></a>Arcs on a Circle</h1><p><a href="https://planarg.top/2020/03/04/agc020f-arcs-on-a-circle/">这里</a></p>
 <h1 id="Classic-Towers"><a href="#Classic-Towers" class="headerlink" title="Classic Towers"></a>Classic Towers</h1><p><img src="image-20200722191609528.png" alt="image-20200722191609528"></p>
 <p>将这个过程倒过来，从终止状态推到初始状态。设$f(a,b,c,p)$表示最大的$a+b+c$个盘子已经放好了，并且此时剩下的所有盘子都堆在第$p$根柱子上是否可行。转移的时候考虑$k$在二进制下的这一位，如果此时剩下的盘子中最大的盘子已经归位，那么这个最大的盘子不需要移动，否则需要花费$2^t$步移动这个盘子。根据$k$的这一位来决定是否归位。</p>
 <h1 id="Clique"><a href="#Clique" class="headerlink" title="Clique"></a>Clique</h1><p><img src="image-20200722192114999.png" alt="image-20200722192114999"></p>
@@ -462,7 +462,7 @@ B(\omega_k^j)^R&=\sum\frac{1}{b_{k-i-1}}\omega_{k}^{ij}\\
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">189</span>
+          <span class="site-state-item-count">191</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -512,7 +512,7 @@ B(\omega_k^j)^R&=\sum\frac{1}{b_{k-i-1}}\omega_{k}^{ij}\\
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

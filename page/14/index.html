@@ -188,6 +188,267 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/08/17/NOI%E8%B5%9B%E5%89%8D%E9%9B%86%E8%AE%ADday1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/17/NOI%E8%B5%9B%E5%89%8D%E9%9B%86%E8%AE%ADday1/" class="post-title-link" itemprop="url">NOI赛前集训day1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-17 20:14:05" itemprop="dateCreated datePublished" datetime="2019-08-17T20:14:05+08:00">2019-08-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:15:16" itemprop="dateModified" datetime="2020-04-23T09:15:16+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">考试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="T1-挖矿题"><a href="#T1-挖矿题" class="headerlink" title="T1 挖矿题"></a>T1 挖矿题</h1><p><img src="https://i.loli.net/2019/08/17/GTt4QKodSAZWq3a.png" alt="1566044093694.png"></p>
+<p><img src="https://i.loli.net/2019/08/17/taCQWzSgA2byPrj.png" alt="1566044184132.png"></p>
+<p>首先我们将这个三角形的图转成正方形，空白处补0</p>
+<p>当$k=1$的时候答案就是第一行与第一列的前缀最大值之和</p>
+<p>接下来我们讨论$k=2$的情况</p>
+<p>最终的答案一定是每行每列选出一个前缀，使得这些前缀互不相交</p>
+<p>我们枚举最后第一行与第一列选了哪个前缀，那么剩下的前缀一定是挂在这一行一列上面的</p>
+<p><code>dp[i][j]</code>表示只考虑左上角$[2\cdots i][2\cdots j]$的这个矩阵，选出的前缀不相交且不超过$i,j$边界的最大值</p>
+<p>转移的时候枚举最后一行/最后一列</p>
+<p><img src="https://i.loli.net/2019/08/17/j8IAFCDrdg1v4PY.png" alt="1566045014578.png"></p>
+<p>注意只有在枚举出的那个第一行与第一列的前缀下面才能挂另外的前缀</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">55</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">int</span> v[N][N]; LL mx[<span class="number">2</span>][N][N], sum[<span class="number">2</span>][N][N], dp[N][N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">//    freopen("biggest.in", "r", stdin), freopen("biggest.out", "w", stdout);</span></span><br><span class="line">    <span class="keyword">int</span> T; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="keyword">int</span> n, k; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;k);</span><br><span class="line">        <span class="built_in">memset</span>(v, <span class="number">0</span>, <span class="keyword">sizeof</span>(v)), <span class="built_in">memset</span>(mx, <span class="number">0</span>, <span class="keyword">sizeof</span>(mx)), <span class="built_in">memset</span>(sum, <span class="number">0</span>, <span class="keyword">sizeof</span>(sum));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= i; j++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;v[i - j + <span class="number">1</span>][j]);</span><br><span class="line">        LL ans = <span class="number">0</span>, t1 = <span class="number">0</span>, t2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= <span class="number">1</span>; i--) t1 = v[<span class="number">1</span>][i] + max(<span class="number">0l</span>l, t1), t2 = v[i][<span class="number">1</span>] + max(<span class="number">0l</span>l, t2);</span><br><span class="line">        ans = t1 + t2;</span><br><span class="line">        <span class="keyword">if</span> (k == <span class="number">1</span>) &#123;<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans); <span class="keyword">continue</span>;&#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) sum[<span class="number">0</span>][<span class="number">1</span>][i] = sum[<span class="number">0</span>][<span class="number">1</span>][i - <span class="number">1</span>] + v[<span class="number">1</span>][i], sum[<span class="number">1</span>][i][<span class="number">1</span>] = sum[<span class="number">1</span>][i - <span class="number">1</span>][<span class="number">1</span>] + v[i][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                sum[<span class="number">0</span>][i][j] = sum[<span class="number">1</span>][i][j] = v[i][j];</span><br><span class="line">                <span class="keyword">if</span> (j != <span class="number">2</span>) sum[<span class="number">0</span>][i][j] += sum[<span class="number">0</span>][i][j - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (i != <span class="number">2</span>) sum[<span class="number">1</span>][i][j] += sum[<span class="number">1</span>][i - <span class="number">1</span>][j];</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">2</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                mx[<span class="number">0</span>][i][j] = max(mx[<span class="number">0</span>][i][j - <span class="number">1</span>], sum[<span class="number">0</span>][i][j]);</span><br><span class="line">                mx[<span class="number">1</span>][i][j] = max(mx[<span class="number">1</span>][i - <span class="number">1</span>][j], sum[<span class="number">1</span>][i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= n; k++)</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">1</span>; l &lt;= n; l++) &#123;</span><br><span class="line">                        dp[k][l] = max(dp[k - <span class="number">1</span>][l], dp[k][l - <span class="number">1</span>]);</span><br><span class="line">                        <span class="keyword">if</span> (k &lt;= i) dp[k][l] = max(dp[k][l], mx[<span class="number">0</span>][k][l] + dp[k - <span class="number">1</span>][l]);</span><br><span class="line">                        <span class="keyword">if</span> (l &lt;= j) dp[k][l] = max(dp[k][l], mx[<span class="number">1</span>][k][l] + dp[k][l - <span class="number">1</span>]);</span><br><span class="line">                        ans = max(ans, sum[<span class="number">0</span>][<span class="number">1</span>][j] + sum[<span class="number">1</span>][i][<span class="number">1</span>] + dp[k][l]);</span><br><span class="line">                    &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T2-大水题"><a href="#T2-大水题" class="headerlink" title="T2 大水题"></a>T2 大水题</h1><p><img src="https://i.loli.net/2019/08/17/t4rXfkeI1AhxoNQ.png" alt="1566045230745.png"></p>
+<p><img src="https://i.loli.net/2019/08/17/VX7FrSlZbTd6mKf.png" alt="1566045266642.png"></p>
+<p>一道很有趣的题</p>
+<p>我们采用这样的策略：枚举最终水形成的连通块，二分出这个连通块的最高水位</p>
+<p>我们现在要将这个区间左边以及右边的水全部汇聚到这个区间，但是有可能出现下面的情况</p>
+<p><img src="https://i.loli.net/2019/08/17/eqgJThBWzavwr9Y.png" alt="1566045577068.png"></p>
+<p>蓝色代表水，灰色代表泥土，现在要将水运到最右边的区间内</p>
+<p>显然中间的橙色部分需要被挖去，才能让水流过去</p>
+<p>因此，我们找到最左边以及最右边的水，然后依次扫过去，用一个变量记录当前最低高度，如果下一块泥土大于当前最低高度则需要被挖走</p>
+<p>于是我们可以得出最终需要挖走的泥土的数量，对于区间外的泥土直接计算，对于区间内的泥土，数量为总水量加上区间内的泥土数量减去区间长度乘以水位高度</p>
+<p>由于时间复杂度为$n^2\log n$，需要卡一下常</p>
+<p>未卡常的代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">5010</span>;</span><br><span class="line"><span class="keyword">int</span> h[N], d[N], n;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;l, <span class="keyword">const</span> <span class="keyword">int</span> &amp;r, <span class="keyword">const</span> <span class="keyword">double</span> &amp;mid)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> tmp = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; l; i++) tmp += d[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt; r; i--) tmp += d[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = l; i &lt;= r; i++) </span><br><span class="line">        <span class="keyword">if</span> (h[i] + d[i] &lt; mid) tmp -= mid - h[i] - d[i];</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (h[i] &lt; mid) tmp += h[i] + d[i] - mid;</span><br><span class="line">        <span class="keyword">else</span> tmp += d[i];</span><br><span class="line">    <span class="keyword">return</span> tmp &gt;= <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T; <span class="built_in">cin</span> &gt;&gt; T;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; n; <span class="keyword">double</span> ans = <span class="number">1e18</span>;</span><br><span class="line">        <span class="keyword">if</span> (n &gt;= <span class="number">800</span>) <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">cin</span> &gt;&gt; h[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">cin</span> &gt;&gt; d[i];</span><br><span class="line">        h[<span class="number">0</span>] = h[n + <span class="number">1</span>] = <span class="number">1e9</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="keyword">int</span> hh = <span class="number">1e9</span>; <span class="keyword">double</span> res = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k &lt; i; k++) <span class="keyword">if</span> (d[k]) &#123;</span><br><span class="line">                    <span class="keyword">int</span> ls = h[k];</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> l = k + <span class="number">1</span>; l &lt; i; l++) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (h[l] &gt; ls) res += h[l] - ls;</span><br><span class="line">                        <span class="keyword">else</span> ls = h[l];</span><br><span class="line">                    &#125;</span><br><span class="line">                    hh = min(hh, ls);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = n; k &gt; j; k--) <span class="keyword">if</span> (d[k]) &#123;</span><br><span class="line">                    <span class="keyword">int</span> ls = h[k];</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> l = k - <span class="number">1</span>; l &gt; j; l--) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (h[l] &gt; ls) res += h[l] - ls;</span><br><span class="line">                        <span class="keyword">else</span> ls = h[l];</span><br><span class="line">                    &#125;</span><br><span class="line">                    hh = min(hh, ls);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">double</span> l = <span class="number">-1e9</span>, r = min(hh, min(h[i - <span class="number">1</span>], h[j + <span class="number">1</span>])), mid, tot;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">fabs</span>(r - l) &gt; <span class="number">1e-6</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (check(i, j, mid = (l + r) / <span class="number">2</span>)) l = mid;</span><br><span class="line">                    <span class="keyword">else</span> r = mid; </span><br><span class="line">                &#125;</span><br><span class="line">                tot = -l * (j - i + <span class="number">1</span>);</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= n; k++) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (k &lt; i || k &gt; j) tot += d[k];</span><br><span class="line">                    <span class="keyword">else</span> tot += h[k] + d[k];</span><br><span class="line">                &#125;</span><br><span class="line">                res += tot;</span><br><span class="line">                ans = min(ans, res);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%.4f\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>卡常之后的代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">5010</span>;</span><br><span class="line"><span class="keyword">int</span> h[N], d[N], n, sum[<span class="number">2</span>][<span class="number">1010</span>][N], zjk, mn[<span class="number">2</span>][N], w[<span class="number">2</span>][N], pre[N]; <span class="keyword">double</span> eps = <span class="number">1e-6</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> &amp;l, <span class="keyword">const</span> <span class="keyword">int</span> &amp;r, <span class="keyword">const</span> <span class="keyword">double</span> &amp;mid)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">double</span> tmp = zjk; <span class="keyword">int</span> hh = <span class="built_in">floor</span>(mid);</span><br><span class="line">    tmp += sum[<span class="number">1</span>][hh][r] - sum[<span class="number">1</span>][hh][l - <span class="number">1</span>] - mid * (sum[<span class="number">0</span>][hh][r] - sum[<span class="number">0</span>][hh][l - <span class="number">1</span>]);</span><br><span class="line">    <span class="keyword">return</span> tmp &gt;= -eps;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RG register</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), zjk = <span class="number">0</span>; <span class="keyword">double</span> ans = <span class="number">1e18</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;h[i]), pre[i] = pre[i - <span class="number">1</span>] + h[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;d[i]), zjk += d[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (RG <span class="keyword">int</span> j = h[i]; j &lt;= <span class="number">1000</span>; ++j) sum[<span class="number">0</span>][j][i] = sum[<span class="number">0</span>][j][i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> (RG <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; h[i]; ++j) sum[<span class="number">0</span>][j][i] = sum[<span class="number">0</span>][j][i - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">for</span> (RG <span class="keyword">int</span> j = h[i]; j &lt;= <span class="number">1000</span>; ++j) sum[<span class="number">1</span>][j][i] = sum[<span class="number">1</span>][j][i - <span class="number">1</span>] + h[i];</span><br><span class="line">            <span class="keyword">for</span> (RG <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; h[i]; ++j) sum[<span class="number">1</span>][j][i] = sum[<span class="number">1</span>][j][i - <span class="number">1</span>];</span><br><span class="line">        &#125;    </span><br><span class="line">        mn[<span class="number">0</span>][<span class="number">0</span>] = mn[<span class="number">1</span>][n + <span class="number">1</span>] = <span class="number">1e3</span>, w[<span class="number">0</span>][<span class="number">0</span>] = w[<span class="number">1</span>][n + <span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, flg = <span class="literal">false</span>, ls = <span class="number">1e3</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!flg &amp;&amp; d[i]) flg = <span class="literal">true</span>, ls = h[i];</span><br><span class="line">            mn[<span class="number">0</span>][i] = h[i], w[<span class="number">0</span>][i] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (!flg) <span class="keyword">continue</span>;</span><br><span class="line">            ls = min(ls, h[i]), mn[<span class="number">0</span>][i] = ls, w[<span class="number">0</span>][i] = w[<span class="number">0</span>][i - <span class="number">1</span>] + h[i] - ls;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n, flg = <span class="literal">false</span>, ls = <span class="number">1e3</span>; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!flg &amp;&amp; d[i]) flg = <span class="literal">true</span>, ls = h[i];</span><br><span class="line">            mn[<span class="number">1</span>][i] = h[i], w[<span class="number">1</span>][i] = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">if</span> (!flg) <span class="keyword">continue</span>;</span><br><span class="line">            ls = min(ls, h[i]), mn[<span class="number">1</span>][i] = ls, w[<span class="number">1</span>][i] = w[<span class="number">1</span>][i + <span class="number">1</span>] + h[i] - ls;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i; j &lt;= n; j++) &#123;</span><br><span class="line">                <span class="keyword">double</span> res = w[<span class="number">0</span>][i - <span class="number">1</span>] + w[<span class="number">1</span>][j + <span class="number">1</span>] + zjk + pre[j] - pre[i - <span class="number">1</span>];</span><br><span class="line">                <span class="keyword">double</span> l = <span class="number">0</span>, r = min(mn[<span class="number">0</span>][i - <span class="number">1</span>], mn[<span class="number">1</span>][j + <span class="number">1</span>]), mid, tot, p = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">if</span> (res - r * (j - i + <span class="number">1</span>) &gt;= ans) <span class="keyword">continue</span>;</span><br><span class="line">                <span class="keyword">while</span> (<span class="built_in">fabs</span>(r - l) &gt; eps) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (check(i, j, mid = (l + r) / <span class="number">2</span>)) l = mid + eps, p = mid;</span><br><span class="line">                    <span class="keyword">else</span> r = mid - eps; </span><br><span class="line">                &#125;</span><br><span class="line">                res += -p * (j - i + <span class="number">1</span>), ans = min(ans, res);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%.4f\n"</span>, ans);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T3-套路题"><a href="#T3-套路题" class="headerlink" title="T3 套路题"></a>T3 套路题</h1><p><img src="https://i.loli.net/2019/08/17/fGxLsintTqjAwIF.png" alt="1566046100283.png"></p>
+<p><img src="https://i.loli.net/2019/08/17/qjdNvcmaxK3bP4W.png" alt="1566046133223.png"></p>
+<p>不会啊。。先贴上题解吧</p>
+<div class="pdfobject-container" data-target="tutorial_785.pdf" data-height="500px"></div>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/08/10/Minimum-Palindromic-Factorization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/08/10/Minimum-Palindromic-Factorization/" class="post-title-link" itemprop="url">Minimum Palindromic Factorization</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-10 19:14:35" itemprop="dateCreated datePublished" datetime="2019-08-10T19:14:35+08:00">2019-08-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:15:39" itemprop="dateModified" datetime="2020-04-23T09:15:39+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Minimum-Palindromic-Factorization"><a href="#Minimum-Palindromic-Factorization" class="headerlink" title="Minimum Palindromic Factorization"></a>Minimum Palindromic Factorization</h1><p><strong>定义</strong>：</p>
+<ol>
+<li>$S$：将要被分割的字符串，其中$S[i]$表示$S$第$i$个位置的字符，$S[l\cdots r]$表示$S$从$l$开始，到$r$结束的子串</li>
+<li>$PL(S)$表示将$S$划分成回文串的最小数量，比如$PL(abaab)=3$</li>
+<li>$P_j$表示所有以位置$j$结尾的回文串的起始位置的集合</li>
+</ol>
+<h1 id="一个简单的算法"><a href="#一个简单的算法" class="headerlink" title="一个简单的算法"></a>一个简单的算法</h1><p>我们先尝试在$O(n^2)$的时间内解决这个问题，对于$PL$，显然有</p>
+<script type="math/tex; mode=display">
+PL(S[1\cdots j])=\min_{i\in P_j}\{PL(S[1\cdots i-1])+1\}</script><p>定义$PL[i]=PL(S[1\cdots i])$，我们可以依次计算并保存下$PL$的值，显然当$S=a^n$的时候这个算法的时间复杂度为$O(n^2)$</p>
+<h1 id="更快地计算回文串"><a href="#更快地计算回文串" class="headerlink" title="更快地计算回文串"></a>更快地计算回文串</h1><p>在这一节中，我们将尝试用一个大小为$O(\log j)$的集合$G_j$来代替$P_j$，并且$G_j$可以在$O(\log j)$的时间内由$G_{j-1}$递推而来</p>
+<p><strong>定义：</strong>字符串$y$是字符串$x$的<code>border</code>当且仅当$y$同时是$x$的前缀和后缀，如果$y\not=x$，我们称$y$是<strong>非平凡</strong>的。下面的定理建立了<code>border</code>与回文串的联系</p>
+<h2 id="定理1"><a href="#定理1" class="headerlink" title="定理1"></a>定理1</h2><blockquote>
+<p>令$y$是回文串$x$的一个后缀，$y$是$x$的<code>border</code>当且仅当$y$是一个回文串</p>
+</blockquote>
+<p>证明显然</p>
+<h2 id="定理2"><a href="#定理2" class="headerlink" title="定理2"></a>定理2</h2><blockquote>
+<p>假设$y$是$x$的一个<code>border</code>，并且$|x|\leq 2|y|$，那么$x$是一个回文串当且仅当$y$是一个回文串</p>
+</blockquote>
+<p>证明也很显然</p>
+<p><strong>定义：</strong>当正整数$p$满足$p\leq |x|$且存在一个长度为$p$的字符串$w$，使得$x$是$w^\infty$的子串时，我们称$p$是$x$的一个<strong>周期</strong></p>
+<p>一个众所周知的事实是当$y$是$x$的一个非平凡<code>border</code>时，$|x|-|y|$是$x$的一个周期</p>
+<p>根据以上的两个定理，我们可以得出定理3</p>
+<h2 id="定理3"><a href="#定理3" class="headerlink" title="定理3"></a>定理3</h2><blockquote>
+<p>令$y$是回文串$x$的一个非平凡<code>border</code>，那么$|x|-|y|$是$x$的一个周期当且仅当$y$是回文的。</p>
+<p>特别地，$|x|-|y|$是$x$的最小周期当且仅当$y$是$x$的最长非平凡<code>border</code></p>
+</blockquote>
+<h2 id="定理4"><a href="#定理4" class="headerlink" title="定理4"></a>定理4</h2><blockquote>
+<p>$x$是一个回文串，$y$是$x$的最长非平凡<code>border</code>，$z$是$y$的最长非平凡<code>border</code>，令$u,v$是满足$x=uy,y=vz$的两个字符串，那么有</p>
+<ol>
+<li>$|u|\geq|v|$</li>
+<li>如果$|u|&gt;|v|$，则$|u|&gt;|z|$</li>
+<li>如果$|u|=|v|$，则$u=v$</li>
+</ol>
+</blockquote>
+<p><img src="https://i.loli.net/2019/08/10/dePGkKgiTH8IRwV.png" alt=""></p>
+<p><img src="https://i.loli.net/2019/08/10/hA8YVoKgqumtcSw.png" alt="1565428566073.png"></p>
+<p><strong>证明：</strong></p>
+<ol>
+<li><p>根据<strong>定理3</strong>，$|u|=|x|-|y|$是$x$的最小周期，$|v|=|y|-|z|$是$y$的最小周期。由于$y$是$x$的子串，因此，要么$|u|&gt;|y|&gt;|v|$，要么$|u|$也是$|y|$的一个周期，并且$|u|\geq|v|$</p>
+<p> 由于$y$是$x$的<code>border</code>，因此当$|y|\geq|u|$时可以得出$u$是$y$的<code>border</code>，由于$z$是$y$的最长非平凡<code>border</code>，根据<strong>定理3</strong>，$v$是$y$的最小周期，故此时$|u|\geq|v|$</p>
+</li>
+<li><p>显然$v$是$x$的前缀，我们设$x=vw$，那么$|z|$是$w$的周期，并且$|w|=|z|+|u|$。假设$|z|\geq|u|$，那么有$|w|\leq 2|z|$，根据<strong>定理2</strong>，可以得出$w$是回文串，这与$y$是$x$的最长回文后缀矛盾。因此$|u|&gt;|z|$</p>
+</li>
+<li><p>根据2可以得到$v$是$x$的前缀，如果$|u|=|v|$，显然有$u=v$</p>
+</li>
+</ol>
+<p><strong>定义：</strong>令$P_j=\{p_1,p_2,\cdots,p_m\}$，其中$p_1&lt;p_2&lt;\cdots&lt;p_m$。我们定义$p_i-p_{i-1}$为一个<strong>间隔</strong>，注意这里是向前差分</p>
+<h2 id="定理5"><a href="#定理5" class="headerlink" title="定理5"></a>定理5</h2><blockquote>
+<p>$P_j$的间隔序列是递减的，并且最多只有严格$O(\log j)$个不同的间隔</p>
+</blockquote>
+<p><strong>证明：</strong>对于任意的$i\in[2\cdots m-1]$，我们令$x=S[p_{i-1}\cdots j],y=S[p_j\cdots j],z=S[p_{j+1}\cdots j]$，这三个串的间隔为$|u|,|v|$。根据<strong>定理4</strong>，如果在这里间隔改变了，那么一定有$|u|&gt;|v|$，则$|x|&gt;|u|+|z|&gt;2|z|$，回文后缀的长度至少会减少一半，因此这样的情形最多发生$O(\log j)$次</p>
+<p>我们会根据$P_j$的间隔将其划分成$O(\log j)$个连续的子集。对于正整数$\Delta$，我们<strong>定义</strong>$P_{j,\Delta}=\{p_i:1&lt;i\leq m,p_i-p_{i-1}=\Delta\}$，且$P_{j,\infty}=\{p_1\}$。每个非空的$P_{j,\Delta}$都可以被三元组$(\min P_{j,\Delta},\Delta,|P_{j,\Delta}|)$表示。我们<strong>定义</strong>$G_j$表示这些三元组按照$\Delta$构成的递减序列。</p>
+<p>列表$G_j$仅用$O(\log j)$的空间就完全代表了$P_j$，我们会证明$G_j$可以在$O(|G_{j-1}|)$的时间内由$G_{j-1}$递推而来。在这个算法中，对于$P_{j-1}$中的每一个元素$i$，在$P_j$中要么被淘汰，要么被$i-1$替换。下面的定理说明了如何同时决定$P_{j-1,\Delta}$中的所有元素哪些应该被淘汰，哪些应该被替换。</p>
+<h2 id="定理6"><a href="#定理6" class="headerlink" title="定理6"></a>定理6</h2><blockquote>
+<p>$p_i,p_{i+1}$是$P_{j-1,\Delta}$中的两个连续的元素，那么$p_i-1\in P_j$当且仅当$p_{i+1}-1\in P_j$</p>
+</blockquote>
+<p><strong>证明：</strong>根据定义，$p_{i+1}-p_i=\Delta$，$p_i$的前驱是$p_{i-1}=p_i-\Delta$。根据<strong>定理4</strong>，这意味着$S[p_i-1]=S[p_{i+1}-1]=c$，从而$p_i-1\in P_j$当且仅当$S[j]=c$，即$p_{i+1}-1\in P_j$ </p>
+<p>因此，当我们计算$G_j$时，每一个三元组$(i,\Delta,k)\in G_{j-1}$要么被淘汰，要么被替换成$(i-1,\Delta,k)$，最终得到的序列为</p>
+<script type="math/tex; mode=display">
+G'_j=\{(i-1,\Delta,k):(i,\Delta,k)\in G_{j-1},i>1且S[i-1]=S[j]\}</script><p>这表示了在$P_j$中所有长度大于$2$的回文串</p>
+<p>但是，这些$G’_j$中的三元组不一定完美地与最终的$P_{j,\Delta}$对应，因为有些间隔可能改变了。特别地，如果在$P_{j-1,\Delta}$中最小的元素$p_i$被替换成了$p_i-1$，但是它的前驱$p_{i-1}=p_i-\Delta$被淘汰了，那么$p_i-1$就不应该出现在$P_{j,\Delta}$中，因为间距变化了。注意只有每个组中最小的元素可能被影响，因此我们将第一个元素分裂出来。即，将$(p_i-1,\Delta,k)$分裂成$(p_i-1,\Delta’,1)$和$(p_i-1+\Delta,\Delta,k-1)$，这里的$\Delta’$表示$p_i-1$在$P_j$中的新的间隔。我们还会添加单独的三元组来表示长度为$1,2$的回文串</p>
+<p>我们令$G’’_j$表示经过上述操作之后的$G’_j$，它恰好代表了每一个在$P_j$中的回文串，并且此时$\Delta$的值是正确的，但是$G’’_j$中可能有一些三元组的$\Delta$相同。因此我们将$G’’_j$中$\Delta$相同的三元组合并来得到最终的$G_j$</p>
+<p><img src="https://i.loli.net/2019/08/10/WOnfGmRlDtUVKsc.png" alt="1565432215207"></p>
+<h2 id="定理7"><a href="#定理7" class="headerlink" title="定理7"></a>定理7</h2><blockquote>
+<p>$G_j$可以在$O(|G_{j-1}|)$的时间内由$G_{j-1}$转移而来</p>
+</blockquote>
+<h1 id="更快地求解"><a href="#更快地求解" class="headerlink" title="更快地求解"></a>更快地求解</h1><p>在这一节中，我们会展示如何在$O(|G_{j}|)$的时间内根据$PL[0\cdots j-1]$计算$PL[j]$。快速计算$G_j$的关键是利用$P_{j,\Delta}$与$P_{j-1,\Delta}$之间的密切关系，现在我们会依赖于由以下结论所揭示的$P_j,\Delta$与$P_{j-\Delta,\Delta}$之间的关系</p>
+<h2 id="定理8"><a href="#定理8" class="headerlink" title="定理8"></a>定理8</h2><blockquote>
+<p>如果$(i,\Delta,k)\in G_j$，且$k\geq 2$，则$(i,\Delta,k-1)\in G_{j-\Delta}$</p>
+</blockquote>
+<p><strong>证明：</strong>根据定义，$(i,\Delta,k)\in G_j$等价于$P_{j,\Delta}=\{i,i+\Delta,\cdots,i+(k-1)\Delta\}$，我们需要证明$P_{j-\Delta,\Delta}=\{i,i+\Delta,\cdots,i+(k-2)\Delta\}$。我们会先证明$P_{j-\Delta,\Delta}\cap|i-\Delta+1\cdots j-\Delta|=\{i,i+\Delta,\cdots,i+(k-2)\Delta\}$，接着我们会证明$P_{j-\Delta,\Delta}\cap|1\cdots i-\Delta|=\emptyset$</p>
+<p><img src="https://i.loli.net/2019/08/10/hIdClEXD9So8Bqy.png" alt="1565433244361"></p>
+<p>我们知道$y=S[i\cdots j]$与$x=S[i-\Delta\cdots j]$都是回文的，并且$y$是$x$的最长非平凡<code>border</code>，$S[i-\Delta\cdots j-\Delta]=y=S[i\cdots j]$。因此对于任意的$l\in[i\cdots j]$，$i\in P_j$当且仅当$l-\Delta\in P_{j-\Delta,\Delta}$。所以我们可以得出$P_{j-\Delta,\Delta}\cap|i-\Delta+1\cdots j-\Delta|=\{i,i+\Delta,\cdots,i+(k-2)\Delta\}$</p>
+<p>我们还需要证明$P_{j-\Delta,\Delta}\cap|1\cdots i-\Delta|=\emptyset$，当且仅当$i-2\Delta\not\in P_{j-\Delta}$时成立。我们使用反证法，假设$i-2\Delta\in P_{j-\Delta}$，那么$S[i-2\Delta\cdots j-\Delta]$是回文串。我们令$w=S[i-2\Delta\cdots i-\Delta-1]$，那么$S[j-2\Delta+1\cdots j-\Delta]=w^R$，即$w$的反串。令$z=S[i-\Delta\cdots j-\Delta]$，而$S[i-\Delta\cdots j]$也是一个回文串，因此有$S[i-\Delta\cdots i-1]=w$以及$S[j-\Delta+1\cdots j]=w^R$。最后，$z$也是一个回文串，$S[i-2\Delta\cdots j]=wzw^R$是回文串，这意味着$i-\Delta\in P_j$，与$(i,\Delta,k)\in G_j$矛盾</p>
+<p>根据以上的定理，$P_{j,\Delta}=P_{j-\Delta,\Delta}\cup\{\max P_{j,\Delta}\}$在$|P_{j,\Delta}|\geq2$时成立。那么我们可以在常数时间内计算$PL_{j,\Delta}=\min\{PL[i-1]+1:i\in P_{j,\Delta}\}$，让其由$PL_{j-\Delta,\Delta}$转移而来。我们会将$PL_{j,\Delta}$的值保存在数组$GPL[1\cdots n]$的第$m=\min P_{j,\Delta}-\Delta$项中。注意到$m$是$\min P_{j,\Delta}$在$P_j$中的前驱，并且当$|P_{j,\Delta}|\geq 2$时，$PL_{j-\Delta,\Delta}$也是保存在这个位置。接下来的定理说明了这个位置在第$j-\Delta$轮至第$j$轮中，不会被其他数覆写。</p>
+<h2 id="定理9"><a href="#定理9" class="headerlink" title="定理9"></a>定理9</h2><blockquote>
+<p>令$m=\min P_{j,\Delta}-\Delta$，那么对于任意的$l\in[j-\Delta+1\cdots j-1],m\not\in P_l$</p>
+</blockquote>
+<p><img src="https://i.loli.net/2019/08/10/IkzS8O4lF3oLANG.png" alt="1565441130156"></p>
+<p><strong>证明：</strong>使用反证法，假设存在$l\in[j-\Delta+1\cdots j-1]$使得$m\in P_l$，即$S[m\cdots l]$是回文的。令$h=l-j+\Delta$，那么$S[m+h\cdots l-h]$是回文的，而$m&lt;m+h&lt;m+\Delta=\min P_{j-\Delta,\Delta}$，这意味着$m+h$是$\min P_{j-\Delta,\Delta}$的前驱，而非$m$，且$\min P_{j-\Delta,\Delta}\not\in P_{j-\Delta,\Delta}$，矛盾</p>
+<h2 id="定理10"><a href="#定理10" class="headerlink" title="定理10"></a>定理10</h2><blockquote>
+<p>可以在$O(n\log n)$的时间，以及$O(n)$的空间内得出一个串的最小回文划分数</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/06/11/6-5NOI%E6%A8%A1%E6%8B%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1246,662 +1507,10 @@ f(j)&=\sum_{i=j}^{j+m-1}T_{i-j+1}(T_{i-j+1}-S_{j})\\
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/05/05/5-4%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
-      <meta itemprop="name" content="PlanarG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="PlanarG's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/05/05/5-4%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/" class="post-title-link" itemprop="url">5.4省选模拟</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-05-05 21:04:08" itemprop="dateCreated datePublished" datetime="2019-05-05T21:04:08+08:00">2019-05-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-23 09:26:53" itemprop="dateModified" datetime="2020-04-23T09:26:53+08:00">2020-04-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%80%83%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">考试</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h1><div class="pdfobject-container" data-target="prob-new.pdf" data-height="500px"></div>
-<h1 id="T1"><a href="#T1" class="headerlink" title="T1"></a>T1</h1><p>有一棵树，每条边都有$50\%$的概率被删除，问在所有情况中，这棵树的邻接矩阵的秩的和</p>
-<p>邻接矩阵的秩的含义是在初等行变换后的非自由元数量</p>
-<p>首先有一个性质：树的邻接矩阵的秩等于其最大匹配数乘以$2$</p>
-<p>那么这道题就相当于让我们统计所有情况下的最大匹配数的和乘以$2$</p>
-<p>先考虑一棵给定的树可以用什么方法求最大匹配数</p>
-<p><code>dp</code>是可以的，但是这里我们不能使用<code>dp</code>的方式来推，因为这样不好维护</p>
-<p>那么我们考虑使用贪心的策略：即优先让儿子匹配，如果匹配完了之后这个点还能和儿子匹配就让这个点和那个儿子配对</p>
-<p>也就是要让匹配尽量靠下，儿子能匹配就不要往父亲匹配</p>
-<p>我们可以设<code>dp[u][0/1]</code>表示考虑$u$以及它的子树，$u$这个点是否匹配的方案数</p>
-<p>转移比较显然</p>
-<p>所以这道题的关键还是看出是最大匹配数乘$2$</p>
-<p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">500010</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> to, next;</span><br><span class="line">&#125; e[N * <span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> head[N], ecnt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">adde</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to)</span> </span>&#123;</span><br><span class="line">    e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt;</span><br><span class="line">    e[++ecnt] = (edge)&#123;from, head[to]&#125;, head[to] = ecnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">2</span>][N], sz[N], pw[N], ans, n; <span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> f)</span> </span>&#123;</span><br><span class="line">    sz[u] = dp[<span class="number">0</span>][u] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = head[u];i;i = e[i].next) </span><br><span class="line">        <span class="keyword">if</span> (e[i].to != f) &#123;</span><br><span class="line">            dfs(e[i].to, u), sz[u] += sz[e[i].to];</span><br><span class="line">            dp[<span class="number">1</span>][u] = ((LL)dp[<span class="number">1</span>][u] * pw[sz[e[i].to]] + (LL)dp[<span class="number">0</span>][u] * dp[<span class="number">0</span>][e[i].to]) % mod;</span><br><span class="line">            dp[<span class="number">0</span>][u] = (LL)dp[<span class="number">0</span>][u] * (pw[sz[e[i].to] - <span class="number">1</span>] + dp[<span class="number">1</span>][e[i].to]) % mod;</span><br><span class="line">        &#125;</span><br><span class="line">    ans = (ans + (LL)dp[<span class="number">1</span>][u] * (pw[n - sz[u]] &lt;&lt; <span class="number">1</span>)) % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    freopen(<span class="string">"rank.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>), freopen(<span class="string">"rank.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), pw[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) pw[i] = pw[i - <span class="number">1</span>] * <span class="number">2</span> % mod;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a, b;i &lt; n;i++) <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b), adde(a, b);</span><br><span class="line">    dfs(<span class="number">1</span>, <span class="number">0</span>), <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="T2"><a href="#T2" class="headerlink" title="T2"></a>T2</h1><p>有一个$n$个节点的完全二叉树，$i$的父亲是$\lfloor\frac i2\rfloor$，现在这棵树上又多了$m(m\leq 6)$条边，求简单路径总数</p>
-<p>我们首先考虑这样一个性质：如果$u,v$在树上的路径只有一条，并且中间没有边的端点，那么从这两个点出发，答案相同</p>
-<p>因为对于任意一条路径，我们对这条路径在$u,v$段上的覆盖情况取反，就能得到从另一个点出发的一条合法路径，所以方案数是相等的</p>
-<p>那么我们可以将所有关键点以及它们的祖先提出来，建一棵虚树，虚树上的每个点存一个<code>sz</code>，表示它在原树上的儿子中，不在虚树上的节点的个数</p>
-<p>然后就可以从每个虚树上的点开始暴力<code>dfs</code>，然后分类统计答案，即每个虚树上的点的答案都是这个点以及它的不在虚树上的儿子的答案</p>
-<p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e9</span> + <span class="number">7</span>;</span><br><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; ID;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">idx</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (ID[u]) <span class="keyword">return</span> ID[u];</span><br><span class="line">    <span class="keyword">return</span> ID[u] = ID.size();</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 360</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">edge</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> to, next;</span><br><span class="line">&#125; e[N * <span class="number">2</span>];</span><br><span class="line"><span class="keyword">int</span> head[N], ecnt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">adde</span><span class="params">(<span class="keyword">int</span> from, <span class="keyword">int</span> to)</span> </span>&#123;</span><br><span class="line">    e[++ecnt] = (edge)&#123;to, head[from]&#125;, head[from] = ecnt;</span><br><span class="line">    e[++ecnt] = (edge)&#123;from, head[to]&#125;, head[to] = ecnt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> vis[N], sz[N], n;</span><br><span class="line"><span class="function">LL <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    LL res = sz[u]; vis[u] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = head[u];i;i = e[i].next)</span><br><span class="line">        <span class="keyword">if</span> (!vis[e[i].to]) res += dfs(e[i].to);</span><br><span class="line">    <span class="keyword">return</span> vis[u] = <span class="number">0</span>, res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">dep</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> tmp = <span class="number">1</span>;;tmp++)</span><br><span class="line">        <span class="keyword">if</span> (u &lt; <span class="number">1</span> &lt;&lt; tmp) <span class="keyword">return</span> tmp;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">get</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> tot)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> now = dep(u), res = (<span class="number">1</span> &lt;&lt; (tot - now + <span class="number">1</span>)) - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = now + <span class="number">1</span>;i &lt;= tot;i++) u = u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> res - max(min(u - n, <span class="number">1</span> &lt;&lt; tot - now), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs1</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> f)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = head[u];i;i = e[i].next)</span><br><span class="line">        <span class="keyword">if</span> (e[i].to != f) sz[u] -= sz[e[i].to], dfs1(e[i].to, u);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">link</span><span class="params">(<span class="keyword">int</span> u)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!ID.count(u)) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (u != <span class="number">1</span>) adde(idx(u), idx(u &gt;&gt; <span class="number">1</span>));</span><br><span class="line">    link(u &lt;&lt; <span class="number">1</span>), link(u &lt;&lt; <span class="number">1</span> | <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> from[N], to[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    freopen(<span class="string">"route.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>), freopen(<span class="string">"route.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="keyword">int</span> m, mxdep; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m), mxdep = dep(n), idx(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;from[i], &amp;to[i]);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = from[i];j;j &gt;&gt;= <span class="number">1</span>) idx(j);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = to[i];j;j &gt;&gt;= <span class="number">1</span>) idx(j);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> v : ID) sz[v.second] = get(v.first, mxdep);</span><br><span class="line">    link(idx(<span class="number">1</span>)), dfs1(idx(<span class="number">1</span>), <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) adde(idx(from[i]), idx(to[i]));</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> v : ID) res = (res + dfs(v.second) * sz[v.second]) % mod;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, res);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="T3"><a href="#T3" class="headerlink" title="T3"></a>T3</h1><p>有一棵树，每个点都有权值，定义一个点$u$的价值为$\sum\limits_{i=1}^nw_idis(i,u)^{\frac{3}{2}}$，找到一个点使得价值最小</p>
-<p>我们先考虑一个序列上的情况</p>
-<p>假设有一排点$a_1,a_2,\cdots,a_n$</p>
-<p>我们先钦定一个端点$p$</p>
-<p>如果你有一个指针，从$a_1$扫到$a_n$</p>
-<p>那么得到的$w_pf(p,a_i)$是一个凸函数</p>
-<p>我们现在固定另一个端点，让$p$动起来</p>
-<p>我们会得到很多凸函数的叠加，而这些凸函数的叠加仍然是凸函数</p>
-<p>所以这个序列上的$g$也是凸的</p>
-<p>在一个序列上，我们可以使用二分</p>
-<p>放在树上，就可以使用点分治</p>
-<p>具体来说，对于点分树上$u$的每个儿子，找到$g$比$g(u)$小的那个$v$，移动到$v$去，直到不能移动为止</p>
-<p>代码就咕了</p>
-<h1 id="T4"><a href="#T4" class="headerlink" title="T4"></a>T4</h1><p>有一个离散随机变量$x$，最开始它有$p_i$的概率为$i$</p>
-<p>现在要对$x$进行$m$次操作，每次会将$x$等概率变成$[1,x]$中的一个整数</p>
-<p>问最后$x$变成每个数的概率</p>
-<p>很妙的一道题</p>
-<p>我们考虑一开始$x$的概率生成函数$f(x)$</p>
-<p>此时$x^i$的系数就是$p_i$</p>
-<p>考虑一次操作之后它变成了什么，我们假设一次操作之后的概率生成函数是$f^*(x)$</p>
-<p>那么显然有</p>
-<script type="math/tex; mode=display">
-\begin{aligned}\
-[x^i]f^\*(x)&=\sum_{j=i}^n\frac{[x^j]f(x)}{j+1}\\\
-f^\*(x)&=\sum_{i=0}^nx^i\sum_{j=i}^n\frac{[x^j]f(x)}{j+1}\\\
-&=\sum_{j=0}^n\frac{[x^j]f(x)}{j+1}\sum_{i=0}^j
-x^i\\\
-&=\sum_{j=0}^n\frac{[x^j]f(x)}{j+1}\frac{x^{j+1}-1}{x-1}\\\
-&=\frac{1}{x-1}\sum_{j=0}^n[x^j]f(x)\frac{x^{j+1}-1}{j+1}
-\end{aligned}</script><p>注意到</p>
-<script type="math/tex; mode=display">
-\frac{x^{j+1}-1}{j+1}=[\frac{t^{j+1}}{j+1}]_1^x=\int_1^xt^j\mathrm{d}t</script><p>所以</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-f^\*(x)&=\frac{1}{x-1}\sum_{j=0}^n[x^j]f(x)\int_1^xt^j\mathrm{d}t\\\
-&=\frac{1}{x-1}\int_1^x\sum_{j=0}^n[x^j]f(x)t^j\mathrm{d}t\\\
-&=\frac{1}{x-1}\int_1^xf(t)\mathrm{d}t
-\end{aligned}</script><p>现在很不爽的一点是积分是从$1$开始积的，而且前面分数的分母是$x-1$而不是$x$，我们要把这个弄掉</p>
-<p>考虑设$g(x)=f(x+1),g^*(x)=f^*(x+1)$</p>
-<p>那么有</p>
-<script type="math/tex; mode=display">
-g^\*(x)=f^\*(x+1)=\frac{1}{x}\int_1^{x+1}f(t)\mathrm{d}t=\frac{1}{x}\int_0^xg(t)\mathrm{d}t</script><p>分析一些最后那个</p>
-<p>设</p>
-<script type="math/tex; mode=display">
-g(x)=\sum_{i=0}^na_ix^i</script><p>那么</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\frac{1}{x}\int_0^xg(t)\mathrm{d}t&=\frac{1}{x}\int_0^x\sum_{i=0}^na_it^i\mathrm{d}t\\\
-&=\frac{1}{x}\sum_{i=0}^n\int_0^xa_it^i\mathrm{d}t\\\
-&=\frac{1}{x}\sum_{i=0}^n[\frac{a_i}{i+1}t^{i+1}]_0^x\\\
-&=\frac{1}{x}\sum_{i=0}^n\frac{a_i}{i+1}x^{i+1}\\\
-&=\sum_{i=0}^n\frac{a_i}{i+1}x^i
-\end{aligned}</script><p>所以我们知道</p>
-<script type="math/tex; mode=display">
-[x^i]g^\*(x)=\frac{[x^i]g(x)}{i+1}</script><p>这是经过一次变换之后的结果，如果我们进行$m$次变换，那么可以得到</p>
-<script type="math/tex; mode=display">
-[x^i]g^\*(x)=\frac{[x^i]g(x)}{(i+1)^m}</script><p>现在关键就在于将最开始的$f$变换成$g$，最后再将$g^*$变换成$f^*$</p>
-<p>我们来讨论一下从$f$变成$g$</p>
-<script type="math/tex; mode=display">
-\begin{aligned} 
-g(x) &=f(x+1) \\
-\sum_{i=0}^n[x^i]g(x)x^i&=\sum_{i=0}^n[x^i]f(x)(x+1)^i\\
-\sum_{i=0}^n[x^i]g(x)x^i&=\sum_{i=0}^n[x^i]f(x)\sum_{k=0}^i\begin{pmatrix}i\\ k\end{pmatrix}x^k\\
-[x^i]g(x)&=\sum_{k=0}^i\begin{pmatrix}i\\ k\end{pmatrix}[x^k]f(x)\\
-i![x^i]g(x)&=\sum_{k=0}^n\frac{k![x^k]f(x)}{(k-i)!}
-\end{aligned}</script><p>从$g$变成$f$差不多</p>
-<p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">250010</span>, mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (;y;y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> r[N * <span class="number">4</span>];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">NTT</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> len, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) <span class="keyword">if</span> (i &lt; r[i]) swap(a[i], a[r[i]]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> mid = <span class="number">2</span>;mid &lt;= len;mid &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> Wn = Pow(<span class="number">3</span>, type ? (mod - <span class="number">1</span>) / mid : mod - <span class="number">1</span> - (mod - <span class="number">1</span>) / mid);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i += mid)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i, t, w = <span class="number">1</span>;j &lt; i + (mid &gt;&gt; <span class="number">1</span>);j++, w = (LL)w * Wn % mod)</span><br><span class="line">                t = (LL)w * a[j + (mid &gt;&gt; <span class="number">1</span>)] % mod, a[j + (mid &gt;&gt; <span class="number">1</span>)] = (a[j] - t + mod) % mod, a[j] = (a[j] + t) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!type) <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, inv = Pow(len, mod - <span class="number">2</span>);i &lt; len;i++)</span><br><span class="line">        a[i] = (LL)a[i] * inv % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> frac[N], inv[N], A[N * <span class="number">4</span>], B[N * <span class="number">4</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    freopen(<span class="string">"random.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>), freopen(<span class="string">"random.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="keyword">int</span> n; LL m; <span class="built_in">scanf</span>(<span class="string">"%d%lld"</span>, &amp;n, &amp;m), frac[<span class="number">0</span>] = <span class="number">1</span>, m %= mod - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) frac[i] = (LL)frac[i - <span class="number">1</span>] * i % mod;</span><br><span class="line">    inv[n] = Pow(frac[n], mod - <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - <span class="number">1</span>;i &gt;= <span class="number">0</span>;i--) inv[i] = (LL)inv[i + <span class="number">1</span>] * (i + <span class="number">1</span>) % mod;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;A[i]), A[i] = (LL)A[i] * frac[i] % mod;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n;i++) B[n - i] = inv[i];</span><br><span class="line">    <span class="keyword">int</span> len = <span class="number">1</span>, l = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= n * <span class="number">2</span>) len &lt;&lt;= <span class="number">1</span>, l++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    NTT(A, len, <span class="number">1</span>), NTT(B, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) A[i] = (LL)A[i] * B[i] % mod;</span><br><span class="line">    NTT(A, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n;i++) A[i] = A[i + n];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n + <span class="number">1</span>;i &lt; len;i++) A[i] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n;i++) A[i] = (LL)A[i] % mod * Pow(Pow(i + <span class="number">1</span>, m), mod - <span class="number">2</span>) % mod;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n + <span class="number">1</span>;i &lt; len;i++) B[i] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n;i++) B[n - i] = i &amp; <span class="number">1</span> ? mod - inv[i] : inv[i];</span><br><span class="line">    NTT(A, len, <span class="number">1</span>), NTT(B, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) A[i] = (LL)A[i] * B[i] % mod;</span><br><span class="line">    NTT(A, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n;i++) <span class="built_in">printf</span>(<span class="string">"%d "</span>, (LL)A[i + n] * inv[i] % mod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/04/28/%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
-      <meta itemprop="name" content="PlanarG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="PlanarG's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/04/28/%E7%BA%BF%E6%80%A7%E8%A7%84%E5%88%92/" class="post-title-link" itemprop="url">线性规划</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-04-28 20:40:20" itemprop="dateCreated datePublished" datetime="2019-04-28T20:40:20+08:00">2019-04-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-25 17:06:56" itemprop="dateModified" datetime="2020-06-25T17:06:56+08:00">2020-06-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="什么是线性规划"><a href="#什么是线性规划" class="headerlink" title="什么是线性规划"></a>什么是线性规划</h1><blockquote>
-<p>实际生活中有很多问题都是这样的形式：它们需要最大化或者最小化一个目标；它们通常面临资源、时间等多方面的限制。假如把这些问题的目标简化成一个线性的函数，把限制表示成一些线性的等式或者不等式，那么这些问题就可以被描述成线性规划问题。</p>
-<p>——2016国家集训队论文集</p>
-</blockquote>
-<p>在线性规划中，我们有$n$个变量$x_1,x_2,\cdots, x_n$</p>
-<p>我们希望一个估价函数$f(x_1, x_2,x_3,\cdots,x_n)$尽量大/小</p>
-<p>同时我们希望这些变量能满足一些线性等式或者不等式$g(x_1,x_2,x_3,\cdots,x_n)$</p>
-<p>那么这个过程就叫线性规划</p>
-<h1 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h1><ul>
-<li><strong>线性函数</strong></li>
-</ul>
-<p>我们定义函数$f(x_1,x_2,x_3,\cdots,x_n)$为线性函数当且仅当有</p>
-<script type="math/tex; mode=display">
-f(x_1,x_2,\cdots,x_n)=\sum_{i=1}^na_ix_i</script><p>其中$a_i$为实数常量，$x_i$为变量</p>
-<ul>
-<li><strong>线性等式</strong></li>
-</ul>
-<p>定义线性等式为$f(x_1,x_2,\cdots,x_n)=b$，其中$f$是线性函数，$b$是实数常量</p>
-<ul>
-<li><strong>线性不等式</strong></li>
-</ul>
-<p>定义线性不等式为$f(x_1,x_2,\cdots,x_n)\leq b$或者$f(x_1,x_2,\cdots,x_n)\geq b$，其中$f$是线性函数，$b$是实数常量</p>
-<h1 id="标准型线性规划"><a href="#标准型线性规划" class="headerlink" title="标准型线性规划"></a>标准型线性规划</h1><p>标准型线性规划要求满足如下形式</p>
-<p>最<strong>大</strong>化</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^nc_ix_i</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\sum_{j=1}^na_{ij}x_j&\leq b_i\quad\quad i=1,2,\cdots,m\\\
-x_i&\geq 0 \quad\quad \ i=1,2,\cdots, n
-\end{aligned}</script><ul>
-<li>那么问题来了，如果某个限制不是$\sum a_ix_i\leq b$，而是$\sum a_ix_i\geq b$，怎么办？</li>
-</ul>
-<p>等式两边同时乘以一个负号，就可以变成小于等于</p>
-<ul>
-<li>那如果是要求估价函数最小呢？</li>
-</ul>
-<p>将所有的$c_i$取反，最后再将答案取反</p>
-<ul>
-<li>如果有一个限制是$\sum a_ix_i=b$怎么办？</li>
-</ul>
-<p>将其拆成两个限制，$\sum a_ix_i\geq b$以及$\sum a_ix_i\leq b$</p>
-<ul>
-<li>如果有一个变量$x$没有要求其$\geq 0$呢</li>
-</ul>
-<p>将其拆成两个变量$a,b$，令$x=a-b$，再令$a\geq 0,b\geq 0$即可</p>
-<p>标准型还可以用矩阵表示</p>
-<p>如果我们用$c$表示$c_i$构成的行向量，$A$为$a$构成的矩阵，那么它等价于</p>
-<p>最大化</p>
-<script type="math/tex; mode=display">
-c^Tx</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-Ax\leq b\\
-x\geq 0
-\end{gathered}</script><p>其中$c^T$表示矩阵转置</p>
-<p>注意这里的$\leq,\geq$代表每一维都小于等于/大于等于</p>
-<h1 id="松弛型线性规划"><a href="#松弛型线性规划" class="headerlink" title="松弛型线性规划"></a>松弛型线性规划</h1><p>如果直接求解标准型线性规划，涉及到乘法不等式变号的问题，而且满足的是不等式也不太好做</p>
-<p>我们把它转化一下</p>
-<p>我们新引入$m$个变量（$m$是约束个数，$n$是未知数个数）</p>
-<p>对于限制</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^na_ix_i\leq b,x_i\geq 0</script><p>我们利用一个新的变量$x_{i+n}$，可以将它变成</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-b-\sum_{i=1}^na_ix_i=x_{i+n}\\ x_{i+n}\geq 0,x_i\geq 0
-\end{gathered}</script><p>这样就可以将不等式转化为等式了</p>
-<p>所以我们这样表示松弛型线性规划：</p>
-<p>最大化</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^nc_ix_i</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-x_{i+n}&=b_i-\sum_{j=1}^na_{ij}x_j\quad\quad i=1,2,\cdots,m\\
-x_j&\geq 0,x_{i+n}\geq 0\quad\quad\ \ \ i=1,2,\cdots,m
-\end{aligned}</script><p>我们将$x_i(i\leq n)$叫做<strong>非基变量</strong>，$x_{i+n}$叫做<strong>基变量</strong></p>
-<p>可以看出，标准型线性规划可以很方便地转移成松弛型线性规划</p>
-<h1 id="单纯形"><a href="#单纯形" class="headerlink" title="单纯形"></a>单纯形</h1><p>显然最终解所构成的区域一定是一个凸集，局部最优解只有一个</p>
-<p>所以我们可以使用类似爬山算法的方法，每次往估价函数更优的那个方向爬，直到爬不动为止</p>
-<p>我们首先来尝试构造一组基本解，即先满足所有约束，不管估价函数</p>
-<p>如果所有的$b$都大于等于$0$，那么显然有一组解为所有的非基变量都为$0$，否则接下来会讲</p>
-<p>我们将这个解进行“转轴”操作，使其往估价函数更优的那一方移动</p>
-<h2 id="转轴操作"><a href="#转轴操作" class="headerlink" title="转轴操作"></a>转轴操作</h2><p>我们默认，任意时刻，非基变量的值都为$0$</p>
-<p>一次转轴操作，等价于将一个基变量与一个非基变量<strong>交换位置</strong>，即基变量变成非基变量，非基变量变成基变量</p>
-<p>我们假设选择了一个基变量$x_B$与一个非基变量$x_N$，现在要交换它们</p>
-<p>原来的约束是这样的</p>
-<script type="math/tex; mode=display">
-x_B=b-\sum_{i=1}^na_ix_i</script><p>我们将$x_N$提出来，然后移项</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-x_B=b-\sum_{i\not =N}a_ix_i-a_Nx_N\\
-x_N=\frac{b-\sum_{i\not= N}a_ix_i-x_B}{a_N}
-\end{gathered}</script><p>注意！此时的$x_B$变成了$0$，因为它从一个基变量变成了一个非基变量，而$x_N$的值变成了$\frac{b}{a_N}$</p>
-<p>由于我们之前是<strong>交换</strong>基变量与非基变量，所以在等式中，$x_N$这一项的系数变成了$-\frac{1}{a_N}$，而其它项的系数分别除以了$a_N$</p>
-<p>我们用这条新的等式代替原来的等式，然后再用这条等式去替换其它的约束以及估价函数</p>
-<p>就像高斯消元一样，将其它式子带有$x_N$的项改为这个式子</p>
-<p>所以转一次的时间复杂度为$O(nm)$</p>
-<p>那么如何选择要进行操作的两个变量呢</p>
-<p>显然我们必须满足条件：</p>
-<ol>
-<li>转完之后估价函数必须更优秀</li>
-<li>转完之后等式右边的$b$不能小于$0$</li>
-</ol>
-<p>我们先考虑第一个条件</p>
-<p>在转轴的过程中，$x_N$从原来的$0$变成了一个实数，它在一直变大，所以为了让答案更大，必须有$c_N&gt; 0$</p>
-<p>否则当前已经是最优解，退出</p>
-<p>接着考虑第二个条件</p>
-<p>对于一个等式</p>
-<script type="math/tex; mode=display">
-x_{i+n}=b-\sum_{i=1}^na_ix_i</script><p>它限制了$x_N$的上界或者下界</p>
-<p>如果$a_N\leq0$，那么它无法限制$x_N$的上界，答案为无穷大</p>
-<p>否则$x_N$的上界为$\frac{b}{a_N}$</p>
-<p>为了让转轴之后，其它的等式的常数都大于等于$0$</p>
-<p>我们每次选择$\frac{b}{a_N}$最小的那一个进行转轴操作即可</p>
-<hr>
-<p>代码如下</p>
-<p>注意<code>s[...][n + 1]</code>存的是$b$，也就是那个约束的基变量，其它位置存的是每一项的系数，第一维表示第几个约束</p>
-<p>这里的系数算上了前面那个负号</p>
-<p><code>c</code>是估价函数，<code>c[n + 1]</code>是这个估价函数当前的值</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">pivot</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123; <span class="comment">// 转轴操作, x为未知数, y为第几个方程</span></span><br><span class="line">    <span class="keyword">double</span> tmp = s[y][x]; s[y][x] = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n + <span class="number">1</span>;i++) s[y][i] /= -tmp;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) <span class="keyword">if</span> (i != y) &#123;</span><br><span class="line">        tmp = s[i][x], s[i][x] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (tmp &lt;= eps &amp;&amp; tmp &gt;= -eps) <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= n + <span class="number">1</span>;j++) s[i][j] += tmp * s[y][j]; </span><br><span class="line">    &#125;</span><br><span class="line">    tmp = c[x], c[x] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n + <span class="number">1</span>;i++) c[i] += tmp * s[y][i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">LP</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123; <span class="comment">// n为未知数的个数, m为方程数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> pos, cur;;pivot(pos, cur, n, m)) &#123;</span><br><span class="line">        <span class="keyword">double</span> tmp = <span class="number">1e100</span>; pos = cur = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;i++) <span class="keyword">if</span> (c[i] &gt; eps) pos = i;</span><br><span class="line">        <span class="keyword">if</span> (!pos) <span class="keyword">return</span> c[n + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) <span class="keyword">if</span> (s[i][pos] &lt; -eps) &#123;</span><br><span class="line">            <span class="keyword">double</span> now = s[i][n + <span class="number">1</span>] / -s[i][pos];</span><br><span class="line">            <span class="keyword">if</span> (now &lt; tmp) tmp = now, cur = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!cur) <span class="keyword">return</span> <span class="number">1e100</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意：<strong>线性规划的时间复杂度最坏情况下是指数级别的</strong></p>
-<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>我们来讨论一下当存在$b_i&lt;0$的时候该怎么做</p>
-<p>显然这个时候我们之前选择的非基向量等于$0$的解就不满足条件了</p>
-<p>我们随便找到一个$b&lt;0$的约束，比如是这个</p>
-<script type="math/tex; mode=display">
-x_{t+n}=b_t-\sum_{j=1}^na_{tj}x_j</script><p>我们从这个约束中，随便找到一个系数（注意算上前面那个负号）大于$0$的变量，假设是$x_B$</p>
-<p>进行一次转轴操作，将$x_B$换成基变量，将$x_{t+n}$换成非基变量</p>
-<script type="math/tex; mode=display">
-x_B=\frac{b_t-\sum_{j\not =B}a_{tj}x_j-x_{t+n}}{a_{tB}}</script><p>由于之前我们要求了$x_B$的系数必须为正，也就是说$a_{tB}$为负</p>
-<p>而$b_t$为负，那么转轴之后这个约束的$b$就变成正的了</p>
-<p>如果我们找不到这样一个系数为正的非基变量，那么原线性规划一定无解</p>
-<p>因为所有的变量都必须不小于$0$，因此这个约束的右边一定小于$0$，无解</p>
-<p>注意这样转一次轴之后，虽然这个约束的$b$变成正的了，但是其它约束的$b$可能就变成负数了</p>
-<p>但是没关系，我们有信仰，<code>while (1)</code>转轴就可以了，直到所有约束的$b$都变成正数</p>
-<p>即使这样时间复杂度是玄学的</p>
-<p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">233</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>, c = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;++i) <span class="keyword">if</span>(a[i][n + <span class="number">1</span>] &lt; <span class="number">0</span> &amp;&amp;(!r || rand() &amp; <span class="number">1</span>)) r = i;</span><br><span class="line">        <span class="keyword">if</span> (!r) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= n;++i) <span class="keyword">if</span>(a[r][i] &gt; <span class="number">0</span> &amp;&amp; (!c || rand() &amp; <span class="number">1</span>)) c = i;</span><br><span class="line">        <span class="keyword">if</span> (!c) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        pivot(r, c);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><code>true</code>代表初始化成功，否则代表初始化失败，线性规划无解</p>
-<h2 id="最终解"><a href="#最终解" class="headerlink" title="最终解"></a>最终解</h2><p>如果要求求出每个变量的值，那么我们可以开个数组存一下每个变量被转到哪里去了</p>
-<p>如果这个变量变成了一个基变量，那么它的值等于约束右边的$b$</p>
-<p>否则这个变量就是$0$</p>
-<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>最坏情况下的时间复杂度是指数级别的</p>
-<p>但是我们有信仰，随机情况下还是很优秀的</p>
-<p>大部分时可以过$n,m=100-500$的数据</p>
-<h1 id="将问题表示为线性规划"><a href="#将问题表示为线性规划" class="headerlink" title="将问题表示为线性规划"></a>将问题表示为线性规划</h1><h2 id="某个题"><a href="#某个题" class="headerlink" title="某个题"></a>某个题</h2><p>$A,B$两个人在洞中发现了$n$个石头，第$i$个石头对于$A$来说价值为$A_i$，对于$B$来说价值为$B_i$，石头是可以切割的，并且价值与其体积成正比。现在$A,B$要分配这些石头，要求它们两个人最终得到的价值相同，问这个价值最大可以是多少</p>
-<p>$n\leq 50, 0\leq A_i,B_i\leq 100$</p>
-<p>对于每块石头我们开一个变量$x_i$，表示这块石头有多少分给了$A$，显然有$0\leq x_i\leq 1$</p>
-<p>那么两个人得到的价值之和分别为</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-V_A=\sum_{i=1}^nx_iA_i\\
-V_B=\sum_{i=1}^n(1-x_i)B_i
-\end{gathered}</script><p>约束为$V_A=V_B$，要求最大化$V_A$</p>
-<p>这里我们可以使用一个小技巧，即将约束改为$V_A\leq V_B$，最大化$V_A$，可以发现这是与原来的约束完全等价的</p>
-<p>因为假如有一个解满足$V_A\ne V_B$，那么我们一定可以通过将某个变量$x$调大的方式使得$V_A$变得更大，那么这个解一定不是最优解</p>
-<p>因此约束为</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-V_A\leq V_B\Rightarrow \sum_{i=1}^nx_iA_i\leq \sum_{i=1}^n(1-x_i)B_i\\
-\sum_{i=1}^nx_i(A_i+B_i)\leq\sum_{i=1}^nB_i
-\end{gathered}</script><p>注意到$\sum B_i\geq 0$，因此不需要运行初始化，直接求解即可</p>
-<h2 id="最大流问题"><a href="#最大流问题" class="headerlink" title="最大流问题"></a>最大流问题</h2><p>在原来的最大流问题中，除了源点、汇点外的每个点必须满足流入流量等于流出流量</p>
-<p>我们新建一条从汇点连向源点，并且权值为$\infty$的边。</p>
-<p>那么最终这条边的流量也就是源点到汇点的流量</p>
-<p>用$f(u,v)$表示一条边的实际流量，$c(u,v)$表示一条边的流量，那么可以得到如下的线性规划</p>
-<p>最大化</p>
-<script type="math/tex; mode=display">
-f(t,s)</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-f(u,v)\leq c(u,v) \quad\quad (u,v)\in E\\
-\sum_vf(u,v)=\sum_vf(v,u)\quad \quad u\in V\\
-f(u,v)\geq 0\quad\quad (u,v)\in E\cup|(t,s)|
-\end{gathered}</script><h2 id="最小费用流问题"><a href="#最小费用流问题" class="headerlink" title="最小费用流问题"></a>最小费用流问题</h2><p>此时就不需要在汇点和源点之间新建边了</p>
-<p>我们用$w(u,v)$代表一条边的费用，那么可以得出如下线性规划</p>
-<p>最小化</p>
-<script type="math/tex; mode=display">
-\sum f(u,v)w(u,v)\quad\quad (u,v)\in E</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-\sum_vf(u,v)=\sum_{v}f(v,u)\quad \quad(u,v)\in E,v\not= s,t\\
-f(u,v)\leq c(u,v)\quad\quad (u,v)\in E\\
-f(u,v)\geq 0\quad\quad(u,v)\in E
-\end{gathered}</script><h1 id="对偶问题"><a href="#对偶问题" class="headerlink" title="对偶问题"></a>对偶问题</h1><p>我们考虑这样一个线性规划</p>
-<p>最<strong>小</strong>化</p>
-<script type="math/tex; mode=display">
-7x_1+x_2+5x_3</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-x_1-x_2+3x_3\geq 10\\
-5x_1+2x_2-x_3\geq 6\\
-x_{1,2,3}\geq 0
-\end{gathered}</script><p>普通线性规划要求最大化，而这里要求最小化</p>
-<p>普通线性规划的约束是小于等于，而这里是大于等于</p>
-<p>我们当然可以选择将约束左右两边同时乘以$-1$，但是这样就需要初始化</p>
-<p>这里有另一种方法——转对偶问题</p>
-<p>由于$x_{1,2,3}\geq 0$，我们知道$7x_1+x_2+5x_3\geq x_1-x_2+3x_3\geq 10$</p>
-<p>那么我们就知道了最终答案的一个下界，能不能找到一个更紧的下界呢？</p>
-<p>能，比如</p>
-<script type="math/tex; mode=display">
-7x_1+x_2+5x_3\geq(x_1-x_2+3x_3)+(5x_1+2x_2-x_3)=10+6</script><p>于是我们有了一个奇妙的想法</p>
-<p>对于每一个约束我们单独开一个变量，对于第$i$个约束的变量为$y_i$</p>
-<p>我们用$y$来表示在最终的下界中，每个约束所乘的系数</p>
-<p>比如上面的那个就可以表示为</p>
-<script type="math/tex; mode=display">
-y_1(x_1-x_2+3x_3)+y_2(5x_1+2x_2-x_3)</script><p>我们需要保证，对于每个变量$x_i$，通过这种方式表示出来的系数不超过估价函数中$x_i$的系数，否则我们就无法保证求出的是下界</p>
-<p>同时我们需要最大化下界</p>
-<p>那么我们可以得出如下的线性规划</p>
-<p>最大化</p>
-<script type="math/tex; mode=display">
-10y_1+6y_2</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-y_1+5y_2\leq 7\\
--y_1+2y_2\leq 1\\
-3y_1-y_2\leq 5\\
-y_{1,2}\geq 0
-\end{gathered}</script><p>求解这个线性规划，我们就能得到原估价函数的下界</p>
-<p>我们将新得到的线性规划为对偶问题，如果对这个对偶问题再次进行对偶操作，那么我们会得到原问题</p>
-<p>一个最大化问题可以对偶成最小化问题，同样一个最小化问题可以对偶成最大化问题</p>
-<hr>
-<p>下面给出对偶线性规划的定义</p>
-<p>对于原式线性规划</p>
-<p>最小化</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^nc_ix_i</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-\sum_{j=1}^na_{i,j}x_j\geq b_j\quad\quad i=1,2,\cdots, m\\
-x_i\geq 0\quad\quad i=1,2,\cdots,m
-\end{gathered}</script><p>它的对偶问题为</p>
-<p>最大化</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^mb_iy_i</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-\sum_{j=1}^ma_{ij}y_j\leq c_i\quad\quad i=1,2,\cdots,n\\
-y_i\geq 0\quad\quad i=1,2,\cdots n
-\end{gathered}</script><p>用矩阵可以表示为</p>
-<script type="math/tex; mode=display">
-\begin{cases}
-最大化\ c^Tx\\
-满足约束\ Ax\geq b,x\geq 0
-\end{cases}
-\longleftrightarrow
-\begin{cases}
-最大化\ b^Ty\\
-满足约束\ A^Ty\leq c,y\geq 0
-\end{cases}</script><p>同样，$A^T$表示矩形转置</p>
-<h1 id="几个重要定理"><a href="#几个重要定理" class="headerlink" title="几个重要定理"></a>几个重要定理</h1><h2 id="定理1-线性规划弱对偶性"><a href="#定理1-线性规划弱对偶性" class="headerlink" title="定理1. 线性规划弱对偶性"></a>定理1. 线性规划弱对偶性</h2><blockquote>
-<p>若$X=(x_1,x_2,\cdots,x_n)$是原问题的一个可行解，$Y=(y_1,y_2,\cdots,y_m)$是对偶问题的一个可行解，那么</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^mb_iy_i\leq\sum_{j=1}^nc_jx_j</script></blockquote>
-<p><del>其实我觉得挺显然的</del></p>
-<p>证明：</p>
-<p>由于$Y$是对偶问题的一个可行解，所以</p>
-<script type="math/tex; mode=display">
-c_j\geq\sum_{i=1}^ma_{ij}y_i</script><p>由于有$x_i\geq 0$，所以</p>
-<script type="math/tex; mode=display">
-\sum_{j=1}^nc_jx_j\geq\sum_{j=1}^n(\sum_{i=1}^ma_{ij}y_i)x_j</script><p>由于$X$是原问题的一个可行解，所以</p>
-<script type="math/tex; mode=display">
-b_j\leq\sum_{i=1}^na_{ji}x_i</script><p>由于有$y_i\geq 0$，所以</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^m(\sum_{j=1}^na_{ij}x_j)y_i\geq \sum_{i=1}^mb_iy_i</script><p>我们知道</p>
-<script type="math/tex; mode=display">
-\sum_{j=1}^n(\sum_{i=1}^ma_{ij}y_i)x_j=\sum_{i=1}^m(\sum_{j=1}^na_{ij}x_j)y_i</script><p>所以结论成立</p>
-<h2 id="定理2-线性规划对偶性"><a href="#定理2-线性规划对偶性" class="headerlink" title="定理2. 线性规划对偶性"></a>定理2. 线性规划对偶性</h2><blockquote>
-<p>若$X^{\times }=(x_1,x_2,\cdots,x_n)$是原问题的最优解，$Y^{\times }=(y_1,y_2,\cdots,y_m)$是对偶问题的最优解，那么</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^mb_iy_i=\sum_{j=1}^nc_jx_j</script></blockquote>
-<p><strong>引理</strong>： 设$I$是一个下标集合，对于每一个$j\in I$，设$\alpha_j,\beta_j$是实数，并令$x_j$是一个实数变量，设$\gamma$是任意的实数。假设对于变量$x_j$的任意设置，我们有</p>
-<script type="math/tex; mode=display">
-\sum_{j\in I}\alpha_jx_j=\gamma+\sum_{j\in I}\beta_jx_j</script><p>那么对于任意的$j\in I,\alpha_j=\beta_j$，且$\gamma=0$</p>
-<p><strong>证明</strong>：因为上式对于任意的$x_j$都成立，那么我们可以通过代入一些特殊值的方式求出$\gamma,\alpha,\beta$。比如令所有的$x$都为$0$，那么我们可以得到$\gamma=0$，对于$j$，我们令$x_j=1,x_k=0(k\ne j)$，那么我们可以得出$\alpha_j=\beta_j$</p>
-<p>注意这里使用的特殊值仍然满足$x_j\geq 0$</p>
-<hr>
-<p>为了证明这个定理，我们先尝试构造一组对偶问题的解</p>
-<p>定义$N$表示非基变量，$B$表示基变量</p>
-<p>我们假设原问题在经过松弛过后得到的结果为</p>
-<p>最大化</p>
-<script type="math/tex; mode=display">
-v'+\sum_{j\in N}c'_jx_j</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-x_i=b'_i-\sum_{j\in N}a'_{ij}x_j\quad\quad i\in B</script><p>我们令</p>
-<script type="math/tex; mode=display">
-\bar y_i=\begin{cases}
--c'_{n+i}&若(n+i)\in N\\
-0 &其它
-\end{cases}</script><p>其实就是在原问题求解完毕后，在估价函数中所有非基变量的系数取反</p>
-<p>现在我们开始证明</p>
-<p>定义$\bar x=(\bar x_1,\bar x_2,\cdots,\bar x_n)$为原问题的最优解，$\bar y$为按照上面的方式取得的对偶问题的解</p>
-<p>在最终形态的线性规划中，原问题的估价函数为</p>
-<script type="math/tex; mode=display">
-z=v'+\sum_{j\in N}c'_j\bar x_j</script><p>对于$j\in B$，我们定义$c’_j=0$</p>
-<p>所以</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-z&=v'+\sum_{j\in N}c'_j\bar x_j+\sum_{j\in B}c'_j\bar x_j\\
-&=v'+\sum_{i=1}^{n+m}c'_j\bar x_j
-\end{aligned}</script><p>对于$j\in N$，我们知道$\bar x_j=0$，如果我们将此时的解代入原问题求估价函数，那么会得到同样的结果。所以</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\sum_{j=1}^nc_j\bar x_j&=v'+\sum_{j=1}^{n+m}c'_j\bar x_j\\
-&=v'+\sum_{j\in N}c'_j\bar x_j+\sum_{j\in B}c'_j\bar x_j\\
-&=v'+\sum_{j\in N}(c'_j\times 0)+\sum_{j\in B}(0\times \bar x_j)\\
-&=v'
-\end{aligned}</script><p>现在我们要说明之前构造出来的$\bar y$对于对偶线性规划是可行的，并且其估价函数的值$\sum\limits_{i=1}^mb_iy_i$等于$\sum\limits_{j=1}^n c_j\bar x_j$。我们刚刚证明了原问题（第一个松弛型）与最终问题（最后一个松弛型）代入$\bar x$求值是相等的。更一般地，所有松弛型都是等价的意味着对于任意变量集合$x=(x_1,x_2,\cdots,x_n)$，我们有</p>
-<script type="math/tex; mode=display">
-\sum_{j=1}^nc_jx_j=v'+\sum_{j=1}^{n+m}c'_jx_j</script><p>因此，对于任意的特定值集合$\bar x=(\bar x_1,\bar x_2,\cdots, \bar x_n)$，有</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\sum_{j=1}^nc_j\bar x_j&=v'+\sum_{j=1}^{n+m}c'_j\bar x_j=v'+\sum_{j=1}^nc'_j\bar x_j+\sum_{j=1}^mc'_{j+n}\bar x_{j+n}\\
-&=v'+\sum_{j=1}^nc'_j\bar x_j+\sum_{i=1}^m(-\bar y_i)\bar x_{n+i}\\
-&=v'+\sum_{j=1}^nc'_j\bar x_j+\sum_{i=1}^m(-\bar y_i)(b_i-\sum_{j=1}^na_{ij}\bar x_j)
-\end{aligned}</script><p>注意，原问题的对偶问题和原问题经过变换后的对偶问题是等价的</p>
-<p>对于原问题的一次变换，其实就是转轴操作，我们可以认为在对偶问题中，我们同步进行了一次转轴操作，最终得到的仍然是对偶问题</p>
-<p>所以这里的$b,a$我们改成$b’,a’$仍然是可以的</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\sum_{j=1}^nc_j\bar x_j&=v'+\sum_{j=1}^nc'_j\bar x_j-\sum_{i=1}^mb_i\bar y_i+\sum_{i=1}^m\bar y_i\sum_{j=1}^na_{ij}\bar x_j\\
-&=v'+\sum_{j=1}^nc'_j\bar x_j-\sum_{i=1}^mb_i\bar y_i+\sum_{j=1}^n\bar x_j\sum_{i=1}^ma_{ij}\bar y_i\\
-&=(v'-\sum_{i=1}^mb_i\bar y_i)+\sum_{j=1}^n(c'_j+\sum_{i=1}^ma_{ij}\bar y_i)\bar x_j
-\end{aligned}</script><p>根据引理，我们可以得到</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-v'-\sum_{i=1}^mb_i\bar y_i=0\\
-c'_j+\sum_{i=1}^ma_{ij}\bar y_i=c_j
-\end{gathered}</script><p>因此，对偶问题的估价函数值与原问题相等，下面我们来说明$\bar y$为对偶问题的可行解</p>
-<p>对于基变量，我们知道$c’=0$</p>
-<p>对于非基变量，我们知道$c’\leq 0$，否则我们可以继续进行松弛操作，使得估价函数的值更加优秀</p>
-<p>因此$c’_j\leq 0,\sum\limits_{i=1}^ma_{ij}\bar y_i\leq c_j$</p>
-<p>满足对偶问题的约束</p>
-<p>因此我们证明了定理2，同时给出了构造对偶问题最优解的一种方法</p>
-<h2 id="定理3-互松弛定理"><a href="#定理3-互松弛定理" class="headerlink" title="定理3. 互松弛定理"></a>定理3. 互松弛定理</h2><blockquote>
-<p>若$X=(x_1,x_2,\cdots,x_n),Y=(y_1,y_2,\cdots,y_n)$分别是原问题及对偶问题的一组可行解，那么$X,Y$都是最优解当且仅当</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-对于所有的1\leq j\leq n,满足x_j=0或\sum_{i=1}^ma_{ij}y_i=c_j\\
-对于所有的1\leq i\leq m,满足y_i=0或\sum_{j=1}^na_{ij}x_j=b_i
-\end{gathered}</script></blockquote>
-<p>证明：根据定理2证明中的最后一步</p>
-<script type="math/tex; mode=display">
-c'_j+\sum_{i=1}^ma_{ij}\bar y_i=c_j</script><p>我们分类讨论：</p>
-<ol>
-<li>$c’_j=0$</li>
-</ol>
-<p>此时也就是$x_j$的系数为$0$，那么$x_j$随意即可，对最终的结果不会造成影响</p>
-<ol>
-<li>$c’_j&lt; 0$</li>
-</ol>
-<p>此时为了要求最终结果最大，必然有$x_j=0$，否则我们可以通过减少$x_j$的值使得结果变大</p>
-<p>对于$y$的证明同理</p>
-<h1 id="对偶的应用"><a href="#对偶的应用" class="headerlink" title="对偶的应用"></a>对偶的应用</h1><h2 id="偷懒"><a href="#偷懒" class="headerlink" title="偷懒"></a>偷懒</h2><p>给一张$n$个点的带权无向图，边$u,v$的权值为$w_{u,v}$，可以随意增加或者减少一条边的边权，代价为边权的变化量。要求进行操作之后任意两点间直接相连的边的长度不超过两点之间的最短路，求最小代价</p>
-<p>$n\leq 10,w\leq 20$</p>
-<p>对于每一条边我们开两个变量$t_{u,v},t’_{u,v}$，表示这条边增加了多少/减少了多少</p>
-<p>那么对于一条边$u,v$，经过操作之后它的边权为$w_{u,v}+t_{u,v}-t’_{u,v}$，令$d_{u,v}$表示操作之后$u,v$两点间的最短路长度</p>
-<p>我们可以得到如下线性规划</p>
-<p>最小化</p>
-<script type="math/tex; mode=display">
-\sum_{(u,v)\in E}t_{u,v}+t'_{u,v}</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-d_{u,v}\geq w_{u,v}+t_{u,v}-t'_{u,v}\quad\quad (u,v)\in E\\
--d_{u,v}\geq -w_{u,v}-t_{u,v}+t'_{u,v}\quad\quad (u,v)\in E\\
-w_{u,i}+t_{u,i}-t'_{u,i}\geq d_{u,v}-d_{u,i}\quad\quad u\ne v,(u,i)\in E\\
-\end{gathered}
-d,t,t'\geq 0</script><p>注意到之间求解需要初始化，而目标函数中的系数都是正的</p>
-<p>所以我们可以将这个线性规划进行对偶，将所有的$b$都变成正数，这样就不需要初始化了</p>
-<h2 id="将线性规划转化为半平面交"><a href="#将线性规划转化为半平面交" class="headerlink" title="将线性规划转化为半平面交"></a>将线性规划转化为半平面交</h2><p>给出三个长度为$n$的数组$a_i,b_i,c_i$，每次询问给出两个数$s,t$，求一组非负实数$x_i$，满足</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^na_ix_i=s,\sum_{i=1}^nb_ix_i=t</script><p>同时最大化$\sum\limits_{i=1}^nc_ix_i$，对于每组询问输出最大值或无解</p>
-<p>$n\leq 10^5,a,b,c,s,t,m\leq 10^4$</p>
-<p>注意到每次变化的是限制，而对于目标函数是不变的，这意味着转对偶之后限制是不变的</p>
-<p>那么对初始线性规划我们转一个对偶，然后未知数就变成了两个，限制变成了$n$个，并且是固定的</p>
-<p>此时目标函数变成了$sy_1+ty_2$</p>
-<p>由于初始线性规划的约束是等于，所以转对偶之后对于$y_1,y_2$是否大于$0$没有限制</p>
-<p>这里简单说明一下</p>
-<p>我们考虑一个这样的线性规划</p>
-<p>约束为</p>
-<script type="math/tex; mode=display">
-\sum_{j=1}^na_{ij}x_i=b_i</script><p>我们可以把它拆成两个</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-\sum_{j=1}^na_{ij}x_i\geq b_i\\
--\sum_{j=1}^na_{ij}x_i\geq -b_i
-\end{gathered}</script><p>现在考虑对偶，我们设第一个限制的未知数为$y_1$，第二个为$y_2$</p>
-<p>那么对偶的限制一定是对$y_1-y_2$的限制</p>
-<p>现在我们将$y_1,y_2$合成一个变量，虽然有$y_1\geq 0,y_2\geq 0$，但是这个新合成的变量$y_1-y_2$却可以小于$0$</p>
-<p>所以此时对偶之后的变量才没有$\geq 0$的限制</p>
-<p>将$y_1$看作$x$，将$y_2$看作$y$，我们可以把约束转化为半平面交的形式</p>
-<p>所以询问的时候直接在凸壳上二分即可</p>
-<h2 id="将线性规划转化为网络流"><a href="#将线性规划转化为网络流" class="headerlink" title="将线性规划转化为网络流"></a>将线性规划转化为网络流</h2><p>给出一个带权的连通无向图，有$n$个点$m$条边，对于每条边，增加$1$的权值需要花费$a_i$，减少$1$的权值需要花费$b_i$，给定一棵生成树，需要通过修改边权使得它成为最小生成树，求最小花费</p>
-<p>考虑一条边为非树边的含义是什么</p>
-<p>如果一条原图上的边$u,v$不在最小生成树上，那么在生成树上它覆盖的所有边的权值都不能小于它</p>
-<p>并且树边一定不会加，非树边一定不会减</p>
-<p>写成线性规划的形式就是</p>
-<p>最小化</p>
-<script type="math/tex; mode=display">
-\sum_{i\in T}b_ix_i+\sum_{i\in E-T}a_ix_i</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\begin{gathered}
-x_i+x_j\geq w_i-w_j\quad\quad i被j覆盖\\
-x_i\geq 0
-\end{gathered}</script><p>首先来转一个对偶</p>
-<p>最大化</p>
-<script type="math/tex; mode=display">
-\sum_{i\in T,j\in E-T,j覆盖i}(w_i-w_j)y_{ij}</script><p>满足约束</p>
-<script type="math/tex; mode=display">
-\sum_{j\in E-T,j覆盖i}y_{ij}\leq b_i\quad\quad i\in T\\
-\sum_{i\in T,j覆盖i} y_{ij}\leq a_i\quad\quad j\in E-T</script><p>我们将$T$中的边放在左边，$E-T$中的边放在右边，可以看出这是一个最大费用流模型，其中$y_{ij}$就是流量</p>
-<p>需要满足对于$T$中的点，每个点的流量不超过$b_i$，对于$E-T$中的点，每个点的流量不超过$a_i$</p>
-<p>如果$j$覆盖$i$，那么我们从$i$向$j$连一条容量无限，费用为$w_i-w_j$的边</p>
-<p>然后在这张图上跑一遍费用流就可以了</p>
-<p>注意这里的费用流不是优先满足最大流，而是优先满足费用最大</p>
-<p><code>dinic</code>的时候如果当前费用小于上次更新时的费用就<code>break</code></p>
-<hr>
-<p>完结撒花</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/">19</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/13/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><span class="page-number current">14</span><a class="page-number" href="/page/15/">15</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/15/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1969,7 +1578,7 @@ x_i\geq 0
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">189</span>
+          <span class="site-state-item-count">191</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -2019,7 +1628,7 @@ x_i\geq 0
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
