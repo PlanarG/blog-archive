@@ -188,6 +188,154 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/03/13/3-13%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/13/3-13%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/" class="post-title-link" itemprop="url">3.13省选模拟</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-13 19:27:20" itemprop="dateCreated datePublished" datetime="2019-03-13T19:27:20+08:00">2019-03-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:32:16" itemprop="dateModified" datetime="2020-04-23T09:32:16+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%80%83%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">考试</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="T1-碱基配对"><a href="#T1-碱基配对" class="headerlink" title="T1 碱基配对"></a>T1 碱基配对</h1><p><img src="https://i.loli.net/2019/03/13/5c88e968525a4.png" alt="1552476506650"></p>
+<p><img src="https://i.loli.net/2019/03/13/5c88e9a821349.png" alt="1552476546262"></p>
+<p>注意到每一种字符是互不影响的，所以我们可以对于每一种字符分别计算有哪些位置合法，最后取一个交集</p>
+<p>问题就转化为了给出两个01串$A,B$，对于$B$的每一个为1的位置$B_i$，$A_{i+p-k}-A_{i+p+k}$这些位置中至少要有一个1</p>
+<p>那么我们可以把第一个串转化一下，将$A_i$变成原来的$A’_{i-k}-A’_{i+k}$中是否有1</p>
+<p>对于这种条件比较奇怪的字符串匹配问题，一个比较常用的方法是<code>FFT</code></p>
+<p>我们设差异函数$F(p)$代表$A$串在$p$这个位置的差异值</p>
+<p>我们考虑什么时候会产生差异</p>
+<p>如果当前$B_i=0$，那么$A_{i+p}$随意</p>
+<p>如果当前$B_i=1$，那么$A_{i+p}$必须为1</p>
+<p>所以定义差异函数为</p>
+<script type="math/tex; mode=display">
+F(p)=\sum_{i=0}^m(B_i-A_{i+p})B_i</script><p>那么只要$F(p)\not=1$，$p$这个位置就不能匹配</p>
+<p>把它化简一下</p>
+<script type="math/tex; mode=display">
+F(p)=\sum_{i=0}^mB_i^2-\sum_{i=0}^mA_{i+p}B_i\\\
+=\sum_{i=0}^mB_i-\sum_{i=0}^mA_{i+p}B_i</script><p>根据套路，设$A’(x)=A(n-x)$</p>
+<p>有</p>
+<script type="math/tex; mode=display">
+G(p)=\sum_{i=0}^mA_{i+p}B_i\\\
+=\sum_{i=0}^mA'_{n-i-p}B_i\\\</script><p>令</p>
+<script type="math/tex; mode=display">
+G'(n-p)=\sum_{i=0}^mA'_{n-i-p}B_i\\\
+G(p)=G'(n-p)</script><p>直接<code>NTT</code>即可</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 800010</span></span><br><span class="line"><span class="keyword">int</span> pre[N], ta[N], tb[N], n, m, k, tmp[N], r[N], ans[N]; <span class="keyword">char</span> A[N], B[N];</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (;y;y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">NTT</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> len, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) <span class="keyword">if</span> (i &lt; r[i]) swap(a[i], a[r[i]]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> mid = <span class="number">2</span>;mid &lt;= len;mid &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> Wn = Pow(<span class="number">3</span>, type ? (mod - <span class="number">1</span>) / mid : mod - <span class="number">1</span> - (mod - <span class="number">1</span>) / mid);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i += mid)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i, w = <span class="number">1</span>, t;j &lt; i + (mid &gt;&gt; <span class="number">1</span>);j++, w = (LL)w * Wn % mod)</span><br><span class="line">                t = (LL)w * a[j + (mid &gt;&gt; <span class="number">1</span>)] % mod, a[j + (mid &gt;&gt; <span class="number">1</span>)] = (a[j] - t + mod) % mod, a[j] = (a[j] + t) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!type) <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, inv = Pow(len, mod - <span class="number">2</span>);i &lt; len;i++)</span><br><span class="line">        a[i] = (LL)a[i] * inv % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">char</span> s)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>, l = <span class="number">0</span>, len = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) pre[i] = (i ? pre[i - <span class="number">1</span>] : <span class="number">0</span>) + (A[i] == s);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; m;i++) tb[i] = (B[i] == s), sum += tb[i] * tb[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> t = i - k - <span class="number">1</span>;</span><br><span class="line">        tmp[i] = (pre[min(n - <span class="number">1</span>, i + k)] - (t &gt;= <span class="number">0</span> ? pre[t] : <span class="number">0</span>)) &gt; <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) ta[n - i] = tmp[i];</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= n + m) len &lt;&lt;= <span class="number">1</span>, l++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n + <span class="number">1</span>;i &lt; len;i++) ta[i] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m;i &lt; len;i++) tb[i] = <span class="number">0</span>; ta[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">    NTT(ta, len, <span class="number">1</span>), NTT(tb, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) ta[i] = (LL)ta[i] * tb[i] % mod;</span><br><span class="line">    NTT(ta, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n - m;i++) ans[i] &amp;= ta[n - i] == sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"><span class="comment">//    freopen("base1.in", "r", stdin);</span></span><br><span class="line">    freopen(<span class="string">"base.in"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>), freopen(<span class="string">"base.out"</span>, <span class="string">"w"</span>, <span class="built_in">stdout</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%s%s"</span>, &amp;k, A, B), n = <span class="built_in">strlen</span>(A), m = <span class="built_in">strlen</span>(B);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n - m;i++) ans[i] = <span class="number">1</span>;</span><br><span class="line">    solve(<span class="string">'Z'</span>), solve(<span class="string">'P'</span>), solve(<span class="string">'S'</span>), solve(<span class="string">'B'</span>);</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n - m;i++) res += ans[i];</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, res);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T2-小凯的疑惑"><a href="#T2-小凯的疑惑" class="headerlink" title="T2 小凯的疑惑"></a>T2 小凯的疑惑</h1><p><img src="https://i.loli.net/2019/03/13/5c88fb6082474.png" alt="1552481105547"></p>
+<p><img src="https://i.loli.net/2019/03/13/5c88fb7fd5a04.png" alt="1552481142694"></p>
+<p><img src="https://i.loli.net/2019/03/13/5c88fc05c8d8e.png" alt="1552481276343"></p>
+<p>由于数据太水，暴力可以获得92分的高分</p>
+<p>对于第一、三、四这几个<code>subtask</code>，可以预处理当所有点都加上某个值时的答案，注意如果没有询问是这个值时不需要计算答案</p>
+<p>对于第二个<code>subtask</code>，直接使用完全图的最小生成树这道题的做法即可。</p>
+<p>每次将所有点按照最高位分成两类，把这两类分别连成连通块后再选择一条连接这两个连通块的最优边</p>
+<p>表示没看懂题解在说什么，先贴上来</p>
+<p><img src="https://i.loli.net/2019/03/13/5c88fd11845f9.png" alt="1552481542615"></p>
+<h1 id="T3-false-false-true"><a href="#T3-false-false-true" class="headerlink" title="T3 false-false-true"></a>T3 false-false-true</h1><p><img src="https://i.loli.net/2019/03/13/5c88fd8a69134.png" alt="1552481664470"></p>
+<p><img src="https://i.loli.net/2019/03/13/5c88fdb35defc.png" alt="1552481701351"></p>
+<p><img src="https://i.loli.net/2019/03/13/5c88fddfe11af.png" alt="1552481749049"></p>
+<p>一道很妙的题</p>
+<p>先考虑$20\%$怎么做</p>
+<p>很简单，直接<code>dp</code>即可</p>
+<p><code>dp[i][j]</code>表示当前已经有$i$道题是<code>true</code>，$j$道题是<code>false</code>，按照最优策略期望还能有多少道题可以答对</p>
+<p>最优策略就是剩下的题中，是<code>true</code>的题多还是<code>false</code>的题多，哪个多就猜哪个</p>
+<p>对于$40\%$，<del>可以<code>OEIS</code></del>我也不知道该怎么做</p>
+<p>对于所有的数据，我们考虑将题目转化一下</p>
+<p>有一个$n*m$的网格，现在要从$(1,1)$走到$(n,m)$。对于一条路径，往上走代表这道题是<code>false</code>，往右走代表这道题是<code>true</code>。你现在要在走的同时决策向上走还是向右走，问期望有多少个决策会和最终的答案一样</p>
+<p>我们将这个网格分成两部分</p>
+<p><img src="https://i.loli.net/2019/03/13/5c89006d8f13d.png" alt="1552482384724"></p>
+<p>对于蓝色的部分，我们使用的策略是一直向右走，显然这样会更优秀，因为答对的概率更大</p>
+<p>对于橙色的部分，有一些时候会向右走，有些时候会向上走。具体来说</p>
+<p><img src="https://i.loli.net/2019/03/13/5c89010caafd8.png" alt="1552482562810"></p>
+<p>在直线上方的部分会选择向右走，在直线下方的部分会选择向上走</p>
+<p>我们先不考虑在直线上的情况</p>
+<p>考虑一条路径的<strong>固定贡献</strong></p>
+<p><img src="https://i.loli.net/2019/03/13/5c89021c29561.png" alt="1552482834082"></p>
+<p>如果我们的策略只有向右走，那么绿色的路径一定会决策正确，黑色的路径一定会决策错误</p>
+<p>最后决策正确的题目的数量是$n$</p>
+<p>现在把位于虚线下方的路径都折到虚线上方，由于我们知道在虚线下方时，决策是一直向上走，折过来之后，就变成了一直向右走</p>
+<p><img src="https://i.loli.net/2019/03/13/5c89031e33481.png" alt="1552483087960"></p>
+<p>红色即为处理之后的路径</p>
+<p>通过这张图我们知道，<strong>对于不在虚线上的点</strong>，它们在这条路径上的贡献一定是$n$</p>
+<p>那么对于在虚线上的点，它们的贡献需要特殊考虑</p>
+<p>我们考虑一个这样的点对最终答案的贡献是什么</p>
+<p>首先枚举每一个在虚线上的点，一共只有$m$个</p>
+<p>对于一条经过它的路径，在到达这个点的时候，它有$50\%$的概率向上走，有$50\%​$的概率向右走，因为此时选两边正确的概率都相等</p>
+<p>也就是说，它对这条路径决策正确的次数的贡献是$\frac 12$</p>
+<p>它对答案的贡献就是$\frac12$乘以它被经过的概率</p>
+<p>我们知道经过一个点$(x,y)$的概率是</p>
+<script type="math/tex; mode=display">
+\frac{C_{x+y}^yC_{n-x+m-y}^{n-x}}{C_{n+m}^n}</script><p>乘以$\frac12$之后求和就可以了</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 1000010</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">int</span> frac[N], inv[N];</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (;y;y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">C</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (LL)frac[n] * inv[r] % mod * inv[n - r] % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Go</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> C(n + m, n);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    frac[<span class="number">0</span>] = inv[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= N - <span class="number">10</span>;i++) frac[i] = (LL)frac[i - <span class="number">1</span>] * i % mod, inv[i] = Pow(frac[i], mod - <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">int</span> n, m, res = <span class="number">0</span>; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">    <span class="keyword">if</span> (n &lt; m) swap(n, m);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= m;i++) res = (res + (LL)Go(i, i) * Go(n - i, m - i)) % mod;</span><br><span class="line">    res = (LL)res * Pow(<span class="number">2</span> * Go(n, m) % mod, mod - <span class="number">2</span>) % mod;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (n + m - n - res + mod) % mod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这次考试一般，第二题有一个小地方写错了，导致丢了20分</p>
+<p>感觉第二题和第三题如果没有做过的话我很难想出正解，做一道题记一道题吧</p>
+<p>明天没有考试</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/03/12/3-12%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1216,112 +1364,6 @@ p_2(n)=\sum_{i=1}^na_{i-1}i</script><p>即可</p>
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/03/10/%E7%BA%BF%E6%80%A7%E9%80%92%E6%8E%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
-      <meta itemprop="name" content="PlanarG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="PlanarG's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/10/%E7%BA%BF%E6%80%A7%E9%80%92%E6%8E%A8/" class="post-title-link" itemprop="url">线性递推</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-10 21:20:11" itemprop="dateCreated datePublished" datetime="2019-03-10T21:20:11+08:00">2019-03-10</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-23 09:34:08" itemprop="dateModified" datetime="2020-04-23T09:34:08+08:00">2020-04-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>求一个满足$k$阶齐次线性递推数列$a_i$的第$n​$项</p>
-<p>即：$a_n=\sum\limits_{i=1}^kf_i\times a_{n-i}$</p>
-<p>已知$f$，以及$a_0,a_1,\cdots,a_{k-1}$</p>
-<script type="math/tex; mode=display">
-n\leq 10^9, k\leq 32000</script><p>如果$k$小一点，那么直接矩阵乘法是可以的</p>
-<p>但是这个是$O(k^3\log n)$的，时间复杂度难以承受</p>
-<p>注意到这个是其次线性递推，也就是说，我们构造出的矩阵只有第一行是$f​$，其余的行上全是1和0</p>
-<p>我们设这个矩阵是$A$，现在有一个奇妙的序列$c$使得</p>
-<script type="math/tex; mode=display">
-A^n=\sum_{i=0}^{k-1}c_iA^i</script><p>我们设初始列向量是$base$，那么有</p>
-<script type="math/tex; mode=display">
-A^n\times base=\sum_{i=0}^{k-1}c_iA^i\times base\\</script><p>在矩阵运算中，我们只取第一行的值，那么有</p>
-<script type="math/tex; mode=display">
-a_n=\sum_{i=0}^{k-1}c_ia_i</script><p>这也就是说，如果我们成功地构造出了这个$c$，那么我们就可以使用$a$的前$k$项推出$a_n$</p>
-<p>我们重新考虑之前的那个式子</p>
-<script type="math/tex; mode=display">
-A^n=\sum_{i=0}^{k-1}c_iA^i</script><p>它一定可以被写成这样的式子</p>
-<script type="math/tex; mode=display">
-A^n=Q(A)G(A)+R(A)</script><p>即</p>
-<script type="math/tex; mode=display">
-R(A)=A^n\mod G(A)</script><p>其中$Q,G,R$都是以矩阵为参数的函数</p>
-<p>我们令这个$G$的次数为$k$，那么$R$的次数为$k-1$</p>
-<p>如果存在一个函数$G$，使得对于$A$，有$G(A)=0$，那么前面的$Q(A)G(A)$就可以消去，从而使得$A^n=R(A)$</p>
-<p>此时多项式$R$的每一项的系数，就对应着之前我们需要构造的$c$</p>
-<p>所以实际上我们要构造一个序列$g$，使得</p>
-<script type="math/tex; mode=display">
-\sum_{i=0}^kg_iA^i=0</script><p>这里先上结论：对于满足题意的递推系数$f$，有$g_i=-f_{k-i},g_k=1$</p>
-<p>注意这里我们需要把这个$f$倒过来再取相反数，因为我们把列向量倒过来了，即从上到下分别为$a_0,a_1,\cdots,a_{k-1} $</p>
-<p>注意$f$的下标是从1到$k$，$g$是从0到$k​$</p>
-<p>计算的时候就像快速幂一样，只不过模的是一个多项式$G$</p>
-<p>证明过程之后再补</p>
-<p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 202010</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (;y;y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> r[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">NTT</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> len, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) <span class="keyword">if</span> (i &lt; r[i]) swap(a[i], a[r[i]]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> mid = <span class="number">2</span>;mid &lt;= len;mid &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> Wn = Pow(<span class="number">3</span>, type ? (mod - <span class="number">1</span>) / mid : mod - <span class="number">1</span> - (mod - <span class="number">1</span>) / mid);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i += mid)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i, w = <span class="number">1</span>, t;j &lt; i + (mid &gt;&gt; <span class="number">1</span>);j++, w = (LL)w * Wn % mod)</span><br><span class="line">                t = (LL)w * a[j + (mid &gt;&gt; <span class="number">1</span>)] % mod, a[j + (mid &gt;&gt; <span class="number">1</span>)] = (a[j] - t + mod) % mod, a[j] = (a[j] + t) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!type) <span class="keyword">for</span> (<span class="keyword">int</span> inv = Pow(len, mod - <span class="number">2</span>), i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">        a[i] = (LL)a[i] * inv % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> tmp[N];</span><br><span class="line"><span class="comment">// b[i] = 2 * b'[i] - a[i] * b'[i] * b'[i]</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Inv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[], <span class="keyword">int</span> b[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="keyword">void</span>(b[<span class="number">0</span>] = Pow(a[<span class="number">0</span>], mod - <span class="number">2</span>));</span><br><span class="line">    Inv(a, b, (n + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>); <span class="keyword">int</span> l = <span class="number">0</span>, len = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= n * <span class="number">3</span>) l++, len &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) tmp[i] = a[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &lt; len;i++) tmp[i] = <span class="number">0</span>;</span><br><span class="line">    NTT(tmp, len, <span class="number">1</span>), NTT(b, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">        b[i] = (<span class="number">2</span> - (LL)tmp[i] * b[i] % mod + mod) % mod * b[i] % mod;</span><br><span class="line">    NTT(b, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &lt; len;i++) b[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> tmpa[N], tmpb[N], tmpc[N], binv[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Div</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[], <span class="keyword">const</span> <span class="keyword">int</span> b[], <span class="keyword">int</span> c[], <span class="keyword">int</span> d[], <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line"><span class="comment">//	memset(tmpa, 0, sizeof(tmpa)), memset(tmpb, 0, sizeof(tmpb)), memset(tmpc, 0, sizeof(tmpc)), memset(binv, 0, sizeof(binv));</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n * <span class="number">6</span> - m * <span class="number">6</span> + <span class="number">1</span>;i++) tmpa[i] = tmpb[i] = tmpc[i] = binv[i] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n - m;i++) tmpa[i] = a[n - i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= m;i++) tmpb[i] = b[m - i];</span><br><span class="line">    Inv(tmpb, binv, n - m + <span class="number">1</span>); <span class="keyword">int</span> l = <span class="number">0</span>, len = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= n * <span class="number">2</span> - m * <span class="number">2</span>) l++, len &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    NTT(tmpa, len, <span class="number">1</span>), NTT(binv, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">        c[i] = (LL)tmpa[i] * binv[i] % mod;</span><br><span class="line">    NTT(c, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - m + <span class="number">1</span>;i &lt; len;i++) c[i] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i * <span class="number">2</span> &lt; n - m;i++) swap(c[i], c[n - m - i]);</span><br><span class="line">    l = <span class="number">0</span>, len = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= n) l++, len &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n;i++) tmpa[i] = a[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= m;i++) tmpb[i] = b[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n - m;i++) tmpc[i] = c[i];</span><br><span class="line">    NTT(tmpa, len, <span class="number">1</span>), NTT(tmpb, len, <span class="number">1</span>), NTT(tmpc, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">        d[i] = (tmpa[i] - (LL)tmpb[i] * tmpc[i] % mod + mod) % mod;</span><br><span class="line">    NTT(d, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m;i &lt; len;i++) d[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> base[N], f[N], res[N], del[N], A[N], rub[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">mul</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">const</span> <span class="keyword">int</span> b[], <span class="keyword">const</span> <span class="keyword">int</span> c[], <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = <span class="number">0</span>, len = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= k * <span class="number">2</span>) len &lt;&lt;= <span class="number">1</span>, l++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= k;i++) tmpb[i] = b[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = k + <span class="number">1</span>;i &lt; len;i++) tmpb[i] = <span class="number">0</span>;</span><br><span class="line">    NTT(a, len, <span class="number">1</span>), NTT(tmpb, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) </span><br><span class="line">        del[i] = (LL)a[i] * tmpb[i] % mod;</span><br><span class="line">    NTT(del, len, <span class="number">0</span>), Div(del, c, rub, a, k * <span class="number">2</span>, k);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, k, ans = <span class="number">0</span>; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;k), f[k] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= k;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;f[k - i]), (f[k - i] = mod - f[k - i]) %= mod;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; k;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;base[i]), (base[i] += mod) %= mod;</span><br><span class="line">    res[<span class="number">0</span>] = <span class="number">1</span>, A[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (;n;n &gt;&gt;= <span class="number">1</span>, mul(A, A, f, k)) <span class="keyword">if</span> (n &amp; <span class="number">1</span>) mul(res, A, f, k);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; k;i++) ans = (ans + (LL)res[i] * base[i]) % mod;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1393,7 +1435,7 @@ R(A)=A^n\mod G(A)</script><p>其中$Q,G,R$都是以矩阵为参数的函数</p>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">191</span>
+          <span class="site-state-item-count">192</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

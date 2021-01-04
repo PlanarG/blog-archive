@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"planarg.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="A PublicTransitHard题意给一棵树，树上有两个可以重合的传送点$i,j$，每条边长度为$1$。定义$a,b$的距离为从$a$走到$b$的最短距离，当在$i$号点时可以选择是否传送到$j$号点，且不消耗时间。给定$k$，求出满足任意两点的距离都不超过$k$的选择传送点的方案数。  n\leq 2000,k\leq n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Topcoder专题1">
+<meta property="og:url" content="https://planarg.top/2021/01/02/Topcoder%E4%B8%93%E9%A2%981/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="A PublicTransitHard题意给一棵树，树上有两个可以重合的传送点$i,j$，每条边长度为$1$。定义$a,b$的距离为从$a$走到$b$的最短距离，当在$i$号点时可以选择是否传送到$j$号点，且不消耗时间。给定$k$，求出满足任意两点的距离都不超过$k$的选择传送点的方案数。  n\leq 2000,k\leq n">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-02T11:16:46.000Z">
+<meta property="article:modified_time" content="2021-01-04T03:34:40.580Z">
+<meta property="article:author" content="PlanarG">
+<meta property="article:tag" content="动态规划">
+<meta property="article:tag" content="线段树">
+<meta property="article:tag" content="贪心">
+<meta property="article:tag" content="线性基">
+<meta property="article:tag" content="凸包">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://planarg.top/2021/01/02/Topcoder%E4%B8%93%E9%A2%981/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Topcoder专题1 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section">首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section">标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section">分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section">友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section">归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2021/01/02/Topcoder%E4%B8%93%E9%A2%981/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Topcoder专题1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-02 19:16:46" itemprop="dateCreated datePublished" datetime="2021-01-02T19:16:46+08:00">2021-01-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-04 11:34:40" itemprop="dateModified" datetime="2021-01-04T11:34:40+08:00">2021-01-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="A-PublicTransitHard"><a href="#A-PublicTransitHard" class="headerlink" title="A PublicTransitHard"></a>A PublicTransitHard</h1><h3 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h3><p>给一棵树，树上有两个可以重合的传送点$i,j$，每条边长度为$1$。定义$a,b$的距离为从$a$走到$b$的最短距离，当在$i$号点时可以选择是否传送到$j$号点，且不消耗时间。给定$k$，求出满足任意两点的距离都不超过$k$的选择传送点的方案数。</p>
+<script type="math/tex; mode=display">
+n\leq 2000,k\leq n</script><a id="more"></a>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>考虑枚举两个传送点，接着判断它们是否合法。</p>
+<p>由于直接在原树上做不太好做，因此考虑令$i$作为根，枚举另一个传送点$j$。</p>
+<p>如果$i,j$确定了，那么假设我们在$i,j$之间又连了一条长度为$0$的边，那么这棵树就被连成了一棵基环树。最长的最短距离只有两种情况：要么它是环外某棵子树的直径，要么路径的两个端点均是环外某棵树的最深点。</p>
+<p>以$i$为根，一步一步向叶子拓展$j$，第一种路径的最大值很好维护，关键在于第二种路径。</p>
+<p>我们不妨设此时$i,j$之间的点为$p_1,p_2,\cdots, p_m$，以它们为根的环外树的最深点的深度为$a_1,a_2,\cdots,a_m$。记$d_x$表示环上第$x$个点到$i$个点顺时针需要走的距离，且环长为$d$。</p>
+<p>那么问题转化为判断</p>
+<script type="math/tex; mode=display">
+\max_{i,j}\{a_i+a_j+\min\{d_j-d_i,d-d_j+d_i\}\}\leq k</script><p>是否成立。</p>
+<p>当时做的时候想到这里就不会了，因为$\max$里面还有$\min$，不好拆。</p>
+<p>题解用了一种很妙的方法避免了将$\min$拆开。注意到无论$d_j-d_i$是否是两者的最小值，只要$a_i+a_j+d_j-d_i\leq k$，那么$i,j$的距离必然不会超过$k$。</p>
+<p>否则，当且仅当$a_i+a_j+d-d_j+d_i\leq k$，$i,j$才满足条件。</p>
+<p>换句话说，我们需要求出，所有满足$a_i-d_i\leq k-a_j-d_j$的$i,j$中，$a_i+a_j+d-d_j+d_i$的最大值。</p>
+<p>当将另一个传送点$j$向叶子拓展时，第一个式子的值并不会受到影响，第二个式子只有$d$在改变。</p>
+<p>因此记录当前$a_i+a_j-d_j+d_i$的最大值以及$d$，拓展$j$的时候只需要考虑其中一个点为$j$的情况。需要支持单点修改，后缀查询最大值，直接树状数组就可以了。</p>
+<p>需要求出从某个点出发的前三长的路径，以及子树内的最大直径。这是一个很经典的$dp$。</p>
+<p><a href="https://paste.ubuntu.com/p/z2c7Q38Jmd/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="B-SimilarNames"><a href="#B-SimilarNames" class="headerlink" title="B SimilarNames"></a>B SimilarNames</h1><h3 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h3><p>给定$n$个串$s_1,\cdots,s_n$以及$m$条限制$a_i,b_i$。问有多少个串的排列$p$，使得对于任意的$i$，$p_{a_i}$是$p_{b_i}$的前缀。</p>
+<script type="math/tex; mode=display">
+n,|s_i|\leq 50,m\leq 8</script><h3 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h3><p>根据所有串的前缀关系可以建出一个类似树形的结构。那么$a$是$b$的前缀可以转化为$a$是$b$的祖先。</p>
+<p>注意到$m$非常小，所有限制涉及的点数不超过$16$个。</p>
+<p>因此可以直接将这$16$个位置状压下来，合并子树的时候做一遍子集卷积，时间复杂度是$O(nm^22^m)$，看着不太行。</p>
+<p>可以发现此时有很多状态是多余的，考虑一个限制$a,b$涉及的所有状态：$\{\},\{a\},\{b\},\{a,b\}$，其中$a$不可能先于$b$插入排列中，因此$\{a\}$一定是不合法的，合法的状态只有三种。</p>
+<p>如果将对位置状压改为对限制状压，每个限制有$3$种状态，那么状态总数为$3^8$，只有$6561$。</p>
+<p>预处理每种状态的所有转移，合并的时候暴力转移就可以了。</p>
+<p><a href="https://paste.ubuntu.com/p/V4CRGtNqhC/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="C-BichromeSky"><a href="#C-BichromeSky" class="headerlink" title="C BichromeSky"></a>C BichromeSky</h1><h3 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h3><p>给定$n$个红点，$m$个蓝点，第$i$个红点出现的概率是$p_i$，问所有出现的红点的凸包包含所有蓝点的概率。</p>
+<script type="math/tex; mode=display">
+n,m\leq 100</script><h3 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h3><p>考虑对所有红点的凸包$dp$，那么包含所有蓝点可以转化为对于凸包上的每条边，所有的蓝点都在这条边的左侧。这个可以直接$n^3$预处理出哪些边是合法的，接着蓝点就没用了。</p>
+<p>模拟求凸包的过程，先枚举凸包上$x$最小的红点，接着将所有点按照到这个点的极角排序。设$dp[i][j]$表示凸包上最后一个点为$i$，上一个点为$j$，合法的概率。</p>
+<p>注意到排序之后，如果$a,b$在凸包内，那么排在$a,b$之间，且位于$a,b$右侧的所有点都在当前凸包外。这些点一定不能出现，剩下的点可以出现，也可以不出现。</p>
+<p><a href="https://paste.ubuntu.com/p/s9BmyjXYFp/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="D-InverseRMQ"><a href="#D-InverseRMQ" class="headerlink" title="D InverseRMQ"></a>D InverseRMQ</h1><h3 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h3><p>有一个长度为$n$的排列，现在有$m$条限制$l_i,r_i,m_i$，表示$[l_i,r_i]$中的最大值恰好为$m_i$。问是否存在这样的排列。</p>
+<script type="math/tex; mode=display">
+n\leq 10^9,m\leq 50</script><h3 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h3><p>当$n$比较小的时候，我们可以将其看作一个匹配的过程：即用数去匹配位置。</p>
+<p>对于一个数$x$，考虑它有可能在哪些区间中出现。</p>
+<p>对于所有$m_i=x$的限制，显然$x$必须在这个区间内部，那么$x$也就必须在这些区间交的内部。</p>
+<p>对于所有$m_i&lt;x$的限制，$x$不能在这个区间内部。</p>
+<p>因此$x$能出现的位置为至多$m$段区间，一种暴力的方式就是对于每个$x$都像这样连边。</p>
+<p>但是$n$非常大，可以发现很多$x$是等价的，本质不同的$x$只有$O(2m)$个。</p>
+<p>将所有$m_i$排序并去重，那么$x$的等价区间为$[m_i,m_i]$以及$[m_i+1,m_{i+1}-1]$。对于每个区间内的$x$它们能够出现的区间相同。</p>
+<p>由于我比较懒，就直接用了线段树优化连边。</p>
+<p><a href="https://paste.ubuntu.com/p/GbgZc5VRK8/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="E-TreeDistance"><a href="#E-TreeDistance" class="headerlink" title="E TreeDistance"></a>E TreeDistance</h1><h3 id="题意-4"><a href="#题意-4" class="headerlink" title="题意"></a>题意</h3><p>给定一棵树，可以进行至多$k$次操作，每次选择树上的一条边，将其断开并连上另一条边，要求每次操作之后仍然是树，问最后能得到多少种不同的树。</p>
+<p>两棵树不同当且仅当存在$(a,b)$，$a,b$在一棵树中没有连边，而在另一棵树中有边。</p>
+<script type="math/tex; mode=display">
+n,k\leq 50</script><h3 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h3><p>非常经典的一道题，类似的模型考了好多次了。</p>
+<p>问题等价于将树分为至多$k+1$个联通块，再任意连边所能连出的树的个数，那么连出的点不能是原树上有的边，也不能在连通块内部。</p>
+<p>记$f(i)$表示将树分为$i$个连通块并连边，满足上面条件的方案数。</p>
+<p>记$g(i)$表示将树分为$i$个连通块并连边，不能在连通块内部连边，但不保证不连出原树上有的边的方案数。</p>
+<script type="math/tex; mode=display">
+g(i)=\sum_{j\leq i}f(j){n-j\choose i-j}</script><p>二项式反演得到</p>
+<script type="math/tex; mode=display">
+f(i)=\sum_{j\leq i}g(j){n-j\choose i-j}(-1)^{i-j}</script><p>考虑如何计算$g$。</p>
+<p>假设$m$个连通块已经被划分好了，对于接下来连出的任意一条边，它的两个端点都可以在对应连通块内任意选择。如果这个连通块的大小为$x$，那么这个端点就有$x$种选法。</p>
+<p>换句话说，如果最终某个连通块的度数为$i$，那么它对方案数的贡献就为$x^i$。</p>
+<p>考虑<code>prufer</code>序，如果一个点在序列中出现了$i$次，那么它的度数就为$i+1$。</p>
+<p><code>prufer</code>序中每个位置都可以任意选择连通块，结合连通块对答案的贡献，最终的贡献可以看作$n^{m-2}$乘上所有连通块的大小的乘积。</p>
+<p>考虑“所有连通块大小的乘积”的组合意义，它等价与从每个连通块中选择一个点的方案数。</p>
+<p>因此记$dp[i][j][0/1]$表示考虑了以$i$为根的子树，分为了$j$个连通块，$i$所在的连通块是否选了点的方案数。</p>
+<p>那么$g(i)=dp[1][i][1]\times n^{i-2}$。注意当$i=1$时要特判。</p>
+<p><a href="https://paste.ubuntu.com/p/4b6jDqvcPg/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="F-TreePuzzle"><a href="#F-TreePuzzle" class="headerlink" title="F TreePuzzle"></a>F TreePuzzle</h1><h3 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h3><p>给定一棵树，有些点上有一个棋子，任意两个棋子不能同时出现在一个点上。根节点必然有一个棋子，每次你可以选择一个棋子将它沿着边移动，对于$i\in[2,n]$询问根节点的棋子能否通过若干次操作移动到这个点上。</p>
+<script type="math/tex; mode=display">
+n\leq 300</script><h3 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h3><p>一开始我想的是设$dp[i][j][k]$表示根节点在$i$，是从$j$移过来的，并且$i$的子树里可以至多拿$k$个点到外面去的状态是否可达，由于$i$是从$j$移过来的，因此$j$必然是空的，此时$i$就可以移回$j$，然后原来$i$那一部分的棋子可以随意移动。最优的方案就是将目标点所在子树的所有棋子尽可能多地向外移动。</p>
+<p>然后有一种情况比较不好处理，就是如果某一步我们想要让$u$向它的某个儿子$v$走，但是$v$上有一颗棋子，此时应该让$v$子树中的棋子先挪，把$v$上的棋子挪开，然后再将$i$挪到$v$上。我最开始采用的方法是，允许$u$走到一个本来就有棋子的儿子，看作是把这个棋子“压”进儿子所在的子树。此时一个很严重的问题是，我不知道这棵子树里面有多少颗棋子，而且并不好确定$u$的其它子树空位是否足够。</p>
+<p>然后我看了看题解，发现题解的状态和这个状态很像，只不过是用$k$表示$i$的子树内有$k$颗棋子的状态是否可达。由于$j$是空的，或者$j$那一部分至少有一个点是空的，那么$j$这一部分的棋子就可以随意挪动。同理，当$j$挪动完毕之后，我们将$i$挪动到$j$，$i$的子树也可以随意挪动。转移的时候只需要枚举$i$的一个不同于$j$的儿子$k$，枚举下一步时$k$子树内的棋子数就可以了。我们并不关心这些棋子具体在哪里，因为反正它们可以随意移动。</p>
+<p>具体来说，当以$u$的上一个点为根时，记$u$子树大小为$a$，下一步转移到的点是$v$，其子树大小为$b$。那么条件就是$v$子树内剩余的棋子个数不能超过$b-1$，同时不在$v$子树中的棋子数量不能超过$a-b$。</p>
+<p><a href="https://paste.ubuntu.com/p/rMFzTkByWg/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="G-EagleInZoo"><a href="#G-EagleInZoo" class="headerlink" title="G EagleInZoo"></a>G EagleInZoo</h1><h3 id="题意-6"><a href="#题意-6" class="headerlink" title="题意"></a>题意</h3><p>给定一棵树，有$k$个球，依次将这些球放入根节点，一开始所有点都是空的，球的滚动遵循下面的规则</p>
+<ul>
+<li>如果当前点是空的，那么球会留在当前节点。</li>
+<li>否则，如果当前节点至少有一个儿子，那么球会等概率随机选择一个儿子滚过去。</li>
+<li>否则，球会从树上滑落。</li>
+</ul>
+<p>求出最后一个球留在树上的概率。</p>
+<script type="math/tex; mode=display">
+n\leq 50, k\leq 100</script><h3 id="题解-6"><a href="#题解-6" class="headerlink" title="题解"></a>题解</h3><p>$n$这么小，感觉可以用一些奇妙的算法爆过去。</p>
+<p>先求出$k$个球留在树上的球的个数的期望，再减去$k-1$个球留在树上的个数的期望，得到的值就是第$k$个球留在树上的概率。</p>
+<p>记$dp[i][j][k]$表示只考虑以$i$为根的子树，有$k$个球从$i$开始滚，最后有$j$个留在树上的概率。（其实也可以直接$dp[i][j]$表示期望，但是这样转移比较好写）</p>
+<p>考虑如何从$i$转移到$i$的父亲。</p>
+<p>由于这$k$个球第一步都必须从$i$的父亲开始滚，因此如果$i$的父亲有$a$个儿子，那么概率要乘上$\frac{1}{a^k}$。</p>
+<p>合并的时候枚举另一棵子树中滚了多少个球，以及有多少个球留下来了，转移的时候要乘上一个组合数，因为球是有编号的。</p>
+<p><a href="https://paste.ubuntu.com/p/TgBVD97QZ4/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="H-EllysLamps"><a href="#H-EllysLamps" class="headerlink" title="H EllysLamps"></a>H EllysLamps</h1><h3 id="题意-7"><a href="#题意-7" class="headerlink" title="题意"></a>题意</h3><p>有$n$盏灯，对应$n$个开关，当一个灯被操作一次的时候会翻转自己的状态，一开始有些灯是亮着的。</p>
+<p>你并不知道每个开关能够控制的灯的集合，但是你知道第$i$个开关必定能控制第$i$盏灯，并且它可能可以控制第$i-1$盏灯，也可能可以控制第$i+1$盏灯（如果它们存在的话）。</p>
+<p>你可以进行任意多次操作，目标是让亮着的灯的个数最小。求出最坏情况下这个最小值的最大值。</p>
+<script type="math/tex; mode=display">
+n\leq 50</script><h3 id="题解-7"><a href="#题解-7" class="headerlink" title="题解"></a>题解</h3><p>比较简单的一道题。</p>
+<p>我们将所有灯看作一张$n$个节点的图，如果一个开关控制了若干盏灯，就在这张图上把这些灯对应的节点连起来。</p>
+<p>显然，连通块之间是不会相互影响的。接下来我们证明：每个连通块都能做到最终亮着的灯的数量要么是$0$，要么是$1$。</p>
+<p>如果每个开关都能控制两盏灯，由于每次操作不会改变连通块内亮着的灯的个数的奇偶性，因此我们可以确定答案的下界。另外，方案也很好构造。考虑随便选出这个连通块的一棵生成树，显然我们可以从叶子到根，根据当前灯的翻转情况来判断当前点与父亲的连边选还是不选。这样可以保证除了根节点以外所有灯都能够被熄灭。</p>
+<p>另外，如果有一个开关操作了三盏灯，那么它一定是不优秀的。考虑它左边的那个开关的操作情况。无论左边的灯的操作情况是什么样的，只要我们将这两盏灯都操作一次，可以发现最后只有不多于两盏灯被操作了。另外，只操作一次这个三盏灯的开关能够改变连通块的奇偶性，因此这个连通块必然可以通过若干次操作让所有灯都熄灭。因此选三盏灯一定不优秀。</p>
+<p>不妨假设$[l,r]$中的灯构成了一个连通块，显然我们有一种构造是$(l,l+1),(l+1,l+2),\cdots, (r-1,r),(r-1,r)$。此时最终亮着的灯的数量取决于$[l,r]$中一开始有奇数盏亮着的灯还是偶数盏亮着的灯。</p>
+<p>另外当$l=r$时，这个连通块必然可以让所有灯都熄灭。</p>
+<p>记$dp[i]$表示$1$到$i$盏灯的答案，转移的时候直接枚举上一个连通块的末尾。在最优情况下，当前连通块的长度一定不会超过$2$。因此复杂度可以做到$O(n)$。</p>
+<p><a href="https://paste.ubuntu.com/p/kjcTjmGg3r/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="I-SimilarSequencesAnother"><a href="#I-SimilarSequencesAnother" class="headerlink" title="I SimilarSequencesAnother"></a>I SimilarSequencesAnother</h1><h3 id="题意-8"><a href="#题意-8" class="headerlink" title="题意"></a>题意</h3><p>统计所有长度为$n$的有序序列对$(A,B)$的个数，满足$A,B$中每个元素都不超过$x$，且$A,B$的最长公共子序列长度不小于$n-2$。</p>
+<script type="math/tex; mode=display">
+n\leq 100</script><h3 id="题解-8"><a href="#题解-8" class="headerlink" title="题解"></a>题解</h3><p>考虑这样一个问题：给出两个序列，如何判断它们的最长公共子序列长度是否不小于$n-2$？</p>
+<p>记$dp[i][a][b]$表示用第一个序列的前$i$个位置去匹配第二个序列，第一个序列需要删除$a$个位置，第二个序列需要删去$b$个位置的状态是否可达。</p>
+<p>考虑如何转移，这个状态等价于用$A$的前$i$位匹配$B$的前$i-a+b$位。</p>
+<p>如果$A$的最后一位以及$B$的最后一位都在匹配中，那么这两位的数字必须相同，接着问题转化为将$A[1\cdots i-1]$与$B[1\cdots i-a+b-1]$匹配。</p>
+<p>如果$A$的最后一位不在匹配中，问题转化为$dp[i-1][a-1][b]$。</p>
+<p>如果$B$的最后一位不在匹配中，问题转化为$dp[i][a][b-1]$。</p>
+<p>这个$dp$写出来大概长这样</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> n; <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; A + <span class="number">1</span> &gt;&gt; B + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt; <span class="number">3</span>; a++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> b = <span class="number">0</span>; b &lt; <span class="number">3</span>; b++) dp[<span class="number">0</span>][a][b] = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt; <span class="number">3</span>; a++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> b = <span class="number">0</span>; b &lt; <span class="number">3</span>; b++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="number">1</span> &lt;= i - a + b &amp;&amp; i - a + b &lt;= n &amp;&amp; A[i] == B[i - a + b]) dp[i][a][b] |= dp[i - <span class="number">1</span>][a][b];</span><br><span class="line">            <span class="keyword">if</span> (b) dp[i][a][b] |= dp[i][a][b - <span class="number">1</span>]; </span><br><span class="line">            <span class="keyword">if</span> (a) dp[i][a][b] |= dp[i - <span class="number">1</span>][a - <span class="number">1</span>][b];</span><br><span class="line">            <span class="keyword">if</span> (a &amp;&amp; b) dp[i][a][b] |= dp[i - <span class="number">1</span>][a - <span class="number">1</span>][b - <span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line"><span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) res |= dp[n][i][i];</span><br><span class="line"><span class="built_in">cout</span> &lt;&lt; res &lt;&lt; <span class="built_in">endl</span>;</span><br></pre></td></tr></table></figure>
+<p>接着根据$dp$套$dp$的套路，这个$dp$的状态可以被压成一个$2^9$的数。</p>
+<p>注意到由于我们至多只能删去两个数，因此$i$只能匹配$i-2,i-1,i,i+1,i+2$这$5$个位置。因此做外层的$dp$时我们需要将这$5$个位置是啥也存下来。外层$dp$转移的时候枚举第一个序列接哪种数，再枚举第二个序列接哪种数。如果我们用最小表示法来表示状态的话，最终状态总数只有$500$多种。</p>
+<p>接数的时候两个序列一直是错位的（第一个序列比第二个序列多接两个数），因此到结尾的时候需要判一下。</p>
+<p>这题细节有点多，写了好久。</p>
+<p><a href="https://paste.ubuntu.com/p/mJCFCKhF7p/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="J-TaroCheckers"><a href="#J-TaroCheckers" class="headerlink" title="J TaroCheckers"></a>J TaroCheckers</h1><h3 id="题意-9"><a href="#题意-9" class="headerlink" title="题意"></a>题意</h3><p>一个$n\times m$的网格，有些网格上有棋子。规定第$i$行前$l_i$个格子中恰好有一个棋子，后$r_i$个格子中恰好有一个棋子。每列只能有恰好一个棋子，问方案数。</p>
+<p>保证$l_i+r_i\leq m$。</p>
+<script type="math/tex; mode=display">
+n\leq 50, m\leq 200</script><h3 id="题解-9"><a href="#题解-9" class="headerlink" title="题解"></a>题解</h3><p>先考虑如果只有$l_i$怎么做。</p>
+<p>一个经典的做法是将所有$l_i$从小到大排序，这样前一行选的格子必然在下一行的范围内。</p>
+<p>但是由于这题有$r_i$的限制，因此不能这么做。</p>
+<p>考虑按列$dp$，同时维护有多少个$l_i\geq$当前列的行被放过了。我们将这些行称为还没有结束的行。注意转移的时候我们并不需要决定当前这一列的棋子被放到了哪里，只需要决定它是新开了一个新行还是被放到了一个$l_i&lt;$当前列的行。当某一行的$l_i$结束的时候，我们再从钦定的这若干列中选出一列，在这一列的这一行放上一个棋子，然后让可用的列数$-1$。记$dp[i][j]$表示考虑了前$i$列，有$j$个还没有结束的行被放过了的方案数。</p>
+<p>接下来考虑如果有$r_i$该怎么办。其实与只有$l_i$的情况差不多。我们给状态加上一维$k$，表示有$j$行的后$r_i$个格子已经被放过了。那么枚举这一列的棋子放在哪里的时候只有三种情况：要么它新开一个还没有结束的行；要么它放入一个还没有放过的后$r_i$个格子；要么它放入一个既不在前$l_i$列，也不在后$r_i$列的位置。</p>
+<p><a href="https://paste.ubuntu.com/p/PNVPD36V5W/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="K-OneDimensionalRobot"><a href="#K-OneDimensionalRobot" class="headerlink" title="K OneDimensionalRobot"></a>K OneDimensionalRobot</h1><h3 id="题意-10"><a href="#题意-10" class="headerlink" title="题意"></a>题意</h3><p>有一个机器人在数轴上移动，一开始这个机器人在原点，它会接受一串给定的指令。如果当前指令是<code>R</code>，它会尝试向正方向移动。如果当前指令是<code>L</code>，它会尝试向负方向移动。这个数轴是有边界的，如果边界为$[-L,R]$，那么任何导致机器人走出边界的操作都将无效。对于$L\in[l_1,r_2],R\in[l_2,r_2]$，求出机器人最后停下来的位置的和。$L,R$以及指令长度$\leq 5000$。</p>
+<h3 id="题解-10"><a href="#题解-10" class="headerlink" title="题解"></a>题解</h3><p>比较经典的一道题，有很多种做法。</p>
+<p>第一种是枚举$L$，定义$f[i]$表示$R=i$时当前机器人所处的位置，维护这个$f$函数，每接受一条指令就相当于用一条一次函数去截，或者拿一个常函数去截，维护所有的拐点就行了，它看起来就非常难写。时间复杂度或许是$O(n^2)$。</p>
+<p>第二种是枚举$R-L$，问题转化为边界固定，但是机器人的起点不同。同样维护一个关于起点的函数，这个函数至多只有两个拐点。</p>
+<p>第三种是可以观察到，记$p_{i,j}$为$L=i,R=j$时的答案，先求出没有边界时机器人在原点两边能到达的最远距离。如果机器人在执行命令的过程中会碰到$-i$，或者碰到$j+1$，那么$p_{i,j}=p_{i-1,j+1}-1$。否则，这两个限制必然都是没用的，此时那么$p_{i,j}$和没有限制的时候最终机器人的位置一样。</p>
+<p>因此我们只需要算出左端点取到$l_1$，或者右端点取到$r_2$的答案就行了，这样的$i,j$只有$O(n)$个。其它的答案都可以通过这个递推出来。</p>
+<p><a href="https://paste.ubuntu.com/p/8DDYKgwCyv/" target="_blank" rel="noopener">题解</a></p>
+<h1 id="L-PerfectSquare"><a href="#L-PerfectSquare" class="headerlink" title="L PerfectSquare"></a>L PerfectSquare</h1><h3 id="题意-11"><a href="#题意-11" class="headerlink" title="题意"></a>题意</h3><p>给定一个$n\times n$的矩阵，每个位置都有一个数，你需要选出一些数，使得每行每列都有奇数个数被选，并且所选数的乘积是完全平方数。求方案数。</p>
+<script type="math/tex; mode=display">
+n\leq 20,a_{i,j}\leq 10^9</script><h3 id="题解-11"><a href="#题解-11" class="headerlink" title="题解"></a>题解</h3><p>如果没有每行每列都必须选奇数个数的限制，那么这是一个经典的线性基：记录下每个数每个质因子的次数的奇偶性，那么问题转化为有多少种选择数的方法，使得最后异或出$0$。这个方案数等于$2$的自由元个数次方。</p>
+<p>如果有行、列的限制，那么我们再开$2n$个变量，记录此时每行每列的奇偶性。那么我们最后想要让线性基能异或出类似于$111\cdots 10\cdots 0$的东西，将这个东西插入线性基，如果插入成功那么代表方案数为$0$，否则方案数就是$2$的自由元个数次方。</p>
+<p><a href="https://paste.ubuntu.com/p/XVDFPJkTfd/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="N-Perfect-Matching"><a href="#N-Perfect-Matching" class="headerlink" title="N Perfect Matching"></a>N Perfect Matching</h1><h3 id="题意-12"><a href="#题意-12" class="headerlink" title="题意"></a>题意</h3><p>给出一张二分图，判断它的完美匹配的个数的奇偶性。</p>
+<script type="math/tex; mode=display">
+n\leq 300</script><h3 id="题解-12"><a href="#题解-12" class="headerlink" title="题解"></a>题解</h3><p>等价于判断二分图邻接矩阵的<strong>积和式</strong>的奇偶性，一个二分图的完美匹配等价于我们要找到一个排列$p_i$，使得左侧的$i$到右侧的$p_i$均有连边。</p>
+<p>对于积和式$\operatorname{perm}A$，它的值等于</p>
+<script type="math/tex; mode=display">
+\sum_{\sigma\in S_n}\prod_{i=1}^nA_{i,\sigma(i)}</script><p>看着很像行列式，但是实际上它与行列式差距巨大。</p>
+<p>行列式可以用高斯消元在$O(n^3)$的时间复杂度内解决，但是求一个矩阵的积和式是<code>P-complete</code>的。</p>
+<p>观察行列式的式子</p>
+<script type="math/tex; mode=display">
+\sum_{\sigma\in S_n}\operatorname{sgn}(\sigma)\prod_{i=1}^nA_{i,\sigma(i)}</script><p>可以发现$\operatorname{sgn}(\sigma)$无论取$1$还是$-1$，都不会影响这个东西的奇偶性，而如果我们忽略这个东西，行列式就变成了积和式。</p>
+<p>因此，我们只需要判断邻接矩阵行列式的奇偶性，就等价于判断积和式的奇偶性。</p>
+<p><a href="https://paste.ubuntu.com/p/twQbHg4SR2/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="O-False-faces"><a href="#O-False-faces" class="headerlink" title="O (False) faces"></a>O (False) faces</h1><h3 id="题意-13"><a href="#题意-13" class="headerlink" title="题意"></a>题意</h3><p>给出一张二分图，判断它的完美匹配的个数模$4$是否为$0$。</p>
+<script type="math/tex; mode=display">
+n\leq 300</script><h3 id="题解-13"><a href="#题解-13" class="headerlink" title="题解"></a>题解</h3><div class="pdfobject-container" data-target="permutant.pdf" data-height="500px"></div>
+<p>来自论文的算法（这个算法能做模$2^k$）：</p>
+<script type="math/tex; mode=display">
+\operatorname{perm}A=(-1)^n\sum_{x\in{\{0,1\}^n}}(-1)^{x_1+x_2+\cdots+x_n}\prod_{i=1}^n(Ax)_i</script><p>它本质上是个容斥：容斥有哪些列一定没有被选，然后就可以得到一个长成这样的式子。</p>
+<p>我们给这个矩阵添加一行一列</p>
+<script type="math/tex; mode=display">
+A'=\begin{Bmatrix}A_{1,1} & A_{1,2} & \cdots & A_{1,n} & v_1\\\ A_{2,1} & A_{2,2} & \cdots & A_{2,n} & v_2 \\\ \vdots & & & & \vdots\\\ A_{n,1} & A_{n,2} & \cdots & A_{n, n} & v_n \\\ 0 & 0 & 0 & 0 & 1\end{Bmatrix}</script><p>这里$v_1\cdots v_n$是任意的$n$个值。</p>
+<p>显然，这个矩阵的积和式等于原矩阵的积和式，因为最后一行必须选择最后一列才有值。</p>
+<p>而如果我们将这个矩阵的积和式表示为上面的式子，可以发现$x_{n+1}$必然为$1$，否则后面的$\prod$就是$0$，此时$(A’x)_{n+1}=1$。</p>
+<p>因此我们将这个式子重写，可以得到</p>
+<script type="math/tex; mode=display">
+\operatorname{perm}A'=\operatorname{perm}A=(-1)^{n+1}\sum_{x\in\{0,1\}^n}(-1)^{x_1+\cdots + x_n}\prod_{i=1}^n(Ax+v)_i</script><p>我们不妨假设$k=2$，考虑$(Ax+v)_i$模$2$的余数。</p>
+<p>如果在这$n$个数中，至少有两个$0$，那么它们乘起来模$4$的余数必然是$0$。</p>
+<p>因此我们有一个大胆的想法：枚举$Ax+v$的值$w$，再解出所有可能的$x$。</p>
+<p>具体来说，先高斯消元，$dfs$枚举自由元的值，再解出所有非自由元的值。这里$v$的作用就体现出来了。</p>
+<p>如果没有$v$，那么最终解的个数可能非常多，复杂度会爆炸。</p>
+<p>如果我们随机地选取$v$的每一维。考虑随机一个$x$，它有多大的概率满足$Ax+v=w$。</p>
+<p>显然，$v$在这一维有独立的$\frac 12$的概率满足条件，因此总概率为$\frac{1}{2^n}$。因此我们每枚举一个$w$，期望情况下$x$的解数是$O(1)$的。</p>
+<p>最后算法流程如下：</p>
+<ul>
+<li>随机一个$v$，每维都是$0$或$1$。注意只随机一次。</li>
+<li>初始化$w=(1,1,\cdots,1),t=0$。</li>
+<li>求出所有$x$满足$Ax=w+t$（模$2$意义下）</li>
+<li>根据上面的式子计算并加入$t$中</li>
+<li>$w$变为下一个至多只有$1$个$0$的向量，继续此过程。</li>
+</ul>
+<p><a href="https://paste.ubuntu.com/p/pztN6gzG6Y/" target="_blank" rel="noopener">代码</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+              <a href="/tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag"># 线段树</a>
+              <a href="/tags/%E8%B4%AA%E5%BF%83/" rel="tag"># 贪心</a>
+              <a href="/tags/%E7%BA%BF%E6%80%A7%E5%9F%BA/" rel="tag"># 线性基</a>
+              <a href="/tags/%E5%87%B8%E5%8C%85/" rel="tag"># 凸包</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/02/12-2-%E8%80%83%E8%AF%95/" rel="prev" title="12.2 考试">
+      <i class="fa fa-chevron-left"></i> 12.2 考试
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-PublicTransitHard"><span class="nav-number">1.</span> <span class="nav-text">A PublicTransitHard</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意"><span class="nav-number">1.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解"><span class="nav-number">1.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-SimilarNames"><span class="nav-number">2.</span> <span class="nav-text">B SimilarNames</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-1"><span class="nav-number">2.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-1"><span class="nav-number">2.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-BichromeSky"><span class="nav-number">3.</span> <span class="nav-text">C BichromeSky</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-2"><span class="nav-number">3.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-2"><span class="nav-number">3.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D-InverseRMQ"><span class="nav-number">4.</span> <span class="nav-text">D InverseRMQ</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-3"><span class="nav-number">4.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-3"><span class="nav-number">4.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E-TreeDistance"><span class="nav-number">5.</span> <span class="nav-text">E TreeDistance</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-4"><span class="nav-number">5.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-4"><span class="nav-number">5.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#F-TreePuzzle"><span class="nav-number">6.</span> <span class="nav-text">F TreePuzzle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-5"><span class="nav-number">6.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-5"><span class="nav-number">6.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#G-EagleInZoo"><span class="nav-number">7.</span> <span class="nav-text">G EagleInZoo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-6"><span class="nav-number">7.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-6"><span class="nav-number">7.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#H-EllysLamps"><span class="nav-number">8.</span> <span class="nav-text">H EllysLamps</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-7"><span class="nav-number">8.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-7"><span class="nav-number">8.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I-SimilarSequencesAnother"><span class="nav-number">9.</span> <span class="nav-text">I SimilarSequencesAnother</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-8"><span class="nav-number">9.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-8"><span class="nav-number">9.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#J-TaroCheckers"><span class="nav-number">10.</span> <span class="nav-text">J TaroCheckers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-9"><span class="nav-number">10.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-9"><span class="nav-number">10.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#K-OneDimensionalRobot"><span class="nav-number">11.</span> <span class="nav-text">K OneDimensionalRobot</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-10"><span class="nav-number">11.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-10"><span class="nav-number">11.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#L-PerfectSquare"><span class="nav-number">12.</span> <span class="nav-text">L PerfectSquare</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-11"><span class="nav-number">12.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-11"><span class="nav-number">12.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#N-Perfect-Matching"><span class="nav-number">13.</span> <span class="nav-text">N Perfect Matching</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-12"><span class="nav-number">13.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-12"><span class="nav-number">13.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#O-False-faces"><span class="nav-number">14.</span> <span class="nav-text">O (False) faces</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#题意-13"><span class="nav-number">14.0.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题解-13"><span class="nav-number">14.0.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">192</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://planarg.top/" title="https:&#x2F;&#x2F;planarg.top&#x2F;">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

@@ -188,6 +188,112 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/03/10/%E7%BA%BF%E6%80%A7%E9%80%92%E6%8E%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/10/%E7%BA%BF%E6%80%A7%E9%80%92%E6%8E%A8/" class="post-title-link" itemprop="url">线性递推</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-10 21:20:11" itemprop="dateCreated datePublished" datetime="2019-03-10T21:20:11+08:00">2019-03-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:34:08" itemprop="dateModified" datetime="2020-04-23T09:34:08+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>求一个满足$k$阶齐次线性递推数列$a_i$的第$n​$项</p>
+<p>即：$a_n=\sum\limits_{i=1}^kf_i\times a_{n-i}$</p>
+<p>已知$f$，以及$a_0,a_1,\cdots,a_{k-1}$</p>
+<script type="math/tex; mode=display">
+n\leq 10^9, k\leq 32000</script><p>如果$k$小一点，那么直接矩阵乘法是可以的</p>
+<p>但是这个是$O(k^3\log n)$的，时间复杂度难以承受</p>
+<p>注意到这个是其次线性递推，也就是说，我们构造出的矩阵只有第一行是$f​$，其余的行上全是1和0</p>
+<p>我们设这个矩阵是$A$，现在有一个奇妙的序列$c$使得</p>
+<script type="math/tex; mode=display">
+A^n=\sum_{i=0}^{k-1}c_iA^i</script><p>我们设初始列向量是$base$，那么有</p>
+<script type="math/tex; mode=display">
+A^n\times base=\sum_{i=0}^{k-1}c_iA^i\times base\\</script><p>在矩阵运算中，我们只取第一行的值，那么有</p>
+<script type="math/tex; mode=display">
+a_n=\sum_{i=0}^{k-1}c_ia_i</script><p>这也就是说，如果我们成功地构造出了这个$c$，那么我们就可以使用$a$的前$k$项推出$a_n$</p>
+<p>我们重新考虑之前的那个式子</p>
+<script type="math/tex; mode=display">
+A^n=\sum_{i=0}^{k-1}c_iA^i</script><p>它一定可以被写成这样的式子</p>
+<script type="math/tex; mode=display">
+A^n=Q(A)G(A)+R(A)</script><p>即</p>
+<script type="math/tex; mode=display">
+R(A)=A^n\mod G(A)</script><p>其中$Q,G,R$都是以矩阵为参数的函数</p>
+<p>我们令这个$G$的次数为$k$，那么$R$的次数为$k-1$</p>
+<p>如果存在一个函数$G$，使得对于$A$，有$G(A)=0$，那么前面的$Q(A)G(A)$就可以消去，从而使得$A^n=R(A)$</p>
+<p>此时多项式$R$的每一项的系数，就对应着之前我们需要构造的$c$</p>
+<p>所以实际上我们要构造一个序列$g$，使得</p>
+<script type="math/tex; mode=display">
+\sum_{i=0}^kg_iA^i=0</script><p>这里先上结论：对于满足题意的递推系数$f$，有$g_i=-f_{k-i},g_k=1$</p>
+<p>注意这里我们需要把这个$f$倒过来再取相反数，因为我们把列向量倒过来了，即从上到下分别为$a_0,a_1,\cdots,a_{k-1} $</p>
+<p>注意$f$的下标是从1到$k$，$g$是从0到$k​$</p>
+<p>计算的时候就像快速幂一样，只不过模的是一个多项式$G$</p>
+<p>证明过程之后再补</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 202010</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">Pow</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (;y;y &gt;&gt;= <span class="number">1</span>, x = (LL)x * x % mod) <span class="keyword">if</span> (y &amp; <span class="number">1</span>) res = (LL)res * x % mod;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> r[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">NTT</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">int</span> len, <span class="keyword">int</span> type)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) <span class="keyword">if</span> (i &lt; r[i]) swap(a[i], a[r[i]]);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> mid = <span class="number">2</span>;mid &lt;= len;mid &lt;&lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> Wn = Pow(<span class="number">3</span>, type ? (mod - <span class="number">1</span>) / mid : mod - <span class="number">1</span> - (mod - <span class="number">1</span>) / mid);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i += mid)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i, w = <span class="number">1</span>, t;j &lt; i + (mid &gt;&gt; <span class="number">1</span>);j++, w = (LL)w * Wn % mod)</span><br><span class="line">                t = (LL)w * a[j + (mid &gt;&gt; <span class="number">1</span>)] % mod, a[j + (mid &gt;&gt; <span class="number">1</span>)] = (a[j] - t + mod) % mod, a[j] = (a[j] + t) % mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!type) <span class="keyword">for</span> (<span class="keyword">int</span> inv = Pow(len, mod - <span class="number">2</span>), i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">        a[i] = (LL)a[i] * inv % mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> tmp[N];</span><br><span class="line"><span class="comment">// b[i] = 2 * b'[i] - a[i] * b'[i] * b'[i]</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Inv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[], <span class="keyword">int</span> b[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">1</span>) <span class="keyword">return</span> <span class="keyword">void</span>(b[<span class="number">0</span>] = Pow(a[<span class="number">0</span>], mod - <span class="number">2</span>));</span><br><span class="line">    Inv(a, b, (n + <span class="number">1</span>) &gt;&gt; <span class="number">1</span>); <span class="keyword">int</span> l = <span class="number">0</span>, len = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= n * <span class="number">3</span>) l++, len &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n;i++) tmp[i] = a[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &lt; len;i++) tmp[i] = <span class="number">0</span>;</span><br><span class="line">    NTT(tmp, len, <span class="number">1</span>), NTT(b, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">        b[i] = (<span class="number">2</span> - (LL)tmp[i] * b[i] % mod + mod) % mod * b[i] % mod;</span><br><span class="line">    NTT(b, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n;i &lt; len;i++) b[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> tmpa[N], tmpb[N], tmpc[N], binv[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">Div</span><span class="params">(<span class="keyword">const</span> <span class="keyword">int</span> a[], <span class="keyword">const</span> <span class="keyword">int</span> b[], <span class="keyword">int</span> c[], <span class="keyword">int</span> d[], <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line"><span class="comment">//	memset(tmpa, 0, sizeof(tmpa)), memset(tmpb, 0, sizeof(tmpb)), memset(tmpc, 0, sizeof(tmpc)), memset(binv, 0, sizeof(binv));</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; n * <span class="number">6</span> - m * <span class="number">6</span> + <span class="number">1</span>;i++) tmpa[i] = tmpb[i] = tmpc[i] = binv[i] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n - m;i++) tmpa[i] = a[n - i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= m;i++) tmpb[i] = b[m - i];</span><br><span class="line">    Inv(tmpb, binv, n - m + <span class="number">1</span>); <span class="keyword">int</span> l = <span class="number">0</span>, len = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= n * <span class="number">2</span> - m * <span class="number">2</span>) l++, len &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    NTT(tmpa, len, <span class="number">1</span>), NTT(binv, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">        c[i] = (LL)tmpa[i] * binv[i] % mod;</span><br><span class="line">    NTT(c, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n - m + <span class="number">1</span>;i &lt; len;i++) c[i] = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i * <span class="number">2</span> &lt; n - m;i++) swap(c[i], c[n - m - i]);</span><br><span class="line">    l = <span class="number">0</span>, len = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= n) l++, len &lt;&lt;= <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n;i++) tmpa[i] = a[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= m;i++) tmpb[i] = b[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= n - m;i++) tmpc[i] = c[i];</span><br><span class="line">    NTT(tmpa, len, <span class="number">1</span>), NTT(tmpb, len, <span class="number">1</span>), NTT(tmpc, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++)</span><br><span class="line">        d[i] = (tmpa[i] - (LL)tmpb[i] * tmpc[i] % mod + mod) % mod;</span><br><span class="line">    NTT(d, len, <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m;i &lt; len;i++) d[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> base[N], f[N], res[N], del[N], A[N], rub[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">mul</span><span class="params">(<span class="keyword">int</span> a[], <span class="keyword">const</span> <span class="keyword">int</span> b[], <span class="keyword">const</span> <span class="keyword">int</span> c[], <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = <span class="number">0</span>, len = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (len &lt;= k * <span class="number">2</span>) len &lt;&lt;= <span class="number">1</span>, l++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt; len;i++) r[i] = (r[i &gt;&gt; <span class="number">1</span>] &gt;&gt; <span class="number">1</span>) | ((i &amp; <span class="number">1</span>) &lt;&lt; l - <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt;= k;i++) tmpb[i] = b[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = k + <span class="number">1</span>;i &lt; len;i++) tmpb[i] = <span class="number">0</span>;</span><br><span class="line">    NTT(a, len, <span class="number">1</span>), NTT(tmpb, len, <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; len;i++) </span><br><span class="line">        del[i] = (LL)a[i] * tmpb[i] % mod;</span><br><span class="line">    NTT(del, len, <span class="number">0</span>), Div(del, c, rub, a, k * <span class="number">2</span>, k);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, k, ans = <span class="number">0</span>; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;k), f[k] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= k;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;f[k - i]), (f[k - i] = mod - f[k - i]) %= mod;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; k;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;base[i]), (base[i] += mod) %= mod;</span><br><span class="line">    res[<span class="number">0</span>] = <span class="number">1</span>, A[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (;n;n &gt;&gt;= <span class="number">1</span>, mul(A, A, f, k)) <span class="keyword">if</span> (n &amp; <span class="number">1</span>) mul(res, A, f, k);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>;i &lt; k;i++) ans = (ans + (LL)res[i] * base[i]) % mod;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/03/09/3-8%E7%9C%81%E9%80%89%E6%A8%A1%E6%8B%9F-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%A0%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1319,242 +1425,6 @@ g(1)S(n)=\sum_{i=1}^{n}(g*f)(i)-\sum_{i=2}^{n}g(i)S(\lfloor\frac{n}{i}\rfloor)</
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/03/07/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
-      <meta itemprop="name" content="PlanarG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="PlanarG's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/03/07/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/" class="post-title-link" itemprop="url">莫比乌斯反演</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-03-07 20:49:40" itemprop="dateCreated datePublished" datetime="2019-03-07T20:49:40+08:00">2019-03-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-04-23 09:34:25" itemprop="dateModified" datetime="2020-04-23T09:34:25+08:00">2020-04-23</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h1><ul>
-<li>$\mu(i)$ 莫比乌斯函数</li>
-</ul>
-<p>设$i=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$</p>
-<p>当$max(k) &gt; 1$时$\mu(i)=0$</p>
-<p>否则$\mu(i)=(-1)^{\sum k}$</p>
-<ul>
-<li>$\varphi(i)$ 欧拉函数，为$[1,i]$内与i互质的数的个数</li>
-</ul>
-<p>设$n=p_1^{k_1} p_2^{k_2} p_3^{k_3} \cdots p_m^{k_m}$</p>
-<p>则$\varphi(n)=n*\prod{(1-\frac{1}{p_i})}$</p>
-<p>关于<a href="https://baike.baidu.com/item/%E7%8B%84%E5%88%A9%E5%85%8B%E9%9B%B7%E4%B9%98%E7%A7%AF/18903903?fr=aladdin" target="_blank" rel="noopener">狄利克雷卷积</a></p>
-<ul>
-<li>定义二元关系$*$，$f*g $的狄利克雷卷积为</li>
-</ul>
-<script type="math/tex; mode=display">
-(f*g)(n)=\sum_{d|n}f(d)g(\frac{n}{d})​</script><ul>
-<li>卷积满足交换律</li>
-</ul>
-<script type="math/tex; mode=display">
-f\*g=g\*f</script><ul>
-<li>结合律</li>
-</ul>
-<script type="math/tex; mode=display">
-(f\*g)\*h=f\*(g\*h)</script><ul>
-<li>单位元</li>
-</ul>
-<script type="math/tex; mode=display">
-e(n)=[n=1]</script><script type="math/tex; mode=display">
-\displaystyle f*e=f</script><ul>
-<li>逆元</li>
-</ul>
-<script type="math/tex; mode=display">
-f*f^{-1}=e</script><h1 id="一些性质"><a href="#一些性质" class="headerlink" title="一些性质"></a>一些性质</h1><script type="math/tex; mode=display">
-\sum_{d|n}\mu(d)=[n=1]</script><script type="math/tex; mode=display">
-\displaystyle \sum_{d|n}\varphi(d)=n</script><p>$\mu$与$\varphi$都是积性函数，可以线性筛</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 10000010</span></span><br><span class="line"><span class="keyword">int</span> flag[N], prime[N], mu[N], ncnt;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) mu[i] = <span class="number">-1</span>, prime[++ncnt] = i;</span><br><span class="line">        <span class="comment">//i是质数，mu[i]为-1</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= N;j++) &#123;</span><br><span class="line">            flag[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">            <span class="comment">//筛质数用</span></span><br><span class="line">            <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            <span class="comment">//此时根据定义，mu为0</span></span><br><span class="line">            mu[i * prime[j]] = -mu[i];</span><br><span class="line">            <span class="comment">//mu[i * prime[j]] = mu[i] * mu[prime[j]] = -mu[i]</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>积性函数都可以线性筛</strong></p>
-<h1 id="莫比乌斯反演："><a href="#莫比乌斯反演：" class="headerlink" title="莫比乌斯反演："></a>莫比乌斯反演：</h1><ul>
-<li>定理1</li>
-</ul>
-<p>若</p>
-<script type="math/tex; mode=display">
-F(n)=\sum_{d|n}f(d)</script><p>则</p>
-<script type="math/tex; mode=display">
-f(n)=\sum_{d|n}F(d)\mu(\frac{n}{d})</script><ul>
-<li>定理2</li>
-</ul>
-<p>若</p>
-<script type="math/tex; mode=display">
-F(n)=\sum_{n|d}f(d)</script><p>则</p>
-<script type="math/tex; mode=display">
-f(n)=\sum_{n|d}F(d)\mu(\frac{n}{d})</script><ul>
-<li>证明</li>
-</ul>
-<script type="math/tex; mode=display">
-F=f*1</script><p>有</p>
-<script type="math/tex; mode=display">
-\mu(n)\*1=\sum_{d|n}\mu(d)\*1=[n=1]=e</script><p>所以</p>
-<script type="math/tex; mode=display">
-\mu^{-1}=1</script><script type="math/tex; mode=display">
-F=f\*1=f\*\mu^{-1}</script><script type="math/tex; mode=display">
-F*\mu=f</script><script type="math/tex; mode=display">
-f(n)=(F*\mu)(n)=\sum_{d|n}F(d)\mu(\frac{n}{d})</script><h1 id="一些套路"><a href="#一些套路" class="headerlink" title="一些套路"></a>一些套路</h1><p>以<a href="https://www.luogu.org/problemnew/show/P1829" target="_blank" rel="noopener">Crash的数字表格</a>为例</p>
-<p>求</p>
-<script type="math/tex; mode=display">
-\sum_{i=1}^{n}\sum_{j=1}^{m}lcm(i,j)</script><h2 id="套路1-设出-gcd-，然后按照-gcd-分类"><a href="#套路1-设出-gcd-，然后按照-gcd-分类" class="headerlink" title="套路1.设出$gcd$，然后按照$gcd$分类"></a>套路1.设出$gcd$，然后按照$gcd$分类</h2><script type="math/tex; mode=display">
-\sum_{k=1}^{n}\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{k}[gcd(i,j)=k]</script><h4 id="方法1-凑出-gcd-i-j-1-然后使用-mu-函数的性质换元"><a href="#方法1-凑出-gcd-i-j-1-然后使用-mu-函数的性质换元" class="headerlink" title="方法1.凑出$[gcd(i,j)=1]$然后使用$\mu$函数的性质换元"></a>方法1.凑出$[gcd(i,j)=1]$然后使用$\mu$函数的性质换元</h4><p>将i,j同时除以k，注意$\frac{i*j}{k}$需要乘回去</p>
-<script type="math/tex; mode=display">
-\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i\*j\*k[gcd(i,j)=1]</script><p>有</p>
-<script type="math/tex; mode=display">
-\sum_{d|n}\mu(d)=[n=1]</script><p>所以</p>
-<script type="math/tex; mode=display">
-[gcd(i,j)=1]=\sum_{d|gcd(i,j)}\mu(d)</script><h4 id="方法2-使用莫比乌斯反演基本公式"><a href="#方法2-使用莫比乌斯反演基本公式" class="headerlink" title="方法2.使用莫比乌斯反演基本公式"></a>方法2.使用莫比乌斯反演基本公式</h4><p>设</p>
-<script type="math/tex; mode=display">
-f(x)=\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{x}[gcd(i,j)=x]</script><script type="math/tex; mode=display">
-\displaystyle F(x)=\sum_{i=1}^{n}\sum_{j=1}^{m}\frac{i*j}{x}[x|gcd(i,j)]</script><p>改写一下$F$</p>
-<p>由于$gcd$是x的倍数，所以n,m都是x的倍数</p>
-<p>同时除以x</p>
-<script type="math/tex; mode=display">
-F(x)=\sum_{x|d}f(x)=\sum_{i=1}^{\lfloor\frac{n}{x}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{x}\rfloor}i\*j\*x</script><p>套用反演公式</p>
-<script type="math/tex; mode=display">
-f(x)=\sum_{x|d}F(d)\mu(\frac{d}{x})</script><p>得到</p>
-<script type="math/tex; mode=display">
-f(x)=\sum_{x|d}\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{d}\rfloor}i\*j\*d\*\mu(\frac{d}{x})</script><p>代入原式即可</p>
-<p>个人推荐推式子的时候用第一种方法，使用莫比乌斯反演容斥的时候使用第二种方法</p>
-<p>从方法1的最后一步继续</p>
-<script type="math/tex; mode=display">
-\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i\*j\*k[gcd(i,j)=1]</script><script type="math/tex; mode=display">
-=\sum_{k=1}^{n}\sum_{i=1}^{\lfloor\frac{n}{k}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{k}\rfloor}i\*j\*k\sum_{d|gcd(i,j)}\mu(d)</script><h2 id="套路2-枚举d，并放到前面去"><a href="#套路2-枚举d，并放到前面去" class="headerlink" title="套路2.枚举d，并放到前面去"></a>套路2.枚举d，并放到前面去</h2><p>此时i,j都应该是d的倍数</p>
-<p>同样，注意要乘回去</p>
-<script type="math/tex; mode=display">
-=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)\sum_{i=1}^{\lfloor\frac{n}{kd}\rfloor}\sum_{j=1}^{\lfloor\frac{m}{kd}\rfloor}i\*j\*d^2</script><p>整理一下</p>
-<script type="math/tex; mode=display">
-=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)*d^2\sum_{i=1}^{\lfloor\frac{n}{kd}\rfloor}i\sum_{j=1}^{\lfloor\frac{m}{kd}\rfloor}j</script><p>为了方便快捷，设</p>
-<script type="math/tex; mode=display">
-F(n)=\sum_{i=1}^{n}i</script><p>将原式替换成</p>
-<script type="math/tex; mode=display">
-=\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)\*d^2\*F(\lfloor\frac{n}{kd}\rfloor)\*F(\lfloor\frac{m}{kd}\rfloor)</script><h2 id="套路3-换T大法"><a href="#套路3-换T大法" class="headerlink" title="套路3.换T大法"></a>套路3.换T大法</h2><p>为了提升时间复杂度，我们需要设一个神奇的T</p>
-<p>设</p>
-<script type="math/tex; mode=display">
-T=kd</script><p>所以原式等于</p>
-<script type="math/tex; mode=display">
-\sum_{k=1}^{n}k\sum_{d=1}^{\lfloor\frac{n}{k}\rfloor}\mu(d)\*d^2\*F(\lfloor\frac{n}{T}\rfloor)\*F(\lfloor\frac{m}{T}\rfloor)</script><p>枚举T，放到最前面</p>
-<script type="math/tex; mode=display">
-\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)\*F(\lfloor\frac{m}{T}\rfloor)\sum_{d|T}\mu(d)\*\frac{T}{d}\*d^2</script><script type="math/tex; mode=display">
-\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)\*F(\lfloor\frac{m}{T}\rfloor)\*T\sum_{d|T}\mu(d)\*d</script><p>考虑优化最后那一坨的求法</p>
-<p>直接求显然是$n\ log\ n$的</p>
-<h2 id="套路4-设出积性函数"><a href="#套路4-设出积性函数" class="headerlink" title="套路4.设出积性函数"></a>套路4.设出积性函数</h2><p>观察到$\mu$以及$f(x)=x$（它还有个名字叫id）都是积性函数</p>
-<p>两个积性函数的狄利克雷卷积以及直接对应相乘的结果都是积性函数</p>
-<p>也就是说，这个东西是可以线性筛的</p>
-<p>设</p>
-<script type="math/tex; mode=display">
-g(x)=\sum_{d|x}\mu(d)*d</script><p>对x分类</p>
-<ul>
-<li>x是质数</li>
-</ul>
-<p>此时显然有$g(x)=1-x$</p>
-<ul>
-<li>x被表示成了$i*prime[j]$，其中$prime[j]\bot i$</li>
-</ul>
-<p>此时根据积性函数性质，$g(i<em>prime[j])=g(i)</em>g(prime[j])$，直接乘即可</p>
-<ul>
-<li>x被表示成了$i*prime[j]$，其中$prime[j]|i$</li>
-</ul>
-<p>考虑乘之后多出来的因数</p>
-<p>由于多出来的因数<code>prime[j]</code>这个质数的次数至少是2，而根据$\mu$的定义此时$\mu$为0，对g没有贡献，直接忽略即可</p>
-<p>所以此时$g(i*prime[j])=g(i)$</p>
-<h2 id="套路5-数论分块"><a href="#套路5-数论分块" class="headerlink" title="套路5.数论分块"></a>套路5.数论分块</h2><p>预处理完了g，我们再来说说最后答案怎么求</p>
-<p>答案等于</p>
-<script type="math/tex; mode=display">
-\sum_{T=1}^{n}F(\lfloor\frac{n}{T}\rfloor)\*F(\lfloor\frac{m}{T}\rfloor)\*T\*g(T)</script><p>考虑从$\lfloor\frac{n}{T}\rfloor$,$\lfloor\frac{m}{T}\rfloor$ 开始优化</p>
-<p>可以发现对于某一段的T，上面的两个式子的值都是不变的</p>
-<p>这种不变的值的段数一共有$\sqrt n$段</p>
-<p>考虑一段一段地枚举，而不是一个一个的枚举</p>
-<p>此时变化的就只有$g(T)$</p>
-<p>对$g(T)$求一下前缀和，算的时候直接求区间的和就好了</p>
-<p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">const</span> LL mod=<span class="number">20101009</span>;</span><br><span class="line"><span class="keyword">int</span> flag[<span class="number">10000010</span>],prime[<span class="number">10000010</span>],cnt,f[<span class="number">10000010</span>],sum[<span class="number">10000010</span>];</span><br><span class="line"><span class="comment">// sum是前缀和，f就是g</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    f[<span class="number">1</span>]=sum[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;=<span class="number">10000000</span>;i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) prime[++cnt]=i,f[i]=(<span class="number">1</span>-i+mod)%mod;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=cnt&amp;&amp;i*prime[j]&lt;=<span class="number">10000000</span>;j++) &#123;</span><br><span class="line">            flag[i*prime[j]]=<span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (i%prime[j]==<span class="number">0</span>) &#123;</span><br><span class="line">                f[i*prime[j]]=f[i]%mod;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            f[i*prime[j]]=(LL)f[i]*f[prime[j]]%mod;</span><br><span class="line">        &#125;</span><br><span class="line">        sum[i]=(sum[i<span class="number">-1</span>]+(LL)f[i]*i%mod)%mod;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">LL <span class="title">zjk</span><span class="params">(LL n,LL m)</span> </span>&#123;</span><br><span class="line">    LL ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (n&gt;m) swap(n,m);</span><br><span class="line">    <span class="keyword">for</span> (LL l=<span class="number">1</span>,r;l&lt;=n;l=r+<span class="number">1</span>) &#123;</span><br><span class="line">        r=min(n/(n/l),m/(m/l));</span><br><span class="line">        <span class="comment">// 分块：[l,r]</span></span><br><span class="line">        ans=(ans+((n/l*(n/l+<span class="number">1</span>)/<span class="number">2</span>)%mod*((m/l*(m/l+<span class="number">1</span>)/<span class="number">2</span>)%mod))%mod*(LL)(sum[r]-sum[l<span class="number">-1</span>]))%mod;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (ans+mod)%mod;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    sieve();</span><br><span class="line">    <span class="keyword">int</span> n,m;<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,zjk(n,m));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>%%% ZJK</p>
-<p>下面讨论一下使用莫比乌斯反演来容斥的题</p>
-<p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=5656" target="_blank" rel="noopener">CA Loves GCD</a></p>
-<p>题意：给出n个[1,1000]的数，问所有选法中所选择的数的gcd的和</p>
-<ul>
-<li>$n \leq 1000$</li>
-</ul>
-<p>首先，还是对gcd分类，$f(i)$表示gcd为i的方案数</p>
-<p>发现<code>f</code>好像很不好求，考虑设辅助函数</p>
-<p>设$g(i)$表示gcd<strong>是i的倍数</strong>的方案数</p>
-<p>很显然，在一个gcd为i的集合中，每一个数都是i的倍数</p>
-<p>那么我们假设在这n个数中，i的倍数一共有k个</p>
-<p>每个数可以选或者不选，一共有$2^k$种方案</p>
-<p>减去所有数都不选的情况，就这一种</p>
-<p>之后得到的就是$g(i)$的值</p>
-<p>将<code>g</code>转化成<code>f</code></p>
-<p>显然有</p>
-<script type="math/tex; mode=display">
-g(i)=\sum_{i|d}f(i)</script><p>反演得</p>
-<script type="math/tex; mode=display">
-f(i)=\sum_{i|d}g(d)\mu(\frac{i}{d})</script><p>对于每一个i，枚举每一个i的倍数转移即可</p>
-<p>对于如何求i的倍数的个数，可以开一个桶。先预处理每个数的约数，当输入一个数a时，就把a的所有约数在桶中加一，最后桶中的第i个位置就是i的倍数的个数</p>
-<p>代码如下</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 1010</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; Div[N];</span><br><span class="line"><span class="keyword">int</span> flag[N], prime[N], ncnt, mu[N], Pow[N];</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">1e8</span> + <span class="number">7</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Pow[<span class="number">0</span>] = <span class="number">1</span>, Pow[<span class="number">1</span>] = <span class="number">2</span>, mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) &#123;</span><br><span class="line">        Pow[i] = Pow[i - <span class="number">1</span>] * <span class="number">2</span> % mod;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) mu[i] = <span class="number">-1</span>, prime[++ncnt] = i;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= N - <span class="number">10</span>;j++) &#123;</span><br><span class="line">            flag[i * prime[j]] = <span class="number">1</span>; <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">            mu[i * prime[j]] = -mu[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i;j &lt;= N - <span class="number">10</span>;j += i) Div[j].push_back(i);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= N - <span class="number">10</span>;i++) Div[i].push_back(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> buk[N], ans[N], tmp[N];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T), sieve();</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), <span class="built_in">memset</span>(buk, <span class="number">0</span>, <span class="keyword">sizeof</span>(buk)), <span class="built_in">memset</span>(tmp, <span class="number">0</span>, <span class="keyword">sizeof</span>(tmp));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a;i &lt;= n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a), tmp[a]++;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++)</span><br><span class="line">            <span class="keyword">if</span> (tmp[i]) <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>;j &lt; Div[i].size();j++) </span><br><span class="line">                buk[Div[i][j]] += tmp[i];</span><br><span class="line">        <span class="built_in">memset</span>(ans, <span class="number">0</span>, <span class="keyword">sizeof</span>(ans));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++) </span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i;j &lt;= <span class="number">1000</span>;j += i) </span><br><span class="line">                ans[i] = (ans[i] + (Pow[buk[j]] - <span class="number">1</span>) * mu[j / i] + mod) % mod;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= <span class="number">1000</span>;i++) </span><br><span class="line">            res = (res + (LL)i * ans[i] % mod) % mod;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, res);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1626,7 +1496,7 @@ f(i)=\sum_{i|d}g(d)\mu(\frac{i}{d})</script><p>对于每一个i，枚举每一�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">191</span>
+          <span class="site-state-item-count">192</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
