@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"planarg.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="A EnclosingTriangle题意一个$m\times m$的网格，边界上是红点，内部有$n$个黑点。你需要求出有多少个以红点为顶点的三角形，满足这个三角形包含了所有的黑点。   m\leq 58585,n\leq 20">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Topcoder专题2">
+<meta property="og:url" content="https://planarg.top/2021/01/04/Topcoder%E4%B8%93%E9%A2%982/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="A EnclosingTriangle题意一个$m\times m$的网格，边界上是红点，内部有$n$个黑点。你需要求出有多少个以红点为顶点的三角形，满足这个三角形包含了所有的黑点。   m\leq 58585,n\leq 20">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://vj.z180.cn/413e383de187a979b84499c072bb7bee?v=1609642003">
+<meta property="og:image" content="https://vj.z180.cn/87a61c31448371b1c41c72a511e789ae?v=1609642042">
+<meta property="og:image" content="https://vj.z180.cn/e4df1676839ef2b915ed8b0100982922?v=1609642049">
+<meta property="article:published_time" content="2021-01-04T12:00:12.000Z">
+<meta property="article:modified_time" content="2021-01-10T03:43:57.000Z">
+<meta property="article:author" content="PlanarG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://vj.z180.cn/413e383de187a979b84499c072bb7bee?v=1609642003">
+
+<link rel="canonical" href="https://planarg.top/2021/01/04/Topcoder%E4%B8%93%E9%A2%982/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Topcoder专题2 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section">首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section">标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section">分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section">友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section">归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2021/01/04/Topcoder%E4%B8%93%E9%A2%982/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Topcoder专题2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-04 20:00:12" itemprop="dateCreated datePublished" datetime="2021-01-04T20:00:12+08:00">2021-01-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-10 11:43:57" itemprop="dateModified" datetime="2021-01-10T11:43:57+08:00">2021-01-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="A-EnclosingTriangle"><a href="#A-EnclosingTriangle" class="headerlink" title="A EnclosingTriangle"></a>A EnclosingTriangle</h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>一个$m\times m$的网格，边界上是红点，内部有$n$个黑点。你需要求出有多少个以红点为顶点的三角形，满足这个三角形包含了所有的黑点。</p>
+<p><img src="https://vj.z180.cn/413e383de187a979b84499c072bb7bee?v=1609642003" alt="df"></p>
+<script type="math/tex; mode=display">
+m\leq 58585,n\leq 20</script><a id="more"></a>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>记左下角为$(0,0)$，横着的是$x$轴，竖着的是$y$轴。</p>
+<p>将所有顶点编号，左下角为$1$，然后逆时针依次增大。</p>
+<p>对于每个点，我们可以求出当它作为三角形的某个顶点时，下一个顶点的范围，不难看出这个范围是一段区间。</p>
+<p>枚举三角形三个点中编号最小的顶点，当这个顶点单调移动的时候，合法的第二个顶点的范围也在移动。每有一个新的顶点成为合法的第二个顶点，那么某个范围内的顶点都能成为此时的第三个顶点。</p>
+<p>注意到第一个顶点同样对第三个顶点的编号有限制，第三个顶点的编号必须大于某个值。因此我们可以直接用线段树维护，需要支持每加入一个第二个顶点时区间加，然后再区间求和。</p>
+<p><a href="https://paste.ubuntu.com/p/N3qWpW3XYX/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="B-NextAndPrev"><a href="#B-NextAndPrev" class="headerlink" title="B NextAndPrev"></a>B NextAndPrev</h1><h2 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h2><p>有两个串$s,t$，它们都由$26$种小写字符组成。你可以对$s$进行两种操作：</p>
+<ul>
+<li>选择一种字符，将$s$中这种字符全部变成它的下一个字符，代价为$a$。如：<code>a</code>变为<code>b</code>，<code>b</code>变为<code>c</code>，<code>z</code>变为<code>a</code>，等等。</li>
+<li>选择一种字符，将$s$中这种字符全部变成它的上一个字符，代价为$b$。</li>
+</ul>
+<p>你的目标是将$s$变为$t$，求最小的代价或者判断无解。</p>
+<script type="math/tex; mode=display">
+|s|=|t|\leq 50,a,b\leq 1000</script><h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><p>先求出$s$中的每种字符会变成哪种字符。如果一个字符需要变成多种字符，显然此时无解。</p>
+<p>另外，如果$t$中每种字符都出现了，并且$s\neq t$，此时也必然无解，因为$s$只要操作一次就不可能再有$26$种字符。</p>
+<p>如果最终字符<code>a</code>会变成字符<code>b</code>，我们将其看作$a$向$b$有一条连边。</p>
+<p>如果<code>z</code>不能变为<code>a</code>，<code>a</code>也不能变为<code>z</code>，此时我们将所有边按照起点排序，如果$i$的起点在$j$的起点之前，那么$i$的终点必然不能在$j$的终点之后，否则无解。因为如果$i,j$的终点不同的话，你必须保证$i,j$的起点这两种字符在操作过程中始终都不相同。</p>
+<p>如果$i,j$的终点一样，比如<code>a</code>想要变成<code>c</code>，<code>b</code>也想要变成<code>c</code>，那么此时它们只需要花费<code>a</code>变为<code>c</code>的代价，因为我们可以先对<code>a</code>操作一次，此时原来的<code>a</code>和<code>b</code>都是<code>b</code>，接着再对<code>b</code>操作一次就能得到<code>c</code>。</p>
+<p>显然一个字符自始至终只会进行同一种操作。如果所有字符最终的操作方向不全相同，我们一定能够找到一个分界点，使得每条边均不跨越这个分界点，接着如果我们从这个分界点断开，就能转化为上面那个问题。</p>
+<p>一种不错的写法是将所有边的终点按住不同，只动起点。每次尝试将最小的起点加上$26$，然后做一遍上面那个问题。对于原来的一条边$(a,b)$，我们将其变为$(a-52,b)$，然后将所有边扔到一个<code>set</code>里面进行上面的过程，直到它变成$(a+52,b)$。这种做法本质上是考虑每条边在环上的分布情况。</p>
+<p><a href="https://paste.ubuntu.com/p/tCPmbnxfFy/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="C-DisjointSemicircles"><a href="#C-DisjointSemicircles" class="headerlink" title="C DisjointSemicircles"></a>C DisjointSemicircles</h1><h2 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h2><p>$2n$个点排成一行，每个点编号为$1\sim n$，并且每个编号恰好出现两次。对于相同编号的两个点$a,b$，以它们为端点连出一个半圆。这个半圆可以在这$2n$个点的上方，也可以在下方。你需要保证所有半圆都不相交。</p>
+<p>现在给出这$2n$个点的编号，有些位置是$-1$，表示这个位置的编号还不确定。你需要判断是否存在一组合法的编号，满足至少存在一种合法的分配圆弧的方案。</p>
+<p>保证给出的编号中，每种编号要么不出现，要么出现两次。</p>
+<p><img src="https://vj.z180.cn/87a61c31448371b1c41c72a511e789ae?v=1609642042" alt=""></p>
+<script type="math/tex; mode=display">
+2n\leq 50</script><h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2><p>先考虑没有$-1$的情况怎么做。</p>
+<p>此时每段半圆在哪里已经确定了，我们只需要给每个半圆分配它在上面还是在下面。</p>
+<p>这个问题看起来就非常的二分图判定或者<code>2-SAT</code>，直接枚举所有圆弧对，如果这两个圆弧相交，那么它们必然在不同侧。</p>
+<p>将所有端点确定的圆弧拿出来跑二分图染色，枚举每个连通块的分配情况。现在每个已确定圆弧的朝向已经确定好了，考虑如何判断剩下的$-1$是否有解。</p>
+<p>对于一段圆弧$[l,r]$，我们记一个位置的圆弧朝上时为$1$，朝下时为$0$。如果$[l,r]$这段圆弧是朝上的，那么区间$[l+1,r-1]$必然有偶数个$1$。否则一定存在一条圆弧与$[l,r]$相交。同理，如果$[l,r]$朝下，那么$[l+1,r-1]$必然有偶数个$0$。</p>
+<p>由于所有已确定端点的圆弧的朝向也已经确定，因此我们可以直接根据上面的限制建图跑二分图染色。注意我们只关心那些原来为$-1$的位置，因为只有它们需要决定朝向。由于每个限制相当于告诉你某段区间有奇数个或者偶数个$1$，将每个点的$0/1$转为前缀异或，那么每条限制就转化为了对两个点的限制。另外，显然整个序列中必须有偶数个$0$。</p>
+<p>此时最坏复杂度为$O(2^{25}\times n)$，考虑优化。</p>
+<p>如果一段已确定圆弧$(a,b)$没有与其它任何已确定圆弧相交，那么这段圆弧是相对独立的。根据上面的讨论，如果$[a,b]$这段区间的长度为偶数，那么其中必然有偶数个$0$，偶数个$1$。此时这段圆弧最终朝向何处并不重要。如果$[a,b]$的长度为奇数，那么要么其中$1$的个数是偶数，要么$0$的个数是偶数，我们可以根据谁的个数是偶数来决定这段圆弧的最终朝向。</p>
+<p>因此，对于这种独立的圆弧，我们并不需要枚举它的最终朝向，具体来说，如果它的长度为偶数，就加一条$[a,b]$出现偶数个$1$的限制，否则不管。此时复杂度降为$O(2^{12}\times n)$。</p>
+<p><a href="https://paste.ubuntu.com/p/SnwybJgGPy/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="D-UnknownTree"><a href="#D-UnknownTree" class="headerlink" title="D UnknownTree"></a>D UnknownTree</h1><h2 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h2><p>有一棵树，你并不知道这棵树的形态。这棵树上有$n+3$个点，编号为$0\sim n-1,A,B,C$。给出$A,B,C$三个点到$0\sim n-1$的距离，问有多少种可能的树的形态。已知每条边的边权都为正。</p>
+<script type="math/tex; mode=display">
+n\leq 50,d\leq 10^8</script><h2 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h2><p><img src="https://vj.z180.cn/e4df1676839ef2b915ed8b0100982922?v=1609642049" alt=""></p>
+<p>这是第一个样例解释的图片，可以发现可能的树的形态只有两种：要么$A,B,C$排成一行，要么它们构成一个类似菊花图的东西，菊花图的中心是$0\sim n-1$中的一个点。</p>
+<p>先考虑第一种情况。我们不妨假设$A$在$B$的左边，$B$在$C$的左边，并且我们已经确定了$A,B,C$之间的距离。具体怎么确定下面会说。</p>
+<p>对于在$A,B,C$链上的其它点，我们可以根据$A,B,C$之间的距离以及它们到这个点的距离确定这个点的具体位置。</p>
+<p>对于其它点，它们一定挂在$A,B,C$链上的某个点的子树内。如果对于每个点，我们求出它能挂在多少个点下面，那么最终的方案数就是所有点的这个东西的乘积。</p>
+<p>具体来说，如果$i$挂在$j$下方，显然$A_i&gt;A_j$，并且$A_i-A_j$就是$i,j$的距离，它需要满足$A_i-A_j=B_i-B_j=C_i-C_j$。对于每个$i$统计出$j$的数量。</p>
+<p>将$A,B,C$也视为三个等待确定位置的点，由于$A,B,C$间的距离已知，因此这三个点也可以看作与其它$n$个点相同的点。</p>
+<p>对于一个点来说，如果它满足条件的$j$的个数为$0$，那么它必然在$A,B,C$这条链上，此时我们只需要根据这个点的信息判断它是否真的在链上即可。</p>
+<p>考虑如何确定$A,B,C$三点的距离，先随便找到在$A,B,C$链上的一个点，然后根据这个点的信息直接枚举所有可能的距离。注意可能需要用一个<code>set</code>判重。</p>
+<p>对于第二种情况，也就是菊花图的情况，枚举作为菊花图的根的节点$u$。显然如果根不同，两棵树必然也不同。接着我们可以根据这个根得到它到$A,B,C$三个点的距离。与上一种情况类似，我们同样求出每个点能够挂在多少个点下方，如果一个点的这个值为$0$，那么它肯定在$u-ABC$的路径上。由于此时我们已经知道了$u$到$A,B,C$的距离，因此我们可以确定这个点的准确位置，同样用它到另外两个点的距离判断是否合法。</p>
+<p><a href="https://paste.ubuntu.com/p/BhJqCkwRWN/" target="_blank" rel="noopener">代码</a></p>
+<h1 id="F-PointErasing"><a href="#F-PointErasing" class="headerlink" title="F PointErasing"></a>F PointErasing</h1><h2 id="题意-4"><a href="#题意-4" class="headerlink" title="题意"></a>题意</h2><p>平面上有$n$个点，第$i$个点的坐标为$(i,y_i)$，$y_i$可以相同。你可以进行若干次操作，每次你会选择现在还存在的两个点，删除以它们作为顶点的矩形中所有严格在内部的点。你会一直进行这个操作直到无法再删除任何点为止。对于$i\in [1,n]$求出最终能否剩下恰好$i$个点。</p>
+<script type="math/tex; mode=display">
+n\leq 50</script><h2 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/02/Topcoder%E4%B8%93%E9%A2%981/" rel="prev" title="Topcoder专题1">
+      <i class="fa fa-chevron-left"></i> Topcoder专题1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/12/1-11-%E8%80%83%E8%AF%95/" rel="next" title="1.11 考试">
+      1.11 考试 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A-EnclosingTriangle"><span class="nav-number">1.</span> <span class="nav-text">A EnclosingTriangle</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">1.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">1.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-NextAndPrev"><span class="nav-number">2.</span> <span class="nav-text">B NextAndPrev</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-1"><span class="nav-number">2.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-1"><span class="nav-number">2.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C-DisjointSemicircles"><span class="nav-number">3.</span> <span class="nav-text">C DisjointSemicircles</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-2"><span class="nav-number">3.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-2"><span class="nav-number">3.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D-UnknownTree"><span class="nav-number">4.</span> <span class="nav-text">D UnknownTree</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-3"><span class="nav-number">4.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-3"><span class="nav-number">4.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#F-PointErasing"><span class="nav-number">5.</span> <span class="nav-text">F PointErasing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-4"><span class="nav-number">5.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-4"><span class="nav-number">5.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">195</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://planarg.top/" title="https:&#x2F;&#x2F;planarg.top&#x2F;">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

@@ -188,6 +188,241 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2020/07/07/CF639E-Bear-and-Paradox/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/07/CF639E-Bear-and-Paradox/" class="post-title-link" itemprop="url">CF639E Bear and Paradox</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-07 07:52:08 / 修改时间：08:04:15" itemprop="dateCreated datePublished" datetime="2020-07-07T07:52:08+08:00">2020-07-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>有$n$个问题，第$i$个问题的初始得分为$p_i$，需要花费的时间为$t_i$。</p>
+<p>设$T=\sum t_i$，你可以任意安排完成每个问题的顺序，如果在时刻$x$完成了问题$i$，可以得到$p_i\times (1-\frac{cx}{T})$的得分，其中$c$是一个$[0,1]$的实数。</p>
+<p>可以看出，对于任意一个$c$，都存在至少一个可以使得分数最大的最佳做题顺序。</p>
+<p>你需要求出最大的$c$，使得它对应的任意最佳做题顺序都不存在$i,j$满足$p_i&lt;p_j$，但$i$的得分严格大于$j$的得分。</p>
+<script type="math/tex; mode=display">n\leq 1.5\times 10^5, p_t, t_i\leq 10^8</script>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/07/CF639E-Bear-and-Paradox/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2020/07/06/CF516E-Drazil-and-His-Happy-Friends/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/06/CF516E-Drazil-and-His-Happy-Friends/" class="post-title-link" itemprop="url">CF516E Drazil and His Happy Friends</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-06 20:28:31 / 修改时间：21:17:24" itemprop="dateCreated datePublished" datetime="2020-07-06T20:28:31+08:00">2020-07-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>有$n$个男生和$m$个女生，编号分别为$0\sim n-1$和$0\sim m-1$。</p>
+<p>有$b$个男生和$g$个女生是快乐的，在第$i$天，编号为$i\bmod n$的男生和编号为$i\bmod m$的女生会一起玩。如果这两个人之中至少有一个人快乐，那么另一个人也会跟着变快乐。</p>
+<p>求至少需要多少天才能使得所有人都变快乐，或者判断不可能。</p>
+<script type="math/tex; mode=display">n, m\leq 10^9, b,g\leq 10^5</script>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/06/CF516E-Drazil-and-His-Happy-Friends/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2020/07/06/CF704C-Black-Widow/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/06/CF704C-Black-Widow/" class="post-title-link" itemprop="url">CF704C Black Widow</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-06 20:17:12 / 修改时间：20:27:56" itemprop="dateCreated datePublished" datetime="2020-07-06T20:17:12+08:00">2020-07-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>给定$m$个变量$x_1, x_2,\cdots,x_m$，每个变量的取值要么为$1$，要么为$0$。</p>
+<p>给出$n$个形如$x_i$或者$x_i \,\text{or}\, x_j$的表达式，其中$x_i=\neg x_{-i}$。问有多少种变量的取值，使得最终这$n$个表达式的值异或出来为$1$。</p>
+<p>保证$x_i$和$x_{-i}$的出现次数之和至多为$2$。</p>
+<script type="math/tex; mode=display">n, m\leq 10^5</script>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/06/CF704C-Black-Widow/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://planarg.top/2020/06/20/6-15%E8%81%94%E6%B5%8B-%E6%B8%B8%E8%B5%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -733,243 +968,6 @@ dp_i-dp_{i-1}&=dp_{i+1}-dp_i
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://planarg.top/2020/06/04/5-27%E8%81%94%E6%B5%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
-      <meta itemprop="name" content="PlanarG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="PlanarG's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/04/5-27%E8%81%94%E6%B5%8B/" class="post-title-link" itemprop="url">5.27联测</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-06-04 09:12:24 / 修改时间：11:01:40" itemprop="dateCreated datePublished" datetime="2020-06-04T09:12:24+08:00">2020-06-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%80%83%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">考试</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="T1-矩阵"><a href="#T1-矩阵" class="headerlink" title="T1 矩阵"></a>T1 矩阵</h1><p>有一个$n\times m$的$01$矩阵$A$。</p>
-<p>如果矩阵的第$i$列有奇数个$1$，那么它的权值就是$a_i3^{b_i}$，否则是$0$，一个矩阵的权值为每一列的权值之和。</p>
-<p>你可以删去矩阵的若干行，使得最终矩阵的权值最大。</p>
-<p>对于任意的$i,j$，保证$a_i\neq a_j$或$b_i\neq b_j$。</p>
-<script type="math/tex; mode=display">n\leq 2\times 10^5, m\leq 70,a_i=\pm 1,1\leq b_i\leq 35</script>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/04/5-27%E8%81%94%E6%B5%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://planarg.top/2020/05/26/5-25%E8%81%94%E6%B5%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
-      <meta itemprop="name" content="PlanarG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="PlanarG's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/26/5-25%E8%81%94%E6%B5%8B/" class="post-title-link" itemprop="url">5.25联测</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-26 15:04:06" itemprop="dateCreated datePublished" datetime="2020-05-26T15:04:06+08:00">2020-05-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-29 10:42:17" itemprop="dateModified" datetime="2020-05-29T10:42:17+08:00">2020-05-29</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%80%83%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">考试</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="T1-序列"><a href="#T1-序列" class="headerlink" title="T1 序列"></a>T1 序列</h1><p>给定一个长度为$n$的序列$a$以及$m$个整数$b_1, b_2,\cdots,b_m$，你要从这$m$个数中选出$i$个数插入$a$中，不能插到头部和尾部，同时$a$中相邻两个数之间最多只能插入一个$b$。你要最大化最终序列相邻两个数之差的绝对值之和，对$1\leq i\leq m$都输出答案。</p>
-<script type="math/tex; mode=display">
-m\leq n\leq 10^5</script>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/05/26/5-25%E8%81%94%E6%B5%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://planarg.top/2020/05/21/5-18%E8%81%94%E6%B5%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
-      <meta itemprop="name" content="PlanarG">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="PlanarG's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/05/21/5-18%E8%81%94%E6%B5%8B/" class="post-title-link" itemprop="url">5.18联测</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-05-21 15:11:13 / 修改时间：20:42:52" itemprop="dateCreated datePublished" datetime="2020-05-21T15:11:13+08:00">2020-05-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%80%83%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">考试</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="T1-菱形"><a href="#T1-菱形" class="headerlink" title="T1 菱形"></a>T1 菱形</h1><div class="pdfobject-container" data-target="problem_83.pdf" data-height="500px"></div>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/05/21/5-18%E8%81%94%E6%B5%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1041,7 +1039,7 @@ m\leq n\leq 10^5</script>
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">192</span>
+          <span class="site-state-item-count">195</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1054,7 +1052,7 @@ m\leq n\leq 10^5</script>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

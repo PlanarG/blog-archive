@@ -188,6 +188,383 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/03/08/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94%E4%B8%8E%E6%9D%9C%E6%95%99%E7%AD%9B%E4%B8%93%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/08/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94%E4%B8%8E%E6%9D%9C%E6%95%99%E7%AD%9B%E4%B8%93%E9%A2%98/" class="post-title-link" itemprop="url">莫比乌斯反演与杜教筛专题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-08 19:21:50" itemprop="dateCreated datePublished" datetime="2019-03-08T19:21:50+08:00">2019-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:34:20" itemprop="dateModified" datetime="2020-04-23T09:34:20+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="A-–-GCD"><a href="#A-–-GCD" class="headerlink" title="A – GCD"></a>A – GCD</h1><p>莫比乌斯反演模板，注意去重</p>
+<p>当$i\leq min(n,m)$时，每个gcd都被计算了两遍，除以2即可</p>
+<h1 id="B-–-CA-Loves-GCD"><a href="#B-–-CA-Loves-GCD" class="headerlink" title="B – CA Loves GCD"></a>B – CA Loves GCD</h1><p>见<a href="/2019/03/07/莫比乌斯反演">莫比乌斯反演</a> CA Loves GCD</p>
+<h1 id="C-–-Hillan-and-the-girl"><a href="#C-–-Hillan-and-the-girl" class="headerlink" title="C – Hillan and the girl"></a>C – Hillan and the girl</h1><p>首先转化成总数-gcd是完全平方数的个数</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{n}[gcd(i,j)\in sqrt\ number]</script><p>按照套路，先枚举gcd，此处是gcd的平方根</p>
+<script type="math/tex; mode=display">
+=\sum_{d=1}^{\sqrt n}\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j)=d^2]</script><p>莫比乌斯反演</p>
+<script type="math/tex; mode=display">
+=\sum_{d=1}^{\sqrt n}\sum_{l=1}^{\lfloor\frac{n}{d^2}\rfloor}\mu(l)\lfloor\frac{n}{d^2l}\rfloor\lfloor\frac{m}{d^2l}\rfloor</script><p>然后换T</p>
+<script type="math/tex; mode=display">
+T=d^2l</script><p>改写式子</p>
+<script type="math/tex; mode=display">
+=\sum_{T=1}^{n}\lfloor\frac{n}{T}\rfloor\lfloor\frac{m}{T}\rfloor\sum_{l|T}\mu(l)</script><p>最后那个可以预处理</p>
+<p>对于每一个$\mu$，枚举一个完全平方数更新，最后算一下前缀和即可</p>
+<h1 id="D-–-Trick-GCD"><a href="#D-–-Trick-GCD" class="headerlink" title="D – Trick GCD"></a>D – Trick GCD</h1><p>很经典的一道题</p>
+<p>题目要求$gcd\geq 2$，转化成求$gcd=1$的方案数，再用总数去减</p>
+<p>设$f(x)$为gcd恰好为x的方案数，$g(x)$为gcd为x的倍数的方案数</p>
+<p>显然有</p>
+<script type="math/tex; mode=display">
+g(x)=\sum_{x|d}f(d)</script><script type="math/tex; mode=display">
+f(x)=\sum_{x|d}g(d)\mu(\frac{d}{x})</script><p>此时f中的x是1</p>
+<p>现在关键是要求出g</p>
+<p>假设当前是$g(x)$</p>
+<p>对于每一个$A_i$，有$\lfloor\frac{A_i}{x}\rfloor$的贡献，注意到一段区间内的$A_i$贡献相同，所以对A整体分块计算贡献，然后乘起来就好了</p>
+<p>一部分代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a;i &lt;= n;i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a), buk[a]++, mn = min(mn, a), mx = max(mx, a);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= mx * <span class="number">2</span>;i++) buk[i] += buk[i - <span class="number">1</span>]; </span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= mn;i++) &#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = -mu[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = i;j &lt;= mx;j += i) </span><br><span class="line">        tmp = (LL)tmp * Pow(j / i, buk[j + i - <span class="number">1</span>] - buk[j - <span class="number">1</span>]) % mod;</span><br><span class="line">        ans = (ans + tmp) % mod;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="E-F-G-–-GCD-Extreme-x"><a href="#E-F-G-–-GCD-Extreme-x" class="headerlink" title="E,F,G – GCD Extreme(x)"></a>E,F,G – GCD Extreme(x)</h1><p>直接用$\varphi$替换gcd即可</p>
+<p>经典题目</p>
+<h1 id="H-–-Zap"><a href="#H-–-Zap" class="headerlink" title="H – Zap"></a>H – Zap</h1><p>莫比乌斯反演模板</p>
+<p>上界同时除以d即可</p>
+<h1 id="I-–-数表"><a href="#I-–-数表" class="headerlink" title="I – 数表"></a>I – 数表</h1><p>求</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{m}\sigma(gcd(i,j))[\sigma(gcd(i,j))\leq a]</script><p>先莫比乌斯反演一波</p>
+<script type="math/tex; mode=display">
+=\sum_{i=1}^{n}\sum_{j=1}^{m}\sigma(gcd(i,j))[\sigma(gcd(i,j))\leq a]</script><script type="math/tex; mode=display">
+=\sum_{d=1}^{n}\sigma(d)[\sigma(d)\leq a]\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j)=d]</script><script type="math/tex; mode=display">
+=\sum_{d=1}^{n}\sigma(d)[\sigma(d)\leq a]\sum_{l=1}^{\lfloor\frac{n}{d}\rfloor}\mu(l)\lfloor\frac{n}{dl}\rfloor\lfloor\frac{m}{dl}\rfloor</script><p>设</p>
+<script type="math/tex; mode=display">
+T=dl</script><p>改写式子</p>
+<script type="math/tex; mode=display">
+=\sum_{T=1}^{n}\lfloor\frac{n}{T}\rfloor\lfloor\frac{m}{T}\rfloor\sum_{d|T}\sigma(d)\mu(\frac{T}{d})[\sigma(d)\leq a]</script><p>约数和这个函数是可以直接求的</p>
+<p>考虑将询问按照限制大小从小到大排序</p>
+<p>将约数和也从小到大排序</p>
+<p>当一个约数和达到限制以下后，枚举它的倍数更新</p>
+<p>由于计算要用到前缀和，使用树状数组维护即可</p>
+<h1 id="J-–-Crash的数字表格"><a href="#J-–-Crash的数字表格" class="headerlink" title="J – Crash的数字表格"></a>J – Crash的数字表格</h1><p>见<a href="/2019/03/07/莫比乌斯反演">莫比乌斯反演</a></p>
+<h1 id="K-–-DZY-Loves-Math"><a href="#K-–-DZY-Loves-Math" class="headerlink" title="K – DZY Loves Math"></a>K – DZY Loves Math</h1><p>神仙题</p>
+<p>先来反演一波</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{m}f(gcd(i,j))</script><script type="math/tex; mode=display">
+=\sum_{d=1}^{n}f(d)\sum_{i=1}^{n}\sum_{j=1}^{m}[gcd(i,j)=d]</script><script type="math/tex; mode=display">
+=\sum_{d=1}^{n}f(d)\sum_{l=1}^{\lfloor\frac{n}{d}\rfloor}\mu(l)\lfloor\frac{n}{dl}\rfloor\lfloor\frac{m}{dl}\rfloor</script><p>设</p>
+<script type="math/tex; mode=display">
+T=dl</script><p>则有</p>
+<script type="math/tex; mode=display">
+=\sum_{T=1}^{n}\lfloor\frac{n}{T}\rfloor\lfloor\frac{m}{T}\rfloor\sum_{d|T}f(d)\mu(\frac{T}{d})</script><p>关键就是要求最后的那个东西</p>
+<p>假设有$T=\prod p_i^{k_i}$，要想最后的那个$\mu$不为0，d的每一个质数的次数最少不会少于T中所对应的次数-1</p>
+<p>也就是说，假如$f(T)=x$，那么$x-1\leq f(d)\leq x$</p>
+<p>进一步考虑，最后可能影响答案的只有那些次数最高的项。如果T中质数的次数不全相等，那么对于$f(d)=x$的每一种方案，其它的项可以乱选，方案数是2的这些项的个数次方（要么次数不减，要么次数减1）</p>
+<p>注意到$\mu(\frac{T}{d})$的值在上述的这两种情况中取值互为相反数，仅当T中质数的次数全部相等时，剩余项的方案数是$2^0$，在这一步中不能被抵消，其余情况均可两两抵消，这个$\sum$的值永远是0</p>
+<p>考虑所有次数相等的情况</p>
+<p>假设T的质因子个数为k</p>
+<p>每个数仍然可以选或不选，$\mu$的和为0</p>
+<p>但是对于所有质数都不选的情况，$f(d)$的值并不是x，而是x-1，所以答案要减去$-1*(-1)^k$，那个$(-1)^l$是$\mu(\frac{T}{d})$</p>
+<p>所以此时的答案为</p>
+<script type="math/tex; mode=display">
+(-1)^{k+1}</script><p>假设当前要求的是</p>
+<script type="math/tex; mode=display">
+\sum_{d|T}f(d)\mu(\frac{T}{d})</script><p>那么：</p>
+<p>假设存在x，使得$\mu(x)\not=0$，且T是x的k次方，那么$\sum_{d|T}f(d)\mu(\frac{T}{d})=-\mu(x)]$</p>
+<p>否则这个值为0</p>
+<p>代码如下</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> N 10000010</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LL long long</span></span><br><span class="line"><span class="keyword">int</span> prime[N], ncnt, mu[N], sum[N], flag[N];</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">sieve</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	mu[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!flag[i]) prime[++ncnt] = i, mu[i] = <span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>;j &lt;= ncnt &amp;&amp; i * prime[j] &lt;= N - <span class="number">10</span>;j++) &#123;</span><br><span class="line">			flag[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">			mu[i * prime[j]] = -mu[i];</span><br><span class="line">		&#125; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++)</span><br><span class="line">		<span class="keyword">if</span> (mu[i] != <span class="number">0</span>) <span class="keyword">for</span> (LL j = i;j &lt;= N - <span class="number">10</span>;j *= i) </span><br><span class="line">			sum[j] = -mu[i];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>;i &lt;= N - <span class="number">10</span>;i++) sum[i] += sum[i - <span class="number">1</span>]; </span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">inline</span> LL <span class="title">solve</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (n &gt; m) swap(n, m);</span><br><span class="line">	LL ans = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> l = <span class="number">1</span>, r;l &lt;= n;l = r + <span class="number">1</span>) &#123;</span><br><span class="line">		r = min(n / (n / l), m / (m / l));</span><br><span class="line">		ans += (LL)(n / l) * (m / l) * (sum[r] - sum[l - <span class="number">1</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> T; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T), sieve();</span><br><span class="line">	<span class="keyword">while</span> (T--) &#123;</span><br><span class="line">		<span class="keyword">int</span> a, b; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, solve(a, b));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="L-–-Sum"><a href="#L-–-Sum" class="headerlink" title="L – Sum"></a>L – Sum</h1><p>杜教筛模板</p>
+<p>见<a href="/2019/03/08/杜教筛">杜教筛</a></p>
+<h1 id="M-–-能量采集"><a href="#M-–-能量采集" class="headerlink" title="M – 能量采集"></a>M – 能量采集</h1><p>讲一讲求</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{m}gcd(i,j)</script><p>的两种求法</p>
+<p>以前已经写过了，直接贴上来</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-3.png?w=700" alt="img"></p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-4.png?w=700" alt="img"></p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-5.png?w=700" alt="img"></p>
+<p>第二种方法</p>
+<p><img src="https://0x131cc05home.files.wordpress.com/2019/01/%E6%8D%95%E8%8E%B7-6.png?w=700" alt="img"></p>
+<p>可以看出选择合适的解法的重要性</p>
+<h1 id="N-–-DZY-Loves-Math-VI"><a href="#N-–-DZY-Loves-Math-VI" class="headerlink" title="N – DZY Loves Math VI"></a>N – DZY Loves Math VI</h1><p>还是套路，先设出gcd，然后反演，最后换T</p>
+<p>精雕细琢即可</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/03/08/%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E5%AD%A6%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/08/%E7%AE%80%E5%8D%95%E7%9A%84%E6%95%B0%E5%AD%A6%E9%A2%98/" class="post-title-link" itemprop="url">简单的数学题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-08 19:15:33" itemprop="dateCreated datePublished" datetime="2019-03-08T19:15:33+08:00">2019-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:34:29" itemprop="dateModified" datetime="2020-04-23T09:34:29+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%A2%98%E8%A7%A3/" itemprop="url" rel="index"><span itemprop="name">题解</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>求</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\sum_{j=1}^{n}ijgcd(i,j)</script><script type="math/tex; mode=display">
+n\leq 10^{10}</script><p>根据$\varphi$的性质</p>
+<script type="math/tex; mode=display">
+\sum_{i|d}\varphi(i)=d</script><p>可以改写上面那个式子</p>
+<script type="math/tex; mode=display">
+=\sum_{i=1}^{n}\sum_{j=1}^{n}ij\sum_{d|gcd(i,j)}\varphi(d)</script><p>把d提到前面来</p>
+<script type="math/tex; mode=display">
+=\sum_{i=1}^{n}\sum_{j=1}^{n}ij\sum_{d|gcd(i,j)}\varphi(d)</script><p>为了方便快捷，设</p>
+<script type="math/tex; mode=display">
+F(n)=\sum_{i=1}^{n}i</script><p>那么原式就改写为</p>
+<script type="math/tex; mode=display">
+=\sum_{d=1}^{n}\varphi(d)\*d^2\*F(\lfloor\frac{n}{d}\rfloor)^2</script><p>注意到后面的那个F括号内只有$\sqrt n$种取值，直接分块</p>
+<p>现在关键就是要求前面那个的前缀和</p>
+<p>但是有$n\leq 10^{10}$，直接筛显然不行，所以上杜教筛</p>
+<p>设</p>
+<script type="math/tex; mode=display">
+S(n)=\sum_{i=1}^{n}\varphi(i)\*i^2</script><p>现在关键就是要找一个函数g来与$f(i)=\varphi(i)*i^2$卷积</p>
+<p>观察到有$\sum_{i|d}\varphi(i)=d$，所以中间的那个$\varphi$可以不管</p>
+<p>但是那个$i^2$很烦，要弄掉这个</p>
+<p>所以考虑使用$g(x)=x^2$这个函数来卷积</p>
+<p>根据杜教筛的公式</p>
+<script type="math/tex; mode=display">
+g(1)S(n)=\sum_{i=1}^{n}(g\*f)(i)-\sum_{i=2}^{n}g(i)S(\lfloor\frac{n}{i}\rfloor)</script><p>这个$(g*f)(i)$其实就是</p>
+<script type="math/tex; mode=display">
+\sum_{j=1}^{i}\varphi(j)\*j^2\*\frac{n^2}{j^2}=n^3</script><p>而$g(1)=1^2=1$</p>
+<p>所以</p>
+<script type="math/tex; mode=display">
+S(n)=\sum_{i=1}^{n}i^3-\sum_{i=2}^{n}i^2S(\lfloor\frac{n}{i}\rfloor)</script><p>有神仙公式</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}i^3=(\sum_{i=1}^{n}i)^2</script><p>以及</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}i^2=\frac{1}{6}n\*(n+1)\*(2n+1)</script><p>记忆化一波就可以了</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/03/08/%E6%9D%9C%E6%95%99%E7%AD%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/03/08/%E6%9D%9C%E6%95%99%E7%AD%9B/" class="post-title-link" itemprop="url">杜教筛</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-08 19:09:37" itemprop="dateCreated datePublished" datetime="2019-03-08T19:09:37+08:00">2019-03-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-23 09:10:45" itemprop="dateModified" datetime="2020-04-23T09:10:45+08:00">2020-04-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>假设有一道题：求</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{n}\mu(i)</script><p>然后$n\leq 10^9$</p>
+<p>线筛大家都知道怎么做</p>
+<p>考虑把这个东西转化</p>
+<p>设</p>
+<script type="math/tex; mode=display">
+S(n)=\sum_{i=1}^{n}\mu(n)</script><p>我们知道</p>
+<script type="math/tex; mode=display">
+\sum_{i|d}\mu(i)=[d=1]</script><p>如何利用这个性质呢？考虑用另一个函数来与这个$\mu$卷积</p>
+<p>我们使用1来卷，因为<strong>没有什么要抵消的</strong></p>
+<script type="math/tex; mode=display">
+\sum_{i|d}\mu(i)\*1 = [d=1]=(\mu\*1)(d)</script><script type="math/tex; mode=display">
+1=\sum_{d=1}^{n}\sum_{i|d}\mu(\frac{d}{i})\*1</script><script type="math/tex; mode=display">
+=\sum_{i=1}^{n}\sum_{d=1}^{\lfloor\frac{n}{i}\rfloor}\mu(d)=\sum_{i=1}^{n}S(\lfloor\frac{n}{i}\rfloor)</script><p>我们已经将这个东西转化成了$S$，移一下项</p>
+<script type="math/tex; mode=display">
+1=\sum_{i=1}^{n}S(\lfloor\frac{n}{i}\rfloor)</script><script type="math/tex; mode=display">
+1-\sum_{i=2}^{n}S(\lfloor\frac{n}{i}\rfloor)=S(n)</script><p>注意到$\lfloor\frac{n}{i}\rfloor$的取值不超过$\sqrt n$个，直接分块即可</p>
+<p>然后<code>DFS</code></p>
+<p>记得要记忆化！！！</p>
+<h1 id="一般式"><a href="#一般式" class="headerlink" title="一般式"></a>一般式</h1><p>假设要求一个积性函数$f(x)$的前缀和$S(n)$</p>
+<p>先找到另一个积性函数$g(x)$，与f做卷积</p>
+<p>这个g函数的要求有几点：</p>
+<p>1.前缀和很好求，要不然找g之后反而更慢</p>
+<p>2.与f的卷积的前缀和很好求</p>
+<p>开始</p>
+<script type="math/tex; mode=display">
+(g*f)(d)=\sum_{i|d}g(i)f(\frac{d}{i})</script><script type="math/tex; mode=display">
+\sum_{i=1}^{n}(g*f)(i)=\sum_{i=1}^{n}\sum_{d|i}g(d)f(\frac{i}{d})</script><p>枚举d</p>
+<script type="math/tex; mode=display">
+=\sum_{d=1}^{n}g(d)\sum_{d|i}f(\frac{i}{d})</script><script type="math/tex; mode=display">
+=\sum_{d=1}^{n}g(d)\sum_{i=1}^{\lfloor\frac{n}{d}\rfloor}f(i)</script><script type="math/tex; mode=display">
+=\sum_{d=1}^{n}g(d)S(\lfloor\frac{n}{d}\rfloor)</script><p>移项</p>
+<script type="math/tex; mode=display">
+g(1)S(n)=\sum_{i=1}^{n}(g*f)(i)-\sum_{i=2}^{n}g(i)S(\lfloor\frac{n}{i}\rfloor)</script><p>然后开始分块即可</p>
+<p>代码其实很短</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">map</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; m;</span><br><span class="line"><span class="comment">// sum[N - 10] 是预处理的前缀和，一般大小为3e6</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">int</span> <span class="title">calc</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123; <span class="comment">// 算 sum mu</span></span><br><span class="line">    <span class="keyword">if</span> (n &lt;= N - <span class="number">10</span>) <span class="keyword">return</span> sum[n];</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (m.count(n)) <span class="keyword">return</span> m[n]; <span class="comment">// 记忆化</span></span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (LL l = <span class="number">2</span>, r;l &lt;= n;l = r + <span class="number">1</span>) &#123;</span><br><span class="line">        r = n / (n / l);</span><br><span class="line">        res -= (r - l + <span class="number">1</span>) * calc1(n / l);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> m1[n] = res;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://planarg.top/2019/03/07/%E8%8E%AB%E6%AF%94%E4%B9%8C%E6%96%AF%E5%8F%8D%E6%BC%94/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -626,7 +1003,7 @@ f(i)=\sum_{i|d}g(d)\mu(\frac{i}{d})</script><p>对于每一个i，枚举每一�
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">192</span>
+          <span class="site-state-item-count">195</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -639,7 +1016,7 @@ f(i)=\sum_{i|d}g(d)\mu(\frac{i}{d})</script><p>对于每一个i，枚举每一�
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
