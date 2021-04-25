@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"planarg.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="A题意有一个$n\times m$的表格，第$i$行$j$列的值为$\gcd(i, j)$。给出一个数列$a$，判断它是否在表格的某一行出现过。  n,m\leq 10^{12},|a|\leq 10^4题解求出$a_i$的$\text{lcm}$。显然行必须是这个$\text{lcm}$的倍数。同时行取这个$\text{lcm}$的时候最优，因为如果取$\text{lcm}$的倍数的话会产生额外">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.18数论">
+<meta property="og:url" content="https://planarg.top/2021/04/25/2.18%E6%95%B0%E8%AE%BA/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="A题意有一个$n\times m$的表格，第$i$行$j$列的值为$\gcd(i, j)$。给出一个数列$a$，判断它是否在表格的某一行出现过。  n,m\leq 10^{12},|a|\leq 10^4题解求出$a_i$的$\text{lcm}$。显然行必须是这个$\text{lcm}$的倍数。同时行取这个$\text{lcm}$的时候最优，因为如果取$\text{lcm}$的倍数的话会产生额外">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/18/4lLnjowh97kFXzT.png">
+<meta property="article:published_time" content="2021-04-25T11:00:58.580Z">
+<meta property="article:modified_time" content="2021-02-18T14:58:59.000Z">
+<meta property="article:author" content="PlanarG">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/18/4lLnjowh97kFXzT.png">
+
+<link rel="canonical" href="https://planarg.top/2021/04/25/2.18%E6%95%B0%E8%AE%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2.18数论 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section">首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section">标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section">分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section">友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section">归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2021/04/25/2.18%E6%95%B0%E8%AE%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2.18数论
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-25 19:00:58" itemprop="dateCreated datePublished" datetime="2021-04-25T19:00:58+08:00">2021-04-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-18 22:58:59" itemprop="dateModified" datetime="2021-02-18T22:58:59+08:00">2021-02-18</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="A"><a href="#A" class="headerlink" title="A"></a>A</h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>有一个$n\times m$的表格，第$i$行$j$列的值为$\gcd(i, j)$。给出一个数列$a$，判断它是否在表格的某一行出现过。</p>
+<script type="math/tex; mode=display">
+n,m\leq 10^{12},|a|\leq 10^4</script><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>求出$a_i$的$\text{lcm}$。显然行必须是这个$\text{lcm}$的倍数。同时行取这个$\text{lcm}$的时候最优，因为如果取$\text{lcm}$的倍数的话会产生额外的质因子干扰$\gcd$，同时我们也应满足行的编号尽量小。</p>
+<p>接下来考虑列。假设这个数列$a$对应第$i$行的第$j+1,j+2,\cdots, j+|a|$列，那么对于每个$k$我们有$a_k|j+k$，即$j\equiv a_k-k\bmod a_k$。用中国剩余定理合并之后可以得到$j\equiv x\bmod \text{lcm}(\{a\})$。求出最小的非负整数解$x$，由于$a_k|\text{lcm}(\{a\})$，根据$\gcd$的性质我们可以发现当$j$取这个$x$的时候最优。接下来扫一遍$a$，根据定义判断$a$是否在第$i$行$j$列合法即可。</p>
+<h1 id="B"><a href="#B" class="headerlink" title="B"></a>B</h1><h2 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h2><script type="math/tex; mode=display">
+\sum_{i=a}^b\text{lcm}(i, b)\bmod 10^9+7</script><p>$T\leq 5000$组数据，$a,b\leq 10^9$。</p>
+<h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><script type="math/tex; mode=display">
+\sum_{i=a}^b\text{lcm}(i,b)=b\sum_{i=a}^b\frac{i}{\gcd(i,b)}</script><p>假设我们找到了一组系数$f(n)$使得$\sum_{d|n}f(d)=\frac{1}{n}$。那么</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\sum_{i=a}^b\frac{i}{\gcd(i,b)}&=\sum_{i=a}^bi\sum_{d|i,d|b}f(d)\\
+&=\sum_{d|b}f(d)\sum_{i=a}^b[d|i]
+\end{aligned}</script><p>第二个$\sum$里面的东西相当于求出一段区间内有多少个数是$d$的倍数，这非常好求。如果我们能算出$f$，那么只需要枚举$b$的所有因数就可以计算答案。</p>
+<p>考虑如何算$f$。首先，由于$\frac{1}{x}$是个积性函数，因此$f$也必然是积性函数。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+f(1)&=\frac{1}{1}=1\\
+f(1)+f(p)&=\frac{1}{p}\Rightarrow f(p)=\frac{1}{p}-1\\
+f(1)+f(p)+f(p^2)+\cdots+f(p^k)&=\frac{1}{p^k}\Rightarrow f(p^k)=\frac{1}{p^k}-\frac{1}{p^{k-1}}
+\end{aligned}</script><p>因此，我们可以得到$f(n)=\frac{1}{n}\prod (1-p_i)$。这里$p_i$是$n$的所有质因子。</p>
+<h1 id="C"><a href="#C" class="headerlink" title="C"></a>C</h1><h2 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h2><script type="math/tex; mode=display">
+\sum_{i=a}^b\frac{1}{i}\sum_{j=1}^i\text{lcm}(j,i)\bmod 10^9+7\\\
+a,b\leq 10^{10}</script><h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2><script type="math/tex; mode=display">
+\begin{aligned}
+\sum_{i=1}^n\frac{1}{i}\sum_{j=1}^i\text{lcm}(j,i)&=\sum_{i=1}^n\sum_{j=1}^i\frac{j}{\gcd(j, i)}\\
+&=\sum_{i=1}^n\sum_{j=1}^ij\sum_{d=1}^n\frac{1}{d}[\gcd(j,i)=d]\\
+&=\sum_{d=1}^n\sum_{i=1}^{\frac nd}\sum_{j=1}^ij[\gcd(j,i)=1]
+\end{aligned}</script><p>此时最后一个$\sum$相当于$1\sim i$中与$i$互质的数之和，它等于$\frac{i\varphi(i)}{2}$。注意当$i=1$时要特判。</p>
+<h1 id="D"><a href="#D" class="headerlink" title="D"></a>D</h1><h2 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h2><script type="math/tex; mode=display">
+\sum_{i=1}^n\sum_{d|i}\gcd(d,\frac id),n\leq 10^{12}</script><h2 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h2><script type="math/tex; mode=display">
+\begin{aligned}
+\sum_{i=1}^n\sum_{d|i}\gcd(d,\frac id)&=\sum_{d=1}^n\sum_{i=1}^{\frac nd}\gcd(d,i)\\
+&=\sum_{d=1}^n\sum_{i=1}^{\frac nd}\sum_{j|d,i}\varphi(j)\\
+&=\sum_{j=1}^n\varphi(j)\sum_{d=1}^{\frac nj}\lfloor\frac{n}{dj^2}\rfloor
+\end{aligned}</script><p>注意到$j$只用枚举到$\sqrt n$，最终复杂度为</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^\sqrt n\sqrt \frac{n}{i^2}=\sum_{i=1}^\sqrt n\frac{\sqrt n}{i}=\sqrt n\log(n)</script><h1 id="E"><a href="#E" class="headerlink" title="E"></a>E</h1><h2 id="题意-4"><a href="#题意-4" class="headerlink" title="题意"></a>题意</h2><p>定义$d(x)$是满足$y|x$且$y&gt;1$的最小正整数$y$。</p>
+<p>定义</p>
+<script type="math/tex; mode=display">
+f(x)=\begin{cases}1&x=1\\\ d(x)f\left(\frac{x}{d(x)^2}\right)&x>1,d(x)^2\mid x\\\ f\left(\frac{x}{d(x)^2}\right)&\text{others}\end{cases}</script><p>求$\sum_{i=1}^nf(i)$</p>
+<h2 id="题解-4"><a href="#题解-4" class="headerlink" title="题解"></a>题解</h2><p>有两种做法。</p>
+<p>$d(x)$实际上就是$x$的最小质因子，观察$f$的式子可以发现，</p>
+<script type="math/tex; mode=display">
+f(x)=\prod p_i^{\lfloor\frac {k_i}2\rfloor}</script><p>它等价于</p>
+<script type="math/tex; mode=display">
+\max_{u^2\mid x}u</script><p>如果$u$满足$u\mid x$，那么$u$以及它的所有因数也满足这个条件，并且只有这些数满足条件</p>
+<p>因此我们可以将这个东西变换一下</p>
+<script type="math/tex; mode=display">
+\max_{u^2\mid x}u=\sum_{u^2|x}\varphi(u)</script><p>因此我们实际上要求的就是</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\sum_{i=1}^nf(i)&=\sum_{i=1}^n\sum_{u^2\mid i}\varphi(u)\\
+&=\sum_{u=1}^{\sqrt n}\varphi(u)\lfloor\frac n{u^2}\rfloor
+\end{aligned}</script><p>第二种做法是直接考虑<code>powerful number</code>筛。</p>
+<p>定义<code>powerful number</code>为所有质因数的质数均$\geq 2$的数，可以证明$\leq n$的<code>powerful number</code>只有$O(\sqrt n)$个。</p>
+<p>回到这道题，不难看出$f(x)$是积性函数。</p>
+<p>考虑求出$h(x)$满足$f(n)=\sum_{d|n}h(d)$。我们有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+h(1)&=f(1)=1\\
+h(1)+h(p)&=f(p)\Rightarrow h(p)=0\\
+\end{aligned}</script><p>同时，$h(p^k)$是很好算的东西，这里就不推了。</p>
+<p>注意到当$p$是质数时，$h(p)=0$，也就是说，$h$在所有非<code>powerful number</code>处取值都为$0$。</p>
+<p>暴力搜出$n$以内的所有<code>powerful number</code>，然后用这个$h(n)$求值即可。</p>
+<h1 id="F"><a href="#F" class="headerlink" title="F"></a>F</h1><h2 id="题意-5"><a href="#题意-5" class="headerlink" title="题意"></a>题意</h2><p>记$\text{sgcd}(i,j)$为$i,j$的公约数中第二大的，特别地若$\gcd(i,j)=1$，定义$\text{sgcd}(i,j)=0$。</p>
+<p>求</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^n\sum_{j=1}^n\text{sgcd}(i,j)^k,n\leq 10^9,k\leq 50</script><h2 id="题解-5"><a href="#题解-5" class="headerlink" title="题解"></a>题解</h2><p>记$\text{minp}(x)$为$x$的最小质因子，特别地若$x=1$则$\text{minp}(x)=\infty$。</p>
+<p>那么问题等价于</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\cdots&=\sum_{i=1}^n\sum_{j=1}^n\sum_{d=1}^n\left(\frac{d}{\text{minp}(d)}\right)^k[\gcd(i,j)=d]\\
+&=\sum_{d=1}^n(\cdots)^k\sum_{i=1}^{\frac nd}\sum_{j=1}^{\frac nd}[\gcd(i,j)=1]\\
+&=\sum_{d=1}^n(\cdots)^k(2\sum_{i=1}^{\frac nd}\varphi(i)-1)
+\end{aligned}</script><p>第二个$\sum$可以使用一次杜教筛解决，问题转化为求$\left(\frac d{\text{minp}(d)}\right)^k$的前缀和。这个可以用类似<code>min25</code>筛的方式解决。</p>
+<p>记$F(i,j)$表示考虑$[1,j]$中的数，最小质因子大于第$j$个质数的所有数的$k$次方之和。</p>
+<p>记$G(i,j)$表示考虑$[1,j]$中的数，最小质因子大于第$j$个质数的数的个数。</p>
+<p>记$H(i,j)$表示考虑$[1,j]$中的数，最小质因子不超过第$j$个质数的所有数的答案之和。</p>
+<p>那么有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+F(i,j)&=F(i-1,j)-p_i^kF(i-1,\frac{j}{p_i})\\
+G(i,j)&=G(i-1,j)-G(i-1,\frac{j}{p_i})\\
+H(i,j)&=H(i-1,j)+F(i-1,\frac{j}{p_i})
+\end{aligned}</script><p>当$p_j&gt;\sqrt n$时，最小质因子为$p_j$的数只有$p_j$，且它的答案为$1$。</p>
+<p>用类似<code>min25</code>筛的方式$dp$一下即可。</p>
+<h1 id="G"><a href="#G" class="headerlink" title="G"></a>G</h1><h2 id="题意-6"><a href="#题意-6" class="headerlink" title="题意"></a>题意</h2><p>给定$x,a,b$，求有多少对$(i,j)$满足$i\in[1,a],j\in[1,b]$且$\lfloor\frac xi\rfloor j=\lfloor\frac {xj}i\rfloor$。</p>
+<script type="math/tex; mode=display">
+x,a,b\leq 10^9</script><h2 id="题解-6"><a href="#题解-6" class="headerlink" title="题解"></a>题解</h2><p>问题等价于求出有多少对$i,j$满足$(x\bmod i)\times j&lt;i$。</p>
+<p>将这个式子改写一下</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+(x\bmod i)\times j<i&\Rightarrow j<\lceil\frac{i}{x\bmod i}\rceil\\
+&\Rightarrow j<\lceil\frac{i}{x-\lfloor\frac xi\rfloor i}\rceil
+\end{aligned}</script><p>枚举$\lfloor\frac xi\rfloor$，可行的$i$是一段区间。</p>
+<p>将这个值相等的$i$划分为一段，由于这个东西随着$i$增加而递增，所以每次可以二分找出这一段的结尾。</p>
+<p>然后打一下表会发现总段数不会很多。（我也不知道为什么）</p>
+<h1 id="H"><a href="#H" class="headerlink" title="H"></a>H</h1><h2 id="题意-7"><a href="#题意-7" class="headerlink" title="题意"></a>题意</h2><p>求$(Fib_n\bmod Fib_k)\bmod 10^9+7$，$50000$组数据</p>
+<script type="math/tex; mode=display">
+n,k\leq 10^{18}</script><h2 id="题解-7"><a href="#题解-7" class="headerlink" title="题解"></a>题解</h2><p>我们知道</p>
+<script type="math/tex; mode=display">
+\begin{bmatrix}1&1\\\ 1& 0\end{bmatrix}^n=\begin{bmatrix}F_{n+1}&F_n\\\ F_n & F_{n-1}\end{bmatrix}</script><p>同时</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\begin{bmatrix}1&1\\\ 1& 0\end{bmatrix}^n&=\begin{bmatrix}1&1\\\ 1& 0\end{bmatrix}^{k-1}\times \begin{bmatrix}1&1\\\ 1& 0\end{bmatrix}^{n-k+1}\\
+&=\begin{bmatrix}F_k&F_{k-1}\\\ F_{k-1}& F_{k-2}\end{bmatrix}\times \begin{bmatrix}F_{n-k+2}&F_{n-k+1}\\\ F_{n-k+1}& F_{n-k}\end{bmatrix}
+\end{aligned}</script><p>观察左上角的元素，我们可以得到</p>
+<script type="math/tex; mode=display">
+F_{n+1}=F_kF_{n-k+2}+F_{k-1}F_{n-k+1}</script><p>即</p>
+<script type="math/tex; mode=display">
+F_n=F_kF_{n-k+1}+F_{k-1}F_{n-k}\tag{1}</script><p>另外，根据行列式的运算法则$\det(AB)=\det(A)\det(B)$，将第一个等式两边同时取行列式，可以得到</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+(-1)^n&=F_{n+1}F_{n-1}-F_n^2\\
+&=(F_n+F_{n-1})F_{n-1}-F_n^2\\
+&=F_{n-1}^2+F_nF_{n-1}-F_n^2
+\end{aligned}\tag{2}</script><p>接下来，我们将数列的下标拓展到负数，有$F_{-n}=(-1)^{n-1}F_n$。</p>
+<p>将$(1)$式两边同时对$F_k$取模，可以得到</p>
+<script type="math/tex; mode=display">
+F_n\equiv F_{k-1}F_{n-k}\pmod{F_k}</script><p>固定$k$，不断地用这个等式替换$F_{n-k}$，那么每次我们能将下标减去$k$，直到$n&lt;k$。即</p>
+<script type="math/tex; mode=display">
+F_n\equiv F_{k-1}^{\lfloor\frac nk\rfloor}F_{n\bmod k}\pmod {F_k}</script><p>记$i=\lfloor\frac nk\rfloor,j=n\bmod k$，分类讨论：</p>
+<ul>
+<li><p>$i=2t$</p>
+<p>  此时$F_n\equiv(F_{k-1}^2)^tF_j$，将$(2)$代入得到</p>
+<script type="math/tex; mode=display">
+  \begin{aligned}
+  F_n&\equiv ((-1)^k-F_kF_{k-1}-F_k^2)^tF_j\pmod{F_k}\\
+  &\equiv (-1)^{kt}F_j\pmod{F_k}
+  \end{aligned}</script></li>
+<li><p>$i=2t+1$</p>
+<p>  此时用$(1)$式再次替换$F_j$后就变成了$i$是偶数的情况</p>
+</li>
+</ul>
+<p>注意到$j=n\bmod k&lt;k$，因此问题转化为求斐波那契数列某一项的值$\bmod 10^9+7$。</p>
+<h1 id="I"><a href="#I" class="headerlink" title="I"></a>I</h1><p><img src="https://i.loli.net/2021/02/18/4lLnjowh97kFXzT.png" alt="image.png"></p>
+<p>8会</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/25/2.17%E6%9D%82%E9%A2%98/" rel="prev" title="2.17杂题">
+      <i class="fa fa-chevron-left"></i> 2.17杂题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/25/2.21%E7%BD%91%E7%BB%9C%E6%B5%81/" rel="next" title="2.21网络流">
+      2.21网络流 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#A"><span class="nav-number">1.</span> <span class="nav-text">A</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">1.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">1.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B"><span class="nav-number">2.</span> <span class="nav-text">B</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-1"><span class="nav-number">2.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-1"><span class="nav-number">2.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#C"><span class="nav-number">3.</span> <span class="nav-text">C</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-2"><span class="nav-number">3.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-2"><span class="nav-number">3.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#D"><span class="nav-number">4.</span> <span class="nav-text">D</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-3"><span class="nav-number">4.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-3"><span class="nav-number">4.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#E"><span class="nav-number">5.</span> <span class="nav-text">E</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-4"><span class="nav-number">5.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-4"><span class="nav-number">5.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#F"><span class="nav-number">6.</span> <span class="nav-text">F</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-5"><span class="nav-number">6.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-5"><span class="nav-number">6.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#G"><span class="nav-number">7.</span> <span class="nav-text">G</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-6"><span class="nav-number">7.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-6"><span class="nav-number">7.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#H"><span class="nav-number">8.</span> <span class="nav-text">H</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-7"><span class="nav-number">8.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-7"><span class="nav-number">8.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#I"><span class="nav-number">9.</span> <span class="nav-text">I</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">207</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://planarg.top/" title="https:&#x2F;&#x2F;planarg.top&#x2F;">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

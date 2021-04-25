@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"planarg.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="由于难度差异较大，这篇题解里面只会写部分比较有意思的题。 Nullify The Matrix题意给出一个$n\times m$的棋盘，第$i$行第$j$列的格子的权值为$a_{i,j}$，有两个人要玩游戏。每次当前玩家可以选择一个非零的格子，让这个格子减去一个正整数，但不能减到负数，同时选择一条从这个点到$(n,m)$的最短路径，将路径上的其它位置随意赋值。不能操作的那一方输。你需要判断先手必胜">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.21杂题">
+<meta property="og:url" content="https://planarg.top/2021/04/22/4-21%E6%9D%82%E9%A2%98/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="由于难度差异较大，这篇题解里面只会写部分比较有意思的题。 Nullify The Matrix题意给出一个$n\times m$的棋盘，第$i$行第$j$列的格子的权值为$a_{i,j}$，有两个人要玩游戏。每次当前玩家可以选择一个非零的格子，让这个格子减去一个正整数，但不能减到负数，同时选择一条从这个点到$(n,m)$的最短路径，将路径上的其它位置随意赋值。不能操作的那一方输。你需要判断先手必胜">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-22T12:47:55.000Z">
+<meta property="article:modified_time" content="2021-04-22T13:50:05.167Z">
+<meta property="article:author" content="PlanarG">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://planarg.top/2021/04/22/4-21%E6%9D%82%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>4.21杂题 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section">首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section">标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section">分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section">友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section">归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2021/04/22/4-21%E6%9D%82%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          4.21杂题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-22 20:47:55 / 修改时间：21:50:05" itemprop="dateCreated datePublished" datetime="2021-04-22T20:47:55+08:00">2021-04-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>由于难度差异较大，这篇题解里面只会写部分比较有意思的题。</p>
+<h1 id="Nullify-The-Matrix"><a href="#Nullify-The-Matrix" class="headerlink" title="Nullify The Matrix"></a>Nullify The Matrix</h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给出一个$n\times m$的棋盘，第$i$行第$j$列的格子的权值为$a_{i,j}$，有两个人要玩游戏。每次当前玩家可以选择一个非零的格子，让这个格子减去一个正整数，但不能减到负数，同时选择一条从这个点到$(n,m)$的最短路径，将路径上的其它位置随意赋值。不能操作的那一方输。你需要判断先手必胜还是后手必胜。</p>
+<script type="math/tex; mode=display">
+n,m\leq 100,T\leq 10</script><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>注意到最短路径上每走一步都会从一条副对角线跨到与其相邻的另一条副对角线，这启发我们按照对角线来考虑。</p>
+<p>依次考虑这张棋盘的每条副对角线。</p>
+<p>如果我们仅考虑某条副对角线，将矩阵的其余部分完全忽略，那么它就变成了一个<code>nim</code>游戏，即每次当前玩家可以任选一堆棋子拿走至少一个，不能操作的玩家输。</p>
+<p>加强一下这个游戏，考虑最靠左上的那条非全$0$的对角线，我们不妨假设它的编号为$i$，显然前$i-1$条对角线对游戏不会产生任何影响，接下来我们加入一条限制：每次当前玩家只能在第一条非全$0$的对角线上操作。</p>
+<p>当一名玩家拿走第$i$条对角线的所有棋子，他一定可以决定$i+1$到$\min(n,m)$这些对角线的异或，即可以保证单独在这些对角线上进行<code>nim</code>游戏时先手必胜。这名玩家操作完毕之后，两个玩家开始轮流操作第$i+1$条对角线，由于之前这名玩家已经保证了先手必胜，因此这一条对角线最后操作的玩家仍然是他，他可以继续保持最后操作的优势。</p>
+<p>因此，我们可以得出一个结论：<strong>对于这个简化版的游戏，先手获胜的条件是第一条非$0$的对角线异或和不为$0$</strong>。</p>
+<p>接下来进一步加强这个游戏，考虑原问题。仍然假设第一条非$0$的对角线为$i$。</p>
+<p>如果$i$满足异或和不为$0$，也就是在这条对角线上先手必胜，那么先手一开始可以选择这条对角线，接下来我们讨论后手的决策。</p>
+<ul>
+<li>如果后手操作第$i$条对角线，那么先手也操作这条对角线，最后必然可以使得这条对角线最后是由先手操作的。</li>
+<li>如果后手操作其它的对角线，由于先手已经操作了一次第$i$条对角线，因此先手可以使得所有对角线上都是先手必胜。此时先手与后手在同一条对角线上继续操作，由于先手后操作，因此可以保证所有对角线仍然是先手必胜。</li>
+</ul>
+<p>因此，如果第$i$条对角线先手胜，则先手必胜。</p>
+<p>如果第$i$条对角线后手必胜，那么先手一定不会操作它，我们不妨假设存在一条对角线$j$使得一开始这条对角线上先手必胜，我们讨论先后手的策略。</p>
+<ul>
+<li>先手一开始操作第$j$条对角线，使得$j+1$到$\min(n,m)$这些对角线都是先手必胜。</li>
+<li>根据之前的讨论，后手一定不会选择$j$到$\min(n,m)$这些对角线操作，否则后手必败。</li>
+<li>而$(i,j-1)$这些对角线上先手必败，而此时后手由于只能选择这些对角线，因此此时先后手翻转，先手采用之前的策略即可，因此先手必胜。</li>
+</ul>
+<p>如果所有对角线都是先手必败，那么只要先手操作一条对角线后手就跟着操作，可以使得最终先手必败。</p>
+<p>因此这题的结论是：<strong>若存在一条对角线先手胜，则先手必胜</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">110</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> G[N][N], s[<span class="number">2</span> * N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="keyword">int</span> n, m; <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;G[i][j]), s[i + j] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= m; j++) s[i + j] ^= G[i][j];</span><br><span class="line">        <span class="keyword">bool</span> flag = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n + m; i++) <span class="keyword">if</span> (s[i]) flag = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span> (flag) <span class="built_in">puts</span>(<span class="string">"Ashish"</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">puts</span>(<span class="string">"Jeel"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="小Y的序列"><a href="#小Y的序列" class="headerlink" title="小Y的序列"></a>小Y的序列</h1><h2 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h2><p>来源：auoj1622</p>
+<p>有一个序列$a$，定义一个位置$i$是好的当且仅当$i$前面有至少$k$个位置小于$a_i$。给定$n,m$，对于每个$k$求出所有每个数不超过$m$的序列中好的位置的个数之和。</p>
+<script type="math/tex; mode=display">
+n\leq 2\times 10^5, m\leq 10^9</script><h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><p>考虑二项式反演。定义$g_i$表示所有数列中满足前面有恰好$i$个数小于它的位置的个数之和，那么答案就是$g_i$的后缀和。</p>
+<p>$g_i$不是很好求，我们定义$f_i$表示在每个数前面钦定$i$个位置，这些位置都小于这个数的个数之和。</p>
+<p>那么我们很容易写出$f_k$的表达式。</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+f_k&=\sum_{i=1}^n\sum_{t=1}^m(t-1)^k{i-1\choose k}m^{n-1-k}\\
+&=m^{n-1-k}\sum_{t=1}^m(t-1)^k\sum_{i=1}^n{i-1\choose k}\\
+&=m^{n-1-k}{n\choose k+1}\sum_{t=1}^m(t-1)^k
+\end{aligned}</script><p>前两项容易求出，而后面的东西是一个自然数幂和，这个东西比较麻烦。</p>
+<p>回顾我们熟悉的自然数幂和求法，主要有以下几种（假设求$\sum_{i=1}^n i^k$）</p>
+<ul>
+<li>插值：这种做法适用于$k$不变的情况，但这道题中$k$是变化的。</li>
+<li>斯特林数转下降幂：可以很方便地$O(k^2)$求出一个，但是很难优化。</li>
+<li>伯努利数：适用于底数固定，指数变化的情况。</li>
+</ul>
+<p>因此我们选择伯努利数，它的式子是这样的：</p>
+<p>记伯努利数的$EGF$为$B(x)$，则有$B(x)=\frac{x}{e^x-1}$。这个可以通过求逆快速求出。</p>
+<p>有</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^ni^k=\frac{1}{k+1}\sum_{i=0}^k{k+1\choose i}B_{i}n^{k+1-i}</script><p>求出$f$之后我们有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+f_i&=\sum_{j\geq i}g_j{j\choose i}\\
+g_i&=\sum_{j\geq i}f_i{j\choose i}(-1)^{j-i}
+\end{aligned}</script><p>再跑一遍差卷积即可。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/19/4-17-%E6%9D%82%E9%A2%98/" rel="prev" title="4.17 杂题">
+      <i class="fa fa-chevron-left"></i> 4.17 杂题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/25/2.17%E6%9D%82%E9%A2%98/" rel="next" title="2.17杂题">
+      2.17杂题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nullify-The-Matrix"><span class="nav-number">1.</span> <span class="nav-text">Nullify The Matrix</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">1.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">1.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小Y的序列"><span class="nav-number">2.</span> <span class="nav-text">小Y的序列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-1"><span class="nav-number">2.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-1"><span class="nav-number">2.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">207</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://planarg.top/" title="https:&#x2F;&#x2F;planarg.top&#x2F;">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>

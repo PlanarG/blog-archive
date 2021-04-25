@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"planarg.top","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="T1 Inverter SwapSort题意给定一个排列，求出所有逆序对的一个排列，使得依次交换每一对数最终能使得整个数组有序。  n\leq 1000题解考虑每次找到关于一个位置的所有逆序对。 将最后一个位置拿出来，观察前面的所有数与它形成的逆序对。假设最后一个数为$x$，那么可以发现依次交换$x+1,x+2,\cdots$不会对前面的数的相对顺序造成影响，且可以将最大的数挪到结尾。 12345">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4.9杂题">
+<meta property="og:url" content="https://planarg.top/2021/04/12/4-9%E6%9D%82%E9%A2%98/index.html">
+<meta property="og:site_name" content="PlanarG&#39;s blog">
+<meta property="og:description" content="T1 Inverter SwapSort题意给定一个排列，求出所有逆序对的一个排列，使得依次交换每一对数最终能使得整个数组有序。  n\leq 1000题解考虑每次找到关于一个位置的所有逆序对。 将最后一个位置拿出来，观察前面的所有数与它形成的逆序对。假设最后一个数为$x$，那么可以发现依次交换$x+1,x+2,\cdots$不会对前面的数的相对顺序造成影响，且可以将最大的数挪到结尾。 12345">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-12T00:21:56.000Z">
+<meta property="article:modified_time" content="2021-04-12T08:28:02.890Z">
+<meta property="article:author" content="PlanarG">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://planarg.top/2021/04/12/4-9%E6%9D%82%E9%A2%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>4.9杂题 | PlanarG's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">PlanarG's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section">首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section">标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section">分类</a>
+
+  </li>
+        <li class="menu-item menu-item-友链">
+
+    <a href="/friends/" rel="section">友链</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section">归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger">搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://planarg.top/2021/04/12/4-9%E6%9D%82%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/77041874_p0_master12001.jpg">
+      <meta itemprop="name" content="PlanarG">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="PlanarG's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          4.9杂题
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-12 08:21:56 / 修改时间：16:28:02" itemprop="dateCreated datePublished" datetime="2021-04-12T08:21:56+08:00">2021-04-12</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="T1-Inverter-SwapSort"><a href="#T1-Inverter-SwapSort" class="headerlink" title="T1 Inverter SwapSort"></a>T1 Inverter SwapSort</h1><h2 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h2><p>给定一个排列，求出所有逆序对的一个排列，使得依次交换每一对数最终能使得整个数组有序。</p>
+<script type="math/tex; mode=display">
+n\leq 1000</script><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>考虑每次找到关于一个位置的所有逆序对。</p>
+<p>将最后一个位置拿出来，观察前面的所有数与它形成的逆序对。假设最后一个数为$x$，那么可以发现依次交换$x+1,x+2,\cdots$不会对前面的数的相对顺序造成影响，且可以将最大的数挪到结尾。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> A[N], pos[N], buk[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n); <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;A[i]), v.push_back(A[i]);</span><br><span class="line">    sort(v.begin(), v.end()), v.resize(unique(v.begin(), v.end()) - v.begin());</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        A[i] = lower_bound(v.begin(), v.end(), A[i]) - v.begin() + <span class="number">1</span>;</span><br><span class="line">        buk[A[i]]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) buk[i] += buk[i - <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= <span class="number">1</span>; i--) A[i] = buk[A[i]]--;</span><br><span class="line">    <span class="built_in">vector</span>&lt;pair&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt;&gt; res;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &gt;= <span class="number">1</span>; i--) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; j++) pos[j] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; i; j++) <span class="keyword">if</span> (A[j] &gt; A[i]) </span><br><span class="line">            pos[A[j]] = j;</span><br><span class="line">        <span class="keyword">int</span> lst = A[i];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = lst + <span class="number">1</span>; j &lt;= n; j++) <span class="keyword">if</span> (pos[j]) </span><br><span class="line">            swap(A[pos[j]], A[i]), res.push_back(make_pair(pos[j], i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, res.size());</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> t : res) <span class="built_in">printf</span>(<span class="string">"%d %d\n"</span>, t.first, t.second);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T2-Blog-Post-Rating"><a href="#T2-Blog-Post-Rating" class="headerlink" title="T2 Blog Post Rating"></a>T2 Blog Post Rating</h1><h2 id="题意-1"><a href="#题意-1" class="headerlink" title="题意"></a>题意</h2><p>有一个一开始为空的序列，每次你会给序列插入一个元素，然后将整个序列从小到大排序。</p>
+<p>现在你手里有一个值$x$，它一开始为$0$，你从小到大查看序列中的每个元素，如果当前元素比$x$大，那么让$x+1$，如果比$x$小，那么让$x-1$，否则保持不变。你需要回答每次插入之后这个值最终会变成多少。</p>
+<script type="math/tex; mode=display">
+n\leq 5\times 10^5,|a_i|\leq 5\times 10^5</script><h2 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h2><p>考虑给定一个序列，如何计算$x$最终的值。</p>
+<p>假设现在这个序列已经排好序了，且第$i$个位置的数是$a_i$。</p>
+<p>如果$x$在第$i$个位置恰好等于$a_i$，那么显然最终的$x$不能超过$a_i+n-i$。并且容易发现最终的$x$就是$a_i+n-i$的最小值。</p>
+<p>加入了修改操作之后，考虑建一棵值域线段树，那么每次修改相当于给一段后缀的排名加上$1$，同时我们需要维护$a_i+n-i$的最小值。</p>
+<p>$x$从$0$开始比较恶心，观察到$x$的变化必然是一开始一直减，直到小于或等于当前的数，然后再要么不变，要么$+1$。</p>
+<p>二分这个拐点，那么这个拐点必须满足$-i\leq a_i$，即查询$a_i+i\geq 0$的第一个位置，并且可以得出，$x$在这个位置的值为$\max(-i,a_i)$。</p>
+<p>假设拐点的位置为$j$，那么我们只需查询$j$之后的数的$a_i+n-i$的最小值，并对此时的$x+n-j$取$\min$即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1000010</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> l, r, tag, x, y;</span><br><span class="line">&#125; T[N &lt;&lt; <span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushup</span><span class="params">(<span class="keyword">int</span> rt)</span> </span>&#123;</span><br><span class="line">    T[rt].x = min(T[rt &lt;&lt; <span class="number">1</span>].x, T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].x);</span><br><span class="line">    T[rt].y = max(T[rt &lt;&lt; <span class="number">1</span>].y, T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushdown</span><span class="params">(<span class="keyword">int</span> rt)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!T[rt].tag) <span class="keyword">return</span>;</span><br><span class="line">    T[rt &lt;&lt; <span class="number">1</span>].x -= T[rt].tag, T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].x -= T[rt].tag;</span><br><span class="line">    T[rt &lt;&lt; <span class="number">1</span>].y += T[rt].tag, T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].y += T[rt].tag;</span><br><span class="line">    T[rt &lt;&lt; <span class="number">1</span>].tag += T[rt].tag, T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].tag += T[rt].tag;</span><br><span class="line">    T[rt].tag = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> rt, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> </span>&#123;</span><br><span class="line">    T[rt].l = l, T[rt].r = r;</span><br><span class="line">    <span class="keyword">if</span> (l == r) <span class="keyword">return</span> T[rt].x = T[rt].y = l, <span class="keyword">void</span>();</span><br><span class="line">    <span class="keyword">int</span> mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    build(rt &lt;&lt; <span class="number">1</span>, l, mid), build(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, mid + <span class="number">1</span>, r), pushup(rt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">int</span> rt, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = T[rt].l, r = T[rt].r, mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (start &lt;= l &amp;&amp; r &lt;= end) <span class="keyword">return</span> T[rt].tag++, T[rt].x--, T[rt].y++, <span class="keyword">void</span>();</span><br><span class="line">    pushdown(rt);</span><br><span class="line">    <span class="keyword">if</span> (start &lt;= mid) update(rt &lt;&lt; <span class="number">1</span>, start, end);</span><br><span class="line">    <span class="keyword">if</span> (end &gt; mid) update(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, start, end);</span><br><span class="line">    pushup(rt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> rt)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = T[rt].l, r = T[rt].r, mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (T[rt].y &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="number">-1e9</span>;</span><br><span class="line">    <span class="keyword">if</span> (l == r) <span class="keyword">return</span> l;</span><br><span class="line">    pushdown(rt);</span><br><span class="line">    <span class="keyword">if</span> (T[rt &lt;&lt; <span class="number">1</span>].y &gt;= <span class="number">0</span>) <span class="keyword">return</span> find(rt &lt;&lt; <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">return</span> find(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">query</span><span class="params">(<span class="keyword">int</span> rt, <span class="keyword">int</span> start)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = T[rt].l, r = T[rt].r, mid = (l + r) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span> (start &lt;= l) <span class="keyword">return</span> T[rt].x;</span><br><span class="line">    pushdown(rt);</span><br><span class="line">    <span class="keyword">if</span> (start &gt; mid) <span class="keyword">return</span> query(rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>, start);</span><br><span class="line">    <span class="keyword">return</span> min(T[rt &lt;&lt; <span class="number">1</span> | <span class="number">1</span>].x, query(rt &lt;&lt; <span class="number">1</span>, start));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> tree[N], mn, mx;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">upd</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (x -= mn - <span class="number">1</span>; x &lt;= mx - mn + <span class="number">1</span>; x += x &amp; -x) tree[x]++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">que</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (x -= mn - <span class="number">1</span>; x; x -= x &amp; -x) res += tree[x];</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), mn = <span class="number">0</span>, mx = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>, a; i &lt;= n; i++) </span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;a), v.push_back(a), mn = min(mn, a), mx = max(mx, a);</span><br><span class="line">    build(<span class="number">1</span>, mn, mx);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">int</span> a = v[i - <span class="number">1</span>]; update(<span class="number">1</span>, a, <span class="number">1e9</span>), upd(a);</span><br><span class="line">        <span class="keyword">int</span> pos = find(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">if</span> (pos == <span class="number">-1e9</span>) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, -i);</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">int</span> t = que(pos), tmp = max(pos, -t) + i - t, res = query(<span class="number">1</span>, pos) + i;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, min(tmp, res));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T3-咕"><a href="#T3-咕" class="headerlink" title="T3 咕"></a>T3 咕</h1><h2 id="题意-2"><a href="#题意-2" class="headerlink" title="题意"></a>题意</h2><p>来源：auoj471</p>
+<p>一个随机排列，你从第一个位置走到第$n$个位置，每走一步你可以得知当前数是否是前缀最小值，你可以选择是否拿走这个数，问在最优策略下你拿走$1$的概率。多组数据。</p>
+<script type="math/tex; mode=display">
+T\leq 10^5,n\leq 10^6</script><h2 id="题解-2"><a href="#题解-2" class="headerlink" title="题解"></a>题解</h2><p>最优策略必然是：你选择一个位置$x$，然后扔掉$x$及之前的所有数，在$x$之后取走第一个为前缀最小值的位置。</p>
+<p>写成$dp$的形式就是，记$f_i$表示已经扔掉了前$i-1$个数，此时在第$i$个数时开始决策，最后拿走$1$的概率。</p>
+<p>第$i$个位置为前缀最小值的概率为$\frac 1i$，在是前缀最小值的条件下为$1$的概率为$\frac in$。</p>
+<p>因此我们可以得出转移：</p>
+<script type="math/tex; mode=display">
+f_i=\frac 1i\max(\frac in,f_{i+1})+\frac {i-1}if_{i+1}</script><p>转移里的$\max$非常讨厌，尝试去掉这个东西。</p>
+<p>如果$f_{i+1}&gt;\frac in$，那么有$f_i=\frac 1i f_{i+1}+\frac{i-1}if_{i+1}=f_{i+1}$。因此我们只需找到第一个$\frac in&gt;f_{i+1}$的位置，容易发现满足这个条件的必然是一段后缀。</p>
+<p>当$\frac in$取到最大值时，有</p>
+<script type="math/tex; mode=display">
+f_i=\frac 1n+\frac {i-1}if_{i+1}</script><p>记$g_i=nf_i$，那么$g_i=1+\frac {i-1}ig_{i+1}$，显然有$g_{n+1}=0$，那么有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+g_n&=1\\
+g_{n-1}&=1+\frac{n-2}{n-1}\\
+g_{n-2}&=1+\frac{n-3}{n-2}+\frac{n-3}{n-1}\\
+&\vdots\\
+g_i&=(i-1)\sum_{j=i-1}^{n-1}\frac 1j
+\end{aligned}</script><p>后面是一个调和级数，可以预处理调和级数的后缀和，每次二分出第一个$\frac in&gt;f_{i+1}$的位置即可。</p>
+<p>另外，这个位置约等于$\frac ne$，也可以用一些奇妙的方法求出这个断点。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> mod = <span class="number">998244353</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1000010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> frac[N], inv[N]; </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> e = <span class="built_in">exp</span>(<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">double</span> wkr[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T), inv[<span class="number">1</span>] = frac[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= N - <span class="number">10</span>; i++) inv[i] = (LL)(mod - mod / i) * inv[mod % i] % mod;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= N - <span class="number">10</span>; i++) wkr[i] = wkr[i - <span class="number">1</span>] + <span class="number">1.</span> / i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= N - <span class="number">10</span>; i++) inv[i] = (inv[i - <span class="number">1</span>] + inv[i]) % mod, frac[i] = (LL)frac[i - <span class="number">1</span>] * i % mod;</span><br><span class="line">    <span class="keyword">while</span> (T--) &#123;</span><br><span class="line">        <span class="keyword">int</span> n; <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">1</span>) &#123; <span class="built_in">puts</span>(<span class="string">"1"</span>); <span class="keyword">continue</span>; &#125; </span><br><span class="line">        <span class="keyword">int</span> pos = round(n / e + <span class="number">1</span> - <span class="number">0.5</span> / e), res;</span><br><span class="line">        <span class="keyword">if</span> (wkr[n - <span class="number">1</span>] - wkr[pos - <span class="number">2</span>] &lt; <span class="number">1</span>) pos--;</span><br><span class="line">        res = (LL)(pos - <span class="number">1</span>) * (inv[n - <span class="number">1</span>] - inv[pos - <span class="number">2</span>] + mod) % mod;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, (LL)res * (inv[n] - inv[n - <span class="number">1</span>] + mod) % mod);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="T4-function"><a href="#T4-function" class="headerlink" title="T4 function"></a>T4 function</h1><h2 id="题意-3"><a href="#题意-3" class="headerlink" title="题意"></a>题意</h2><p>定义$P(x)$表示满足$1&lt;y&lt;x,y^3\equiv 1\pmod x$的$y$的数量，求在$n$以内有多少正整数满足$P(x)=m$。</p>
+<script type="math/tex; mode=display">
+n\leq 2\times 10^{10},m<n</script><h2 id="题解-3"><a href="#题解-3" class="headerlink" title="题解"></a>题解</h2><p>把条件放宽为$1\leq y&lt;x$，先考虑给定一个$x$，如何快速地求出$P(x)$。</p>
+<p>显然$x$的每个质因子都可以分开考虑，最后用中国剩余定理合并就可以还原，因此条件等价于：将$x$分解为$\prod p_i^{c_i}$，只需对每个$p_i$都满足$y^3\equiv 1\pmod {p^{c_i}}$。</p>
+<p>如果条件满足，那么显然$y$与$p$互质，因此有</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+y^3&\equiv 1\pmod {p^c}\\
+y^3&\equiv y^{\varphi(p^c)}\pmod {p^c}\\
+1&\equiv y^{\varphi(p^c)\bmod 3}\pmod {p^c}
+\end{aligned}</script><p>容易得出当$3\nmid \varphi(p^c)$时满足条件的$y$只有$1$。</p>
+<p>我们有$\varphi(p^c)=(p-1)p^{c-1}$，只需考虑$p=3$或者$3\mid p-1$，且当$p=3,c=1$时是不行的。</p>
+<p>设原根为$g$，则阶为$\varphi(p^c)$。不妨设$y=g^k$，由于$y\bot p$，因此这样的$k$一定存在。</p>
+<p>故条件转化为</p>
+<script type="math/tex; mode=display">
+g^{3k}\equiv g^0\pmod {p^c}</script><p>即$3k\equiv 0\pmod {\varphi(p^c)}$。</p>
+<p>同时除以$3$，有$k\equiv 0\pmod{\frac {\varphi(p^c)}3}$</p>
+<p>因此满足条件的$k$只有$3$个，即$y^3\equiv 1\pmod {p^c}$的解只有$3$个。</p>
+<p>因此有</p>
+<script type="math/tex; mode=display">
+P(x)+1=3^{\sum_{p_i^{c_i}}[p_i=3\and c>1]\or[p_i\bmod 3=1]}</script><p>注意到需要求出$\bmod 3=1$的质数的个数，定义$f(x)=\begin{cases}0&amp;3|x\\1&amp;3|x-1\-1&amp;3|x-2\end{cases}$，筛出$f$以及$n$以内的质数个数就可以解出$\bmod 3=1$的质数个数，而这两个东西都是完全积性的。</p>
+<p>使用<code>min25</code>筛的变种即可。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> LL;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">200010</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> flag[N], prime[N], tot, sum[N], wkr[N];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sieve</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!flag[i]) &#123;</span><br><span class="line">            prime[++tot] = i, sum[tot] = sum[tot - <span class="number">1</span>], wkr[tot] = wkr[tot - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (i % <span class="number">3</span> == <span class="number">1</span>) sum[tot]++, wkr[tot]++;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (i % <span class="number">3</span> == <span class="number">2</span>) sum[tot]--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= tot &amp;&amp; i * prime[j] &lt;= n; j++) &#123;</span><br><span class="line">            flag[i * prime[j]] = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % prime[j] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">LL val[<span class="number">2</span> * N], g[<span class="number">2</span> * N], p[<span class="number">2</span> * N], n; <span class="comment">// g[i][j]: 1 ~ i, s(n) &gt; p_j</span></span><br><span class="line"><span class="keyword">int</span> id1[N], id2[N], lim;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get</span><span class="params">(LL x)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x &lt;= lim ? id1[x] : id2[n / x];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">array&lt;LL, 10&gt; S(LL n, int m) &#123;</span><br><span class="line">    <span class="comment">// cout &lt;&lt; n &lt;&lt; ' ' &lt;&lt; m &lt;&lt; endl;</span></span><br><span class="line">    <span class="built_in">array</span>&lt;LL, 10&gt; nw; nw.fill(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (n &lt; prime[m]) <span class="keyword">return</span> nw;</span><br><span class="line">    <span class="comment">// if (((g[get(n)] + p[get(n)]) % 2 + 2) % 2 != 1) cout &lt;&lt; "FUCK: " &lt;&lt; n &lt;&lt; endl;</span></span><br><span class="line">    LL A = (g[get(n)] + p[get(n)] - <span class="number">1</span>) / <span class="number">2</span> - wkr[m - <span class="number">1</span>];</span><br><span class="line">    nw[<span class="number">1</span>] = A, nw[<span class="number">0</span>] = p[get(n)] - (m - <span class="number">1</span>) - A;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = m; i &lt;= tot &amp;&amp; (LL)prime[i] * prime[i] &lt;= n; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (LL j = prime[i], c = <span class="number">1</span>; j * prime[i] &lt;= n; j *= prime[i], c++) &#123;</span><br><span class="line">            <span class="keyword">int</span> t = (prime[i] == <span class="number">3</span> &amp;&amp; c &gt; <span class="number">1</span>) || prime[i] % <span class="number">3</span> == <span class="number">1</span>;</span><br><span class="line">            nw[prime[i] % <span class="number">3</span> != <span class="number">2</span>]++; <span class="keyword">auto</span> tmp = S(n / j, i + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (t) rotate(tmp.begin(), tmp.end() - <span class="number">1</span>, tmp.end());</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">10</span>; k++) nw[k] += tmp[k];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nw;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    LL m; <span class="built_in">scanf</span>(<span class="string">"%lld%lld"</span>, &amp;n, &amp;m), m++;</span><br><span class="line">    <span class="keyword">int</span> ct = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (m != <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (m % <span class="number">3</span>) <span class="keyword">return</span> <span class="built_in">puts</span>(<span class="string">"0"</span>), <span class="number">0</span>;</span><br><span class="line">        m /= <span class="number">3</span>, ct++; </span><br><span class="line">    &#125;</span><br><span class="line">    lim = <span class="built_in">ceil</span>(<span class="built_in">sqrt</span>(n)), sieve(lim); <span class="keyword">int</span> blk = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (LL l = <span class="number">1</span>; l &lt;= n; l = n / (n / l) + <span class="number">1</span>) &#123;</span><br><span class="line">        LL t = n / l;</span><br><span class="line">        blk++, val[blk] = t;</span><br><span class="line">        <span class="keyword">if</span> (t &lt;= lim) id1[t] = blk; <span class="keyword">else</span> id2[n / t] = blk;</span><br><span class="line">        g[blk] = (t % <span class="number">3</span> == <span class="number">1</span>) - <span class="number">1</span>, p[blk] = t - <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= tot; i++)</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= blk &amp;&amp; (LL)prime[i] * prime[i] &lt;= val[j]; j++) &#123;</span><br><span class="line">            <span class="keyword">int</span> pos = get(val[j] / prime[i]);</span><br><span class="line">            <span class="keyword">if</span> (prime[i] % <span class="number">3</span>) &#123;</span><br><span class="line">                <span class="keyword">int</span> t = prime[i] % <span class="number">3</span> == <span class="number">1</span> ? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">                g[j] -= t * (g[pos] - sum[i - <span class="number">1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">            p[j] -= p[pos] - (i - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">auto</span> res = S(n, <span class="number">1</span>); res[<span class="number">0</span>]++;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lld\n"</span>, res[ct]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/09/4-8%E7%9A%84%E4%B8%80%E4%BA%9B%E9%A2%98/" rel="prev" title="4.8的一些题">
+      <i class="fa fa-chevron-left"></i> 4.8的一些题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/15/4-14-%E6%9D%82%E9%A2%98/" rel="next" title="4.14 杂题">
+      4.14 杂题 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#T1-Inverter-SwapSort"><span class="nav-number">1.</span> <span class="nav-text">T1 Inverter SwapSort</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意"><span class="nav-number">1.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解"><span class="nav-number">1.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T2-Blog-Post-Rating"><span class="nav-number">2.</span> <span class="nav-text">T2 Blog Post Rating</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-1"><span class="nav-number">2.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-1"><span class="nav-number">2.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T3-咕"><span class="nav-number">3.</span> <span class="nav-text">T3 咕</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-2"><span class="nav-number">3.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-2"><span class="nav-number">3.2.</span> <span class="nav-text">题解</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#T4-function"><span class="nav-number">4.</span> <span class="nav-text">T4 function</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#题意-3"><span class="nav-number">4.1.</span> <span class="nav-text">题意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题解-3"><span class="nav-number">4.2.</span> <span class="nav-text">题解</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="PlanarG"
+      src="/images/77041874_p0_master12001.jpg">
+  <p class="site-author-name" itemprop="name">PlanarG</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">207</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://planarg.top/" title="https:&#x2F;&#x2F;planarg.top&#x2F;">Title</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">PlanarG</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1.5,"jsonPath":"/live2dw/assets/histoire.model.json"},"display":{"position":"left","width":150,"height":300,"hOffset":35,"vOffset":-25},"mobile":{"show":false},"log":false});</script></body>
+</html>
